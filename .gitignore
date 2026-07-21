@@ -1,0 +1,17 @@
+# Dependencies and build output
+**/node_modules/
+**/dist/
+
+# Local environment files (never commit secrets)
+**/.env
+**/.env.local
+**/.env.*.local
+!**/.env.example
+
+# Editor / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.log
+

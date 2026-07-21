@@ -1,0 +1,58 @@
+{
+  "창공의 배틀 아이템 선택 상자": {
+    "mode": "choice",
+    "grade": "영웅",
+    "declaredOptionCount": 9,
+    "items": [
+      { "id": "splendid-elemental-hp-potion", "name": "빛나는 정령의 회복약 (귀속)", "marketName": "빛나는 정령의 회복약", "quantity": 30 },
+      { "id": "splendid-whirlwind-grenade", "name": "빛나는 회오리 수류탄 (귀속)", "marketName": "빛나는 회오리 수류탄", "quantity": 30 },
+      { "id": "splendid-dark-grenade", "name": "빛나는 암흑 수류탄 (귀속)", "marketName": "빛나는 암흑 수류탄", "quantity": 30 },
+      { "id": "splendid-sacred-charm", "name": "빛나는 성스러운 부적 (귀속)", "marketName": "빛나는 성스러운 부적", "quantity": 30 },
+      { "id": "splendid-sacred-bomb", "name": "빛나는 성스러운 폭탄 (귀속)", "marketName": "빛나는 성스러운 폭탄", "quantity": 30 },
+      { "id": "splendid-destruction-bomb", "name": "빛나는 파괴 폭탄 (귀속)", "marketName": "빛나는 파괴 폭탄", "quantity": 30 },
+      { "id": "splendid-corrosive-bomb", "name": "빛나는 부식 폭탄 (귀속)", "marketName": "빛나는 부식 폭탄", "quantity": 30 },
+      { "id": "atropine-potion", "name": "아드로핀 물약 (귀속)", "marketName": "아드로핀 물약", "quantity": 30 },
+      { "id": "awakening-potion", "name": "각성 물약 (귀속)", "marketName": "각성 물약", "quantity": 30 }
+    ]
+  },
+  "창공의 파편 상자": {
+    "mode": "all",
+    "image": "/images/rewards/shop_icon_8925.png",
+    "grade": "영웅",
+    "items": [
+      { "id": "destiny-shard-pouch-large", "name": "운명의 파편 주머니(대)", "marketName": "운명의 파편 주머니(대)", "quantity": 100 }
+    ]
+  },
+  "창공의 보조 선택 상자": {
+    "mode": "choice",
+    "image": "/images/rewards/shop_icon_9254.png",
+    "grade": "고대",
+    "declaredOptionCount": 6,
+    "items": [
+      { "id": "lava-breath", "name": "용암의 숨결 (귀속)", "marketName": "용암의 숨결", "quantity": 70 },
+      { "id": "glacier-breath", "name": "빙하의 숨결 (귀속)", "marketName": "빙하의 숨결", "quantity": 90 },
+      { "id": "master-metallurgy-3", "name": "장인의 야금술 : 3단계 (귀속)", "marketName": "장인의 야금술 : 3단계", "quantity": 20 },
+      { "id": "master-metallurgy-4", "name": "장인의 야금술 : 4단계 (귀속)", "marketName": "장인의 야금술 : 4단계", "quantity": 10 },
+      { "id": "master-tailoring-3", "name": "장인의 재봉술 : 3단계 (귀속)", "marketName": "장인의 재봉술 : 3단계", "quantity": 20 },
+      { "id": "master-tailoring-4", "name": "장인의 재봉술 : 4단계 (귀속)", "marketName": "장인의 재봉술 : 4단계", "quantity": 10 }
+    ]
+  },
+  "창공의 융화 선택 상자": {
+    "mode": "choice",
+    "image": "/images/rewards/shop_icon_10806.png",
+    "grade": "영웅",
+    "items": [
+      { "id": "abidos-fusion", "name": "아비도스 융화 재료 (귀속)", "marketName": "아비도스 융화 재료", "quantity": 240 },
+      { "id": "advanced-abidos-fusion", "name": "상급 아비도스 융화 재료 (귀속)", "marketName": "상급 아비도스 융화 재료", "quantity": 180 }
+    ]
+  },
+  "창공의 돌파 선택 상자": {
+    "mode": "choice",
+    "image": "/images/rewards/shop_icon_10805.png",
+    "grade": "희귀",
+    "items": [
+      { "id": "destiny-leapstone", "name": "운명의 돌파석 (귀속)", "marketName": "운명의 돌파석", "quantity": 1200 },
+      { "id": "great-destiny-leapstone", "name": "위대한 운명의 돌파석 (귀속)", "marketName": "위대한 운명의 돌파석", "quantity": 400 }
+    ]
+  }
+}

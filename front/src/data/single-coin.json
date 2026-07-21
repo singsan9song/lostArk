@@ -1,0 +1,1093 @@
+{
+  "schemaVersion": 1,
+  "currency": {
+    "name": "클리어 코인",
+    "unit": "개"
+  },
+  "categories": [
+    {
+      "id": "honing-materials",
+      "name": "재련 재료",
+      "description": "클리어 코인으로 교환할 수 있는 재련 재료입니다.",
+      "items": [
+        {
+          "id": "t4-metallurgy-selection-box-bound",
+          "name": "T4 야금술 선택 상자 (귀속)",
+          "exchangeQuantity": 1,
+          "image": "/images/rewards/use_2_9.png",
+          "grade": "고대",
+          "description": "캐릭터당 주간 교환",
+          "pricingMode": "highestExchangeOption",
+          "exchangeOptions": [
+            {
+              "id": "metallurgy-conflagration-11-14",
+              "name": "야금술 : 업화 [11-14] (귀속)",
+              "marketName": "야금술 : 업화 [11-14]",
+              "quantity": 5,
+              "unit": "개"
+            },
+            {
+              "id": "metallurgy-conflagration-15-18",
+              "name": "야금술 : 업화 [15-18] (귀속)",
+              "marketName": "야금술 : 업화 [15-18]",
+              "quantity": 2,
+              "unit": "개"
+            },
+            {
+              "id": "metallurgy-conflagration-19-20",
+              "name": "야금술 : 업화 [19-20] (귀속)",
+              "marketName": "야금술 : 업화 [19-20]",
+              "quantity": 1,
+              "unit": "개"
+            },
+            {
+              "id": "master-metallurgy-1",
+              "name": "장인의 야금술 : 1단계 (귀속)",
+              "marketName": "장인의 야금술 : 1단계",
+              "quantity": 10,
+              "unit": "개"
+            },
+            {
+              "id": "master-metallurgy-2",
+              "name": "장인의 야금술 : 2단계 (귀속)",
+              "marketName": "장인의 야금술 : 2단계",
+              "quantity": 5,
+              "unit": "개"
+            },
+            {
+              "id": "master-metallurgy-3",
+              "name": "장인의 야금술 : 3단계 (귀속)",
+              "marketName": "장인의 야금술 : 3단계",
+              "quantity": 2,
+              "unit": "개"
+            },
+            {
+              "id": "master-metallurgy-4",
+              "name": "장인의 야금술 : 4단계 (귀속)",
+              "marketName": "장인의 야금술 : 4단계",
+              "quantity": 1,
+              "unit": "개"
+            }
+          ],
+          "coinCost": 600,
+          "weeklyLimit": 3,
+          "limitScope": "character"
+        },
+        {
+          "id": "t4-tailoring-selection-box-bound",
+          "name": "T4 재봉술 선택 상자 (귀속)",
+          "exchangeQuantity": 1,
+          "image": "/images/rewards/use_2_10.png",
+          "grade": "고대",
+          "description": "캐릭터당 주간 교환",
+          "pricingMode": "highestExchangeOption",
+          "exchangeOptions": [
+            {
+              "id": "tailoring-conflagration-11-14",
+              "name": "재봉술 : 업화 [11-14] (귀속)",
+              "marketName": "재봉술 : 업화 [11-14]",
+              "quantity": 5,
+              "unit": "개"
+            },
+            {
+              "id": "tailoring-conflagration-15-18",
+              "name": "재봉술 : 업화 [15-18] (귀속)",
+              "marketName": "재봉술 : 업화 [15-18]",
+              "quantity": 2,
+              "unit": "개"
+            },
+            {
+              "id": "tailoring-conflagration-19-20",
+              "name": "재봉술 : 업화 [19-20] (귀속)",
+              "marketName": "재봉술 : 업화 [19-20]",
+              "quantity": 1,
+              "unit": "개"
+            },
+            {
+              "id": "master-tailoring-1",
+              "name": "장인의 재봉술 : 1단계 (귀속)",
+              "marketName": "장인의 재봉술 : 1단계",
+              "quantity": 10,
+              "unit": "개"
+            },
+            {
+              "id": "master-tailoring-2",
+              "name": "장인의 재봉술 : 2단계 (귀속)",
+              "marketName": "장인의 재봉술 : 2단계",
+              "quantity": 5,
+              "unit": "개"
+            },
+            {
+              "id": "master-tailoring-3",
+              "name": "장인의 재봉술 : 3단계 (귀속)",
+              "marketName": "장인의 재봉술 : 3단계",
+              "quantity": 2,
+              "unit": "개"
+            },
+            {
+              "id": "master-tailoring-4",
+              "name": "장인의 재봉술 : 4단계 (귀속)",
+              "marketName": "장인의 재봉술 : 4단계",
+              "quantity": 1,
+              "unit": "개"
+            }
+          ],
+          "coinCost": 200,
+          "weeklyLimit": 15,
+          "limitScope": "character"
+        },
+        {
+          "id": "destiny-destruction-stone-pouch",
+          "name": "운명의 파괴석 주머니",
+          "exchangeQuantity": 1,
+          "image": "/images/rewards/use_12_179.png",
+          "grade": "영웅",
+          "description": "캐릭터당 주간 교환",
+          "exchangeOptions": [
+            {
+              "id": "destiny-destruction-stone-bound",
+              "name": "운명의 파괴석 (귀속)",
+              "marketName": "운명의 파괴석",
+              "quantity": 200,
+              "unit": "개"
+            }
+          ],
+          "coinCost": 50,
+          "weeklyLimit": 10,
+          "limitScope": "character"
+        },
+        {
+          "id": "destiny-guardian-stone-pouch",
+          "name": "운명의 수호석 주머니",
+          "exchangeQuantity": 1,
+          "image": "/images/rewards/use_12_178.png",
+          "grade": "영웅",
+          "description": "캐릭터당 주간 교환",
+          "exchangeOptions": [
+            {
+              "id": "destiny-guardian-stone-bound",
+              "name": "운명의 수호석 (귀속)",
+              "marketName": "운명의 수호석",
+              "quantity": 200,
+              "unit": "개"
+            }
+          ],
+          "coinCost": 30,
+          "weeklyLimit": 50,
+          "limitScope": "character"
+        },
+        {
+          "id": "destiny-leapstone-box",
+          "name": "운명의 돌파석 상자",
+          "exchangeQuantity": 1,
+          "image": "/images/rewards/use_14_10.png",
+          "grade": "영웅",
+          "description": "캐릭터당 주간 교환",
+          "exchangeOptions": [
+            {
+              "id": "destiny-leapstone-bound",
+              "name": "운명의 돌파석 (귀속)",
+              "marketName": "운명의 돌파석",
+              "quantity": 10,
+              "unit": "개"
+            }
+          ],
+          "coinCost": 50,
+          "weeklyLimit": 10,
+          "limitScope": "character"
+        },
+        {
+          "id": "destiny-shard-pouch-small",
+          "name": "운명의 파편 주머니(소)",
+          "exchangeQuantity": 1,
+          "description": "캐릭터당 주간 교환",
+          "exchangeOptions": [
+            {
+              "id": "destiny-shard-pouch-small-tradable",
+              "name": "운명의 파편 주머니(소)",
+              "marketName": "운명의 파편 주머니(소)",
+              "quantity": 1,
+              "unit": "개"
+            }
+          ],
+          "coinCost": 50,
+          "weeklyLimit": 20,
+          "limitScope": "character"
+        },
+        {
+          "id": "abidos-fusion-material-bound",
+          "name": "아비도스 융화 재료 (귀속)",
+          "exchangeQuantity": 1,
+          "description": "캐릭터당 주간 교환",
+          "exchangeOptions": [
+            {
+              "id": "abidos-fusion-material-tradable",
+              "name": "아비도스 융화 재료 (귀속)",
+              "marketName": "아비도스 융화 재료",
+              "quantity": 1,
+              "unit": "개"
+            }
+          ],
+          "coinCost": 50,
+          "weeklyLimit": 10,
+          "limitScope": "character"
+        },
+        {
+          "id": "t4-honing-support-material-box",
+          "name": "T4 재련 보조 재료 상자",
+          "exchangeQuantity": 1,
+          "image": "/images/rewards/use_12_177.png",
+          "grade": "영웅",
+          "description": "원정대당 주간 교환",
+          "pricingMode": "sumExchangeOptions",
+          "exchangeOptions": [
+            {
+              "id": "lava-breath-bound",
+              "name": "용암의 숨결 (귀속)",
+              "marketName": "용암의 숨결",
+              "quantity": 20,
+              "unit": "개"
+            },
+            {
+              "id": "glacier-breath-bound",
+              "name": "빙하의 숨결 (귀속)",
+              "marketName": "빙하의 숨결",
+              "quantity": 60,
+              "unit": "개"
+            }
+          ],
+          "coinCost": 500,
+          "weeklyLimit": 1,
+          "limitScope": "roster"
+        }
+      ]
+    },
+    {
+      "id": "unique-rewards",
+      "name": "고유 보상",
+      "description": "싱글 콘텐츠에서 교환할 수 있는 고유 보상입니다.",
+      "items": [
+        {
+          "id": "tempering-eye-of-alcyone",
+          "name": "담금질 : 알키오네의 눈",
+          "exchangeQuantity": 10,
+          "image": "/images/rewards/use_12_54.png",
+          "grade": "전설",
+          "description": "캐릭터당 주간 교환",
+          "exchangeOptions": [
+            {
+              "id": "t4-desire-growth-material-box",
+              "name": "T4 욕망의 성장 재료 상자",
+              "image": "/images/rewards/use_4_225.png",
+              "grade": "영웅",
+              "quantity": 2,
+              "unit": "개",
+              "weeklyLimit": null,
+              "limitScope": "none",
+              "exchangeRequirement": {
+                "itemName": "담금질 : 알키오네의 눈",
+                "quantityPerBox": 5
+              },
+              "chanceRewards": [
+                {
+                  "id": "lava-breath",
+                  "name": "용암의 숨결",
+                  "marketName": "용암의 숨결",
+                  "quantity": 1,
+                  "probability": 0.1666666667
+                },
+                {
+                  "id": "glacier-breath",
+                  "name": "빙하의 숨결",
+                  "marketName": "빙하의 숨결",
+                  "quantity": 3,
+                  "probability": 0.1666666667
+                },
+                {
+                  "id": "destiny-leapstone",
+                  "name": "운명의 돌파석",
+                  "marketName": "운명의 돌파석",
+                  "quantity": 3,
+                  "probability": 0.1666666667
+                },
+                {
+                  "id": "destiny-shard-pouch-small",
+                  "name": "운명의 파편 주머니(소)",
+                  "marketName": "운명의 파편 주머니(소)",
+                  "quantity": 1,
+                  "probability": 0.1666666667
+                },
+                {
+                  "id": "destiny-destruction-stone",
+                  "name": "운명의 파괴석",
+                  "marketName": "운명의 파괴석",
+                  "quantity": 100,
+                  "probability": 0.1666666667
+                },
+                {
+                  "id": "destiny-guardian-stone",
+                  "name": "운명의 수호석",
+                  "marketName": "운명의 수호석",
+                  "quantity": 300,
+                  "probability": 0.1666666667
+                }
+              ]
+            }
+          ],
+          "coinCost": 140,
+          "weeklyLimit": 1,
+          "limitScope": "character"
+        },
+        {
+          "id": "behemoth-scale",
+          "name": "베히모스의 비늘",
+          "exchangeQuantity": 40,
+          "image": "/images/rewards/use_12_67.png",
+          "grade": "유물",
+          "description": "캐릭터당 주간 교환",
+          "pricingMode": "highestExchangeOption",
+          "exchangeOptions": [
+            {
+              "id": "storm-honing-material-box",
+              "name": "폭풍의 재련 재료 상자",
+              "image": "/images/rewards/use_4_226.png",
+              "grade": "영웅",
+              "quantity": 2,
+              "unit": "개",
+              "weeklyLimit": null,
+              "limitScope": "none",
+              "exchangeRequirement": {
+                "itemName": "베히모스의 비늘",
+                "quantityPerBox": 15,
+                "weeklyAmount": 40,
+                "remainder": 10
+              },
+              "chanceRewards": [
+                {
+                  "id": "destiny-leapstone-bound",
+                  "name": "운명의 돌파석 (귀속)",
+                  "marketName": "운명의 돌파석",
+                  "quantity": 3,
+                  "probability": 0.25
+                },
+                {
+                  "id": "destiny-shard-pouch-small",
+                  "name": "운명의 파편 주머니(소)",
+                  "marketName": "운명의 파편 주머니(소)",
+                  "quantity": 1,
+                  "probability": 0.25
+                },
+                {
+                  "id": "destiny-destruction-stone-bound",
+                  "name": "운명의 파괴석 (귀속)",
+                  "marketName": "운명의 파괴석",
+                  "quantity": 120,
+                  "probability": 0.25
+                },
+                {
+                  "id": "destiny-guardian-stone-bound",
+                  "name": "운명의 수호석 (귀속)",
+                  "marketName": "운명의 수호석",
+                  "quantity": 360,
+                  "probability": 0.25
+                }
+              ]
+            },
+            {
+              "id": "storm-honing-support-material-pouch",
+              "name": "폭풍의 재련 보조 재료 주머니",
+              "image": "/images/rewards/all_quest_02_196.png",
+              "grade": "영웅",
+              "quantity": 2,
+              "unit": "개",
+              "weeklyLimit": null,
+              "limitScope": "none",
+              "exchangeRequirement": {
+                "itemName": "베히모스의 비늘",
+                "quantityPerBox": 15,
+                "weeklyAmount": 40,
+                "remainder": 10
+              },
+              "chanceRewards": [
+                {
+                  "id": "lava-breath-bound",
+                  "name": "용암의 숨결 (귀속)",
+                  "marketName": "용암의 숨결",
+                  "quantity": 1,
+                  "probability": 0.5
+                },
+                {
+                  "id": "glacier-breath-bound",
+                  "name": "빙하의 숨결 (귀속)",
+                  "marketName": "빙하의 숨결",
+                  "quantity": 3,
+                  "probability": 0.5
+                }
+              ]
+            }
+          ],
+          "coinCost": 140,
+          "weeklyLimit": 1,
+          "limitScope": "character"
+        },
+        {
+          "id": "conflagration-wedge-stone",
+          "name": "업화의 쐐기돌",
+          "exchangeQuantity": 20,
+          "image": "/images/rewards/use_12_180.png",
+          "grade": "고대",
+          "description": "캐릭터당 주간 교환",
+          "pricingMode": "highestExchangeOption",
+          "exchangeOptions": [
+            {
+              "id": "abyss-honing-material-box",
+              "name": "심연의 재련 재료 상자",
+              "image": "/images/rewards/use_4_226.png",
+              "grade": "영웅",
+              "quantity": 4,
+              "unit": "개",
+              "weeklyLimit": null,
+              "limitScope": "none",
+              "exchangeRequirement": {
+                "itemName": "업화의 쐐기돌",
+                "quantityPerBox": 5,
+                "weeklyAmount": 20,
+                "remainder": 0
+              },
+              "chanceRewards": [
+                {
+                  "id": "destiny-leapstone-bound",
+                  "name": "운명의 돌파석 (귀속)",
+                  "marketName": "운명의 돌파석",
+                  "quantity": 5,
+                  "probability": 0.25
+                },
+                {
+                  "id": "destiny-shard-pouch-small",
+                  "name": "운명의 파편 주머니(소)",
+                  "marketName": "운명의 파편 주머니(소)",
+                  "quantity": 2,
+                  "probability": 0.25
+                },
+                {
+                  "id": "destiny-destruction-stone-bound",
+                  "name": "운명의 파괴석 (귀속)",
+                  "marketName": "운명의 파괴석",
+                  "quantity": 160,
+                  "probability": 0.25
+                },
+                {
+                  "id": "destiny-guardian-stone-bound",
+                  "name": "운명의 수호석 (귀속)",
+                  "marketName": "운명의 수호석",
+                  "quantity": 480,
+                  "probability": 0.25
+                }
+              ]
+            },
+            {
+              "id": "abyss-honing-support-material-pouch",
+              "name": "심연의 재련 보조 재료 주머니",
+              "image": "/images/rewards/all_quest_02_196.png",
+              "grade": "영웅",
+              "quantity": 4,
+              "unit": "개",
+              "weeklyLimit": null,
+              "limitScope": "none",
+              "exchangeRequirement": {
+                "itemName": "업화의 쐐기돌",
+                "quantityPerBox": 5,
+                "weeklyAmount": 20,
+                "remainder": 0
+              },
+              "chanceRewards": [
+                {
+                  "id": "lava-breath-bound",
+                  "name": "용암의 숨결 (귀속)",
+                  "marketName": "용암의 숨결",
+                  "quantity": 2,
+                  "probability": 0.5
+                },
+                {
+                  "id": "glacier-breath-bound",
+                  "name": "빙하의 숨결 (귀속)",
+                  "marketName": "빙하의 숨결",
+                  "quantity": 5,
+                  "probability": 0.5
+                }
+              ]
+            }
+          ],
+          "coinCost": 200,
+          "weeklyLimit": 1,
+          "limitScope": "character"
+        },
+        {
+          "id": "karma-remnant",
+          "name": "카르마의 잔영",
+          "exchangeQuantity": 30,
+          "image": "/images/rewards/use_12_222.png",
+          "grade": "고대",
+          "description": "캐릭터당 주간 교환 · 업화의 쐐기돌 1:1 교환",
+          "pricingMode": "highestExchangeOption",
+          "exchangeOptions": [
+            {
+                  "id": "karma-abyss-honing-material-box",
+                  "name": "업화의 쐐기돌 → 심연의 재련 재료 상자",
+                  "image": "/images/rewards/use_12_180.png",
+                  "grade": "고대",
+                  "resultImage": "/images/rewards/use_4_226.png",
+                  "resultGrade": "영웅",
+                  "exchangeRatioText": "카르마의 잔영 1개 → 업화의 쐐기돌 1개 · 업화의 쐐기돌 5개 → 심연의 재련 재료 상자 1개",
+                  "quantity": 6,
+                  "unit": "개",
+                  "weeklyLimit": null,
+                  "limitScope": "none",
+                  "chanceRewards": [
+                    {
+                      "id": "destiny-leapstone-bound",
+                      "name": "운명의 돌파석 (귀속)",
+                      "marketName": "운명의 돌파석",
+                      "quantity": 5,
+                      "probability": 0.25
+                    },
+                    {
+                      "id": "destiny-shard-pouch-small",
+                      "name": "운명의 파편 주머니(소)",
+                      "marketName": "운명의 파편 주머니(소)",
+                      "quantity": 2,
+                      "probability": 0.25
+                    },
+                    {
+                      "id": "destiny-destruction-stone-bound",
+                      "name": "운명의 파괴석 (귀속)",
+                      "marketName": "운명의 파괴석",
+                      "quantity": 160,
+                      "probability": 0.25
+                    },
+                    {
+                      "id": "destiny-guardian-stone-bound",
+                      "name": "운명의 수호석 (귀속)",
+                      "marketName": "운명의 수호석",
+                      "quantity": 480,
+                      "probability": 0.25
+                    }
+                  ]
+                },
+                {
+                  "id": "karma-abyss-honing-support-material-pouch",
+                  "name": "업화의 쐐기돌 → 심연의 재련 보조 재료 주머니",
+                  "image": "/images/rewards/use_12_180.png",
+                  "grade": "고대",
+                  "resultImage": "/images/rewards/all_quest_02_196.png",
+                  "resultGrade": "영웅",
+                  "exchangeRatioText": "카르마의 잔영 1개 → 업화의 쐐기돌 1개 · 업화의 쐐기돌 5개 → 심연의 재련 보조 재료 주머니 1개",
+                  "quantity": 6,
+                  "unit": "개",
+                  "weeklyLimit": null,
+                  "limitScope": "none",
+                  "chanceRewards": [
+                    {
+                      "id": "lava-breath-bound",
+                      "name": "용암의 숨결 (귀속)",
+                      "marketName": "용암의 숨결",
+                      "quantity": 2,
+                      "probability": 0.5
+                    },
+                    {
+                      "id": "glacier-breath-bound",
+                      "name": "빙하의 숨결 (귀속)",
+                      "marketName": "빙하의 숨결",
+                      "quantity": 5,
+                      "probability": 0.5
+                    }
+                  ]
+            }
+          ],
+          "coinCost": 240,
+          "weeklyLimit": 1,
+          "limitScope": "character"
+        },
+        {
+          "id": "tempering-thunder-prison",
+          "name": "담금질 : 우레의 뇌옥",
+          "exchangeQuantity": 20,
+          "image": "/images/rewards/use_13_25.png",
+          "grade": "고대",
+          "description": "캐릭터당 주간 교환",
+          "pricingMode": "highestExchangeOption",
+          "exchangeOptions": [
+            {
+              "id": "thunder-karma-abyss-honing-material-box",
+              "name": "카르마의 잔영 → 업화의 쐐기돌 → 심연의 재련 재료 상자",
+              "image": "/images/rewards/use_12_222.png",
+              "grade": "고대",
+              "resultImage": "/images/rewards/use_4_226.png",
+              "resultGrade": "영웅",
+              "exchangeRatioText": "우레의 뇌옥 3개 → 카르마의 잔영 2개 · 카르마의 잔영 1개 → 업화의 쐐기돌 1개 · 업화의 쐐기돌 5개 → 심연의 재련 재료 상자 1개",
+              "quantity": 2.6666666667,
+              "unit": "개",
+              "weeklyLimit": null,
+              "limitScope": "none",
+              "exchangeRequirement": {
+                "sourceAmount": 20,
+                "sourcePerExchange": 3,
+                "rewardPerExchange": 2,
+                "karmaToWedgeRate": 1,
+                "wedgePerBox": 5,
+                "calculationMode": "proportional"
+              },
+              "chanceRewards": [
+                {
+                  "id": "destiny-leapstone-bound",
+                  "name": "운명의 돌파석 (귀속)",
+                  "marketName": "운명의 돌파석",
+                  "quantity": 5,
+                  "probability": 0.25
+                },
+                {
+                  "id": "destiny-shard-pouch-small",
+                  "name": "운명의 파편 주머니(소)",
+                  "marketName": "운명의 파편 주머니(소)",
+                  "quantity": 2,
+                  "probability": 0.25
+                },
+                {
+                  "id": "destiny-destruction-stone-bound",
+                  "name": "운명의 파괴석 (귀속)",
+                  "marketName": "운명의 파괴석",
+                  "quantity": 160,
+                  "probability": 0.25
+                },
+                {
+                  "id": "destiny-guardian-stone-bound",
+                  "name": "운명의 수호석 (귀속)",
+                  "marketName": "운명의 수호석",
+                  "quantity": 480,
+                  "probability": 0.25
+                }
+              ]
+            },
+            {
+              "id": "thunder-karma-abyss-honing-support-material-pouch",
+              "name": "카르마의 잔영 → 업화의 쐐기돌 → 심연의 재련 보조 재료 주머니",
+              "image": "/images/rewards/use_12_222.png",
+              "grade": "고대",
+              "resultImage": "/images/rewards/all_quest_02_196.png",
+              "resultGrade": "영웅",
+              "exchangeRatioText": "우레의 뇌옥 3개 → 카르마의 잔영 2개 · 카르마의 잔영 1개 → 업화의 쐐기돌 1개 · 업화의 쐐기돌 5개 → 심연의 재련 보조 재료 주머니 1개",
+              "quantity": 2.6666666667,
+              "unit": "개",
+              "weeklyLimit": null,
+              "limitScope": "none",
+              "exchangeRequirement": {
+                "sourceAmount": 20,
+                "sourcePerExchange": 3,
+                "rewardPerExchange": 2,
+                "karmaToWedgeRate": 1,
+                "wedgePerBox": 5,
+                "calculationMode": "proportional"
+              },
+              "chanceRewards": [
+                {
+                  "id": "lava-breath-bound",
+                  "name": "용암의 숨결 (귀속)",
+                  "marketName": "용암의 숨결",
+                  "quantity": 2,
+                  "probability": 0.5
+                },
+                {
+                  "id": "glacier-breath-bound",
+                  "name": "빙하의 숨결 (귀속)",
+                  "marketName": "빙하의 숨결",
+                  "quantity": 5,
+                  "probability": 0.5
+                }
+              ]
+            },
+            {
+              "id": "punishment-honing-material-box",
+              "name": "징벌의 재련 재료 상자",
+              "image": "/images/rewards/use_4_226.png",
+              "grade": "영웅",
+              "quantity": 2,
+              "unit": "개",
+              "weeklyLimit": null,
+              "limitScope": "none",
+              "exchangeRequirement": {
+                "quantityPerBox": 10,
+                "sourceAmount": 20,
+                "remainder": 0
+              },
+              "chanceRewards": [
+                {
+                  "id": "destiny-shard-pouch-large",
+                  "name": "운명의 파편 주머니(대)",
+                  "marketName": "운명의 파편 주머니(대)",
+                  "quantity": 1,
+                  "probability": 0.25
+                },
+                {
+                  "id": "destiny-leapstone-bound",
+                  "name": "운명의 돌파석 (귀속)",
+                  "marketName": "운명의 돌파석",
+                  "quantity": 12,
+                  "probability": 0.25
+                },
+                {
+                  "id": "destiny-destruction-stone-bound",
+                  "name": "운명의 파괴석 (귀속)",
+                  "marketName": "운명의 파괴석",
+                  "quantity": 300,
+                  "probability": 0.25
+                },
+                {
+                  "id": "destiny-guardian-stone-bound",
+                  "name": "운명의 수호석 (귀속)",
+                  "marketName": "운명의 수호석",
+                  "quantity": 600,
+                  "probability": 0.25
+                }
+              ]
+            },
+            {
+              "id": "punishment-honing-support-material-pouch",
+              "name": "징벌의 재련 보조 재료 주머니",
+              "image": "/images/rewards/all_quest_02_196.png",
+              "grade": "영웅",
+              "quantity": 2,
+              "unit": "개",
+              "weeklyLimit": null,
+              "limitScope": "none",
+              "exchangeRequirement": {
+                "quantityPerBox": 10,
+                "sourceAmount": 20,
+                "remainder": 0
+              },
+              "chanceRewards": [
+                {
+                  "id": "lava-breath-bound",
+                  "name": "용암의 숨결 (귀속)",
+                  "marketName": "용암의 숨결",
+                  "quantity": 3,
+                  "probability": 0.5
+                },
+                {
+                  "id": "glacier-breath-bound",
+                  "name": "빙하의 숨결 (귀속)",
+                  "marketName": "빙하의 숨결",
+                  "quantity": 9,
+                  "probability": 0.5
+                }
+              ]
+            },
+            {
+              "id": "master-metallurgy-stage-1-box",
+              "name": "장인의 야금술 : 1단계 상자",
+              "image": "/images/rewards/use_2_9.png",
+              "grade": "영웅",
+              "quantity": 1,
+              "unit": "개",
+              "weeklyLimit": 1,
+              "limitScope": "roster",
+              "exchangeRequirement": {
+                "quantityPerBox": 15,
+                "sourceAmount": 20,
+                "remainder": 5
+              },
+              "chanceRewards": [
+                {
+                  "id": "master-metallurgy-stage-1-bound",
+                  "name": "장인의 야금술 : 1단계 (귀속)",
+                  "marketName": "장인의 야금술 : 1단계",
+                  "quantity": 1,
+                  "probability": 1
+                }
+              ]
+            },
+            {
+              "id": "master-tailoring-stage-1-box",
+              "name": "장인의 재봉술 : 1단계 상자",
+              "image": "/images/rewards/use_2_10.png",
+              "grade": "영웅",
+              "quantity": 4,
+              "unit": "개",
+              "weeklyLimit": 5,
+              "limitScope": "roster",
+              "exchangeRequirement": {
+                "quantityPerBox": 5,
+                "sourceAmount": 20,
+                "remainder": 0
+              },
+              "chanceRewards": [
+                {
+                  "id": "master-tailoring-stage-1-bound",
+                  "name": "장인의 재봉술 : 1단계 (귀속)",
+                  "marketName": "장인의 재봉술 : 1단계",
+                  "quantity": 1,
+                  "probability": 1
+                }
+              ]
+            },
+            {
+              "id": "master-metallurgy-stage-2-box",
+              "name": "장인의 야금술 : 2단계 상자",
+              "image": "/images/rewards/use_2_9.png",
+              "grade": "전설",
+              "quantity": 0.6666666667,
+              "unit": "개",
+              "weeklyLimit": 1,
+              "limitScope": "roster",
+              "exchangeRequirement": {
+                "quantityPerBox": 30,
+                "sourceAmount": 20,
+                "remainder": 20
+              },
+              "chanceRewards": [
+                {
+                  "id": "master-metallurgy-stage-2-bound",
+                  "name": "장인의 야금술 : 2단계 (귀속)",
+                  "marketName": "장인의 야금술 : 2단계",
+                  "quantity": 1,
+                  "probability": 1
+                }
+              ]
+            },
+            {
+              "id": "master-tailoring-stage-2-box",
+              "name": "장인의 재봉술 : 2단계 상자",
+              "image": "/images/rewards/use_2_10.png",
+              "grade": "전설",
+              "quantity": 2,
+              "unit": "개",
+              "weeklyLimit": 5,
+              "limitScope": "roster",
+              "exchangeRequirement": {
+                "quantityPerBox": 10,
+                "sourceAmount": 20,
+                "remainder": 0
+              },
+              "chanceRewards": [
+                {
+                  "id": "master-tailoring-stage-2-bound",
+                  "name": "장인의 재봉술 : 2단계 (귀속)",
+                  "marketName": "장인의 재봉술 : 2단계",
+                  "quantity": 1,
+                  "probability": 1
+                }
+              ]
+            }
+          ],
+          "coinCost": 300,
+          "weeklyLimit": 1,
+          "limitScope": "character"
+        },
+        {
+          "id": "thorn-of-agony",
+          "name": "고통의 가시",
+          "exchangeQuantity": 20,
+          "image": "/images/rewards/use_14_0.png",
+          "grade": "고대",
+          "description": "캐릭터당 주간 교환",
+          "pricingMode": "highestExchangeOption",
+          "exchangeOptions": [
+            {
+              "id": "pain-honing-material-box",
+              "name": "고통의 재련 재료 상자",
+              "image": "/images/rewards/use_4_226.png",
+              "grade": "영웅",
+              "quantity": 4,
+              "unit": "개",
+              "exchangeRequirement": {
+                "quantityPerBox": 5,
+                "sourceAmount": 20,
+                "remainder": 0
+              },
+              "chanceRewards": [
+                {
+                  "id": "destiny-shard-pouch-large",
+                  "name": "운명의 파편 주머니(대)",
+                  "marketName": "운명의 파편 주머니(대)",
+                  "quantity": 1,
+                  "probability": 0.25
+                },
+                {
+                  "id": "great-destiny-leapstone-bound",
+                  "name": "위대한 운명의 돌파석 (귀속)",
+                  "marketName": "위대한 운명의 돌파석",
+                  "quantity": 3,
+                  "probability": 0.25
+                },
+                {
+                  "id": "destiny-destruction-stone-crystal-bound",
+                  "name": "운명의 파괴석 결정 (귀속)",
+                  "marketName": "운명의 파괴석 결정",
+                  "quantity": 100,
+                  "probability": 0.25
+                },
+                {
+                  "id": "destiny-guardian-stone-crystal-bound",
+                  "name": "운명의 수호석 결정 (귀속)",
+                  "marketName": "운명의 수호석 결정",
+                  "quantity": 300,
+                  "probability": 0.25
+                }
+              ]
+            },
+            {
+              "id": "pain-honing-support-material-pouch",
+              "name": "고통의 재련 보조 재료 주머니",
+              "image": "/images/rewards/all_quest_02_196.png",
+              "grade": "영웅",
+              "quantity": 4,
+              "unit": "개",
+              "exchangeRequirement": {
+                "quantityPerBox": 5,
+                "sourceAmount": 20,
+                "remainder": 0
+              },
+              "chanceRewards": [
+                {
+                  "id": "lava-breath-bound",
+                  "name": "용암의 숨결 (귀속)",
+                  "marketName": "용암의 숨결",
+                  "quantity": 4,
+                  "probability": 0.5
+                },
+                {
+                  "id": "glacier-breath-bound",
+                  "name": "빙하의 숨결 (귀속)",
+                  "marketName": "빙하의 숨결",
+                  "quantity": 12,
+                  "probability": 0.5
+                }
+              ]
+            },
+            {
+              "id": "random-gem-box",
+              "name": "젬 랜덤 상자",
+              "image": "/images/rewards/use_7_25.png",
+              "grade": "전설",
+              "quantity": 4,
+              "unit": "개",
+              "exchangeRequirement": {
+                "thornPerBox": 5,
+                "sourceAmount": 20,
+                "remainder": 0
+              },
+              "chanceRewards": [
+                { "id": "order-gem-solid-epic", "name": "질서의 젬 : 견고", "marketName": "질서의 젬 : 견고|영웅", "grade": "영웅", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "order-gem-immutable-epic", "name": "질서의 젬 : 불변", "marketName": "질서의 젬 : 불변|영웅", "grade": "영웅", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "order-gem-stable-epic", "name": "질서의 젬 : 안정", "marketName": "질서의 젬 : 안정|영웅", "grade": "영웅", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "chaos-gem-collapse-epic", "name": "혼돈의 젬 : 붕괴", "marketName": "혼돈의 젬 : 붕괴|영웅", "grade": "영웅", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "chaos-gem-distortion-epic", "name": "혼돈의 젬 : 왜곡", "marketName": "혼돈의 젬 : 왜곡|영웅", "grade": "영웅", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "chaos-gem-erosion-epic", "name": "혼돈의 젬 : 침식", "marketName": "혼돈의 젬 : 침식|영웅", "grade": "영웅", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "order-gem-solid-rare", "name": "질서의 젬 : 견고", "marketName": "질서의 젬 : 견고|희귀", "grade": "희귀", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "order-gem-immutable-rare", "name": "질서의 젬 : 불변", "marketName": "질서의 젬 : 불변|희귀", "grade": "희귀", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "order-gem-stable-rare", "name": "질서의 젬 : 안정", "marketName": "질서의 젬 : 안정|희귀", "grade": "희귀", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "chaos-gem-collapse-rare", "name": "혼돈의 젬 : 붕괴", "marketName": "혼돈의 젬 : 붕괴|희귀", "grade": "희귀", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "chaos-gem-distortion-rare", "name": "혼돈의 젬 : 왜곡", "marketName": "혼돈의 젬 : 왜곡|희귀", "grade": "희귀", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "chaos-gem-erosion-rare", "name": "혼돈의 젬 : 침식", "marketName": "혼돈의 젬 : 침식|희귀", "grade": "희귀", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "order-gem-solid-uncommon", "name": "질서의 젬 : 견고", "marketName": "질서의 젬 : 견고|고급", "grade": "고급", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "order-gem-immutable-uncommon", "name": "질서의 젬 : 불변", "marketName": "질서의 젬 : 불변|고급", "grade": "고급", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "order-gem-stable-uncommon", "name": "질서의 젬 : 안정", "marketName": "질서의 젬 : 안정|고급", "grade": "고급", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "chaos-gem-collapse-uncommon", "name": "혼돈의 젬 : 붕괴", "marketName": "혼돈의 젬 : 붕괴|고급", "grade": "고급", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "chaos-gem-distortion-uncommon", "name": "혼돈의 젬 : 왜곡", "marketName": "혼돈의 젬 : 왜곡|고급", "grade": "고급", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "chaos-gem-erosion-uncommon", "name": "혼돈의 젬 : 침식", "marketName": "혼돈의 젬 : 침식|고급", "grade": "고급", "quantity": 1, "probability": 0.0555555556 }
+              ]
+            }
+          ],
+          "coinCost": 400,
+          "weeklyLimit": 1,
+          "limitScope": "character"
+        },
+        {
+          "id": "grace-shard",
+          "name": "은총의 파편",
+          "exchangeQuantity": 20,
+          "image": "/images/rewards/use_14_19.png",
+          "grade": "고대",
+          "description": "캐릭터당 주간 교환",
+          "pricingMode": "highestExchangeOption",
+          "exchangeOptions": [
+            {
+              "id": "grace-random-gem-box",
+              "name": "젬 랜덤 상자",
+              "image": "/images/rewards/use_7_25.png",
+              "grade": "전설",
+              "quantity": 2,
+              "unit": "개",
+              "exchangeRequirement": { "sourceAmount": 20, "sourcePerExchange": 10, "rewardPerExchange": 1 },
+              "chanceRewards": [
+                { "id": "order-gem-solid-epic", "name": "질서의 젬 : 견고", "marketName": "질서의 젬 : 견고|영웅", "grade": "영웅", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "order-gem-immutable-epic", "name": "질서의 젬 : 불변", "marketName": "질서의 젬 : 불변|영웅", "grade": "영웅", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "order-gem-stable-epic", "name": "질서의 젬 : 안정", "marketName": "질서의 젬 : 안정|영웅", "grade": "영웅", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "chaos-gem-collapse-epic", "name": "혼돈의 젬 : 붕괴", "marketName": "혼돈의 젬 : 붕괴|영웅", "grade": "영웅", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "chaos-gem-distortion-epic", "name": "혼돈의 젬 : 왜곡", "marketName": "혼돈의 젬 : 왜곡|영웅", "grade": "영웅", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "chaos-gem-erosion-epic", "name": "혼돈의 젬 : 침식", "marketName": "혼돈의 젬 : 침식|영웅", "grade": "영웅", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "order-gem-solid-rare", "name": "질서의 젬 : 견고", "marketName": "질서의 젬 : 견고|희귀", "grade": "희귀", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "order-gem-immutable-rare", "name": "질서의 젬 : 불변", "marketName": "질서의 젬 : 불변|희귀", "grade": "희귀", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "order-gem-stable-rare", "name": "질서의 젬 : 안정", "marketName": "질서의 젬 : 안정|희귀", "grade": "희귀", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "chaos-gem-collapse-rare", "name": "혼돈의 젬 : 붕괴", "marketName": "혼돈의 젬 : 붕괴|희귀", "grade": "희귀", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "chaos-gem-distortion-rare", "name": "혼돈의 젬 : 왜곡", "marketName": "혼돈의 젬 : 왜곡|희귀", "grade": "희귀", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "chaos-gem-erosion-rare", "name": "혼돈의 젬 : 침식", "marketName": "혼돈의 젬 : 침식|희귀", "grade": "희귀", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "order-gem-solid-uncommon", "name": "질서의 젬 : 견고", "marketName": "질서의 젬 : 견고|고급", "grade": "고급", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "order-gem-immutable-uncommon", "name": "질서의 젬 : 불변", "marketName": "질서의 젬 : 불변|고급", "grade": "고급", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "order-gem-stable-uncommon", "name": "질서의 젬 : 안정", "marketName": "질서의 젬 : 안정|고급", "grade": "고급", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "chaos-gem-collapse-uncommon", "name": "혼돈의 젬 : 붕괴", "marketName": "혼돈의 젬 : 붕괴|고급", "grade": "고급", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "chaos-gem-distortion-uncommon", "name": "혼돈의 젬 : 왜곡", "marketName": "혼돈의 젬 : 왜곡|고급", "grade": "고급", "quantity": 1, "probability": 0.0555555556 },
+                { "id": "chaos-gem-erosion-uncommon", "name": "혼돈의 젬 : 침식", "marketName": "혼돈의 젬 : 침식|고급", "grade": "고급", "quantity": 1, "probability": 0.0555555556 }
+              ]
+            },
+            {
+              "id": "horizon-metallurgy-selection-box",
+              "name": "지평의 야금술 선택 상자",
+              "image": "/images/rewards/use_4_225.png",
+              "grade": "영웅",
+              "quantity": 2,
+              "unit": "개",
+              "exchangeRequirement": { "sourceAmount": 20, "sourcePerExchange": 10, "rewardPerExchange": 1 },
+              "selectionRewards": [
+                { "id": "metallurgy-conflagration-19-20", "name": "야금술 : 업화 [19-20] (귀속)", "marketName": "야금술 : 업화 [19-20]", "quantity": 1 },
+                { "id": "master-metallurgy-3", "name": "장인의 야금술 : 3단계 (귀속)", "marketName": "장인의 야금술 : 3단계", "quantity": 2 },
+                { "id": "master-metallurgy-4", "name": "장인의 야금술 : 4단계 (귀속)", "marketName": "장인의 야금술 : 4단계", "quantity": 1 }
+              ]
+            },
+            {
+              "id": "horizon-tailoring-selection-box",
+              "name": "지평의 재봉술 선택 상자",
+              "image": "/images/rewards/use_4_226.png",
+              "grade": "영웅",
+              "quantity": 2,
+              "unit": "개",
+              "exchangeRequirement": { "sourceAmount": 20, "sourcePerExchange": 10, "rewardPerExchange": 1 },
+              "selectionRewards": [
+                { "id": "tailoring-conflagration-19-20", "name": "재봉술 : 업화 [19-20] (귀속)", "marketName": "재봉술 : 업화 [19-20]", "quantity": 1 },
+                { "id": "master-tailoring-3", "name": "장인의 재봉술 : 3단계 (귀속)", "marketName": "장인의 재봉술 : 3단계", "quantity": 2 },
+                { "id": "master-tailoring-4", "name": "장인의 재봉술 : 4단계 (귀속)", "marketName": "장인의 재봉술 : 4단계", "quantity": 1 }
+              ]
+            },
+            {
+              "id": "horizon-honing-material-box",
+              "name": "지평의 재련 재료 상자",
+              "image": "/images/rewards/use_14_15.png",
+              "grade": "영웅",
+              "quantity": 0.3333333333,
+              "unit": "개",
+              "exchangeRequirement": { "sourceAmount": 20, "sourcePerExchange": 60, "rewardPerExchange": 1 },
+              "chanceRewards": [
+                { "id": "destiny-shard", "name": "운명의 파편", "marketName": "운명의 파편 주머니(대)", "image": "/images/rewards/money_15.png", "grade": "일반", "quantity": 22500, "marketQuantity": 7.5, "probability": 1 },
+                { "id": "destiny-destruction-stone-crystal-bound", "name": "운명의 파괴석 결정 (귀속)", "marketName": "운명의 파괴석 결정", "quantity": 2000, "probability": 1 },
+                { "id": "destiny-guardian-stone-crystal-bound", "name": "운명의 수호석 결정 (귀속)", "marketName": "운명의 수호석 결정", "quantity": 4000, "probability": 1 },
+                { "id": "great-destiny-leapstone-bound", "name": "위대한 운명의 돌파석 (귀속)", "marketName": "위대한 운명의 돌파석", "quantity": 60, "probability": 1 }
+              ]
+            }
+          ],
+          "coinCost": 320,
+          "weeklyLimit": 1,
+          "limitScope": "character"
+        }
+      ]
+    }
+  ]
+}

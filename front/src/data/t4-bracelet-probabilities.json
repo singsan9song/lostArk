@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "name": "로스트아크 확률 정보 공개 - 팔찌 T4",
+    "url": "https://lostark.game.onstove.com/Probability/%ED%8C%94%EC%B0%8C%20T4",
+    "sourceLastUpdatedAt": "2025-12-30T17:00:00+09:00",
+    "grade": "고대",
+    "tier": 4
+  },
+  "leapPoint": 18,
+  "fixedEffectCount": {
+    "1": 65.0,
+    "2": 35.0
+  },
+  "grantedEffectCount": {
+    "2": 75.0,
+    "3": 25.0
+  },
+  "effectCategoryProbability": {
+    "basic": 35.0,
+    "combatStat": 35.0,
+    "special": 30.0
+  },
+  "selectionRules": {
+    "maxBasicEffects": 2,
+    "maxCombatStatEffects": 2,
+    "maxSpecialEffects": 5,
+    "duplicateEffectsAllowed": false,
+    "probabilityNormalization": "selectedWeight / (100 - excludedWeightSum)"
+  },
+  "options": {
+    "mainStat": {
+      "name": "힘/민/지",
+      "category": "basic",
+      "categoryInnerProbability": 50.0,
+      "rawSelectionProbability": 17.5,
+      "aliases": ["힘", "민첩", "지능"],
+      "valueDistribution": [
+        { "min": 9600, "max": 10240, "probability": 10.0, "uniformWithinRange": true },
+        { "min": 10241, "max": 10880, "probability": 16.0, "uniformWithinRange": true },
+        { "min": 10881, "max": 11520, "probability": 16.0, "uniformWithinRange": true },
+        { "min": 11521, "max": 12160, "probability": 16.0, "uniformWithinRange": true },
+        { "min": 12161, "max": 12800, "probability": 10.0, "uniformWithinRange": true },
+        { "min": 12801, "max": 13440, "probability": 10.0, "uniformWithinRange": true },
+        { "min": 13441, "max": 14080, "probability": 10.0, "uniformWithinRange": true },
+        { "min": 14081, "max": 14720, "probability": 4.0, "uniformWithinRange": true },
+        { "min": 14721, "max": 15360, "probability": 4.0, "uniformWithinRange": true },
+        { "min": 15361, "max": 16000, "probability": 4.0, "uniformWithinRange": true }
+      ]
+    },
+    "critical": {
+      "name": "치명",
+      "category": "combatStat",
+      "categoryInnerProbability": 16.6666666667,
+      "rawSelectionProbability": 5.8333333333,
+      "valueDistributionRef": "combatStat"
+    },
+    "specialization": {
+      "name": "특화",
+      "category": "combatStat",
+      "categoryInnerProbability": 16.6666666667,
+      "rawSelectionProbability": 5.8333333333,
+      "valueDistributionRef": "combatStat"
+    },
+    "swiftness": {
+      "name": "신속",
+      "category": "combatStat",
+      "categoryInnerProbability": 16.6666666667,
+      "rawSelectionProbability": 5.8333333333,
+      "valueDistributionRef": "combatStat"
+    }
+  },
+  "sharedValueDistributions": {
+    "combatStat": [
+      { "min": 61, "max": 66, "probability": 10.0, "uniformWithinRange": true },
+      { "min": 67, "max": 72, "probability": 16.0, "uniformWithinRange": true },
+      { "min": 73, "max": 78, "probability": 16.0, "uniformWithinRange": true },
+      { "min": 79, "max": 84, "probability": 16.0, "uniformWithinRange": true },
+      { "min": 85, "max": 90, "probability": 10.0, "uniformWithinRange": true },
+      { "min": 91, "max": 96, "probability": 10.0, "uniformWithinRange": true },
+      { "min": 97, "max": 102, "probability": 10.0, "uniformWithinRange": true },
+      { "min": 103, "max": 108, "probability": 4.0, "uniformWithinRange": true },
+      { "min": 109, "max": 114, "probability": 4.0, "uniformWithinRange": true },
+      { "min": 115, "max": 120, "probability": 4.0, "uniformWithinRange": true }
+    ]
+  },
+  "validFixedOptionPairs": [
+    {
+      "id": "critical-specialization",
+      "name": "치명 + 특화",
+      "optionIds": ["critical", "specialization"],
+      "pairProbabilityGivenTwoFixedEffects": 0.8166666667,
+      "totalBraceletProbability": 0.2858333333,
+      "formula": "0.35 × (1/6) × 0.35 × (1/5) × 2"
+    },
+    {
+      "id": "critical-swiftness",
+      "name": "치명 + 신속",
+      "optionIds": ["critical", "swiftness"],
+      "pairProbabilityGivenTwoFixedEffects": 0.8166666667,
+      "totalBraceletProbability": 0.2858333333,
+      "formula": "0.35 × (1/6) × 0.35 × (1/5) × 2"
+    },
+    {
+      "id": "specialization-swiftness",
+      "name": "특화 + 신속",
+      "optionIds": ["specialization", "swiftness"],
+      "pairProbabilityGivenTwoFixedEffects": 0.8166666667,
+      "totalBraceletProbability": 0.2858333333,
+      "formula": "0.35 × (1/6) × 0.35 × (1/5) × 2"
+    },
+    {
+      "id": "mainstat-critical",
+      "name": "힘/민/지 + 치명",
+      "optionIds": ["mainStat", "critical"],
+      "pairProbabilityGivenTwoFixedEffects": 2.0416666667,
+      "totalBraceletProbability": 0.7145833333,
+      "formula": "0.35 × (1/2) × 0.35 × (1/6) × 2"
+    },
+    {
+      "id": "mainstat-specialization",
+      "name": "힘/민/지 + 특화",
+      "optionIds": ["mainStat", "specialization"],
+      "pairProbabilityGivenTwoFixedEffects": 2.0416666667,
+      "totalBraceletProbability": 0.7145833333,
+      "formula": "0.35 × (1/2) × 0.35 × (1/6) × 2"
+    },
+    {
+      "id": "mainstat-swiftness",
+      "name": "힘/민/지 + 신속",
+      "optionIds": ["mainStat", "swiftness"],
+      "pairProbabilityGivenTwoFixedEffects": 2.0416666667,
+      "totalBraceletProbability": 0.7145833333,
+      "formula": "0.35 × (1/2) × 0.35 × (1/6) × 2"
+    }
+  ],
+  "validFixedOptionSummary": {
+    "combatStatPairCount": 3,
+    "mainStatCombatPairCount": 3,
+    "probabilityGivenTwoFixedEffects": 8.575,
+    "totalAncientBraceletProbability": 3.00125,
+    "conditionalFormula": "0.8166666667 × 3 + 2.0416666667 × 3",
+    "totalFormula": "8.575 × 0.35"
+  },
+  "validPairProbabilityModel": {
+    "method": "hierarchicalCategoryThenOptionWithoutReplacement",
+    "description": "효과 종류 확률을 먼저 적용하고, 같은 전투 특성은 중복 등장하지 않는 조건으로 두 슬롯의 순서를 모두 합산한다."
+  },
+  "valueProbabilityFormula": {
+    "rangeProbability": "valueDistribution[].probability",
+    "exactValueProbability": "rangeProbability / (max - min + 1)",
+    "pairValueProbability": "firstExactValueProbability * secondExactValueProbability",
+    "pairRangeProbabilityPercent": "firstRangeProbability * secondRangeProbability / 100",
+    "pairRangeProbabilitySum": 100.0
+  },
+  "auctionPricingPolicy": {
+    "source": "POST /auctions/items",
+    "tier": 4,
+    "grade": "고대",
+    "fixedEffectCount": 2,
+    "priceField": "AuctionInfo.BuyPrice",
+    "removeLowerPercent": 20,
+    "removeUpperPercent": 20,
+    "aggregation": "trimmedMean",
+    "aggregationUnit": "pairValueRangeCombination",
+    "remainingSamplePercent": 60,
+    "minimumSampleSize": 5,
+    "expectedPriceFormula": "sum(pairRangeTrimmedMean * pairRangeProbabilityPercent / 100)",
+    "requireFullProbabilityCoverage": true,
+    "partialCoverageEstimate": "sum(weightedPrice) / availableProbabilityRatio",
+    "defaultPairSelection": "highestTrimmedMean",
+    "allowManualPairSelection": true,
+    "pheonCostPerItem": 9
+  }
+}

@@ -1,0 +1,2912 @@
+{
+  "schemaVersion": 2,
+  "contentName": "낙원",
+  "season": 3,
+  "stageOrder": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "rewardDefinitions": {
+    "destiny-shard": {
+      "id": "destiny-shard",
+      "name": "운명의 파편",
+      "unit": "개",
+      "image": "/images/rewards/money_15.png",
+      "grade": "일반",
+      "marketConversion": [
+        {
+          "itemName": "운명의 파편 주머니(대)",
+          "contentsQuantity": 3000
+        }
+      ]
+    },
+    "destiny-destruction-stone": {
+      "id": "destiny-destruction-stone",
+      "name": "운명의 파괴석",
+      "unit": "개"
+    },
+    "destiny-guardian-stone": {
+      "id": "destiny-guardian-stone",
+      "name": "운명의 수호석",
+      "unit": "개"
+    },
+    "destiny-leapstone": {
+      "id": "destiny-leapstone",
+      "name": "운명의 돌파석",
+      "unit": "개"
+    },
+    "destiny-chaos-stone-box": {
+      "id": "destiny-chaos-stone-box",
+      "name": "운명/혼돈의 돌 상자",
+      "selectionMode": "one",
+      "selectionOptions": [
+        {
+          "id": "destiny",
+          "name": "운명의 돌",
+          "contentIds": [
+            "refined-stone-of-destiny"
+          ]
+        },
+        {
+          "id": "chaos",
+          "name": "혼돈의 돌",
+          "contentIds": [
+            "refined-stone-of-chaos-weapon",
+            "refined-stone-of-chaos-armor"
+          ]
+        }
+      ],
+      "contents": [
+        {
+          "id": "refined-stone-of-destiny",
+          "name": "정련된 운명의 돌",
+          "description": "카르마 성장 재료",
+          "grade": "유물",
+          "unit": "개",
+          "image": "/images/rewards/use_13_220.png",
+          "marketLookup": false
+        },
+        {
+          "id": "refined-stone-of-chaos-weapon",
+          "name": "정련된 혼돈의 돌 (무기)",
+          "description": "무기 품질 업그레이드 재료",
+          "grade": "유물",
+          "unit": "개",
+          "image": "/images/rewards/use_11_240.png",
+          "fixedGoldValuePerItem": 1300,
+          "marketLookup": false
+        },
+        {
+          "id": "refined-stone-of-chaos-armor",
+          "name": "정련된 혼돈의 돌 (방어구)",
+          "description": "방어구 품질 업그레이드 재료",
+          "grade": "유물",
+          "unit": "개",
+          "image": "/images/rewards/use_11_241.png",
+          "fixedGoldValuePerItem": 800,
+          "marketLookup": false
+        }
+      ]
+    },
+    "ability-stone-kit-box": {
+      "id": "ability-stone-kit-box",
+      "name": "어빌리티 스톤 키트 상자",
+      "contents": [
+        {
+          "id": "soaring-stone-engraving-selection-kit",
+          "name": "비상의 돌 각인 지정 키트",
+          "description": "고대 어빌리티 스톤 제작 키트",
+          "grade": "고대",
+          "unit": "개",
+          "image": "/images/rewards/use_13_225.png",
+          "pheonCostPerItem": 9,
+          "marketLookup": false
+        }
+      ]
+    },
+    "relic-bracelet-box": {
+      "id": "relic-bracelet-box",
+      "name": "팔찌 상자",
+      "image": "/images/rewards/acc_328.png",
+      "grade": "유물",
+      "contents": [
+        {
+          "id": "relic-bracelet",
+          "name": "고귀한 구원자의 팔찌",
+          "unit": "개",
+          "image": "/images/rewards/acc_328.png",
+          "grade": "유물",
+          "pheonCostPerItem": 9,
+          "marketLookup": false
+        }
+      ]
+    },
+    "bracelet-box": {
+      "id": "bracelet-box",
+      "name": "팔찌 상자",
+      "image": "/images/rewards/acc_327.png",
+      "grade": "고대",
+      "contents": [
+        {
+          "id": "bracelet",
+          "name": "찬란한 구원자의 팔찌",
+          "unit": "개",
+          "image": "/images/rewards/acc_327.png",
+          "grade": "고대",
+          "pheonCostPerItem": 9,
+          "marketLookup": false
+        }
+      ]
+    },
+    "honing-support-box": {
+      "id": "honing-support-box",
+      "name": "재련 보조 상자",
+      "contents": [
+        {
+          "id": "lava-breath",
+          "name": "용암의 숨결",
+          "unit": "개"
+        },
+        {
+          "id": "glacier-breath",
+          "name": "빙하의 숨결",
+          "unit": "개"
+        }
+      ]
+    },
+    "fusion-material-box": {
+      "id": "fusion-material-box",
+      "name": "융화 재료 상자",
+      "contents": [
+        {
+          "id": "abidos-fusion-material",
+          "name": "아비도스 융화 재료",
+          "unit": "개"
+        }
+      ]
+    },
+    "bound-gold-box": {
+      "id": "bound-gold-box",
+      "name": "귀속 골드 상자",
+      "image": "/images/rewards/money_16.png",
+      "grade": "일반",
+      "contents": [
+        {
+          "id": "bound-gold",
+          "name": "귀속 골드",
+          "unit": "골드",
+          "image": "/images/rewards/money_16.png",
+          "grade": "일반",
+          "marketLookup": false
+        }
+      ]
+    },
+    "special-honing-box": {
+      "id": "special-honing-box",
+      "name": "특수 재련 상자",
+      "contents": [
+        {
+          "id": "special-honing-circulation-leapstone",
+          "name": "특수 재련 : 순환 돌파석",
+          "description": "유물 장비 재련 재료",
+          "grade": "유물",
+          "unit": "개",
+          "image": "/images/rewards/use_12_87.png",
+          "marketLookup": false
+        }
+      ]
+    },
+    "destruction-guardian-choice-box": {
+      "id": "destruction-guardian-choice-box",
+      "name": "파괴석/수호석 선택 상자",
+      "selectionMode": "one",
+      "selectionOptions": [
+        {
+          "id": "destruction",
+          "name": "파괴석",
+          "contentIds": [
+            "destiny-destruction-stone"
+          ]
+        },
+        {
+          "id": "guardian",
+          "name": "수호석",
+          "contentIds": [
+            "destiny-guardian-stone"
+          ]
+        }
+      ],
+      "contents": [
+        {
+          "id": "destiny-destruction-stone",
+          "name": "운명의 파괴석",
+          "unit": "개"
+        },
+        {
+          "id": "destiny-guardian-stone",
+          "name": "운명의 수호석",
+          "unit": "개"
+        }
+      ]
+    },
+    "leapstone-box": {
+      "id": "leapstone-box",
+      "name": "돌파석 상자",
+      "contents": [
+        {
+          "id": "destiny-leapstone",
+          "name": "운명의 돌파석",
+          "unit": "개"
+        }
+      ]
+    },
+    "celestial-ticket-box": {
+      "id": "celestial-ticket-box",
+      "name": "천상 도전권 상자",
+      "image": "/images/rewards/use_13_57.png",
+      "grade": "일반",
+      "contents": [
+        {
+          "id": "celestial-ticket",
+          "name": "천상 도전권",
+          "unit": "개",
+          "image": "/images/rewards/use_13_57.png",
+          "grade": "일반",
+          "fixedGoldValuePerItem": 3000,
+          "marketLookup": false
+        }
+      ]
+    },
+    "random-gem-box": {
+      "id": "random-gem-box",
+      "name": "젬 랜덤 상자",
+      "contents": [
+        {
+          "id": "random-gem",
+          "name": "랜덤 젬",
+          "unit": "개",
+          "marketLookup": false
+        }
+      ]
+    },
+    "destiny-destruction-stone-crystal": {
+      "id": "destiny-destruction-stone-crystal",
+      "name": "운명의 파괴석 결정",
+      "unit": "개"
+    },
+    "destiny-guardian-stone-crystal": {
+      "id": "destiny-guardian-stone-crystal",
+      "name": "운명의 수호석 결정",
+      "unit": "개"
+    },
+    "great-destiny-leapstone": {
+      "id": "great-destiny-leapstone",
+      "name": "위대한 운명의 돌파석",
+      "unit": "개"
+    },
+    "fusion-material-box--advanced-abidos-fusion-material": {
+      "id": "fusion-material-box",
+      "name": "융화 재료 상자",
+      "contents": [
+        {
+          "id": "advanced-abidos-fusion-material",
+          "name": "상급 아비도스 융화 재료",
+          "unit": "개"
+        }
+      ]
+    },
+    "special-honing-box--special-honing-transfer-leapstone": {
+      "id": "special-honing-box",
+      "name": "특수 재련 상자",
+      "contents": [
+        {
+          "id": "special-honing-transfer-leapstone",
+          "name": "특수 재련 : 전이 돌파석",
+          "description": "유물 장비 재련 재료",
+          "grade": "유물",
+          "unit": "개",
+          "image": "/images/rewards/use_13_253.png",
+          "marketLookup": false
+        }
+      ]
+    },
+    "destruction-guardian-choice-box--destiny-destruction-stone-crystal+destiny-guardian-stone-crystal": {
+      "id": "destruction-guardian-choice-box",
+      "name": "파괴석/수호석 선택 상자",
+      "selectionMode": "one",
+      "selectionOptions": [
+        {
+          "id": "destruction",
+          "name": "파괴석",
+          "contentIds": [
+            "destiny-destruction-stone-crystal"
+          ]
+        },
+        {
+          "id": "guardian",
+          "name": "수호석",
+          "contentIds": [
+            "destiny-guardian-stone-crystal"
+          ]
+        }
+      ],
+      "contents": [
+        {
+          "id": "destiny-destruction-stone-crystal",
+          "name": "운명의 파괴석 결정",
+          "unit": "개"
+        },
+        {
+          "id": "destiny-guardian-stone-crystal",
+          "name": "운명의 수호석 결정",
+          "unit": "개"
+        }
+      ]
+    },
+    "leapstone-box--great-destiny-leapstone": {
+      "id": "leapstone-box",
+      "name": "돌파석 상자",
+      "contents": [
+        {
+          "id": "great-destiny-leapstone",
+          "name": "위대한 운명의 돌파석",
+          "unit": "개"
+        }
+      ]
+    },
+    "gem-selection-box": {
+      "id": "gem-selection-box",
+      "name": "젬 선택 상자",
+      "image": "/images/rewards/shop_icon_9963.png",
+      "grade": "영웅",
+      "selectionMode": "one",
+      "contents": [
+        { "id": "rare-order-solid", "quantitySourceId": "rare-gem", "name": "질서의 젬 : 견고", "marketName": "질서의 젬 : 견고|희귀", "unit": "개", "grade": "희귀" },
+        { "id": "rare-order-immutable", "quantitySourceId": "rare-gem", "name": "질서의 젬 : 불변", "marketName": "질서의 젬 : 불변|희귀", "unit": "개", "grade": "희귀" },
+        { "id": "rare-order-stable", "quantitySourceId": "rare-gem", "name": "질서의 젬 : 안정", "marketName": "질서의 젬 : 안정|희귀", "unit": "개", "grade": "희귀" },
+        { "id": "rare-chaos-collapse", "quantitySourceId": "rare-gem", "name": "혼돈의 젬 : 붕괴", "marketName": "혼돈의 젬 : 붕괴|희귀", "unit": "개", "grade": "희귀" },
+        { "id": "rare-chaos-distortion", "quantitySourceId": "rare-gem", "name": "혼돈의 젬 : 왜곡", "marketName": "혼돈의 젬 : 왜곡|희귀", "unit": "개", "grade": "희귀" },
+        { "id": "rare-chaos-erosion", "quantitySourceId": "rare-gem", "name": "혼돈의 젬 : 침식", "marketName": "혼돈의 젬 : 침식|희귀", "unit": "개", "grade": "희귀" }
+      ],
+      "selectionOptions": [
+        { "id": "rare-order-solid", "name": "견고", "contentIds": ["rare-order-solid"] },
+        { "id": "rare-order-immutable", "name": "불변", "contentIds": ["rare-order-immutable"] },
+        { "id": "rare-order-stable", "name": "안정", "contentIds": ["rare-order-stable"] },
+        { "id": "rare-chaos-collapse", "name": "붕괴", "contentIds": ["rare-chaos-collapse"] },
+        { "id": "rare-chaos-distortion", "name": "왜곡", "contentIds": ["rare-chaos-distortion"] },
+        { "id": "rare-chaos-erosion", "name": "침식", "contentIds": ["rare-chaos-erosion"] }
+      ]
+    },
+    "gem-selection-box--epic-gem": {
+      "id": "gem-selection-box",
+      "name": "젬 선택 상자",
+      "image": "/images/rewards/shop_icon_9963.png",
+      "grade": "영웅",
+      "selectionMode": "one",
+      "contents": [
+        { "id": "epic-order-solid", "quantitySourceId": "epic-gem", "name": "질서의 젬 : 견고", "marketName": "질서의 젬 : 견고|영웅", "unit": "개", "grade": "영웅" },
+        { "id": "epic-order-immutable", "quantitySourceId": "epic-gem", "name": "질서의 젬 : 불변", "marketName": "질서의 젬 : 불변|영웅", "unit": "개", "grade": "영웅" },
+        { "id": "epic-order-stable", "quantitySourceId": "epic-gem", "name": "질서의 젬 : 안정", "marketName": "질서의 젬 : 안정|영웅", "unit": "개", "grade": "영웅" },
+        { "id": "epic-chaos-collapse", "quantitySourceId": "epic-gem", "name": "혼돈의 젬 : 붕괴", "marketName": "혼돈의 젬 : 붕괴|영웅", "unit": "개", "grade": "영웅" },
+        { "id": "epic-chaos-distortion", "quantitySourceId": "epic-gem", "name": "혼돈의 젬 : 왜곡", "marketName": "혼돈의 젬 : 왜곡|영웅", "unit": "개", "grade": "영웅" },
+        { "id": "epic-chaos-erosion", "quantitySourceId": "epic-gem", "name": "혼돈의 젬 : 침식", "marketName": "혼돈의 젬 : 침식|영웅", "unit": "개", "grade": "영웅" }
+      ],
+      "selectionOptions": [
+        { "id": "epic-order-solid", "name": "견고", "contentIds": ["epic-order-solid"] },
+        { "id": "epic-order-immutable", "name": "불변", "contentIds": ["epic-order-immutable"] },
+        { "id": "epic-order-stable", "name": "안정", "contentIds": ["epic-order-stable"] },
+        { "id": "epic-chaos-collapse", "name": "붕괴", "contentIds": ["epic-chaos-collapse"] },
+        { "id": "epic-chaos-distortion", "name": "왜곡", "contentIds": ["epic-chaos-distortion"] },
+        { "id": "epic-chaos-erosion", "name": "침식", "contentIds": ["epic-chaos-erosion"] }
+      ]
+    },
+    "bound-gem-box": {
+      "id": "bound-gem-box",
+      "name": "귀속 보석 상자",
+      "contents": [
+        {
+          "id": "bound-gem",
+          "name": "귀속 보석",
+          "unit": "개",
+          "marketLookup": false
+        }
+      ]
+    },
+    "yearning-legendary-card-pack": {
+      "id": "yearning-legendary-card-pack",
+      "name": "열망의 전설 카드팩",
+      "contents": [
+        {
+          "id": "yearning-legendary-card-pack",
+          "name": "열망의 전설 카드팩",
+          "unit": "개",
+          "marketLookup": false
+        }
+      ]
+    },
+    "bound-engraving-random-box": {
+      "id": "bound-engraving-random-box",
+      "name": "귀속 각인서 랜덤 상자",
+      "contents": [
+        {
+          "id": "bound-engraving-book",
+          "name": "귀속 각인서",
+          "unit": "개",
+          "marketLookup": false
+        }
+      ]
+    }
+  },
+  "keyTypes": {
+    "hell": {
+      "name": "지옥",
+      "levels": {
+        "1640": {
+          "basicRewards": [
+            {
+              "rewardId": "destiny-shard",
+              "definitionId": "destiny-shard",
+              "quantities": [
+                3250,
+                4000,
+                5000,
+                5750,
+                6500,
+                7500,
+                8000,
+                9000,
+                9750,
+                10500,
+                11250
+              ]
+            },
+            {
+              "rewardId": "destiny-destruction-stone",
+              "definitionId": "destiny-destruction-stone",
+              "quantities": [
+                55,
+                70,
+                90,
+                100,
+                110,
+                125,
+                140,
+                155,
+                165,
+                180,
+                195
+              ]
+            },
+            {
+              "rewardId": "destiny-guardian-stone",
+              "definitionId": "destiny-guardian-stone",
+              "quantities": [
+                375,
+                500,
+                600,
+                700,
+                800,
+                900,
+                975,
+                1075,
+                1175,
+                1275,
+                1375
+              ]
+            },
+            {
+              "rewardId": "destiny-leapstone",
+              "definitionId": "destiny-leapstone",
+              "quantities": [
+                5,
+                8,
+                10,
+                12,
+                15,
+                17,
+                20,
+                22,
+                25,
+                27,
+                30
+              ]
+            }
+          ],
+          "choiceRewards": [
+            {
+              "rewardId": "destiny-chaos-stone-box",
+              "definitionId": "destiny-chaos-stone-box",
+              "contentQuantities": {
+                "refined-stone-of-destiny": [
+                  2,
+                  3,
+                  4,
+                  6,
+                  8,
+                  10,
+                  15,
+                  22,
+                  30,
+                  45,
+                  80
+                ],
+                "refined-stone-of-chaos-weapon": [
+                  7,
+                  10,
+                  15,
+                  20,
+                  27,
+                  36,
+                  54,
+                  72,
+                  100,
+                  144,
+                  250
+                ],
+                "refined-stone-of-chaos-armor": [
+                  7,
+                  10,
+                  15,
+                  20,
+                  27,
+                  36,
+                  54,
+                  72,
+                  100,
+                  144,
+                  250
+                ]
+              }
+            },
+            {
+              "rewardId": "ability-stone-kit-box",
+              "definitionId": "ability-stone-kit-box",
+              "contentQuantities": {
+                "soaring-stone-engraving-selection-kit": [
+                  4,
+                  6,
+                  8,
+                  10,
+                  15,
+                  20,
+                  30,
+                  40,
+                  60,
+                  80,
+                  120
+                ]
+              }
+            },
+            {
+              "rewardId": "relic-bracelet-box",
+              "definitionId": "relic-bracelet-box",
+              "contentQuantities": {
+                "relic-bracelet": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  7,
+                  12,
+                  15,
+                  20,
+                  30,
+                  50
+                ]
+              }
+            },
+            {
+              "rewardId": "honing-support-box",
+              "definitionId": "honing-support-box",
+              "contentQuantities": {
+                "lava-breath": [
+                  6,
+                  9,
+                  12,
+                  15,
+                  22,
+                  30,
+                  45,
+                  58,
+                  80,
+                  120,
+                  190
+                ],
+                "glacier-breath": [
+                  18,
+                  27,
+                  36,
+                  45,
+                  66,
+                  90,
+                  135,
+                  174,
+                  240,
+                  360,
+                  570
+                ]
+              }
+            },
+            {
+              "rewardId": "fusion-material-box",
+              "definitionId": "fusion-material-box",
+              "contentQuantities": {
+                "abidos-fusion-material": [
+                  40,
+                  60,
+                  90,
+                  120,
+                  150,
+                  200,
+                  300,
+                  400,
+                  600,
+                  800,
+                  1400
+                ]
+              }
+            },
+            {
+              "rewardId": "bound-gold-box",
+              "definitionId": "bound-gold-box",
+              "contentQuantities": {
+                "bound-gold": [
+                  3200,
+                  4800,
+                  6400,
+                  8000,
+                  12000,
+                  16000,
+                  24000,
+                  32000,
+                  44000,
+                  64000,
+                  96000
+                ]
+              },
+              "fixedGoldValues": [
+                3200,
+                4800,
+                6400,
+                8000,
+                12000,
+                16000,
+                24000,
+                32000,
+                44000,
+                64000,
+                96000
+              ]
+            },
+            {
+              "rewardId": "special-honing-box",
+              "definitionId": "special-honing-box",
+              "contentQuantities": {
+                "special-honing-circulation-leapstone": [
+                  40,
+                  70,
+                  100,
+                  130,
+                  180,
+                  240,
+                  360,
+                  480,
+                  650,
+                  960,
+                  1600
+                ]
+              }
+            },
+            {
+              "rewardId": "destruction-guardian-choice-box",
+              "definitionId": "destruction-guardian-choice-box",
+              "contentQuantities": {
+                "destiny-destruction-stone": [
+                  1000,
+                  1500,
+                  2000,
+                  2500,
+                  3500,
+                  5000,
+                  7500,
+                  10000,
+                  15000,
+                  20000,
+                  35000
+                ],
+                "destiny-guardian-stone": [
+                  3000,
+                  4500,
+                  6000,
+                  7500,
+                  10500,
+                  15000,
+                  22500,
+                  30000,
+                  45000,
+                  60000,
+                  105000
+                ]
+              }
+            },
+            {
+              "rewardId": "leapstone-box",
+              "definitionId": "leapstone-box",
+              "contentQuantities": {
+                "destiny-leapstone": [
+                  45,
+                  70,
+                  90,
+                  120,
+                  180,
+                  240,
+                  350,
+                  480,
+                  650,
+                  950,
+                  1600
+                ]
+              }
+            },
+            {
+              "rewardId": "celestial-ticket-box",
+              "definitionId": "celestial-ticket-box",
+              "contentQuantities": {
+                "celestial-ticket": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  2,
+                  4,
+                  7,
+                  10,
+                  15,
+                  20
+                ]
+              }
+            }
+          ]
+        },
+        "1700": {
+          "basicRewards": [
+            {
+              "rewardId": "destiny-shard",
+              "definitionId": "destiny-shard",
+              "quantities": [
+                4500,
+                5500,
+                6500,
+                7500,
+                8750,
+                10000,
+                11000,
+                12000,
+                13000,
+                14000,
+                15000
+              ]
+            },
+            {
+              "rewardId": "destiny-destruction-stone",
+              "definitionId": "destiny-destruction-stone",
+              "quantities": [
+                100,
+                120,
+                145,
+                170,
+                190,
+                215,
+                235,
+                260,
+                280,
+                300,
+                350
+              ]
+            },
+            {
+              "rewardId": "destiny-guardian-stone",
+              "definitionId": "destiny-guardian-stone",
+              "quantities": [
+                625,
+                800,
+                950,
+                1125,
+                1300,
+                1450,
+                1600,
+                1750,
+                1900,
+                2100,
+                2250
+              ]
+            },
+            {
+              "rewardId": "destiny-leapstone",
+              "definitionId": "destiny-leapstone",
+              "quantities": [
+                13,
+                15,
+                17,
+                20,
+                22,
+                25,
+                27,
+                30,
+                32,
+                35,
+                40
+              ]
+            }
+          ],
+          "choiceRewards": [
+            {
+              "rewardId": "destiny-chaos-stone-box",
+              "definitionId": "destiny-chaos-stone-box",
+              "contentQuantities": {
+                "refined-stone-of-destiny": [
+                  6,
+                  9,
+                  12,
+                  15,
+                  20,
+                  30,
+                  45,
+                  60,
+                  80,
+                  120,
+                  200
+                ],
+                "refined-stone-of-chaos-weapon": [
+                  7,
+                  10,
+                  15,
+                  20,
+                  27,
+                  36,
+                  54,
+                  72,
+                  100,
+                  144,
+                  250
+                ],
+                "refined-stone-of-chaos-armor": [
+                  7,
+                  10,
+                  15,
+                  20,
+                  27,
+                  36,
+                  54,
+                  72,
+                  100,
+                  144,
+                  250
+                ]
+              }
+            },
+            {
+              "rewardId": "ability-stone-kit-box",
+              "definitionId": "ability-stone-kit-box",
+              "contentQuantities": {
+                "soaring-stone-engraving-selection-kit": [
+                  6,
+                  8,
+                  10,
+                  12,
+                  18,
+                  24,
+                  36,
+                  48,
+                  60,
+                  90,
+                  150
+                ]
+              }
+            },
+            {
+              "rewardId": "bracelet-box",
+              "definitionId": "bracelet-box",
+              "contentQuantities": {
+                "bracelet": [
+                  2,
+                  3,
+                  5,
+                  7,
+                  9,
+                  12,
+                  18,
+                  25,
+                  35,
+                  50,
+                  80
+                ]
+              }
+            },
+            {
+              "rewardId": "honing-support-box",
+              "definitionId": "honing-support-box",
+              "contentQuantities": {
+                "lava-breath": [
+                  8,
+                  12,
+                  15,
+                  20,
+                  30,
+                  40,
+                  60,
+                  75,
+                  105,
+                  155,
+                  256
+                ],
+                "glacier-breath": [
+                  24,
+                  36,
+                  45,
+                  60,
+                  90,
+                  120,
+                  180,
+                  225,
+                  315,
+                  465,
+                  768
+                ]
+              }
+            },
+            {
+              "rewardId": "fusion-material-box",
+              "definitionId": "fusion-material-box",
+              "contentQuantities": {
+                "abidos-fusion-material": [
+                  60,
+                  90,
+                  125,
+                  150,
+                  225,
+                  300,
+                  450,
+                  600,
+                  850,
+                  1200,
+                  2000
+                ]
+              }
+            },
+            {
+              "rewardId": "bound-gold-box",
+              "definitionId": "bound-gold-box",
+              "contentQuantities": {
+                "bound-gold": [
+                  3500,
+                  5500,
+                  7500,
+                  9000,
+                  13500,
+                  18000,
+                  27000,
+                  36000,
+                  50000,
+                  72000,
+                  108000
+                ]
+              },
+              "fixedGoldValues": [
+                3500,
+                5500,
+                7500,
+                9000,
+                13500,
+                18000,
+                27000,
+                36000,
+                50000,
+                72000,
+                108000
+              ]
+            },
+            {
+              "rewardId": "special-honing-box",
+              "definitionId": "special-honing-box",
+              "contentQuantities": {
+                "special-honing-circulation-leapstone": [
+                  60,
+                  90,
+                  130,
+                  160,
+                  200,
+                  320,
+                  450,
+                  650,
+                  850,
+                  1250,
+                  2100
+                ]
+              }
+            },
+            {
+              "rewardId": "destruction-guardian-choice-box",
+              "definitionId": "destruction-guardian-choice-box",
+              "contentQuantities": {
+                "destiny-destruction-stone": [
+                  1800,
+                  2500,
+                  3500,
+                  4200,
+                  6400,
+                  8500,
+                  12000,
+                  18000,
+                  24000,
+                  35000,
+                  56000
+                ],
+                "destiny-guardian-stone": [
+                  5400,
+                  7500,
+                  10500,
+                  12600,
+                  19200,
+                  25500,
+                  36000,
+                  54000,
+                  72000,
+                  105000,
+                  168000
+                ]
+              }
+            },
+            {
+              "rewardId": "leapstone-box",
+              "definitionId": "leapstone-box",
+              "contentQuantities": {
+                "destiny-leapstone": [
+                  70,
+                  100,
+                  140,
+                  180,
+                  270,
+                  360,
+                  540,
+                  700,
+                  950,
+                  1500,
+                  2400
+                ]
+              }
+            },
+            {
+              "rewardId": "celestial-ticket-box",
+              "definitionId": "celestial-ticket-box",
+              "contentQuantities": {
+                "celestial-ticket": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  2,
+                  4,
+                  7,
+                  10,
+                  15,
+                  20
+                ]
+              }
+            },
+            {
+              "rewardId": "random-gem-box",
+              "definitionId": "random-gem-box",
+              "contentQuantities": {
+                "random-gem": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11
+                ]
+              }
+            }
+          ]
+        },
+        "1730": {
+          "basicRewards": [
+            {
+              "rewardId": "destiny-shard",
+              "definitionId": "destiny-shard",
+              "quantities": [
+                5200,
+                6500,
+                7700,
+                9000,
+                10000,
+                11500,
+                13000,
+                14000,
+                15500,
+                17000,
+                18000
+              ]
+            },
+            {
+              "rewardId": "destiny-destruction-stone-crystal",
+              "definitionId": "destiny-destruction-stone-crystal",
+              "quantities": [
+                26,
+                32,
+                38,
+                44,
+                52,
+                60,
+                70,
+                80,
+                90,
+                100,
+                110
+              ]
+            },
+            {
+              "rewardId": "destiny-guardian-stone-crystal",
+              "definitionId": "destiny-guardian-stone-crystal",
+              "quantities": [
+                170,
+                200,
+                230,
+                280,
+                330,
+                380,
+                440,
+                500,
+                560,
+                620,
+                680
+              ]
+            },
+            {
+              "rewardId": "great-destiny-leapstone",
+              "definitionId": "great-destiny-leapstone",
+              "quantities": [
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                15
+              ]
+            }
+          ],
+          "choiceRewards": [
+            {
+              "rewardId": "destiny-chaos-stone-box",
+              "definitionId": "destiny-chaos-stone-box",
+              "contentQuantities": {
+                "refined-stone-of-destiny": [
+                  7,
+                  12,
+                  15,
+                  18,
+                  27,
+                  36,
+                  54,
+                  72,
+                  100,
+                  150,
+                  240
+                ],
+                "refined-stone-of-chaos-weapon": [
+                  7,
+                  10,
+                  15,
+                  20,
+                  27,
+                  36,
+                  54,
+                  72,
+                  100,
+                  144,
+                  250
+                ],
+                "refined-stone-of-chaos-armor": [
+                  7,
+                  10,
+                  15,
+                  20,
+                  27,
+                  36,
+                  54,
+                  72,
+                  100,
+                  144,
+                  250
+                ]
+              }
+            },
+            {
+              "rewardId": "ability-stone-kit-box",
+              "definitionId": "ability-stone-kit-box",
+              "contentQuantities": {
+                "soaring-stone-engraving-selection-kit": [
+                  8,
+                  10,
+                  15,
+                  20,
+                  25,
+                  30,
+                  45,
+                  60,
+                  80,
+                  120,
+                  200
+                ]
+              }
+            },
+            {
+              "rewardId": "bracelet-box",
+              "definitionId": "bracelet-box",
+              "contentQuantities": {
+                "bracelet": [
+                  3,
+                  5,
+                  7,
+                  10,
+                  15,
+                  20,
+                  25,
+                  35,
+                  50,
+                  70,
+                  120
+                ]
+              }
+            },
+            {
+              "rewardId": "honing-support-box",
+              "definitionId": "honing-support-box",
+              "contentQuantities": {
+                "lava-breath": [
+                  10,
+                  15,
+                  20,
+                  25,
+                  36,
+                  48,
+                  72,
+                  96,
+                  132,
+                  192,
+                  320
+                ],
+                "glacier-breath": [
+                  30,
+                  45,
+                  60,
+                  75,
+                  108,
+                  144,
+                  216,
+                  288,
+                  396,
+                  576,
+                  960
+                ]
+              }
+            },
+            {
+              "rewardId": "fusion-material-box",
+              "definitionId": "fusion-material-box--advanced-abidos-fusion-material",
+              "contentQuantities": {
+                "advanced-abidos-fusion-material": [
+                  60,
+                  90,
+                  125,
+                  150,
+                  225,
+                  300,
+                  450,
+                  600,
+                  850,
+                  1200,
+                  2000
+                ]
+              }
+            },
+            {
+              "rewardId": "bound-gold-box",
+              "definitionId": "bound-gold-box",
+              "contentQuantities": {
+                "bound-gold": [
+                  4500,
+                  7200,
+                  9500,
+                  12000,
+                  16000,
+                  22000,
+                  32000,
+                  45000,
+                  65000,
+                  95000,
+                  130000
+                ]
+              },
+              "fixedGoldValues": [
+                4500,
+                7200,
+                9500,
+                12000,
+                16000,
+                22000,
+                32000,
+                45000,
+                65000,
+                95000,
+                130000
+              ]
+            },
+            {
+              "rewardId": "special-honing-box",
+              "definitionId": "special-honing-box--special-honing-transfer-leapstone",
+              "contentQuantities": {
+                "special-honing-transfer-leapstone": [
+                  24,
+                  40,
+                  56,
+                  70,
+                  96,
+                  130,
+                  180,
+                  260,
+                  360,
+                  500,
+                  850
+                ]
+              }
+            },
+            {
+              "rewardId": "destruction-guardian-choice-box",
+              "definitionId": "destruction-guardian-choice-box--destiny-destruction-stone-crystal+destiny-guardian-stone-crystal",
+              "contentQuantities": {
+                "destiny-destruction-stone-crystal": [
+                  500,
+                  600,
+                  900,
+                  1200,
+                  1600,
+                  2200,
+                  3000,
+                  4500,
+                  6500,
+                  9000,
+                  15000
+                ],
+                "destiny-guardian-stone-crystal": [
+                  1500,
+                  1800,
+                  2700,
+                  3600,
+                  4800,
+                  6600,
+                  9000,
+                  13500,
+                  19500,
+                  27000,
+                  45000
+                ]
+              }
+            },
+            {
+              "rewardId": "leapstone-box",
+              "definitionId": "leapstone-box--great-destiny-leapstone",
+              "contentQuantities": {
+                "great-destiny-leapstone": [
+                  25,
+                  36,
+                  48,
+                  64,
+                  90,
+                  130,
+                  190,
+                  250,
+                  350,
+                  500,
+                  850
+                ]
+              }
+            },
+            {
+              "rewardId": "celestial-ticket-box",
+              "definitionId": "celestial-ticket-box",
+              "contentQuantities": {
+                "celestial-ticket": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  2,
+                  4,
+                  7,
+                  10,
+                  15,
+                  20
+                ]
+              }
+            },
+            {
+              "rewardId": "gem-selection-box",
+              "stageEntries": [
+                {
+                  "definitionId": "gem-selection-box",
+                  "contentQuantities": {
+                    "rare-gem": 2
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box",
+                  "contentQuantities": {
+                    "rare-gem": 5
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box",
+                  "contentQuantities": {
+                    "rare-gem": 7
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box",
+                  "contentQuantities": {
+                    "rare-gem": 10
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box",
+                  "contentQuantities": {
+                    "rare-gem": 15
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box--epic-gem",
+                  "contentQuantities": {
+                    "epic-gem": 1
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box--epic-gem",
+                  "contentQuantities": {
+                    "epic-gem": 2
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box--epic-gem",
+                  "contentQuantities": {
+                    "epic-gem": 3
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box--epic-gem",
+                  "contentQuantities": {
+                    "epic-gem": 4
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box--epic-gem",
+                  "contentQuantities": {
+                    "epic-gem": 5
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box--epic-gem",
+                  "contentQuantities": {
+                    "epic-gem": 6
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "1750": {
+          "basicRewards": [
+            {
+              "rewardId": "destiny-shard",
+              "definitionId": "destiny-shard",
+              "quantities": [
+                5200,
+                6500,
+                7700,
+                9000,
+                10000,
+                11500,
+                13000,
+                14000,
+                15500,
+                17000,
+                18000
+              ]
+            },
+            {
+              "rewardId": "destiny-destruction-stone-crystal",
+              "definitionId": "destiny-destruction-stone-crystal",
+              "quantities": [
+                26,
+                32,
+                38,
+                44,
+                52,
+                60,
+                70,
+                80,
+                90,
+                100,
+                110
+              ]
+            },
+            {
+              "rewardId": "destiny-guardian-stone-crystal",
+              "definitionId": "destiny-guardian-stone-crystal",
+              "quantities": [
+                170,
+                200,
+                230,
+                280,
+                330,
+                380,
+                440,
+                500,
+                560,
+                620,
+                680
+              ]
+            },
+            {
+              "rewardId": "great-destiny-leapstone",
+              "definitionId": "great-destiny-leapstone",
+              "quantities": [
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                15
+              ]
+            }
+          ],
+          "choiceRewards": [
+            {
+              "rewardId": "destiny-chaos-stone-box",
+              "definitionId": "destiny-chaos-stone-box",
+              "contentQuantities": {
+                "refined-stone-of-destiny": [
+                  9,
+                  13,
+                  18,
+                  24,
+                  33,
+                  45,
+                  72,
+                  90,
+                  120,
+                  180,
+                  300
+                ],
+                "refined-stone-of-chaos-weapon": [
+                  7,
+                  10,
+                  15,
+                  20,
+                  27,
+                  36,
+                  54,
+                  72,
+                  100,
+                  144,
+                  250
+                ],
+                "refined-stone-of-chaos-armor": [
+                  7,
+                  10,
+                  15,
+                  20,
+                  27,
+                  36,
+                  54,
+                  72,
+                  100,
+                  144,
+                  250
+                ]
+              }
+            },
+            {
+              "rewardId": "ability-stone-kit-box",
+              "definitionId": "ability-stone-kit-box",
+              "contentQuantities": {
+                "soaring-stone-engraving-selection-kit": [
+                  45,
+                  60,
+                  90,
+                  125,
+                  165,
+                  225,
+                  300,
+                  400,
+                  550,
+                  750,
+                  1100
+                ]
+              }
+            },
+            {
+              "rewardId": "bracelet-box",
+              "definitionId": "bracelet-box",
+              "contentQuantities": {
+                "bracelet": [
+                  4,
+                  6,
+                  8,
+                  12,
+                  18,
+                  24,
+                  30,
+                  42,
+                  60,
+                  90,
+                  150
+                ]
+              }
+            },
+            {
+              "rewardId": "honing-support-box",
+              "definitionId": "honing-support-box",
+              "contentQuantities": {
+                "lava-breath": [
+                  12,
+                  18,
+                  24,
+                  30,
+                  40,
+                  60,
+                  90,
+                  130,
+                  180,
+                  260,
+                  380
+                ],
+                "glacier-breath": [
+                  36,
+                  54,
+                  72,
+                  90,
+                  120,
+                  180,
+                  270,
+                  390,
+                  540,
+                  780,
+                  1140
+                ]
+              }
+            },
+            {
+              "rewardId": "fusion-material-box",
+              "definitionId": "fusion-material-box--advanced-abidos-fusion-material",
+              "contentQuantities": {
+                "advanced-abidos-fusion-material": [
+                  75,
+                  110,
+                  150,
+                  200,
+                  270,
+                  360,
+                  540,
+                  720,
+                  1000,
+                  1440,
+                  2400
+                ]
+              }
+            },
+            {
+              "rewardId": "bound-gold-box",
+              "definitionId": "bound-gold-box",
+              "contentQuantities": {
+                "bound-gold": [
+                  5500,
+                  8200,
+                  11000,
+                  14400,
+                  19200,
+                  26400,
+                  38400,
+                  54000,
+                  78000,
+                  114000,
+                  156000
+                ]
+              },
+              "fixedGoldValues": [
+                5500,
+                8200,
+                11000,
+                14400,
+                19200,
+                26400,
+                38400,
+                54000,
+                78000,
+                114000,
+                156000
+              ]
+            },
+            {
+              "rewardId": "special-honing-box",
+              "definitionId": "special-honing-box--special-honing-transfer-leapstone",
+              "contentQuantities": {
+                "special-honing-transfer-leapstone": [
+                  28,
+                  45,
+                  62,
+                  84,
+                  115,
+                  155,
+                  220,
+                  310,
+                  430,
+                  600,
+                  1000
+                ]
+              }
+            },
+            {
+              "rewardId": "destruction-guardian-choice-box",
+              "definitionId": "destruction-guardian-choice-box--destiny-destruction-stone-crystal+destiny-guardian-stone-crystal",
+              "contentQuantities": {
+                "destiny-destruction-stone-crystal": [
+                  600,
+                  750,
+                  1100,
+                  1500,
+                  2000,
+                  2700,
+                  3600,
+                  5400,
+                  7800,
+                  10800,
+                  18000
+                ],
+                "destiny-guardian-stone-crystal": [
+                  1800,
+                  2250,
+                  3300,
+                  4500,
+                  6000,
+                  8100,
+                  10800,
+                  16200,
+                  23400,
+                  32400,
+                  54000
+                ]
+              }
+            },
+            {
+              "rewardId": "leapstone-box",
+              "definitionId": "leapstone-box--great-destiny-leapstone",
+              "contentQuantities": {
+                "great-destiny-leapstone": [
+                  30,
+                  42,
+                  56,
+                  76,
+                  108,
+                  160,
+                  230,
+                  320,
+                  450,
+                  650,
+                  1000
+                ]
+              }
+            },
+            {
+              "rewardId": "celestial-ticket-box",
+              "definitionId": "celestial-ticket-box",
+              "contentQuantities": {
+                "celestial-ticket": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  2,
+                  4,
+                  7,
+                  10,
+                  15,
+                  20
+                ]
+              }
+            },
+            {
+              "rewardId": "gem-selection-box",
+              "stageEntries": [
+                {
+                  "definitionId": "gem-selection-box",
+                  "contentQuantities": {
+                    "rare-gem": 15
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box",
+                  "contentQuantities": {
+                    "rare-gem": 30
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box",
+                  "contentQuantities": {
+                    "rare-gem": 40
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box",
+                  "contentQuantities": {
+                    "rare-gem": 60
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box--epic-gem",
+                  "contentQuantities": {
+                    "epic-gem": 5
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box--epic-gem",
+                  "contentQuantities": {
+                    "epic-gem": 10
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box--epic-gem",
+                  "contentQuantities": {
+                    "epic-gem": 15
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box--epic-gem",
+                  "contentQuantities": {
+                    "epic-gem": 20
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box--epic-gem",
+                  "contentQuantities": {
+                    "epic-gem": 25
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box--epic-gem",
+                  "contentQuantities": {
+                    "epic-gem": 30
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box--epic-gem",
+                  "contentQuantities": {
+                    "epic-gem": 35
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "abyss": {
+      "name": "나락",
+      "levels": {
+        "1640": {
+          "choiceRewards": [
+            {
+              "rewardId": "destiny-chaos-stone-box",
+              "definitionId": "destiny-chaos-stone-box",
+              "contentQuantities": {
+                "refined-stone-of-destiny": [
+                  10,
+                  15,
+                  20,
+                  30,
+                  40,
+                  50,
+                  75,
+                  110,
+                  150,
+                  225,
+                  400
+                ],
+                "refined-stone-of-chaos-weapon": [
+                  35,
+                  50,
+                  75,
+                  100,
+                  135,
+                  180,
+                  270,
+                  360,
+                  500,
+                  720,
+                  1250
+                ],
+                "refined-stone-of-chaos-armor": [
+                  35,
+                  50,
+                  75,
+                  100,
+                  135,
+                  180,
+                  270,
+                  360,
+                  500,
+                  720,
+                  1250
+                ]
+              }
+            },
+            {
+              "rewardId": "ability-stone-kit-box",
+              "definitionId": "ability-stone-kit-box",
+              "contentQuantities": {
+                "soaring-stone-engraving-selection-kit": [
+                  20,
+                  30,
+                  40,
+                  50,
+                  75,
+                  100,
+                  150,
+                  200,
+                  300,
+                  400,
+                  600
+                ]
+              }
+            },
+            {
+              "rewardId": "relic-bracelet-box",
+              "definitionId": "relic-bracelet-box",
+              "contentQuantities": {
+                "relic-bracelet": [
+                  5,
+                  10,
+                  15,
+                  20,
+                  25,
+                  35,
+                  60,
+                  75,
+                  100,
+                  150,
+                  250
+                ]
+              }
+            },
+            {
+              "rewardId": "honing-support-box",
+              "definitionId": "honing-support-box",
+              "contentQuantities": {
+                "lava-breath": [
+                  30,
+                  45,
+                  60,
+                  75,
+                  110,
+                  150,
+                  225,
+                  290,
+                  400,
+                  600,
+                  950
+                ],
+                "glacier-breath": [
+                  90,
+                  135,
+                  180,
+                  225,
+                  330,
+                  450,
+                  675,
+                  870,
+                  1200,
+                  1800,
+                  2850
+                ]
+              }
+            },
+            {
+              "rewardId": "bound-gold-box",
+              "definitionId": "bound-gold-box",
+              "contentQuantities": {
+                "bound-gold": [
+                  16000,
+                  24000,
+                  32000,
+                  40000,
+                  60000,
+                  80000,
+                  120000,
+                  160000,
+                  220000,
+                  320000,
+                  480000
+                ]
+              },
+              "fixedGoldValues": [
+                16000,
+                24000,
+                32000,
+                40000,
+                60000,
+                80000,
+                120000,
+                160000,
+                220000,
+                320000,
+                480000
+              ]
+            },
+            {
+              "rewardId": "bound-gem-box",
+              "definitionId": "bound-gem-box",
+              "contentQuantities": {
+                "bound-gem": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  2,
+                  3
+                ]
+              }
+            },
+            {
+              "rewardId": "yearning-legendary-card-pack",
+              "definitionId": "yearning-legendary-card-pack",
+              "contentQuantities": {
+                "yearning-legendary-card-pack": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              }
+            }
+          ]
+        },
+        "1700": {
+          "choiceRewards": [
+            {
+              "rewardId": "destiny-chaos-stone-box",
+              "definitionId": "destiny-chaos-stone-box",
+              "contentQuantities": {
+                "refined-stone-of-destiny": [
+                  30,
+                  45,
+                  60,
+                  75,
+                  100,
+                  150,
+                  225,
+                  300,
+                  400,
+                  600,
+                  1000
+                ],
+                "refined-stone-of-chaos-weapon": [
+                  35,
+                  50,
+                  75,
+                  100,
+                  135,
+                  180,
+                  270,
+                  360,
+                  500,
+                  720,
+                  1250
+                ],
+                "refined-stone-of-chaos-armor": [
+                  35,
+                  50,
+                  75,
+                  100,
+                  135,
+                  180,
+                  270,
+                  360,
+                  500,
+                  720,
+                  1250
+                ]
+              }
+            },
+            {
+              "rewardId": "ability-stone-kit-box",
+              "definitionId": "ability-stone-kit-box",
+              "contentQuantities": {
+                "soaring-stone-engraving-selection-kit": [
+                  30,
+                  40,
+                  50,
+                  60,
+                  90,
+                  120,
+                  180,
+                  240,
+                  300,
+                  450,
+                  750
+                ]
+              }
+            },
+            {
+              "rewardId": "bracelet-box",
+              "definitionId": "bracelet-box",
+              "contentQuantities": {
+                "bracelet": [
+                  10,
+                  15,
+                  25,
+                  35,
+                  45,
+                  60,
+                  90,
+                  125,
+                  175,
+                  250,
+                  400
+                ]
+              }
+            },
+            {
+              "rewardId": "honing-support-box",
+              "definitionId": "honing-support-box",
+              "contentQuantities": {
+                "lava-breath": [
+                  40,
+                  60,
+                  75,
+                  100,
+                  150,
+                  200,
+                  300,
+                  375,
+                  525,
+                  775,
+                  1280
+                ],
+                "glacier-breath": [
+                  120,
+                  180,
+                  225,
+                  300,
+                  450,
+                  600,
+                  900,
+                  1125,
+                  1575,
+                  2325,
+                  3840
+                ]
+              }
+            },
+            {
+              "rewardId": "bound-gold-box",
+              "definitionId": "bound-gold-box",
+              "contentQuantities": {
+                "bound-gold": [
+                  17500,
+                  27500,
+                  37500,
+                  45000,
+                  67500,
+                  90000,
+                  135000,
+                  180000,
+                  250000,
+                  360000,
+                  540000
+                ]
+              },
+              "fixedGoldValues": [
+                17500,
+                27500,
+                37500,
+                45000,
+                67500,
+                90000,
+                135000,
+                180000,
+                250000,
+                360000,
+                540000
+              ]
+            },
+            {
+              "rewardId": "bound-engraving-random-box",
+              "definitionId": "bound-engraving-random-box",
+              "contentQuantities": {
+                "bound-engraving-book": [
+                  2,
+                  3,
+                  4,
+                  6,
+                  8,
+                  10,
+                  15,
+                  20,
+                  25,
+                  36,
+                  60
+                ]
+              }
+            },
+            {
+              "rewardId": "random-gem-box",
+              "definitionId": "random-gem-box",
+              "contentQuantities": {
+                "random-gem": [
+                  5,
+                  10,
+                  15,
+                  20,
+                  25,
+                  30,
+                  35,
+                  40,
+                  45,
+                  50,
+                  55
+                ]
+              }
+            },
+            {
+              "rewardId": "bound-gem-box",
+              "definitionId": "bound-gem-box",
+              "contentQuantities": {
+                "bound-gem": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  2,
+                  3,
+                  4
+                ]
+              }
+            },
+            {
+              "rewardId": "yearning-legendary-card-pack",
+              "definitionId": "yearning-legendary-card-pack",
+              "contentQuantities": {
+                "yearning-legendary-card-pack": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              }
+            }
+          ]
+        },
+        "1730": {
+          "choiceRewards": [
+            {
+              "rewardId": "destiny-chaos-stone-box",
+              "definitionId": "destiny-chaos-stone-box",
+              "contentQuantities": {
+                "refined-stone-of-destiny": [
+                  35,
+                  60,
+                  75,
+                  90,
+                  135,
+                  180,
+                  270,
+                  360,
+                  500,
+                  750,
+                  1200
+                ],
+                "refined-stone-of-chaos-weapon": [
+                  35,
+                  50,
+                  75,
+                  100,
+                  135,
+                  180,
+                  270,
+                  360,
+                  500,
+                  720,
+                  1250
+                ],
+                "refined-stone-of-chaos-armor": [
+                  35,
+                  50,
+                  75,
+                  100,
+                  135,
+                  180,
+                  270,
+                  360,
+                  500,
+                  720,
+                  1250
+                ]
+              }
+            },
+            {
+              "rewardId": "ability-stone-kit-box",
+              "definitionId": "ability-stone-kit-box",
+              "contentQuantities": {
+                "soaring-stone-engraving-selection-kit": [
+                  40,
+                  50,
+                  75,
+                  100,
+                  125,
+                  150,
+                  225,
+                  300,
+                  400,
+                  600,
+                  1000
+                ]
+              }
+            },
+            {
+              "rewardId": "bracelet-box",
+              "definitionId": "bracelet-box",
+              "contentQuantities": {
+                "bracelet": [
+                  15,
+                  25,
+                  35,
+                  50,
+                  75,
+                  100,
+                  125,
+                  175,
+                  250,
+                  350,
+                  600
+                ]
+              }
+            },
+            {
+              "rewardId": "honing-support-box",
+              "definitionId": "honing-support-box",
+              "contentQuantities": {
+                "lava-breath": [
+                  50,
+                  75,
+                  100,
+                  125,
+                  180,
+                  240,
+                  360,
+                  480,
+                  660,
+                  960,
+                  1600
+                ],
+                "glacier-breath": [
+                  150,
+                  225,
+                  300,
+                  375,
+                  540,
+                  720,
+                  1080,
+                  1440,
+                  1980,
+                  2880,
+                  4800
+                ]
+              }
+            },
+            {
+              "rewardId": "bound-gold-box",
+              "definitionId": "bound-gold-box",
+              "contentQuantities": {
+                "bound-gold": [
+                  22500,
+                  36000,
+                  47500,
+                  60000,
+                  80000,
+                  110000,
+                  160000,
+                  225000,
+                  325000,
+                  475000,
+                  650000
+                ]
+              },
+              "fixedGoldValues": [
+                22500,
+                36000,
+                47500,
+                60000,
+                80000,
+                110000,
+                160000,
+                225000,
+                325000,
+                475000,
+                650000
+              ]
+            },
+            {
+              "rewardId": "bound-engraving-random-box",
+              "definitionId": "bound-engraving-random-box",
+              "contentQuantities": {
+                "bound-engraving-book": [
+                  2,
+                  4,
+                  6,
+                  8,
+                  10,
+                  12,
+                  18,
+                  24,
+                  36,
+                  48,
+                  80
+                ]
+              }
+            },
+            {
+              "rewardId": "gem-selection-box",
+              "stageEntries": [
+                {
+                  "definitionId": "gem-selection-box",
+                  "contentQuantities": {
+                    "rare-gem": 10
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box",
+                  "contentQuantities": {
+                    "rare-gem": 25
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box",
+                  "contentQuantities": {
+                    "rare-gem": 35
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box",
+                  "contentQuantities": {
+                    "rare-gem": 50
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box",
+                  "contentQuantities": {
+                    "rare-gem": 75
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box--epic-gem",
+                  "contentQuantities": {
+                    "epic-gem": 5
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box--epic-gem",
+                  "contentQuantities": {
+                    "epic-gem": 10
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box--epic-gem",
+                  "contentQuantities": {
+                    "epic-gem": 15
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box--epic-gem",
+                  "contentQuantities": {
+                    "epic-gem": 20
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box--epic-gem",
+                  "contentQuantities": {
+                    "epic-gem": 25
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box--epic-gem",
+                  "contentQuantities": {
+                    "epic-gem": 30
+                  }
+                }
+              ]
+            },
+            {
+              "rewardId": "bound-gem-box",
+              "definitionId": "bound-gem-box",
+              "contentQuantities": {
+                "bound-gem": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  3,
+                  4,
+                  5
+                ]
+              }
+            },
+            {
+              "rewardId": "yearning-legendary-card-pack",
+              "definitionId": "yearning-legendary-card-pack",
+              "contentQuantities": {
+                "yearning-legendary-card-pack": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  7
+                ]
+              }
+            }
+          ]
+        },
+        "1750": {
+          "choiceRewards": [
+            {
+              "rewardId": "destiny-chaos-stone-box",
+              "definitionId": "destiny-chaos-stone-box",
+              "contentQuantities": {
+                "refined-stone-of-destiny": [
+                  45,
+                  65,
+                  90,
+                  120,
+                  165,
+                  225,
+                  360,
+                  450,
+                  600,
+                  900,
+                  1500
+                ],
+                "refined-stone-of-chaos-weapon": [
+                  35,
+                  50,
+                  75,
+                  100,
+                  135,
+                  180,
+                  270,
+                  360,
+                  500,
+                  720,
+                  1250
+                ],
+                "refined-stone-of-chaos-armor": [
+                  35,
+                  50,
+                  75,
+                  100,
+                  135,
+                  180,
+                  270,
+                  360,
+                  500,
+                  720,
+                  1250
+                ]
+              }
+            },
+            {
+              "rewardId": "ability-stone-kit-box",
+              "definitionId": "ability-stone-kit-box",
+              "contentQuantities": {
+                "soaring-stone-engraving-selection-kit": [
+                  45,
+                  60,
+                  90,
+                  125,
+                  165,
+                  225,
+                  300,
+                  400,
+                  550,
+                  750,
+                  1100
+                ]
+              }
+            },
+            {
+              "rewardId": "bracelet-box",
+              "definitionId": "bracelet-box",
+              "contentQuantities": {
+                "bracelet": [
+                  20,
+                  30,
+                  40,
+                  60,
+                  90,
+                  120,
+                  150,
+                  210,
+                  300,
+                  450,
+                  750
+                ]
+              }
+            },
+            {
+              "rewardId": "honing-support-box",
+              "definitionId": "honing-support-box",
+              "contentQuantities": {
+                "lava-breath": [
+                  60,
+                  90,
+                  120,
+                  150,
+                  200,
+                  300,
+                  450,
+                  650,
+                  900,
+                  1300,
+                  1900
+                ],
+                "glacier-breath": [
+                  180,
+                  270,
+                  360,
+                  450,
+                  600,
+                  900,
+                  1350,
+                  1950,
+                  2700,
+                  3900,
+                  5700
+                ]
+              }
+            },
+            {
+              "rewardId": "bound-gold-box",
+              "definitionId": "bound-gold-box",
+              "contentQuantities": {
+                "bound-gold": [
+                  27500,
+                  41000,
+                  55000,
+                  72000,
+                  96000,
+                  132000,
+                  192000,
+                  270000,
+                  390000,
+                  570000,
+                  780000
+                ]
+              },
+              "fixedGoldValues": [
+                27500,
+                41000,
+                55000,
+                72000,
+                96000,
+                132000,
+                192000,
+                270000,
+                390000,
+                570000,
+                780000
+              ]
+            },
+            {
+              "rewardId": "bound-engraving-random-box",
+              "definitionId": "bound-engraving-random-box",
+              "contentQuantities": {
+                "bound-engraving-book": [
+                  3,
+                  5,
+                  7,
+                  10,
+                  13,
+                  16,
+                  24,
+                  32,
+                  48,
+                  65,
+                  100
+                ]
+              }
+            },
+            {
+              "rewardId": "gem-selection-box",
+              "stageEntries": [
+                {
+                  "definitionId": "gem-selection-box",
+                  "contentQuantities": {
+                    "rare-gem": 15
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box",
+                  "contentQuantities": {
+                    "rare-gem": 30
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box",
+                  "contentQuantities": {
+                    "rare-gem": 40
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box",
+                  "contentQuantities": {
+                    "rare-gem": 60
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box--epic-gem",
+                  "contentQuantities": {
+                    "epic-gem": 5
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box--epic-gem",
+                  "contentQuantities": {
+                    "epic-gem": 10
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box--epic-gem",
+                  "contentQuantities": {
+                    "epic-gem": 15
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box--epic-gem",
+                  "contentQuantities": {
+                    "epic-gem": 20
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box--epic-gem",
+                  "contentQuantities": {
+                    "epic-gem": 25
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box--epic-gem",
+                  "contentQuantities": {
+                    "epic-gem": 30
+                  }
+                },
+                {
+                  "definitionId": "gem-selection-box--epic-gem",
+                  "contentQuantities": {
+                    "epic-gem": 35
+                  }
+                }
+              ]
+            },
+            {
+              "rewardId": "bound-gem-box",
+              "definitionId": "bound-gem-box",
+              "contentQuantities": {
+                "bound-gem": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  4,
+                  5,
+                  6
+                ]
+              }
+            },
+            {
+              "rewardId": "yearning-legendary-card-pack",
+              "definitionId": "yearning-legendary-card-pack",
+              "contentQuantities": {
+                "yearning-legendary-card-pack": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  7
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

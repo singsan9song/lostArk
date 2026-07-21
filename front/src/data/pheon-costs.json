@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "currency": "페온",
+  "image": "/images/rewards/money_14.png",
+  "shopPackages": [
+    { "pheons": 1, "crystals": 10, "crystalsPerPheon": 10 },
+    { "pheons": 30, "crystals": 270, "crystalsPerPheon": 9, "discountPercent": 10 },
+    { "pheons": 100, "crystals": 850, "crystalsPerPheon": 8.5, "discountPercent": 15 }
+  ],
+  "goldConversion": {
+    "basis": "lowestCrystalCostPackage",
+    "crystalsPerPheon": 8.5,
+    "formula": "페온 수량 × 8.5 × (100 크리스탈 골드 시세 ÷ 100)",
+    "crystalGoldPriceSource": "manual"
+  },
+  "notes": [
+    "수치는 거래소에서 해당 종류의 아이템 1개를 구매할 때의 페온 소비량이다.",
+    "변경 후 값이 없는 티어 4 항목은 소비량 변경 없음으로 해석해 변경 전 값을 현재 소비량으로 사용한다.",
+    "보상 상자에서 아이템을 직접 획득할 때 페온이 차감되는 것은 아니다."
+  ],
+  "paradiseRewardMatches": {
+    "bracelet": {
+      "rewardName": "찬란한 구원자의 팔찌",
+      "category": "bracelet",
+      "tier": 4,
+      "grade": "고대",
+      "currentPerItem": 9
+    }
+  },
+  "paradiseRewardAssumptions": {
+    "soaring-stone-engraving-selection-kit": {
+      "rewardName": "비상의 돌 각인 지정 키트",
+      "reason": "보상 효율 계산에서는 티어 4 고대 어빌리티 스톤 1개 상당으로 간주해 9페온을 적용"
+    }
+  },
+  "categories": {
+    "equipment": {
+      "name": "장비",
+      "tiers": {
+        "3": {
+          "희귀": { "before": 1, "after": 1, "current": 1 },
+          "영웅": { "before": 3, "after": 2, "current": 2 },
+          "전설": { "before": 5, "after": 4, "current": 4 },
+          "유물": { "before": 7, "after": 6, "current": 6 }
+        },
+        "4": {
+          "고대": { "before": 7, "after": null, "current": 7 }
+        }
+      }
+    },
+    "accessory": {
+      "name": "장신구",
+      "tiers": {
+        "3": {
+          "희귀": { "before": 1, "after": 1, "current": 1 },
+          "영웅": { "before": 5, "after": 1, "current": 1 },
+          "전설": { "before": 9, "after": 5, "current": 5 },
+          "유물": { "before": 15, "after": 9, "current": 9 },
+          "고대": { "before": 35, "after": 20, "current": 20 }
+        },
+        "4": {
+          "유물": {
+            "0": { "before": 20, "after": null, "current": 20 },
+            "1": { "before": 20, "after": null, "current": 20 },
+            "2": { "before": 20, "after": null, "current": 20 },
+            "3": { "before": 20, "after": null, "current": 20 }
+          },
+          "고대": {
+            "0": { "before": 35, "after": null, "current": 35 },
+            "1": { "before": 35, "after": null, "current": 35 },
+            "2": { "before": 35, "after": null, "current": 35 },
+            "3": { "before": 35, "after": null, "current": 35 }
+          }
+        }
+      }
+    },
+    "abilityStone": {
+      "name": "어빌리티 스톤",
+      "tiers": {
+        "3": {
+          "희귀": { "before": 2, "after": 2, "current": 2 },
+          "영웅": { "before": 3, "after": 3, "current": 3 },
+          "전설": { "before": 5, "after": 5, "current": 5 },
+          "유물": { "before": 9, "after": 9, "current": 9 }
+        },
+        "4": {
+          "고대": { "before": 9, "after": null, "current": 9 }
+        }
+      }
+    },
+    "bracelet": {
+      "name": "팔찌",
+      "tiers": {
+        "3": {
+          "희귀": { "before": 2, "after": 2, "current": 2 },
+          "영웅": { "before": 3, "after": 3, "current": 3 },
+          "전설": { "before": 5, "after": 5, "current": 5 },
+          "유물": { "before": 9, "after": 9, "current": 9 }
+        },
+        "4": {
+          "고대": { "before": 9, "after": null, "current": 9 }
+        }
+      }
+    }
+  }
+}

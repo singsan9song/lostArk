@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "description": "재련 재료 5:1 승급 규칙",
+  "groups": [
+    {
+      "id": "guardian-stone",
+      "name": "수호석",
+      "ratioPerStep": 5,
+      "materials": ["정제된 수호강석", "운명의 수호석", "운명의 수호석 결정"]
+    },
+    {
+      "id": "destruction-stone",
+      "name": "파괴석",
+      "ratioPerStep": 5,
+      "materials": ["정제된 파괴강석", "운명의 파괴석", "운명의 파괴석 결정"]
+    },
+    {
+      "id": "leapstone",
+      "name": "돌파석",
+      "ratioPerStep": 5,
+      "materials": ["찬란한 명예의 돌파석", "운명의 돌파석", "위대한 운명의 돌파석"]
+    },
+    {
+      "id": "fusion-material",
+      "name": "융화 재료",
+      "ratioPerStep": 5,
+      "materials": ["최상급 오레하 융화 재료", "아비도스 융화 재료", "상급 아비도스 융화 재료"]
+    },
+    {
+      "id": "special-honing-leapstone",
+      "name": "특수 재련 돌파석",
+      "ratioPerStep": 5,
+      "materials": ["특수 재련 : 농축 돌파석", "특수 재련 : 순환 돌파석", "특수 재련 : 전이 돌파석"]
+    }
+  ]
+}

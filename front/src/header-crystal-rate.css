@@ -1,0 +1,13 @@
+.topbar .nav-shell{max-width:1500px}
+.topbar .desktop-nav a,.topbar .tool-nav-menu>button,.topbar .favorites-button{white-space:nowrap}
+.header-crystal-rate{width:max-content;height:40px;display:flex;align-items:center;gap:5px;margin-left:8px;padding:0 8px;border:1px solid var(--line);border-radius:10px;background:var(--surface);white-space:nowrap}
+.header-crystal-rate>.currency-crystal-icon{width:20px!important;height:20px!important}
+.header-crystal-rate>.currency-gold-icon{width:20px!important;height:20px!important}
+.header-crystal-rate>b{font:800 15px 'Outfit'}
+.header-crystal-rate>i{color:var(--muted);font-size:14px;font-style:normal}
+.header-crystal-rate input{width:6ch;min-width:0;padding:0;border:0;outline:0;background:transparent;color:var(--text);font:800 15px 'Outfit';text-align:right}
+.header-crystal-rate span{color:var(--muted);font-size:12px}
+.mobile-crystal-rate{display:none}
+@media(max-width:1200px){.header-crystal-rate{gap:4px;padding:0 6px}.header-crystal-rate input{width:6ch}}
+@media(max-width:900px){.header-crystal-rate{display:none}.mobile-crystal-rate{display:flex;align-items:center;gap:6px;margin-bottom:6px;padding:10px;border:1px solid var(--line);border-radius:9px;background:var(--surface-2)}.mobile-crystal-rate>.currency-crystal-icon,.mobile-crystal-rate>.currency-gold-icon{width:20px!important;height:20px!important}.mobile-crystal-rate>b{font:800 12px 'Outfit'}.mobile-crystal-rate>i{color:var(--muted);font-style:normal}.mobile-crystal-rate input{min-width:0;flex:1;border:0;outline:0;background:transparent;color:var(--text);font-weight:800;text-align:right}}
+.pheon-converter.compact{display:block;padding:0;border:0;background:transparent}.pheon-converter.compact .pheon-toggle{width:100%;height:62px;justify-content:flex-start;gap:11px;padding:0 12px;background:var(--surface-2);font-size:12px}.pheon-converter.compact .pheon-currency-icon{width:42px;height:42px;display:grid;place-items:center;flex:0 0 auto;overflow:hidden;border-radius:9px;background:linear-gradient(135deg,#362003 0%,#9e5f04 100%)}.pheon-converter.compact .pheon-currency-icon>img{width:100%;height:100%;object-fit:contain}.pheon-converter.compact .pheon-toggle-copy{min-width:0;flex:1}.pheon-converter.compact .pheon-toggle b,.pheon-converter.compact .pheon-toggle small{display:block}.pheon-converter.compact .pheon-toggle b{font-size:12px}.pheon-converter.compact .pheon-toggle small{margin-top:4px;color:var(--muted);font-size:12px}.pheon-converter.compact .pheon-toggle>i{width:18px;height:18px;margin-left:auto;flex:0 0 auto}

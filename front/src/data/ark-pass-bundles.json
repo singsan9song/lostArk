@@ -1,0 +1,21 @@
+{
+  "yoz-jar-eternity-set": {
+    "name": "요즈의 항아리 : 영원 제작 세트",
+    "valuation": {
+      "type": "royalCrystalConversion",
+      "packageRoyalCrystals": 33000,
+      "royalCrystalsPerConversion": 5500,
+      "crystalsPerConversion": 200,
+      "allocationMethod": "relativeUnitWeights",
+      "estimated": true
+    },
+    "packageContents": [
+      { "rewardName": "옷감", "quantity": 100, "relativeUnitValue": 1 },
+      { "rewardName": "요즈의 항아리 : 영원", "quantity": 10, "relativeUnitValue": 7.7 }
+    ],
+    "useContents": [
+      { "rewardName": "옷감", "consumed": 14, "returned": 7, "netConsumed": 7 },
+      { "rewardName": "요즈의 항아리 : 영원", "consumed": 1, "returned": 0, "netConsumed": 1 }
+    ]
+  }
+}

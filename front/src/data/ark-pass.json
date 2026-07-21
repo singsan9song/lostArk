@@ -1,0 +1,310 @@
+{
+  "version": 1,
+  "name": "아크 패스",
+  "currentLevel": 21,
+  "purchaseCosts": {
+    "premium": null,
+    "superPremium": null
+  },
+  "levels": [
+    {
+      "level": 1,
+      "achievement": {
+        "type": "choice",
+        "rewards": [
+          { "id": "rare-hero-gem-box-10", "name": "희귀~영웅 젬 상자", "quantity": 10, "image": null },
+          { "id": "soaring-stone-kit-box-7", "name": "비상의 돌 각인 지정 키트 상자", "quantity": 7, "image": null }
+        ]
+      },
+      "premium": {
+        "type": "all",
+        "rewards": [
+          { "id": "soaring-stone-kit-box-10", "name": "비상의 돌 각인 지정 키트 상자", "quantity": 10, "image": null }
+        ]
+      },
+      "superPremium": { "type": "all", "rewards": [] }
+    },
+    {
+      "level": 2,
+      "achievement": {
+        "type": "choice",
+        "rewards": [
+          { "id": "hero-gem-box-1", "name": "영웅 젬 상자", "quantity": 1, "image": null },
+          { "id": "soaring-stone-kit-box-15", "name": "비상의 돌 각인 지정 키트 상자", "quantity": 15, "image": null }
+        ]
+      },
+      "premium": {
+        "type": "all",
+        "rewards": [
+          { "id": "soaring-stone-kit-box-20", "name": "비상의 돌 각인 지정 키트 상자", "quantity": 20, "image": null }
+        ]
+      },
+      "superPremium": { "type": "all", "rewards": [] }
+    },
+    {
+      "level": 3,
+      "achievement": {
+        "type": "choice",
+        "rewards": [
+          { "id": "gem-processing-reset-3", "name": "젬 가공 초기화권", "quantity": 1, "image": null },
+          { "id": "bracelet-effect-reroll-box-3", "name": "팔찌 효과 재변환권 상자", "quantity": 3, "image": null }
+        ]
+      },
+      "premium": {
+        "type": "all",
+        "rewards": [
+          { "id": "bracelet-effect-reroll-box-5-3", "name": "팔찌 효과 재변환권 상자", "quantity": 5, "image": null }
+        ]
+      },
+      "superPremium": { "type": "all", "rewards": [] }
+    },
+    {
+      "level": 4,
+      "achievement": {
+        "type": "choice",
+        "rewards": [
+          { "id": "gem-processing-reset-4", "name": "젬 가공 초기화권", "quantity": 1, "image": null },
+          { "id": "bracelet-effect-reroll-box-4", "name": "팔찌 효과 재변환권 상자", "quantity": 3, "image": null }
+        ]
+      },
+      "premium": {
+        "type": "all",
+        "rewards": [
+          { "id": "bracelet-effect-reroll-box-5-4", "name": "팔찌 효과 재변환권 상자", "quantity": 5, "image": null }
+        ]
+      },
+      "superPremium": { "type": "all", "rewards": [] }
+    },
+    {
+      "level": 5,
+      "achievement": {
+        "type": "all",
+        "rewards": [
+          { "id": "processed-gem-selection-box-2-achievement", "name": "가공 완료 젬 선택 상자 II", "quantity": 1, "image": null }
+        ]
+      },
+      "premium": {
+        "type": "all",
+        "rewards": [
+          { "id": "processed-gem-selection-box-2-premium", "name": "가공 완료 젬 선택 상자 II", "quantity": 1, "image": null }
+        ]
+      },
+      "superPremium": {
+        "type": "all",
+        "rewards": [
+          { "id": "sky-guide-head-selection-box", "name": "창공의 안내자 머리 선택 상자 (패스)", "marketName": "창공의 안내자 머리 선택 상자", "quantity": 1, "image": null }
+        ]
+      }
+    },
+    {
+      "level": 6,
+      "achievement": { "type": "choice", "rewards": [
+        { "id": "menelik-tome-6", "name": "메넬리크의 서", "quantity": 5, "image": null },
+        { "id": "sky-battle-item-box-6", "name": "창공의 배틀 아이템 선택 상자", "quantity": 1, "image": null }
+      ] },
+      "premium": { "type": "all", "rewards": [{ "id": "hero-gem-box-6", "name": "영웅 젬 상자", "quantity": 3, "image": null }] },
+      "superPremium": { "type": "all", "rewards": [] }
+    },
+    {
+      "level": 7,
+      "achievement": { "type": "choice", "rewards": [
+        { "id": "joy-all-card-pack-7", "name": "환희의 전체 카드 팩", "quantity": 10, "image": null },
+        { "id": "sky-battle-item-box-7", "name": "창공의 배틀 아이템 선택 상자", "quantity": 1, "image": null }
+      ] },
+      "premium": { "type": "all", "rewards": [{ "id": "hero-gem-selection-box-7", "name": "영웅 젬 선택 상자", "quantity": 2, "image": null }] },
+      "superPremium": { "type": "all", "rewards": [] }
+    },
+    {
+      "level": 8,
+      "achievement": { "type": "choice", "rewards": [
+        { "id": "joy-legendary-rare-card-pack-8", "name": "환희의 전설~희귀 카드 팩", "quantity": 10, "image": null },
+        { "id": "sky-battle-item-box-8", "name": "창공의 배틀 아이템 선택 상자", "quantity": 2, "image": null }
+      ] },
+      "premium": { "type": "all", "rewards": [{ "id": "gem-processing-reset-8", "name": "젬 가공 초기화권", "quantity": 3, "image": null }] },
+      "superPremium": { "type": "all", "rewards": [] }
+    },
+    {
+      "level": 9,
+      "achievement": { "type": "choice", "rewards": [
+        { "id": "joy-legendary-hero-card-pack-9", "name": "환희의 전설~영웅 카드 팩", "quantity": 10, "image": null },
+        { "id": "sky-battle-item-box-9", "name": "창공의 배틀 아이템 선택 상자", "quantity": 2, "image": null }
+      ] },
+      "premium": { "type": "all", "rewards": [{ "id": "gem-processing-reset-9", "name": "젬 가공 초기화권", "quantity": 3, "image": null }] },
+      "superPremium": { "type": "all", "rewards": [] }
+    },
+    {
+      "level": 10,
+      "achievement": { "type": "all", "rewards": [{ "id": "joy-legendary-card-pack-10", "name": "환희의 전설 카드 팩", "quantity": 1, "image": null }] },
+      "premium": { "type": "all", "rewards": [{ "id": "fixed-hero-gem-selection-box-10", "name": "고정형 영웅 젬 선택 상자", "quantity": 3, "image": null }] },
+      "superPremium": { "type": "all", "rewards": [{ "id": "sky-guide-outfit-selection-box-10", "name": "창공의 안내자 의상 선택 상자 (패스)", "marketName": "창공의 안내자 의상 선택 상자", "quantity": 1, "image": null }] }
+    },
+    {
+      "level": 11,
+      "achievement": { "type": "choice", "rewards": [
+        { "id": "medium-life-energy-potion-11", "name": "중급 생명의 기운 회복물약", "quantity": 7, "image": null },
+        { "id": "sky-shard-box-11", "name": "창공의 파편 상자", "quantity": 1, "image": null }
+      ] },
+      "premium": { "type": "all", "rewards": [{ "id": "sky-shard-box-premium-11", "name": "창공의 파편 상자", "quantity": 2, "image": null }] },
+      "superPremium": { "type": "all", "rewards": [] }
+    },
+    {
+      "level": 12,
+      "achievement": { "type": "choice", "rewards": [
+        { "id": "medium-life-energy-potion-12", "name": "중급 생명의 기운 회복물약", "quantity": 7, "image": null },
+        { "id": "sky-leapstone-selection-box-12", "name": "창공의 돌파 선택 상자", "quantity": 1, "image": null }
+      ] },
+      "premium": { "type": "all", "rewards": [{ "id": "sky-leapstone-selection-box-premium-12", "name": "창공의 돌파 선택 상자", "quantity": 2, "image": null }] },
+      "superPremium": { "type": "all", "rewards": [] }
+    },
+    {
+      "level": 13,
+      "achievement": { "type": "choice", "rewards": [
+        { "id": "stronghold-energy-medium-13", "name": "영지의 기운 (중)", "quantity": 10, "image": null },
+        { "id": "sky-fusion-selection-box-13", "name": "창공의 융화 선택 상자", "quantity": 1, "image": null }
+      ] },
+      "premium": { "type": "all", "rewards": [{ "id": "sky-fusion-selection-box-premium-13", "name": "창공의 융화 선택 상자", "quantity": 2, "image": null }] },
+      "superPremium": { "type": "all", "rewards": [] }
+    },
+    {
+      "level": 14,
+      "achievement": { "type": "choice", "rewards": [
+        { "id": "stronghold-energy-medium-14", "name": "영지의 기운 (중)", "quantity": 10, "image": null },
+        { "id": "sky-support-selection-box-14", "name": "창공의 보조 선택 상자", "quantity": 1, "image": null }
+      ] },
+      "premium": { "type": "all", "rewards": [{ "id": "sky-support-selection-box-premium-14", "name": "창공의 보조 선택 상자", "quantity": 2, "image": null }] },
+      "superPremium": { "type": "all", "rewards": [] }
+    },
+    {
+      "level": 15,
+      "achievement": { "type": "all", "rewards": [{ "id": "corgi-pet-selection-box-15", "name": "코기 펫 선택 상자 (패스)", "marketName": "코기 펫 선택 상자", "quantity": 1, "image": null }] },
+      "premium": { "type": "all", "rewards": [{ "id": "cloud-mount-selection-box-15", "name": "구르미 탈것 선택 상자 (패스)", "marketName": "구르미 탈것 선택 상자", "quantity": 1, "image": null }] },
+      "superPremium": { "type": "all", "rewards": [{ "id": "sky-guide-face1-selection-box-15", "name": "창공의 안내자 얼굴1 선택 상자 (패스)", "marketName": "창공의 안내자 얼굴1 선택 상자", "quantity": 1, "image": null }] }
+    },
+    {
+      "level": 16,
+      "achievement": { "type": "choice", "rewards": [
+        { "id": "pet-feature-effect-pass-16", "name": "펫 기능&효과 이용권", "quantity": 2, "image": null },
+        { "id": "sky-shard-box-16", "name": "창공의 파편 상자", "quantity": 1, "image": null }
+      ] },
+      "premium": { "type": "all", "rewards": [{ "id": "sky-shard-box-premium-16", "name": "창공의 파편 상자", "quantity": 2, "image": null }] },
+      "superPremium": { "type": "all", "rewards": [] }
+    },
+    {
+      "level": 17,
+      "achievement": { "type": "choice", "rewards": [
+        { "id": "ancient-platinum-coin-17", "name": "고대의 백금화", "quantity": 50, "image": null },
+        { "id": "sky-leapstone-selection-box-17", "name": "창공의 돌파 선택 상자", "quantity": 1, "image": null }
+      ] },
+      "premium": { "type": "all", "rewards": [{ "id": "sky-leapstone-selection-box-premium-17", "name": "창공의 돌파 선택 상자", "quantity": 2, "image": null }] },
+      "superPremium": { "type": "all", "rewards": [] }
+    },
+    {
+      "level": 18,
+      "achievement": { "type": "choice", "rewards": [
+        { "id": "ancient-platinum-coin-18", "name": "고대의 백금화", "quantity": 50, "image": null },
+        { "id": "sky-fusion-selection-box-18", "name": "창공의 융화 선택 상자", "quantity": 1, "image": null }
+      ] },
+      "premium": { "type": "all", "rewards": [{ "id": "sky-fusion-selection-box-premium-18", "name": "창공의 융화 선택 상자", "quantity": 2, "image": null }] },
+      "superPremium": { "type": "all", "rewards": [] }
+    },
+    {
+      "level": 19,
+      "achievement": { "type": "choice", "rewards": [
+        { "id": "ancient-platinum-coin-19", "name": "고대의 백금화", "quantity": 50, "image": null },
+        { "id": "sky-support-selection-box-19", "name": "창공의 보조 선택 상자", "quantity": 1, "image": null }
+      ] },
+      "premium": { "type": "all", "rewards": [{ "id": "sky-support-selection-box-premium-19", "name": "창공의 보조 선택 상자", "quantity": 2, "image": null }] },
+      "superPremium": { "type": "all", "rewards": [] }
+    },
+    {
+      "level": 20,
+      "achievement": { "type": "all", "rewards": [{ "id": "pheon-20", "name": "페온", "quantity": 30, "image": null }] },
+      "premium": { "type": "all", "rewards": [{ "id": "pheon-premium-20", "name": "페온", "quantity": 30, "image": null }] },
+      "superPremium": { "type": "all", "rewards": [{ "id": "crystal-box-200-20", "name": "크리스탈 200개 상자", "quantity": 1, "image": null }] }
+    },
+    {
+      "level": 21,
+      "achievement": { "type": "choice", "rewards": [
+        { "id": "magic-society-reagent-selection-box-21", "name": "마법학회 시약 선택 상자", "quantity": 1, "image": null },
+        { "id": "sky-shard-box-21", "name": "창공의 파편 상자", "quantity": 1, "image": null }
+      ] },
+      "premium": { "type": "all", "rewards": [{ "id": "sky-shard-box-premium-21", "name": "창공의 파편 상자", "quantity": 2, "image": null }] },
+      "superPremium": { "type": "all", "rewards": [] }
+    },
+    {
+      "level": 22,
+      "achievement": { "type": "choice", "rewards": [
+        { "id": "magic-society-reagent-selection-box-22", "name": "마법학회 시약 선택 상자", "quantity": 1, "image": null },
+        { "id": "sky-leapstone-selection-box-22", "name": "창공의 돌파 선택 상자", "quantity": 1, "image": null }
+      ] },
+      "premium": { "type": "all", "rewards": [{ "id": "sky-leapstone-selection-box-premium-22", "name": "창공의 돌파 선택 상자", "quantity": 2, "image": null }] },
+      "superPremium": { "type": "all", "rewards": [] }
+    },
+    {
+      "level": 23,
+      "achievement": { "type": "choice", "rewards": [
+        { "id": "cloth-23", "name": "옷감", "quantity": 15, "image": null },
+        { "id": "sky-fusion-selection-box-23", "name": "창공의 융화 선택 상자", "quantity": 1, "image": null }
+      ] },
+      "premium": { "type": "all", "rewards": [{ "id": "sky-fusion-selection-box-premium-23", "name": "창공의 융화 선택 상자", "quantity": 2, "image": null }] },
+      "superPremium": { "type": "all", "rewards": [] }
+    },
+    {
+      "level": 24,
+      "achievement": { "type": "choice", "rewards": [
+        { "id": "yoz-jar-eternity-24", "name": "요즈의 항아리 : 영원", "quantity": 1, "image": null },
+        { "id": "sky-support-selection-box-24", "name": "창공의 보조 선택 상자", "quantity": 1, "image": null }
+      ] },
+      "premium": { "type": "all", "rewards": [{ "id": "sky-support-selection-box-premium-24", "name": "창공의 보조 선택 상자", "quantity": 2, "image": null }] },
+      "superPremium": { "type": "all", "rewards": [] }
+    },
+    {
+      "level": 25,
+      "achievement": { "type": "all", "rewards": [{ "id": "pheon-25", "name": "페온", "quantity": 30, "image": null }] },
+      "premium": { "type": "all", "rewards": [{ "id": "pheon-premium-25", "name": "페온", "quantity": 30, "image": null }] },
+      "superPremium": { "type": "all", "rewards": [{ "id": "crystal-box-300-25", "name": "크리스탈 300개 상자", "quantity": 1, "image": null }] }
+    },
+    {
+      "level": 26,
+      "achievement": { "type": "choice", "rewards": [
+        { "id": "menelik-tome-26", "name": "메넬리크의 서", "quantity": 5, "image": null },
+        { "id": "sky-shard-box-26", "name": "창공의 파편 상자", "quantity": 1, "image": null }
+      ] },
+      "premium": { "type": "all", "rewards": [{ "id": "sky-shard-box-premium-26", "name": "창공의 파편 상자", "quantity": 2, "image": null }] },
+      "superPremium": { "type": "all", "rewards": [] }
+    },
+    {
+      "level": 27,
+      "achievement": { "type": "choice", "rewards": [
+        { "id": "shining-uncommon-card-selection-pack-27", "name": "반짝이는 고급 카드 선택 팩", "quantity": 5, "image": null },
+        { "id": "sky-leapstone-selection-box-27", "name": "창공의 돌파 선택 상자", "quantity": 1, "image": null }
+      ] },
+      "premium": { "type": "all", "rewards": [{ "id": "sky-leapstone-selection-box-premium-27", "name": "창공의 돌파 선택 상자", "quantity": 2, "image": null }] },
+      "superPremium": { "type": "all", "rewards": [] }
+    },
+    {
+      "level": 28,
+      "achievement": { "type": "choice", "rewards": [
+        { "id": "shining-rare-card-selection-pack-28", "name": "반짝이는 희귀 카드 선택 팩", "quantity": 5, "image": null },
+        { "id": "sky-fusion-selection-box-28", "name": "창공의 융화 선택 상자", "quantity": 1, "image": null }
+      ] },
+      "premium": { "type": "all", "rewards": [{ "id": "sky-fusion-selection-box-premium-28", "name": "창공의 융화 선택 상자", "quantity": 2, "image": null }] },
+      "superPremium": { "type": "all", "rewards": [] }
+    },
+    {
+      "level": 29,
+      "achievement": { "type": "choice", "rewards": [
+        { "id": "shining-hero-card-selection-pack-29", "name": "반짝이는 영웅 카드 선택 팩", "quantity": 3, "image": null },
+        { "id": "sky-support-selection-box-29", "name": "창공의 보조 선택 상자", "quantity": 1, "image": null }
+      ] },
+      "premium": { "type": "all", "rewards": [{ "id": "sky-support-selection-box-premium-29", "name": "창공의 보조 선택 상자", "quantity": 2, "image": null }] },
+      "superPremium": { "type": "all", "rewards": [] }
+    },
+    {
+      "level": 30,
+      "achievement": { "type": "all", "rewards": [{ "id": "joy-legendary-card-pack-30", "name": "환희의 전설 카드 팩", "quantity": 1, "image": null }] },
+      "premium": { "type": "all", "rewards": [{ "id": "leap-legendary-card-selection-pack-3-30", "name": "도약의 전설 카드 선택 팩 III", "quantity": 1, "image": null }] },
+      "superPremium": { "type": "all", "rewards": [{ "id": "crystal-box-500-30", "name": "크리스탈 500개 상자", "quantity": 1, "image": null }] }
+    }
+  ]
+}

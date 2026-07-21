@@ -1,0 +1,45 @@
+{
+  "scope": "ark-pass-only",
+  "source": "https://lostark.game.onstove.com/Probability/젬 상자",
+  "sourceLastUpdatedAt": "2025-08-20T08:00:00+09:00",
+  "gemTypes": [
+    { "name": "질서의 젬 : 안정", "probability": 0.30 },
+    { "name": "질서의 젬 : 견고", "probability": 0.15 },
+    { "name": "질서의 젬 : 불변", "probability": 0.05 },
+    { "name": "혼돈의 젬 : 침식", "probability": 0.30 },
+    { "name": "혼돈의 젬 : 왜곡", "probability": 0.15 },
+    { "name": "혼돈의 젬 : 붕괴", "probability": 0.05 }
+  ],
+  "boxes": {
+    "고급 젬 상자": {
+      "mode": "direct",
+      "grade": "고급",
+      "quantity": 1
+    },
+    "희귀 젬 상자": {
+      "mode": "direct",
+      "grade": "희귀",
+      "quantity": 1
+    },
+    "영웅 젬 상자": {
+      "mode": "direct",
+      "grade": "영웅",
+      "quantity": 1
+    },
+    "고급~영웅 젬 상자": {
+      "mode": "nested",
+      "outcomes": [
+        { "boxName": "고급 젬 상자", "quantity": 1, "probability": 0.80 },
+        { "boxName": "희귀 젬 상자", "quantity": 1, "probability": 0.15 },
+        { "boxName": "영웅 젬 상자", "quantity": 1, "probability": 0.05 }
+      ]
+    },
+    "희귀~영웅 젬 상자": {
+      "mode": "nested",
+      "outcomes": [
+        { "boxName": "희귀 젬 상자", "quantity": 1, "probability": 0.90 },
+        { "boxName": "영웅 젬 상자", "quantity": 1, "probability": 0.10 }
+      ]
+    }
+  }
+}

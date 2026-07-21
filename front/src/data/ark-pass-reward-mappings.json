@@ -1,0 +1,96 @@
+{
+  "페온": {
+    "valuation": {
+      "type": "pheon"
+    },
+    "image": "/images/rewards/money_14.png",
+    "grade": "전설"
+  },
+  "크리스탈 200개 상자": {
+    "valuation": {
+      "type": "crystal",
+      "crystalsPerBox": 200
+    },
+    "image": "/images/rewards/use_4_209.png",
+    "grade": "일반",
+    "contents": [
+      { "name": "크리스탈", "quantity": 200 }
+    ]
+  },
+  "크리스탈 300개 상자": {
+    "valuation": {
+      "type": "crystal",
+      "crystalsPerBox": 300
+    },
+    "image": "/images/rewards/use_4_209.png",
+    "grade": "일반",
+    "contents": [
+      { "name": "크리스탈", "quantity": 300 }
+    ]
+  },
+  "크리스탈 500개 상자": {
+    "valuation": {
+      "type": "crystal",
+      "crystalsPerBox": 500
+    },
+    "image": "/images/rewards/use_4_209.png",
+    "grade": "일반",
+    "contents": [
+      { "name": "크리스탈", "quantity": 500 }
+    ]
+  },
+  "비상의 돌 각인 지정 키트 상자": {
+    "valuation": {
+      "type": "abilityStoneAuction",
+      "itemsPerBox": 1
+    },
+    "image": "/images/rewards/shop_icon_9.png",
+    "grade": "고대",
+    "contents": [
+      { "name": "비상의 돌 각인 지정 키트", "quantity": 1 }
+    ]
+  },
+  "젬 가공 초기화권": {
+    "valuation": {
+      "type": "fixedCrystal",
+      "crystalsPerItem": 100
+    }
+  },
+  "팔찌 효과 재변환권 상자": {
+    "valuation": {
+      "type": "fixedGold",
+      "goldPerItem": 1000
+    }
+  },
+  "펫 기능&효과 이용권": {
+    "valuation": {
+      "type": "timedCrystalServices"
+    },
+    "image": "/images/rewards/shop_icon_9763.png",
+    "grade": "영웅",
+    "contents": [
+      {
+        "name": "펫 기능 이용권 (14일)",
+        "quantity": 1,
+        "durationDays": 14,
+        "priceCrystals": 120,
+        "priceDurationDays": 30
+      },
+      {
+        "name": "펫 지원 효과 이용권 (14일)",
+        "quantity": 1,
+        "durationDays": 14,
+        "priceCrystals": 120,
+        "priceDurationDays": 30
+      }
+    ]
+  },
+  "옷감": {
+    "image": "/images/rewards/shop_icon_2190.png",
+    "grade": "전설"
+  },
+  "요즈의 항아리 : 영원": {
+    "image": "/images/rewards/shop_icon_2192.png",
+    "grade": "전설"
+  }
+}

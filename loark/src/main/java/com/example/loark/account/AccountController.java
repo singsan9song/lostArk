@@ -152,6 +152,19 @@ public class AccountController {
         return data;
     }
 
+    @DeleteMapping("/user-data")
+    @Transactional
+    public ResponseEntity<Void> deleteUserData(@AuthenticationPrincipal OAuth2User principal) {
+        UserAccount account = account(principal);
+        String discordId = account.getDiscordId();
+        favorites.deleteByDiscordId(discordId);
+        raidTasks.deleteByDiscordId(discordId);
+        preferences.findById(discordId).ifPresent(preferences::delete);
+        account.setRepresentativeCharacterName(null);
+        accounts.save(account);
+        return ResponseEntity.noContent().build();
+    }
+
     private UserAccount account(OAuth2User principal) {
         String id = principal.getAttribute("id");
         if (id == null || id.isBlank()) throw new IllegalStateException("Discord 사용자 ID가 없습니다.");

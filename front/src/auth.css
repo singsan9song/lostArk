@@ -95,7 +95,7 @@
   position: absolute;
   right: 0;
   top: 45px;
-  width: 210px;
+  width: 230px;
   padding: 10px;
   border: 1px solid var(--line);
   border-radius: 12px;
@@ -123,10 +123,37 @@
 }
 .account-popover button {
   width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 7px;
   margin-top: 8px;
   padding: 8px;
   border: 0;
   border-radius: 8px;
   background: var(--surface-2);
+  color: var(--text);
+  font-size: var(--fs-13);
   cursor: pointer;
+}
+.account-popover button svg {
+  width: 15px;
+}
+.account-popover button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.account-data-actions {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--line);
+}
+.account-popover button.danger {
+  color: #e27a74;
+}
+.account-data-status {
+  display: block;
+  margin-top: 8px;
+  color: var(--primary);
+  font-size: var(--fs-11);
+  text-align: center;
 }

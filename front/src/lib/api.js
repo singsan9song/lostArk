@@ -31,6 +31,7 @@ export const lostArkApi = {
   logout: () => request('/auth/logout', { method: 'POST' }),
   getUserData: () => request('/user-data'),
   saveUserData: (data) => request('/user-data', { method: 'PUT', body: JSON.stringify(data) }),
+  deleteUserData: () => request('/user-data', { method: 'DELETE' }),
   getCommunityPosts: ({ category, sort = 'latest', search = '', page = 0, size = 15 }) =>
     request(`/community/posts?${new URLSearchParams({ category, sort, search, page, size })}`),
   getCommunityPost: (id) => request(`/community/posts/${id}`),

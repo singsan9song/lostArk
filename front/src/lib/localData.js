@@ -47,3 +47,8 @@ export function applyLocalData(data) {
     if (Object.hasOwn(data, key)) localStorage.setItem(key, String(data[key]))
   })
 }
+
+export function clearLocalData() {
+  ACCOUNT_STORAGE_KEYS.forEach((key) => localStorage.removeItem(key))
+  window.dispatchEvent(new CustomEvent(LOCAL_DATA_CHANGED_EVENT))
+}

@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { discordLoginUrl, lostArkApi } from './api'
-import { applyLocalData, LOCAL_DATA_CHANGED_EVENT, localDataSnapshot } from './localData'
+import { applyLocalData, clearLocalData, localDataSnapshot } from './localData'
 
 const AuthContext = createContext(null)
 
@@ -15,9 +15,7 @@ export function AuthProvider({ children }) {
       .then(async (result) => {
         if (!active || !result.authenticated) return
         const remote = await lostArkApi.getUserData()
-        const merged = { ...localDataSnapshot(), ...remote }
-        applyLocalData(merged)
-        if (JSON.stringify(remote) !== JSON.stringify(merged)) await lostArkApi.saveUserData(merged)
+        applyLocalData({ ...localDataSnapshot(), ...remote })
         if (active) setUser(result)
       })
       .catch(() => {})
@@ -29,29 +27,26 @@ export function AuthProvider({ children }) {
     }
   }, [])
 
-  useEffect(() => {
-    if (!user) return undefined
-    let timer
-    const sync = () => {
-      window.clearTimeout(timer)
-      timer = window.setTimeout(
-        () => lostArkApi.saveUserData(localDataSnapshot()).catch(() => {}),
-        350,
-      )
-    }
-    window.addEventListener(LOCAL_DATA_CHANGED_EVENT, sync)
-    return () => {
-      window.clearTimeout(timer)
-      window.removeEventListener(LOCAL_DATA_CHANGED_EVENT, sync)
-    }
-  }, [user])
-
   const logout = async () => {
     await lostArkApi.logout()
     setUser(null)
   }
+  const saveToCloud = () => lostArkApi.saveUserData(localDataSnapshot())
+  const clearCloudData = async () => {
+    await lostArkApi.deleteUserData()
+  }
   return (
-    <AuthContext.Provider value={{ user, ready, loginUrl: discordLoginUrl, logout }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        ready,
+        loginUrl: discordLoginUrl,
+        logout,
+        saveToCloud,
+        clearLocalData,
+        clearCloudData,
+      }}
+    >
       {ready ? children : null}
     </AuthContext.Provider>
   )

@@ -5,12 +5,14 @@ import {
   CalendarHeart,
   ChevronDown,
   Crown,
+  Eraser,
   Heart,
   LogIn,
   LogOut,
   Menu,
   MessageCircle,
   Moon,
+  Save,
   Search,
   ShoppingBag,
   Skull,
@@ -134,9 +136,50 @@ function FavoritePopover({
 }
 
 function AccountControl() {
-  const { user, loginUrl, logout } = useAuth()
+  const { user, loginUrl, logout, saveToCloud, clearLocalData, clearCloudData } = useAuth()
   const [open, setOpen] = useState(false)
+  const [busy, setBusy] = useState(false)
+  const [status, setStatus] = useState('')
   const dialogRef = useRef(null)
+
+  const flash = (message) => {
+    setStatus(message)
+    window.setTimeout(() => setStatus(''), 2500)
+  }
+  const handleSave = async () => {
+    setBusy(true)
+    try {
+      await saveToCloud()
+      flash('저장했습니다.')
+    } catch (error) {
+      flash(error.message || '저장에 실패했습니다.')
+    } finally {
+      setBusy(false)
+    }
+  }
+  const handleClearLocal = () => {
+    if (!window.confirm('이 기기에 저장된 로컬 캐시 데이터를 모두 지울까요?')) return
+    clearLocalData()
+    window.location.reload()
+  }
+  const handleClearCloud = async () => {
+    if (
+      !window.confirm(
+        '서버에 저장된 즐겨찾기·원정대 레이드 설정 등 동기화 데이터를 모두 삭제할까요? 이 작업은 되돌릴 수 없습니다.',
+      )
+    )
+      return
+    setBusy(true)
+    try {
+      await clearCloudData()
+      flash('서버 데이터를 삭제했습니다.')
+    } catch (error) {
+      flash(error.message || '삭제에 실패했습니다.')
+    } finally {
+      setBusy(false)
+    }
+  }
+
   if (!user)
     return (
       <>
@@ -185,6 +228,18 @@ function AccountControl() {
               <small>Discord 연동됨</small>
             </span>
           </header>
+          <div className="account-data-actions">
+            <button onClick={handleSave} disabled={busy}>
+              <Save /> 로컬 캐시 저장
+            </button>
+            <button onClick={handleClearLocal} disabled={busy}>
+              <Eraser /> 로컬 캐시 삭제
+            </button>
+            <button className="danger" onClick={handleClearCloud} disabled={busy}>
+              <Trash2 /> 서버 데이터 삭제
+            </button>
+            {status && <small className="account-data-status">{status}</small>}
+          </div>
           <button onClick={logout}>
             <LogOut /> 로그아웃
           </button>

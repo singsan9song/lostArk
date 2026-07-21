@@ -55,14 +55,12 @@ export default function CommunityPostPage() {
 
   const removeComment = (id) => {
     if (!window.confirm('댓글을 삭제할까요?')) return
-    lostArkApi
-      .deleteCommunityComment(id)
-      .then(() =>
-        setPost((current) => ({
-          ...current,
-          comments: current.comments.filter((item) => item.id !== id),
-        })),
-      )
+    lostArkApi.deleteCommunityComment(id).then(() =>
+      setPost((current) => ({
+        ...current,
+        comments: current.comments.filter((item) => item.id !== id),
+      })),
+    )
   }
 
   const removePost = () => {

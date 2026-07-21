@@ -19,7 +19,7 @@
   align-items: center;
   gap: 5px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .identity-meta svg {
   width: 13px;
@@ -56,12 +56,12 @@
 .result-title > div > span {
   display: block;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   margin-top: 4px;
 }
 .result-title > b {
   color: var(--primary-2);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .overview-layout .equipment-grid {
   grid-template-columns: repeat(2, 1fr);
@@ -96,10 +96,10 @@
   text-overflow: ellipsis;
 }
 .mini-list strong {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .mini-list small {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   color: var(--muted);
   margin-top: 2px;
 }
@@ -126,7 +126,7 @@
   border-radius: 5px;
 }
 .card-effect {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   color: #d4bd83;
   background: var(--surface-2);
   border-radius: 6px;
@@ -167,12 +167,12 @@
   color: #454c60;
 }
 .avatar-grid span {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   color: var(--muted);
   align-self: end;
 }
 .avatar-grid strong {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   align-self: start;
 }
 .avatar-grid em {
@@ -183,7 +183,7 @@
   color: var(--primary-2);
   border-radius: 5px;
   padding: 3px 5px;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-style: normal;
 }
 .skill-list {
@@ -219,7 +219,7 @@
   place-items: center;
   border-radius: 50%;
   background: var(--primary);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .skill-info {
   min-width: 0;
@@ -229,10 +229,10 @@
   display: block;
 }
 .skill-info > strong {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .skill-info > span {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   color: var(--muted);
   margin: 3px 0 6px;
 }
@@ -242,7 +242,7 @@
   gap: 4px;
 }
 .skill-info small {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   color: #a79bbd;
   background: #242333;
   border-radius: 4px;
@@ -261,7 +261,7 @@
   margin: auto;
 }
 .rune span {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .history-placeholder {
   min-height: 450px;
@@ -300,7 +300,7 @@
   z-index: 1;
 }
 .history-placeholder p {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   line-height: 1.7;
   color: var(--muted);
   z-index: 1;
@@ -316,7 +316,7 @@
 .history-placeholder > div:last-child small {
   display: block;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .history-placeholder > div:last-child strong {
   display: block;
@@ -339,7 +339,7 @@
   display: flex;
   justify-content: space-between;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .collectible-grid article > div:first-child b {
   color: var(--primary-2);
@@ -351,7 +351,7 @@
 }
 .collectible-grid article > strong small {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .progress {
   height: 5px;
@@ -367,7 +367,7 @@
 }
 .collectible-grid p {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   margin: 7px 0 0;
 }
 .expedition-grid {
@@ -406,7 +406,7 @@
     top: 62px;
   }
   .character-v2 .result-tabs button {
-    font-size: var(--fs-12);
+    font-size: var(--fs-13);
     padding: 0 15px;
   }
   .character-v2 .result-tabs button svg {

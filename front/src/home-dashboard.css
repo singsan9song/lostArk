@@ -35,7 +35,7 @@
   gap: 7px;
   margin: 0 0 10px;
   color: var(--primary);
-  font: 800 var(--fs-12) 'Outfit';
+  font: 800 var(--fs-13) 'Outfit';
   letter-spacing: 1.5px;
 }
 .representative-copy > p svg,
@@ -113,7 +113,7 @@
   border-radius: 7px;
   background: rgba(190, 213, 141, 0.12);
   color: var(--primary);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 800;
 }
 .representative-level strong {
@@ -134,7 +134,7 @@
   border-radius: 9px;
   background: var(--primary);
   color: #192011;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 800;
 }
 .representative-actions > a svg {
@@ -150,14 +150,14 @@
   border-radius: 9px;
   background: rgba(17, 20, 28, 0.8);
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .representative-actions select {
   max-width: 140px;
   border: 0;
   background: transparent;
   color: var(--text);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 700;
   outline: 0;
 }
@@ -179,7 +179,7 @@
   align-items: center;
   gap: 5px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .representative-summary span svg {
   width: 12px;
@@ -242,11 +242,11 @@
   text-overflow: ellipsis;
 }
 .representative-quick-picks b {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .representative-quick-picks small {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .representative-guide {
   position: relative;
@@ -268,10 +268,10 @@
 .representative-guide strong {
   margin: 10px 0 5px;
   color: var(--text);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .representative-guide span {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   line-height: 1.6;
 }
 .home-layout-controls {
@@ -299,12 +299,12 @@
   display: block;
 }
 .home-layout-controls span b {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .home-layout-controls span small {
   margin-top: 3px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .home-layout-controls button {
   height: 34px;
@@ -316,7 +316,7 @@
   border-radius: 8px;
   background: var(--surface-2);
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 700;
   cursor: pointer;
 }
@@ -383,7 +383,7 @@
   border-radius: 7px;
   background: var(--surface);
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 700;
   cursor: pointer;
 }
@@ -441,7 +441,7 @@
   border: 1px dashed var(--line);
   border-radius: 14px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .home-favorites-empty svg {
   width: 23px;
@@ -722,7 +722,7 @@ body.light .representative-quick-picks button {
   border-radius: 7px;
   background: var(--surface-2);
   color: var(--muted);
-  font: 700 var(--fs-12) 'Outfit';
+  font: 700 var(--fs-13) 'Outfit';
 }
 .home-widget-toolbar > div {
   display: flex;
@@ -906,7 +906,7 @@ body.light .representative-summary {
 .brand-hero-content > p {
   margin: 0;
   color: #def4ae;
-  font: 800 var(--fs-12) 'Outfit';
+  font: 800 var(--fs-13) 'Outfit';
   letter-spacing: 2px;
 }
 .brand-hero-content h1 {
@@ -923,7 +923,7 @@ body.light .representative-summary {
 .brand-hero-content > small {
   margin: 8px 0 22px;
   color: #c2c9bc;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .brand-hero-content .search-box {
   margin: 0 auto;
@@ -1198,11 +1198,11 @@ body.light .brand-hero-content > small {
   border-bottom: 1px solid var(--line);
 }
 .home-board-menu header b {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .home-board-menu header small {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .home-board-menu > div {
   display: flex;
@@ -1220,7 +1220,7 @@ body.light .brand-hero-content > small {
   border-radius: 8px;
   background: transparent;
   color: var(--text);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   text-align: left;
   cursor: pointer;
 }
@@ -1233,13 +1233,13 @@ body.light .brand-hero-content > small {
 }
 .home-board-menu > div span {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .home-board-menu > p {
   margin: 0;
   padding: 20px 8px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   text-align: center;
 }
 .home-board-menu .home-board-reset {
@@ -1253,7 +1253,7 @@ body.light .brand-hero-content > small {
   border-radius: 9px;
   background: var(--surface-2);
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 700;
   cursor: pointer;
 }
@@ -1409,7 +1409,7 @@ body.light .brand-hero-content > small {
   display: block;
   margin-top: 2px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .calendar-state {
   min-height: 116px;
@@ -1417,7 +1417,7 @@ body.light .brand-hero-content > small {
   place-items: center;
   border-top: 1px solid var(--line);
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   text-align: center;
 }
 .calendar-state.error {
@@ -1432,7 +1432,7 @@ body.light .brand-hero-content > small {
   align-items: center;
 }
 .home-widget .schedule-widget .panel-header time {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .home-widget .schedule-widget .compact-day-tabs {
   grid-template-columns: repeat(7, minmax(0, 1fr));
@@ -1446,12 +1446,12 @@ body.light .brand-hero-content > small {
   padding: 7px 4px;
   border: 1px solid transparent;
   background: var(--surface-2);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .compact-day-tabs button span {
   display: block;
   margin: 0 0 3px;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .home-widget .compact-day-tabs button.selected {
   border-color: rgba(190, 213, 141, 0.48);
@@ -1469,7 +1469,7 @@ body.light .brand-hero-content > small {
 }
 .home-widget .compact-day-tabs button.today span:after {
   content: ' · 오늘';
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .home-widget .compact-day-tabs button.selected.today {
   background: var(--primary);
@@ -1543,22 +1543,22 @@ body.light .brand-hero-content > small {
   white-space: nowrap;
 }
 .daily-content-card strong {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .daily-content-card small {
   margin-top: 3px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .daily-content-card time {
   color: var(--primary);
-  font: 800 var(--fs-12) 'Outfit';
+  font: 800 var(--fs-13) 'Outfit';
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 .daily-content-card time.unavailable {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .compact-calendar-state {
   min-height: 62px;
@@ -1592,7 +1592,7 @@ body.light .brand-hero-content > small {
 .adventure-island-details > strong {
   display: block;
   margin-bottom: 8px;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .adventure-island-details > div {
   display: grid;
@@ -1639,17 +1639,17 @@ body.light .brand-hero-content > small {
   white-space: nowrap;
 }
 .adventure-island-details b {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .adventure-island-details small {
   margin-top: 3px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .adventure-island-details p {
   margin: 0;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 @keyframes adventure-details-in {
   from {
@@ -1698,7 +1698,7 @@ body.light .brand-hero-content > small {
   border-radius: 5px;
   background: rgba(128, 137, 157, 0.12);
   color: var(--muted);
-  font-size: var(--fs-12) !important;
+  font-size: var(--fs-13) !important;
   font-weight: 800;
   vertical-align: middle;
 }
@@ -1779,7 +1779,7 @@ body.light .brand-hero-content > small {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .adventure-reward-list {
   display: grid;
@@ -1813,7 +1813,7 @@ body.light .brand-hero-content > small {
   width: 13px;
 }
 .adventure-reward-list b {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .adventure-reward-list p {
   padding: 8px;

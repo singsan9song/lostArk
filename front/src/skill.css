@@ -28,7 +28,7 @@
   align-items: center;
   gap: 8px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .skill-summary svg {
   width: 17px;
@@ -45,7 +45,7 @@
   overflow: hidden;
 }
 .skill-point span {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   color: var(--muted);
 }
 .skill-point strong {
@@ -53,7 +53,7 @@
   line-height: 1;
 }
 .skill-point small {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   color: var(--muted);
 }
 .skill-point i {
@@ -87,7 +87,7 @@
 }
 .skill-counts span {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .skill-counts strong {
   color: var(--primary-2);
@@ -101,7 +101,7 @@
   grid-template-columns: 30% 1fr 90px;
   padding: 6px 10px 12px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   border-bottom: 1px solid var(--line);
 }
 .skill-table > header span:nth-child(2) {
@@ -148,7 +148,7 @@
   color: #fff;
   border: 2px solid var(--surface);
   border-radius: 50%;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .skill-main > div:last-child {
   min-width: 0;
@@ -160,15 +160,15 @@
 }
 .skill-main span {
   color: #d9a94b;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .skill-main strong {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   margin: 2px 0;
 }
 .skill-main small {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .tripod-list {
   display: grid;
@@ -202,12 +202,12 @@
   border-radius: 50%;
   background: #36a6d8;
   color: #fff;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .tripod-list span {
   display: block;
   margin-top: 4px;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -238,11 +238,11 @@
   display: block;
 }
 .skill-rune strong {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   margin-top: 3px;
 }
 .skill-rune span {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   color: var(--primary-2);
 }
 .skill-rune i {

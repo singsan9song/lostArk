@@ -25,7 +25,7 @@
 }
 .honing-optimizer-heading small {
   color: var(--primary);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 800;
   letter-spacing: 0.12em;
 }
@@ -69,7 +69,7 @@
   align-items: center;
   gap: 7px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 700;
   cursor: pointer;
 }
@@ -108,7 +108,7 @@
   gap: 13px;
   margin: 17px 0 8px;
   color: var(--text);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .honing-material-options label {
   display: flex;
@@ -157,7 +157,7 @@
   border-radius: 8px;
   background: var(--surface-2);
   color: var(--text);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 700;
   outline: 0;
 }
@@ -169,7 +169,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 13px 0 10px;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .honing-estimated-level span {
   color: var(--muted);
@@ -231,7 +231,7 @@
 .honing-overall > strong {
   margin-left: auto;
   color: var(--primary);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .honing-overall > svg {
   width: 16px;
@@ -261,10 +261,10 @@
   cursor: pointer;
 }
 .honing-overall-body button span {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .honing-overall-body button b {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .honing-overall-body button.active {
   border-color: var(--primary);
@@ -292,7 +292,7 @@
   border-radius: 999px;
   background: rgba(105, 160, 255, 0.1);
   color: #79a8ff;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 800;
   text-align: center;
 }
@@ -331,7 +331,7 @@
 }
 .honing-average-cost small {
   color: #79a8ff;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 800;
 }
 .honing-average-cost strong {
@@ -347,7 +347,7 @@
   max-width: 390px;
   margin: 0;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   text-align: right;
 }
 .silver-dot {
@@ -403,12 +403,12 @@
 }
 .honing-material-grid b {
   margin-top: 3px;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .honing-material-grid > div > strong {
   grid-column: 2;
   color: #79a8ff;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .honing-segments {
   display: flex;
@@ -422,7 +422,7 @@
   border-radius: 999px;
   background: rgba(105, 160, 255, 0.07);
   color: #79a8ff;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 800;
   cursor: pointer;
 }
@@ -490,7 +490,7 @@
 }
 .honing-route-summary em {
   margin-top: 3px;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-style: normal;
   font-weight: 700;
 }
@@ -515,7 +515,7 @@
 .honing-attempt-row {
   min-height: 43px;
   border-top: 1px solid var(--line);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .honing-attempt-head span,
 .honing-attempt-row span,

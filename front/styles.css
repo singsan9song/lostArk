@@ -33,10 +33,7 @@
   --shadow: 0 22px 60px rgba(0, 0, 0, 0.25);
   --app-font: 'Loark Gwangju', sans-serif;
 
-  --fs-9: 9px;
-  --fs-10: 10px;
   --fs-11: 11px;
-  --fs-12: 12px;
   --fs-13: 13px;
   --fs-14: 14px;
   --fs-15: 15px;
@@ -232,7 +229,7 @@ button {
   margin-bottom: 14px;
 }
 .ad-slot span {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .ad-slot strong {
   font-size: var(--fs-20);
@@ -276,7 +273,7 @@ main {
 .section-kicker {
   margin: 0 0 13px;
   color: var(--primary-2);
-  font: 700 var(--fs-12) 'Outfit';
+  font: 700 var(--fs-13) 'Outfit';
   letter-spacing: 1.7px;
 }
 .eyebrow {
@@ -346,7 +343,7 @@ main {
   align-items: center;
   margin-top: 12px;
   color: #626a7c;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .recent-searches button {
   color: #8b92a4;
@@ -434,7 +431,7 @@ main {
   display: grid;
   grid-template-columns: 24px auto;
   column-gap: 8px;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   color: var(--muted);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
 }
@@ -516,7 +513,7 @@ main {
 }
 .tool-card p {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   margin: 5px 0 0;
 }
 .tool-card .arrow {
@@ -562,7 +559,7 @@ main {
 }
 .panel-header time {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .day-tabs {
   display: grid;
@@ -580,7 +577,7 @@ main {
 }
 .day-tabs button span {
   margin-right: 7px;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .day-tabs button.selected {
   background: var(--primary);
@@ -628,7 +625,7 @@ main {
 .event-item p {
   margin: 4px 0 0;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .event-time {
   text-align: right;
@@ -636,7 +633,7 @@ main {
 .event-time span {
   display: block;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .event-time strong {
   color: var(--primary-2);
@@ -661,7 +658,7 @@ main {
 }
 .mini-header a {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .mini-header svg {
   width: 16px;
@@ -678,13 +675,13 @@ main {
   align-items: center;
   padding: 10px 0;
   border-top: 1px solid var(--line);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .notice-panel time {
   color: #656c7e;
 }
 .badge {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   padding: 3px 6px;
   border-radius: 5px;
 }
@@ -722,18 +719,18 @@ main {
   place-items: center;
   background: linear-gradient(145deg, #363044, #242a3b);
   color: #b6a2e9;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .ranking-panel strong {
   display: block;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .ranking-panel small {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .ranking-panel b {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   color: #9c87e7;
 }
 .banner {
@@ -748,7 +745,7 @@ main {
 }
 .banner span {
   color: #a990ff;
-  font: 700 var(--fs-12) 'Outfit';
+  font: 700 var(--fs-13) 'Outfit';
   letter-spacing: 1.5px;
 }
 .banner h2 {
@@ -757,7 +754,7 @@ main {
 }
 .banner p {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   margin: 0;
 }
 .banner button {
@@ -792,16 +789,16 @@ footer {
   color: #aaa0cc;
 }
 .footer-inner p {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .footer-links {
   display: flex;
   gap: 20px;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .footer-inner > small {
   grid-column: 1/-1;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   color: #515768;
 }
 .toast {
@@ -974,7 +971,7 @@ body.light .ad-slot {
     gap: 20px;
   }
   .banner button {
-    font-size: var(--fs-12);
+    font-size: var(--fs-13);
     padding: 11px;
   }
   .banner h2 {

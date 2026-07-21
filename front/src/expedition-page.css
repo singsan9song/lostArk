@@ -120,7 +120,7 @@
 }
 .expedition-group-name span {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .expedition-group-summary {
   display: flex;
@@ -139,7 +139,7 @@
   border-radius: 999px;
   background: var(--surface-2);
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .expedition-group-summary span b {
   color: var(--text);

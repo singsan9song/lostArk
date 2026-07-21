@@ -23,7 +23,7 @@
   border-radius: 9px;
   background: var(--primary);
   color: #fff;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .favorites-button.active,
 .favorites-button:hover {
@@ -49,11 +49,11 @@
   border-bottom: 1px solid var(--line);
 }
 .favorites-popover header strong {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .favorites-popover header span {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .favorites-popover > div > a {
   display: grid;
@@ -93,16 +93,16 @@
   text-overflow: ellipsis;
 }
 .favorites-popover a strong {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .favorites-popover a small {
   margin-top: 3px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .favorites-popover a > b {
   color: var(--primary-2);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .favorites-popover > p {
   display: flex;
@@ -112,7 +112,7 @@
   margin: 0;
   padding: 27px 10px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .favorites-popover > p svg {
   width: 22px;
@@ -123,7 +123,7 @@
   align-items: center;
   gap: 5px;
   color: var(--primary-2);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .favorite-characters .section-heading > span svg {
   width: 14px;
@@ -176,16 +176,16 @@
   text-overflow: ellipsis;
 }
 .favorite-character-grid strong {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .favorite-character-grid small {
   margin-top: 4px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .favorite-character-grid a > b {
   color: var(--primary-2);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   white-space: nowrap;
 }
 .favorite-character-grid a > svg {
@@ -236,7 +236,7 @@
   border-radius: 6px;
   background: transparent;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   cursor: pointer;
 }
 .favorite-popover-group h4 > button:hover {
@@ -261,13 +261,13 @@
   display: flex;
   flex-direction: column;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   line-height: 1.25;
   white-space: nowrap;
 }
 .api-cache-status > span b {
   color: var(--text);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .api-cache-status > button {
   height: 27px;
@@ -279,7 +279,7 @@
   border-radius: 7px;
   background: rgba(125, 99, 215, 0.1);
   color: var(--primary-2);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 700;
   cursor: pointer;
 }
@@ -307,7 +307,7 @@
     min-width: 30px;
     padding: 0 8px;
     justify-content: center;
-    font-size: var(--fs-12);
+    font-size: var(--fs-13);
   }
 }
 .favorite-roster-section > header > div {
@@ -324,7 +324,7 @@
   border-radius: 8px;
   background: transparent;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   cursor: pointer;
 }
 .favorite-roster-section > header > button:hover {
@@ -347,11 +347,11 @@
   margin: 0;
   padding: 10px 4px 5px;
   color: #b7a4f4;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .favorite-popover-group h4 small {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 500;
 }
 .favorite-popover-row {
@@ -376,7 +376,7 @@
 }
 .favorite-popover-row > a > b {
   color: var(--primary-2);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   white-space: nowrap;
 }
 .favorite-popover-row > button {
@@ -418,11 +418,11 @@
 }
 .favorite-roster-section > header h3 {
   margin: 0;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .favorite-roster-section > header span {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .favorite-character-grid > article {
   position: relative;
@@ -450,7 +450,7 @@
 }
 .favorite-character-grid > article > a > b {
   color: var(--primary-2);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   white-space: nowrap;
 }
 .favorite-character-grid > article > a > svg {

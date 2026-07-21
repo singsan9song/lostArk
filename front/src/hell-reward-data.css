@@ -13,12 +13,12 @@
 }
 .hell-basic-rewards > header h3 {
   margin: 0;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-basic-rewards > header span {
   margin: 0;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-basic-rewards > div {
   display: grid;
@@ -43,17 +43,17 @@
 .hell-basic-rewards article span {
   margin: 0;
   color: var(--text);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-basic-rewards article span small {
   display: block;
   margin-top: 3px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-basic-rewards article strong {
   color: #5284f5;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   white-space: nowrap;
 }
 .hell-reward-icon img {
@@ -73,7 +73,7 @@
 .hell-abundance small {
   display: none;
   margin-left: 2px;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-abundance.active {
   border-color: #7d65d5;
@@ -116,14 +116,14 @@
   gap: 6px;
   margin: 0 0 8px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-details h4 b {
   padding: 2px 5px;
   border-radius: 4px;
   background: rgba(119, 87, 211, 0.15);
   color: #a88cf4;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-details section > div {
   display: grid;
@@ -153,18 +153,18 @@
 }
 .hell-reward-details section > div > span:not(.detail-icon) {
   overflow: hidden;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 .hell-reward-details section > div > strong {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   white-space: nowrap;
 }
 .hell-reward-details section > p {
   margin: 0;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 body.light .hell-reward-details {
   background: rgba(239, 237, 247, 0.55);
@@ -187,11 +187,11 @@ body.light .hell-reward-details {
 }
 .hell-reward-details .detail-values > span {
   color: var(--text);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-details .detail-values > b {
   color: #5284f5;
-  font: 800 var(--fs-12) 'Outfit';
+  font: 800 var(--fs-13) 'Outfit';
 }
 .hell-reward-icon.ancient {
   padding: 2px;
@@ -210,7 +210,7 @@ body.light .hell-reward-details {
   display: block;
   margin-top: 2px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-icon.relic {
   padding: 2px;
@@ -338,7 +338,7 @@ body.light .hell-reward-details {
 .hell-reward-options > span {
   margin-right: auto;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-options button {
   min-width: 78px;
@@ -347,7 +347,7 @@ body.light .hell-reward-details {
   border-radius: 7px;
   background: var(--surface);
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 700;
   cursor: pointer;
 }
@@ -372,7 +372,7 @@ body.light .hell-reward-details {
   border-radius: 5px;
   background: var(--surface-2);
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 700;
   line-height: 1.25;
   cursor: pointer;
@@ -389,7 +389,7 @@ body.light .hell-reward-details {
 
 /* 100% 브라우저 배율에서도 125%에 가까운 가독성을 유지한다. */
 .hell-reward-page .efficiency-tabs a {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-page .efficiency-hero-icon {
   width: 58px;
@@ -399,19 +399,19 @@ body.light .hell-reward-details {
   width: 27px;
 }
 .hell-reward-page .efficiency-hero p {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-page .efficiency-hero h1 {
   font-size: var(--fs-27);
 }
 .hell-reward-page .efficiency-hero span {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-page .hell-filter-heading h2 {
   font-size: var(--fs-18);
 }
 .hell-reward-page .hell-filter-heading > span {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-page .hell-filter-heading svg {
   width: 22px;
@@ -433,21 +433,21 @@ body.light .hell-reward-details {
   font-size: var(--fs-14);
 }
 .hell-reward-page .hell-stage-grid button small {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-page .pheon-converter strong {
   font-size: var(--fs-13);
 }
 .hell-reward-page .pheon-converter small {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-page .pheon-converter input {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-page .pheon-converter .pheon-toggle,
 .hell-reward-page .pheon-converter label em,
 .hell-reward-page .pheon-converter > b {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-page .hell-reward-details .pheon-detail {
   color: #729cff;
@@ -457,30 +457,30 @@ body.light .hell-reward-details {
 }
 .hell-reward-page .hell-selection > header p,
 .hell-reward-page .hell-ranking > header p {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-page .hell-selection > header h2,
 .hell-reward-page .hell-ranking > header h2 {
   font-size: var(--fs-20);
 }
 .hell-reward-page .hell-selection > header span {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-page .hell-config-layout .hell-selection.panel > div span {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-page .hell-config-layout .hell-selection.panel > div strong {
   font-size: var(--fs-17);
 }
 .hell-reward-page .hell-config-layout .hell-selection.panel > .basic-reward-option label {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-page .basic-reward-option label i {
   width: 19px;
   height: 19px;
 }
 .hell-reward-page .hell-ranking > header button {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-page .hell-ranking > header button svg {
   width: 16px;
@@ -493,7 +493,7 @@ body.light .hell-reward-details {
 .hell-reward-page .hell-rank-number {
   width: 27px;
   height: 27px;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-page .hell-reward-icon {
   width: 46px;
@@ -506,37 +506,37 @@ body.light .hell-reward-details {
   font-size: var(--fs-14);
 }
 .hell-reward-page .hell-reward-copy small {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-page .hell-inline-options button {
   padding: 4px 8px;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-page .hell-abundance {
   height: 34px;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-page .hell-abundance i {
   width: 14px;
   height: 14px;
 }
 .hell-reward-page .hell-abundance small {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-page .hell-reward-value {
   font-size: var(--fs-18);
 }
 .hell-reward-page .hell-reward-value small {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-page .hell-reward-open svg {
   width: 17px;
 }
 .hell-reward-page .hell-reward-details h4 {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-page .hell-reward-details h4 b {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-page .hell-reward-details section > div {
   grid-template-columns: 31px minmax(0, 1fr) auto;
@@ -554,16 +554,16 @@ body.light .hell-reward-details {
 .hell-reward-page .hell-reward-details section > div > span:not(.detail-icon),
 .hell-reward-page .hell-reward-details section > div > strong,
 .hell-reward-page .hell-reward-details .detail-values > span {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-page .hell-reward-details .detail-values > b {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-page .hell-reward-details section > div > span > small {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-page .hell-reward-details section > p {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 @media (max-width: 650px) {
   .hell-reward-page .hell-ranking-list article {
@@ -578,7 +578,7 @@ body.light .hell-reward-details {
     font-size: var(--fs-13);
   }
   .hell-reward-page .hell-reward-copy small {
-    font-size: var(--fs-12);
+    font-size: var(--fs-13);
   }
   .hell-reward-page .hell-reward-value {
     font-size: var(--fs-15);
@@ -620,12 +620,12 @@ body.light .hell-reward-details {
   display: block;
 }
 .bracelet-value-toggle strong {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .bracelet-value-toggle small {
   margin-top: 4px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 500;
 }
 .bracelet-value-summary {
@@ -665,7 +665,7 @@ body.light .hell-reward-details {
 .bracelet-value-head {
   padding: 10px 8px 7px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .bracelet-value-head span:not(:first-child),
 .bracelet-value-row span,
@@ -678,11 +678,11 @@ body.light .hell-reward-details {
   border-top: 1px solid rgba(120, 125, 145, 0.13);
 }
 .bracelet-value-row strong {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .bracelet-value-row span,
 .bracelet-value-row b {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .bracelet-value-row span {
   color: var(--muted);
@@ -702,7 +702,7 @@ body.light .hell-reward-details {
 }
 .bracelet-value-total span {
   color: var(--text);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 700;
 }
 .bracelet-value-total strong {
@@ -713,7 +713,7 @@ body.light .hell-reward-details {
   margin: 0;
   padding: 13px 8px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 @media (max-width: 650px) {
   .bracelet-value-head,
@@ -731,12 +731,12 @@ body.light .hell-reward-details {
     padding: 0 8px 8px;
   }
   .bracelet-value-head {
-    font-size: var(--fs-12);
+    font-size: var(--fs-13);
   }
   .bracelet-value-row strong,
   .bracelet-value-row span,
   .bracelet-value-row b {
-    font-size: var(--fs-12);
+    font-size: var(--fs-13);
   }
 }
 .hell-reward-details > .ability-stone-selector {
@@ -754,12 +754,12 @@ body.light .hell-reward-details {
   display: block;
 }
 .ability-stone-selector > header strong {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .ability-stone-selector > header small {
   margin-top: 4px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-details section > .ability-stone-options {
   display: grid;
@@ -802,7 +802,7 @@ body.light .hell-reward-details {
 }
 .ability-stone-options button strong {
   overflow: hidden;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   white-space: nowrap;
   text-overflow: ellipsis;
 }
@@ -811,25 +811,25 @@ body.light .hell-reward-details {
   border-radius: 4px;
   background: #765bc8;
   color: #fff;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-style: normal;
   white-space: nowrap;
 }
 .ability-stone-options button small {
   grid-area: penalty;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .ability-stone-options button > b {
   grid-area: price;
   color: #5284f5;
-  font: 800 var(--fs-12) 'Outfit';
+  font: 800 var(--fs-13) 'Outfit';
   white-space: nowrap;
 }
 .ability-stone-selector > p {
   margin: 0;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .hell-reward-page .hell-reward-details section > .ability-stone-options {
   width: 100%;

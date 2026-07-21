@@ -70,7 +70,7 @@
   border-radius: 7px;
   background: var(--surface-2);
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 700;
 }
 .single-coin-table {
@@ -92,7 +92,7 @@
   padding: 0 12px;
   background: var(--surface-2);
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 700;
 }
 .single-coin-head > span {
@@ -162,7 +162,7 @@
   border-radius: 6px;
   background: var(--surface-2);
   color: var(--muted);
-  font: 800 var(--fs-12) 'Outfit';
+  font: 800 var(--fs-13) 'Outfit';
   font-style: normal;
 }
 .single-coin-row:nth-child(2) .single-value-rank {
@@ -206,7 +206,7 @@
   border-radius: 10px;
   background: var(--surface);
   color: var(--muted);
-  font: 800 var(--fs-12) 'Outfit';
+  font: 800 var(--fs-13) 'Outfit';
 }
 .single-category-tabs button.active {
   border-color: rgba(226, 161, 70, 0.42);
@@ -242,7 +242,7 @@
 .single-value-exclusions > header small {
   margin-top: 3px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .single-value-exclusions > header > button {
   flex: 0 0 auto;
@@ -251,7 +251,7 @@
   border-radius: 6px;
   background: var(--surface);
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 700;
   cursor: pointer;
 }
@@ -269,7 +269,7 @@
   border-radius: 7px;
   background: var(--surface);
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 700;
   cursor: pointer;
   transition:
@@ -285,7 +285,7 @@
   border: 1px solid var(--line);
   border-radius: 4px;
   background: var(--surface-2);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-style: normal;
 }
 .single-value-exclusions > div > button.active {
@@ -331,7 +331,7 @@
 .single-item small {
   margin-top: 5px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .single-item-copy {
   min-width: 0;
@@ -340,7 +340,7 @@
 .single-item .single-item-quantity {
   margin-top: 4px;
   color: var(--text);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 700;
 }
 .single-coin-row > .single-coin-cost-cell {
@@ -349,7 +349,7 @@
   align-items: center;
   gap: 8px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   text-align: left;
   white-space: nowrap;
 }
@@ -378,21 +378,21 @@
 }
 .single-coin-cost-cell strong {
   color: var(--text);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 800;
 }
 .single-coin-cost-copy > span:first-child {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 700;
 }
 .single-coin-cost-copy > span:first-child strong {
   font-size: var(--fs-13);
 }
 .single-coin-cost-copy > span:last-child {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .single-coin-cost-copy > span:last-child strong {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .single-coin-row .coin-gold-value {
   color: #5284f5;
@@ -496,7 +496,7 @@
 .single-chance-card-main b {
   overflow: hidden;
   color: var(--text);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 700;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -504,7 +504,7 @@
 .single-chance-card-main small {
   flex: 0 0 auto;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .single-chance-card-main small em {
   margin-left: 5px;
@@ -514,7 +514,7 @@
 }
 .single-chance-card-main > strong {
   color: #5284f5;
-  font: 800 var(--fs-12) 'Outfit';
+  font: 800 var(--fs-13) 'Outfit';
   text-align: right;
   white-space: nowrap;
 }
@@ -530,7 +530,7 @@
   border-radius: 5px;
   background: rgba(0, 0, 0, 0.04);
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 800;
   cursor: pointer;
 }
@@ -580,7 +580,7 @@
 .single-exchange-options b {
   overflow: hidden;
   color: var(--text);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 700;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -588,7 +588,7 @@
 .single-exchange-options small {
   flex: 0 0 auto;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .single-exchange-options small em {
   margin-left: 5px;
@@ -602,7 +602,7 @@
   justify-content: flex-end;
   gap: 3px;
   color: #5284f5;
-  font: 800 var(--fs-12) 'Outfit';
+  font: 800 var(--fs-13) 'Outfit';
   text-align: right;
   white-space: nowrap;
 }
@@ -643,7 +643,7 @@
   border-radius: 4px;
   background: rgba(226, 161, 70, 0.18);
   color: #d58a22 !important;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-style: normal;
   font-weight: 900;
 }
@@ -784,7 +784,7 @@
 .single-selection-bom > header small {
   margin-top: 3px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .single-selection-bom > header > strong {
   color: #5284f5;
@@ -875,16 +875,16 @@
   text-overflow: ellipsis;
 }
 .single-selection-grid span b {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .single-selection-grid span small {
   margin-top: 2px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .single-selection-grid > button > strong {
   color: #5284f5;
-  font: 800 var(--fs-12) 'Outfit';
+  font: 800 var(--fs-13) 'Outfit';
   text-align: right;
   white-space: nowrap;
 }
@@ -909,11 +909,11 @@
 .single-chance-bom > header small {
   margin-top: 3px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .single-chance-bom > header > span {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   white-space: nowrap;
 }
 .single-chance-bom > header > span strong {
@@ -959,7 +959,7 @@
 .single-chance-head {
   padding: 5px 8px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 800;
 }
 .single-chance-head span:not(:first-child) {
@@ -998,14 +998,14 @@
 }
 .single-chance-row > div > b {
   overflow: hidden;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 .single-chance-row > span,
 .single-chance-row > strong {
   text-align: right;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .single-chance-row > strong {
   color: #5284f5;
@@ -1102,7 +1102,7 @@
     grid-column: 1/-1;
   }
   .single-coin-row > strong {
-    font-size: var(--fs-12);
+    font-size: var(--fs-13);
   }
   .single-coin-row .coin-gold-value {
     grid-column: 1/-1;
@@ -1167,7 +1167,7 @@
 }
 .single-chance-card > strong {
   color: #5284f5;
-  font: 800 var(--fs-12) 'Outfit';
+  font: 800 var(--fs-13) 'Outfit';
   text-align: right;
   white-space: nowrap;
 }
@@ -1185,7 +1185,7 @@
 .single-chance-row > div > b > em {
   margin-left: 6px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-style: normal;
   font-weight: 700;
 }

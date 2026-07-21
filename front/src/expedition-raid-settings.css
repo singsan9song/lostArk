@@ -82,7 +82,7 @@
 }
 .expedition-character-metrics small {
   color: var(--muted);
-  font-size: var(--fs-10);
+  font-size: var(--fs-11);
 }
 .expedition-character-metrics strong {
   margin-top: 4px;
@@ -142,12 +142,12 @@
   white-space: nowrap;
 }
 .expedition-card-raid b {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .expedition-card-raid small {
   margin-top: 3px;
   color: var(--muted);
-  font-size: var(--fs-10);
+  font-size: var(--fs-11);
 }
 .expedition-card-raid > div {
   display: flex;
@@ -304,7 +304,7 @@
 .expedition-raid-characters small {
   margin-top: 3px;
   color: var(--muted);
-  font-size: var(--fs-10);
+  font-size: var(--fs-11);
 }
 .expedition-raid-config {
   min-height: 0;
@@ -330,14 +330,14 @@
 .expedition-raid-config-heading small {
   margin-top: 4px;
   color: var(--muted);
-  font-size: var(--fs-10);
+  font-size: var(--fs-11);
 }
 .expedition-raid-config-heading em {
   padding: 5px 8px;
   border-radius: 999px;
   background: rgba(190, 213, 141, 0.12);
   color: var(--primary);
-  font-size: var(--fs-10);
+  font-size: var(--fs-11);
   font-style: normal;
   font-weight: 800;
 }
@@ -360,7 +360,7 @@
 }
 .expedition-raid-config-card > header small {
   color: var(--muted);
-  font-size: var(--fs-9);
+  font-size: var(--fs-11);
 }
 .expedition-raid-config-card > header strong {
   margin-top: 3px;
@@ -375,7 +375,7 @@
   border-radius: 6px;
   background: rgba(235, 99, 99, 0.09);
   color: #eb7777;
-  font-size: var(--fs-10);
+  font-size: var(--fs-11);
   cursor: pointer;
 }
 .expedition-raid-config-card > header button svg {
@@ -409,7 +409,7 @@
 }
 .expedition-difficulty-options small {
   margin-top: 3px;
-  font-size: var(--fs-9);
+  font-size: var(--fs-11);
 }
 .expedition-gate-options {
   display: flex;
@@ -420,7 +420,7 @@
 .expedition-gate-options > span {
   margin-right: auto;
   color: var(--muted);
-  font-size: var(--fs-10);
+  font-size: var(--fs-11);
 }
 .expedition-raid-config-empty {
   height: calc(100% - 74px);
@@ -440,7 +440,7 @@
 }
 .expedition-raid-config-empty span {
   margin-top: 5px;
-  font-size: var(--fs-10);
+  font-size: var(--fs-11);
 }
 .expedition-raid-list {
   border-left: 1px solid var(--line);
@@ -455,7 +455,7 @@
 .expedition-raid-list h4 {
   margin: 0 5px 5px;
   color: var(--muted);
-  font-size: var(--fs-9);
+  font-size: var(--fs-11);
 }
 .expedition-raid-list section > button {
   width: 100%;
@@ -468,7 +468,7 @@
   border-radius: 8px;
   background: transparent;
   color: var(--text);
-  font-size: var(--fs-10);
+  font-size: var(--fs-11);
   text-align: left;
   cursor: pointer;
 }
@@ -544,6 +544,6 @@
     max-height: none;
   }
   .expedition-character-metrics strong {
-    font-size: var(--fs-12);
+    font-size: var(--fs-13);
   }
 }

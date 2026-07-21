@@ -45,14 +45,14 @@
 }
 .roster-summary span {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .roster-summary strong {
   font: 700 var(--fs-13) 'Outfit';
   margin-top: 3px;
 }
 .roster-summary small {
-  font: 500 var(--fs-12) 'Noto Sans KR';
+  font: 500 var(--fs-13) 'Noto Sans KR';
   color: var(--muted);
   margin-left: 2px;
 }
@@ -71,7 +71,7 @@
   border-radius: 12px;
   background: rgba(139, 108, 255, 0.15);
   color: #bca8ff;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 700;
 }
 .collection-box header svg {
@@ -117,7 +117,7 @@
   display: block;
   margin-top: 4px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -135,7 +135,7 @@
   border: 1px solid var(--line);
   border-radius: 7px;
   background: var(--surface-2);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .title-history svg {
   width: 11px;
@@ -150,7 +150,7 @@
 }
 .collection-empty span {
   color: #60687a;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   line-height: 1.5;
 }
 .character-summary-grid + .result-tabs,
@@ -200,7 +200,7 @@
   margin-bottom: 6px;
 }
 .ranking-summary > header strong {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .ranking-summary > header svg {
   width: 12px;
@@ -216,12 +216,12 @@
 }
 .ranking-scope {
   color: var(--primary-2);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 700;
 }
 .ranking-metric {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .ranking-row > div {
   display: flex;
@@ -231,11 +231,11 @@
 }
 .ranking-row small {
   color: #6f778a;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .ranking-row b {
   color: #929aae;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

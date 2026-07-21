@@ -7,7 +7,7 @@
   border: 1px solid var(--line);
   border-radius: 10px;
   background: var(--surface);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 700;
   cursor: pointer;
 }

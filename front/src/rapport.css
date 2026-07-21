@@ -29,7 +29,7 @@
 .rapport-hero p {
   margin: 0;
   color: #ef849f;
-  font: 800 var(--fs-12) 'Outfit';
+  font: 800 var(--fs-13) 'Outfit';
   letter-spacing: 1.5px;
 }
 .rapport-hero h1 {
@@ -69,7 +69,7 @@
   border: 0;
   background: transparent;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   cursor: pointer;
 }
 .rapport-panel header svg {
@@ -84,7 +84,7 @@
 }
 .rapport-panel label {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .rapport-panel input {
   width: 100%;
@@ -115,7 +115,7 @@
 }
 .rapport-required span {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .rapport-required strong {
   color: #ef849f;
@@ -137,7 +137,7 @@
 }
 .rapport-gifts b {
   color: var(--text);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .rapport-gifts small {
   margin-top: 3px;
@@ -164,7 +164,7 @@
 .rapport-result span {
   display: block;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .rapport-result strong {
   display: block;
@@ -175,7 +175,7 @@
   grid-column: 1/-1;
   margin: 2px 0 0;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .rapport-result.complete {
   border-color: rgba(190, 213, 141, 0.45);

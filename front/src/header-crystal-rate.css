@@ -48,7 +48,7 @@
 }
 .header-crystal-rate span {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .mobile-crystal-rate {
   display: none;
@@ -82,7 +82,7 @@
     height: 20px !important;
   }
   .mobile-crystal-rate > b {
-    font: 800 var(--fs-12) 'Outfit';
+    font: 800 var(--fs-13) 'Outfit';
   }
   .mobile-crystal-rate > i {
     color: var(--muted);
@@ -112,7 +112,7 @@
   gap: 11px;
   padding: 0 12px;
   background: var(--surface-2);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .pheon-converter.compact .pheon-currency-icon {
   width: 42px;
@@ -138,12 +138,12 @@
   display: block;
 }
 .pheon-converter.compact .pheon-toggle b {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .pheon-converter.compact .pheon-toggle small {
   margin-top: 4px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .pheon-converter.compact .pheon-toggle > i {
   width: 18px;

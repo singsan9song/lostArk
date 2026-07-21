@@ -61,7 +61,7 @@
   margin-bottom: 8px;
 }
 .identity-tags span {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   color: #aea2d2;
   background: rgba(129, 94, 226, 0.12);
   border: 1px solid rgba(157, 126, 239, 0.15);
@@ -87,7 +87,7 @@
 .level-score small {
   display: block;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .level-score strong {
   display: block;
@@ -145,14 +145,14 @@
   font-size: var(--fs-15);
 }
 .result-title > span {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   color: var(--muted);
 }
 .result-title > button {
   border: 0;
   background: none;
   color: var(--primary-2);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   cursor: pointer;
 }
 .combat-power {
@@ -181,7 +181,7 @@
 .combat-power small {
   display: block;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .combat-power strong {
   display: block;
@@ -202,12 +202,12 @@
 .stat-grid span {
   display: block;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .stat-grid strong {
   display: block;
   margin-top: 5px;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .profile-list {
   margin: 0;
@@ -224,14 +224,14 @@
   align-items: center;
   gap: 8px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .profile-list dt svg {
   width: 15px;
 }
 .profile-list dd {
   margin: 0;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 600;
 }
 .compact-items {
@@ -257,11 +257,11 @@
   border-radius: 7px;
 }
 .compact-item span {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   color: var(--muted);
 }
 .compact-item strong {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -303,12 +303,12 @@
   border-radius: 8px;
 }
 .equipment-card span {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   color: var(--muted);
 }
 .equipment-card strong {
   display: block;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   margin-top: 4px;
   white-space: nowrap;
   overflow: hidden;
@@ -342,11 +342,11 @@
   color: #fff;
   border-radius: 4px;
   padding: 2px 4px;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .gem-card strong {
   display: block;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   margin-top: 6px;
   white-space: nowrap;
   overflow: hidden;
@@ -371,12 +371,12 @@
   border-radius: 8px;
 }
 .engraving-list strong {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .engraving-list p {
   margin: 4px 0 0;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .card-grid {
   display: grid;
@@ -396,12 +396,12 @@
 .card-grid strong,
 .card-grid span {
   display: block;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   margin-top: 5px;
 }
 .card-grid span {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .server-select {
   position: relative;
@@ -413,7 +413,7 @@
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: 7px 30px 7px 10px;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .server-select svg {
   position: absolute;
@@ -457,15 +457,15 @@
   display: block;
 }
 .sibling-grid strong {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .sibling-grid small {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   color: var(--muted);
   margin-top: 3px;
 }
 .sibling-grid b {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   color: var(--primary-2);
 }
 .result-empty {
@@ -482,7 +482,7 @@
   opacity: 0.35;
 }
 .result-empty p {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 body.light .character-cover {
   background: linear-gradient(110deg, #fff, #f0edfa);

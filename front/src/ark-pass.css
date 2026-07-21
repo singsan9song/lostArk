@@ -41,7 +41,7 @@
 .ark-pass-panel header p {
   margin: 5px 0 0;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .ark-pass-panel > header > div:last-child > span {
   min-width: 72px;
@@ -53,7 +53,7 @@
 }
 .ark-pass-panel > header > div:last-child small {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .ark-pass-panel > header > div:last-child b {
   margin-top: 4px;
@@ -75,7 +75,7 @@
   align-items: center;
   background: var(--surface-2);
   color: #d8bd79;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 800;
   text-align: center;
 }
@@ -91,7 +91,7 @@
   border-left: 0;
 }
 .ark-pass-table-head small {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .ark-pass-level {
   min-height: 116px;
@@ -124,7 +124,7 @@
   border-radius: 8px;
   background: rgba(220, 183, 91, 0.14);
   color: #e0bd67;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 800;
 }
 .ark-pass-reward {
@@ -184,13 +184,13 @@
 }
 .ark-pass-reward b {
   overflow: hidden;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   text-overflow: ellipsis;
 }
 .ark-pass-reward small {
   margin-top: 4px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .ark-pass-reward em {
   position: absolute;
@@ -200,7 +200,7 @@
   align-items: center;
   gap: 2px;
   color: #e0bd67;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-style: normal;
 }
 .ark-pass-reward em svg {
@@ -212,7 +212,7 @@
   justify-content: center;
   gap: 7px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   background: rgba(0, 0, 0, 0.04);
 }
 .ark-pass-empty svg {
@@ -248,7 +248,7 @@
   display: block;
   margin-top: 5px;
   color: #79a8ff;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 800;
 }
 .ark-pass-reward .ark-pass-recommend {
@@ -260,7 +260,7 @@
   border-radius: 7px;
   background: rgba(190, 213, 141, 0.16);
   color: #bed58d;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 800;
 }
 .ark-pass-reward .ark-pass-recommend svg {
@@ -288,7 +288,7 @@
 }
 .ark-pass-totals span small {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .ark-pass-totals span b {
   margin-top: 6px;
@@ -297,7 +297,7 @@
 }
 .ark-pass-totals em {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-style: normal;
   text-align: right;
 }
@@ -320,7 +320,7 @@
   font-size: var(--fs-13);
 }
 .ark-pass-table-head small {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .ark-pass-level {
   min-height: 126px;
@@ -351,32 +351,32 @@
   font-size: var(--fs-14);
 }
 .ark-pass-reward small {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .ark-pass-reward > span > strong {
   font-size: var(--fs-13);
 }
 .ark-pass-choice-label {
   padding: 3px 7px;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .ark-pass-reward .ark-pass-recommend {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .ark-pass-reward em:not(.ark-pass-recommend) {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .ark-pass-empty {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .ark-pass-panel > header > div:last-child small {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .ark-pass-totals span small {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .ark-pass-totals em {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .ark-pass-reward-cell.has-gem-choice {
   display: flex;
@@ -408,7 +408,7 @@
   border-radius: 6px;
   background: var(--surface);
   color: var(--text);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   text-align: left;
   cursor: pointer;
 }
@@ -419,20 +419,20 @@
 }
 .ark-pass-gem-options button span {
   overflow: hidden;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 700;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 .ark-pass-gem-options button strong {
   color: #79a8ff;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   white-space: nowrap;
 }
 .ark-pass-gem-options button em {
   grid-column: 1/-1;
   color: #bed58d;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-style: normal;
   font-weight: 800;
 }
@@ -459,12 +459,12 @@
   text-overflow: ellipsis;
 }
 .ark-pass-box-choice b {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .ark-pass-box-choice small {
   margin-top: 3px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .ark-pass-box-choice select {
   min-width: 0;
@@ -474,7 +474,7 @@
   border-radius: 6px;
   background: var(--surface-2);
   color: var(--text);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 700;
 }
 .ark-pass-reward > i.ancient {
@@ -549,7 +549,7 @@
   left: 0;
   overflow: hidden;
   color: var(--text);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 800;
 }
 .ark-pass-matrix-corner::after {
@@ -579,7 +579,7 @@
 .ark-pass-matrix-corner > b {
   bottom: 12px;
   left: 10px;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .ark-pass-level-heading {
   border-left: 1px solid var(--line);
@@ -617,13 +617,13 @@
   display: block;
 }
 .ark-pass-track-heading b {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   white-space: nowrap;
 }
 .ark-pass-track-heading small {
   margin-top: 3px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   white-space: nowrap;
 }
 .ark-pass-track-row > .ark-pass-reward-cell,
@@ -660,15 +660,15 @@
   height: 38px;
 }
 .ark-pass-matrix .ark-pass-reward b {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .ark-pass-matrix .ark-pass-reward small {
   margin-top: 2px;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .ark-pass-matrix .ark-pass-reward > span > strong {
   margin-top: 3px;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .ark-pass-matrix .ark-pass-reward-cell.choice .ark-pass-reward {
   min-width: 0;
@@ -735,16 +735,16 @@
 }
 .ark-pass-reward.with-control .ability-stone-choice-current > span small {
   margin-bottom: 1px !important;
-  font-size: var(--fs-12) !important;
+  font-size: var(--fs-13) !important;
 }
 .ark-pass-reward.with-control .ability-stone-choice-current > span b {
-  font-size: var(--fs-12) !important;
+  font-size: var(--fs-13) !important;
 }
 .ark-pass-reward.with-control .ability-stone-choice-current > em {
   display: none;
 }
 .ark-pass-reward.with-control .ability-stone-choice-current > strong {
-  font-size: var(--fs-12) !important;
+  font-size: var(--fs-13) !important;
 }
 .ark-pass-reward.with-control .ability-stone-choice-current > svg {
   width: 13px;
@@ -764,16 +764,16 @@
   height: 28px;
 }
 .ark-pass-reward.with-control .ability-stone-choice-options > button > span b {
-  font-size: var(--fs-12) !important;
+  font-size: var(--fs-13) !important;
 }
 .ark-pass-reward.with-control .ability-stone-choice-options > button > span small {
-  font-size: var(--fs-12) !important;
+  font-size: var(--fs-13) !important;
 }
 .ark-pass-reward.with-control .ability-stone-choice-options > button > em {
   display: none;
 }
 .ark-pass-reward.with-control .ability-stone-choice-options > button > strong {
-  font-size: var(--fs-12) !important;
+  font-size: var(--fs-13) !important;
 }
 .ark-pass-embedded-select {
   display: grid;
@@ -781,7 +781,7 @@
   align-items: center;
   gap: 8px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 800;
 }
 .ark-pass-embedded-select select {
@@ -792,7 +792,7 @@
   border-radius: 7px;
   background: var(--surface);
   color: var(--text);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 700;
 }
 @media (max-width: 900px) {
@@ -816,7 +816,7 @@
     display: none;
   }
   .ark-pass-track-heading b {
-    font-size: var(--fs-12);
+    font-size: var(--fs-13);
   }
   .ark-pass-matrix-corner > span {
     right: 7px;

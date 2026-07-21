@@ -15,7 +15,7 @@
   padding: 11px;
   border-radius: 8px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 700;
   text-align: center;
   text-decoration: none;
@@ -50,7 +50,7 @@
 .efficiency-hero p {
   margin: 0 0 5px;
   color: var(--primary-2);
-  font: 700 var(--fs-12) 'Outfit';
+  font: 700 var(--fs-13) 'Outfit';
   letter-spacing: 1.4px;
 }
 .efficiency-hero h1 {
@@ -61,7 +61,7 @@
   display: block;
   margin-top: 7px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .efficiency-layout {
   display: grid;
@@ -96,7 +96,7 @@
   border: 0;
   background: none;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   cursor: pointer;
 }
 .efficiency-fields {
@@ -108,7 +108,7 @@
   display: block;
   margin-bottom: 7px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .efficiency-fields label > div {
   display: flex;
@@ -131,7 +131,7 @@
 .efficiency-fields em {
   padding-right: 10px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-style: normal;
 }
 .efficiency-note {
@@ -140,14 +140,14 @@
   gap: 6px;
   margin: 17px 0 0;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .efficiency-note svg {
   width: 14px;
 }
 .efficiency-result > span {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .efficiency-result > strong {
   display: block;
@@ -159,7 +159,7 @@
   color: #eb857f;
 }
 .efficiency-result > strong small {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .efficiency-result > div {
   display: grid;
@@ -174,11 +174,11 @@
   color: var(--primary-2);
 }
 .efficiency-result > div span {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   color: var(--muted);
 }
 .efficiency-result > div b {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .efficiency-result > p {
   margin: 14px 0 0;
@@ -186,7 +186,7 @@
   border-radius: 7px;
   background: rgba(79, 183, 132, 0.1);
   color: #73c99f;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   text-align: center;
 }
 .efficiency-result.negative > p {
@@ -285,7 +285,7 @@ body.light .efficiency-tabs a.active {
 .mobile-tool-title {
   padding: 12px 12px 5px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 700;
 }
 .mobile-tool-links {
@@ -301,7 +301,7 @@ body.light .efficiency-tabs a.active {
   padding: 9px;
   border-radius: 7px;
   background: var(--surface-2);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .mobile-tool-links svg {
   width: 14px;
@@ -351,7 +351,7 @@ body.light .efficiency-tabs a.active {
 .placeholder-efficiency-content p {
   margin: 0;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .tool-nav-dropdown img {
   width: 20px;

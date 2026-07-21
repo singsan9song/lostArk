@@ -44,7 +44,7 @@
 .raid-extra-title p {
   margin: 5px 0 0;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-category-tabs {
   display: grid;
@@ -66,7 +66,7 @@
   border-radius: 9px;
   background: transparent;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 700;
   cursor: pointer;
   transition: 0.2s;
@@ -79,7 +79,7 @@
   padding: 2px 5px;
   border-radius: 10px;
   background: rgba(128, 135, 153, 0.12);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-category-tabs button.active {
   border-color: rgba(190, 213, 141, 0.48);
@@ -174,7 +174,7 @@
 .raid-select-main small {
   margin-top: 4px;
   color: rgba(255, 255, 255, 0.7);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-select-difficulties {
   position: absolute;
@@ -203,14 +203,14 @@
   white-space: nowrap;
 }
 .raid-select-difficulties button span {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 700;
 }
 .raid-select-difficulties button small {
   max-height: 0;
   margin: 0;
   overflow: hidden;
-  font: 700 var(--fs-12) 'Outfit';
+  font: 700 var(--fs-13) 'Outfit';
   opacity: 0;
   transition: 0.18s;
 }
@@ -222,7 +222,7 @@
 .raid-select-difficulties button.active small {
   max-height: 12px;
   margin-top: 2px;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   opacity: 0.8;
 }
 .raid-overview {
@@ -276,7 +276,7 @@
 }
 .raid-overview-name span > small {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-overview-name h2 {
   margin: 4px 0;
@@ -284,7 +284,7 @@
 }
 .raid-overview-name span > b {
   color: var(--primary);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-overview-stat,
 .raid-overview-result {
@@ -295,7 +295,7 @@
 .raid-overview-stat > small,
 .raid-overview-result > small {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-overview-stat > strong,
 .raid-overview-result > strong {
@@ -306,7 +306,7 @@
 .raid-overview-result > em {
   margin-top: 4px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-style: normal;
 }
 .raid-overview-result {
@@ -369,7 +369,7 @@
 }
 .raid-empty-selection p {
   margin: 0;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-gates-section {
   margin-top: 20px;
@@ -388,14 +388,14 @@
 .raid-gates-section header p {
   margin: 5px 0 0;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-gates-section > header > span {
   display: flex;
   align-items: center;
   gap: 5px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-gates-section > header svg {
   width: 14px;
@@ -463,16 +463,16 @@
   display: block;
 }
 .raid-gate-check span b {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-gate-check span small {
   margin-top: 4px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-gate-summary > div small {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-gate-summary > div strong {
   margin-top: 5px;
@@ -481,7 +481,7 @@
 .raid-gate-summary > div em {
   margin-top: 2px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-style: normal;
 }
 .raid-gate-summary > div.positive strong {
@@ -498,7 +498,7 @@
   border-left: 1px solid var(--line);
   background: transparent;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   cursor: pointer;
 }
 .raid-gate-expand svg {
@@ -536,15 +536,15 @@
   display: flex;
   justify-content: space-between;
   margin: 0 0 8px;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-gate-reward-column h3 small {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-gate-reward-column > p {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-reward-item {
   min-height: 43px;
@@ -578,16 +578,16 @@
   display: block;
 }
 .raid-reward-item span b {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-reward-item span small {
   margin-top: 2px;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-reward-item > strong {
   color: #5284f5;
-  font: 800 var(--fs-12) 'Outfit';
+  font: 800 var(--fs-13) 'Outfit';
 }
 .raid-clear-item {
   min-height: 34px;
@@ -596,7 +596,7 @@
   justify-content: space-between;
   gap: 10px;
   border-top: 1px solid var(--line);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-clear-item:first-of-type {
   border-top: 0;
@@ -605,7 +605,7 @@
   color: var(--muted);
 }
 .raid-clear-item strong {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-select-difficulties button {
   min-width: 53px;
@@ -617,7 +617,7 @@
   margin-top: 2px;
   overflow: visible;
   color: rgba(255, 255, 255, 0.56);
-  font: 700 var(--fs-12) 'Outfit';
+  font: 700 var(--fs-13) 'Outfit';
   opacity: 1;
 }
 .raid-select-difficulties button:hover small,
@@ -632,10 +632,10 @@
 }
 .raid-category-tabs button {
   min-height: 52px;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-category-tabs button small {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-select-card {
   height: 150px;
@@ -648,7 +648,7 @@
 }
 .raid-select-main small {
   margin-top: 5px;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-select-difficulties {
   right: 10px;
@@ -661,10 +661,10 @@
   padding: 7px 9px;
 }
 .raid-select-difficulties button span {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-select-difficulties button small {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-overview > div {
   min-height: 108px;
@@ -678,14 +678,14 @@
   font-size: var(--fs-18);
 }
 .raid-overview-name span > small {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-overview-name span > b {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-overview-stat > small,
 .raid-overview-result > small {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-overview-stat > strong,
 .raid-overview-result > strong {
@@ -693,7 +693,7 @@
 }
 .raid-overview-stat > em,
 .raid-overview-result > em {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-overview-remove {
   width: 27px;
@@ -709,10 +709,10 @@
   font-size: var(--fs-20);
 }
 .raid-gates-section header p {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-gates-section > header > span {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-gate-summary {
   min-height: 82px;
@@ -722,19 +722,19 @@
   font-size: var(--fs-14);
 }
 .raid-gate-check span small {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-gate-summary > div small {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-gate-summary > div strong {
   font-size: var(--fs-16);
 }
 .raid-gate-summary > div em {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-gate-expand {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-gate-expand svg {
   width: 16px;
@@ -747,10 +747,10 @@
   font-size: var(--fs-14);
 }
 .raid-gate-reward-column h3 small {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-gate-reward-column > p {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-reward-item {
   min-height: 51px;
@@ -805,12 +805,12 @@
 .raid-reward-item span b {
   display: block;
   overflow: hidden;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 .raid-reward-item span small {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-material-upgrade {
   grid-column: 3;
@@ -819,7 +819,7 @@
   border-radius: 7px;
   background: var(--surface);
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   font-weight: 700;
   cursor: pointer;
 }
@@ -831,21 +831,21 @@
 }
 .raid-reward-item > strong {
   grid-column: 4;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   text-align: right;
 }
 .raid-clear-item {
   min-height: 41px;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-clear-item strong {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-empty-selection h2 {
   font-size: var(--fs-18);
 }
 .raid-empty-selection p {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-overview {
   grid-template-columns: minmax(195px, 1.3fr) repeat(5, minmax(112px, 0.72fr));
@@ -867,7 +867,7 @@
   display: block;
   margin-top: 2px;
   color: #e98a83;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .raid-clear-item > strong {
   text-align: right;
@@ -876,7 +876,7 @@
   display: block;
   margin-top: 2px;
   color: #5284f5;
-  font: 800 var(--fs-12) 'Outfit';
+  font: 800 var(--fs-13) 'Outfit';
 }
 .raid-overview-result > em {
   display: inline-flex;

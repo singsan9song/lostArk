@@ -60,7 +60,7 @@
 }
 .feature-landing-content > header > span {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .feature-landing-grid {
   display: grid;
@@ -97,7 +97,7 @@
 .feature-landing-grid article p {
   margin: 6px 0 0;
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   line-height: 1.55;
 }
 .feature-landing-grid article > svg {

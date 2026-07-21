@@ -21,7 +21,7 @@
 }
 .tendency-bar span {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .tendency-bar strong {
   font-size: var(--fs-14);
@@ -136,11 +136,11 @@
 }
 .avatar-slot strong {
   color: #dc65eb;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .avatar-slot span {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   margin-top: 3px;
 }
 .avatar-slot.empty strong {
@@ -173,7 +173,7 @@
 }
 .avatar-section-heading > span {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .dye-grid {
   display: grid;
@@ -207,11 +207,11 @@
 .dye-grid header strong {
   max-width: 175px;
   color: #d78ae6;
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 .dye-grid header span {
   color: var(--muted);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   margin-top: 3px;
 }
 .dye-row {
@@ -222,7 +222,7 @@
   margin-top: 6px;
 }
 .dye-row span {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   color: var(--muted);
 }
 .dye-row i {
@@ -232,7 +232,7 @@
   border-radius: 4px;
 }
 .dye-row code {
-  font: 500 var(--fs-12) 'Outfit';
+  font: 500 var(--fs-13) 'Outfit';
   color: #aeb5c5;
 }
 .avatar-empty {
@@ -248,7 +248,7 @@
   opacity: 0.5;
 }
 .avatar-empty p {
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
 }
 @media (max-width: 900px) {
   .avatar-stage {
@@ -269,7 +269,7 @@
   }
   .tendency-bar span {
     display: block;
-    font-size: var(--fs-12);
+    font-size: var(--fs-13);
   }
   .tendency-bar strong {
     display: block;
@@ -300,7 +300,7 @@
     text-align: left;
   }
   .avatar-slot strong {
-    font-size: var(--fs-12);
+    font-size: var(--fs-13);
   }
   .dye-grid {
     grid-template-columns: 1fr;

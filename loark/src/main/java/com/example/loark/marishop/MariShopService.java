@@ -38,7 +38,6 @@ public class MariShopService {
     private static final Pattern ICON_GRADE = Pattern.compile("\\\"iconGrade\\\":(-?\\d+)");
     private static final Pattern QUANTITY = Pattern.compile("\\[([\\d,]+)개]");
     private static final Pattern GOODS_VERSION = Pattern.compile("^(\\d{8})_([12])$");
-    private static final String CDN = "https://cdn-lostark.game.onstove.com/";
 
     private final MariShopRotationRepository rotationRepository;
     private final MariShopProductHistoryRepository historyRepository;
@@ -46,16 +45,22 @@ public class MariShopService {
     private final RestClient shopClient;
     private final ScheduledExecutorService scheduler;
     private final boolean enabled;
+    private final String shopBaseUrl;
+    private final String cdnBaseUrl;
 
     public MariShopService(MariShopRotationRepository rotationRepository, MariShopProductHistoryRepository historyRepository,
                            ObjectMapper objectMapper,
-                           @Value("${app.mari-shop.enabled:true}") boolean enabled) {
+                           @Value("${app.mari-shop.enabled:true}") boolean enabled,
+                           @Value("${lostark.mari-shop.base-url}") String shopBaseUrl,
+                           @Value("${lostark.mari-shop.cdn-base-url}") String cdnBaseUrl) {
         this.rotationRepository = rotationRepository;
         this.historyRepository = historyRepository;
         this.objectMapper = objectMapper;
         this.enabled = enabled;
+        this.shopBaseUrl = shopBaseUrl;
+        this.cdnBaseUrl = cdnBaseUrl;
         this.shopClient = RestClient.builder()
-                .baseUrl("https://m-lostark.game.onstove.com")
+                .baseUrl(shopBaseUrl)
                 .defaultHeader(HttpHeaders.USER_AGENT, "Mozilla/5.0 (compatible; LOARK/1.0)")
                 .defaultHeader(HttpHeaders.ACCEPT_LANGUAGE, "ko-KR,ko;q=0.9")
                 .build();
@@ -102,7 +107,7 @@ public class MariShopService {
         String html = shopClient.get().uri("/Shop").retrieve().body(String.class);
         if (html == null || html.isBlank()) throw new IllegalStateException("빈 HTML 응답");
 
-        Document document = Jsoup.parse(html, "https://m-lostark.game.onstove.com");
+        Document document = Jsoup.parse(html, shopBaseUrl);
         Element currentList = document.selectFirst("#lists .list-items--mari");
         if (currentList == null) throw new IllegalStateException("현재 판매 상품 영역을 찾지 못했습니다.");
         ArrayNode products = parseProducts(currentList);
@@ -134,7 +139,7 @@ public class MariShopService {
             product.put("itemCode", buy.attr("data-itemcode"));
             product.put("goodsVersion", buy.attr("data-goodsversion"));
             String iconPath = match(ICON_PATH, tooltip);
-            product.put("icon", iconPath.isBlank() ? "" : CDN + iconPath);
+            product.put("icon", iconPath.isBlank() ? "" : cdnBaseUrl + iconPath);
             product.put("grade", gradeName(parseNumber(match(ICON_GRADE, tooltip), -1)));
         }
         return products;

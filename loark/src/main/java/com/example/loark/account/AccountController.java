@@ -4,6 +4,7 @@ import com.example.loark.character.GameCharacter;
 import com.example.loark.character.GameCharacterRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -27,13 +28,16 @@ public class AccountController {
     private final UserRaidTaskRepository raidTasks;
     private final GameCharacterRepository gameCharacters;
     private final ObjectMapper objectMapper;
+    private final String discordAvatarBaseUrl;
 
     public AccountController(UserAccountRepository accounts, UserPreferenceRepository preferences,
                              UserFavoriteRepository favorites, UserRaidTaskRepository raidTasks,
                              GameCharacterRepository gameCharacters,
-                             ObjectMapper objectMapper) {
+                             ObjectMapper objectMapper,
+                             @Value("${discord.cdn.avatar-base-url}") String discordAvatarBaseUrl) {
         this.accounts = accounts; this.preferences = preferences; this.favorites = favorites;
         this.raidTasks = raidTasks; this.gameCharacters = gameCharacters; this.objectMapper = objectMapper;
+        this.discordAvatarBaseUrl = discordAvatarBaseUrl;
     }
 
     @GetMapping("/auth/me")
@@ -149,7 +153,7 @@ public class AccountController {
         String globalName = principal.getAttribute("global_name");
         String username = globalName == null || globalName.isBlank() ? principal.getAttribute("username") : globalName;
         String avatar = principal.getAttribute("avatar");
-        String avatarUrl = avatar == null ? null : "https://cdn.discordapp.com/avatars/" + id + "/" + avatar + ".png?size=128";
+        String avatarUrl = avatar == null ? null : discordAvatarBaseUrl + id + "/" + avatar + ".png?size=128";
         UserAccount account = accounts.findById(id).orElseGet(() -> new UserAccount(id, username, avatarUrl));
         account.updateProfile(username, avatarUrl);
         return accounts.save(account);

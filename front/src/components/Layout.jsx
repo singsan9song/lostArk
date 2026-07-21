@@ -31,7 +31,7 @@ import { useAuth } from '../lib/auth'
 import '../header-crystal-rate.css'
 import '../auth.css'
 
-const links = [['/#community', '커뮤니티']]
+const links = [['/community', '커뮤니티']]
 const honingLinks = [
   ['/honing/optimizer', '재련 최적화', Anvil],
   ['/honing/special', '특수 재련 효율', Sparkles],

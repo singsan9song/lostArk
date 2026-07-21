@@ -757,7 +757,7 @@ main {
   font-size: var(--fs-13);
   margin: 0;
 }
-.banner button {
+.banner-cta {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -768,7 +768,7 @@ main {
   font-weight: 600;
   cursor: pointer;
 }
-.banner button svg {
+.banner-cta svg {
   width: 15px;
 }
 footer {
@@ -970,7 +970,7 @@ body.light .ad-slot {
     align-items: flex-start;
     gap: 20px;
   }
-  .banner button {
+  .banner-cta {
     font-size: var(--fs-13);
     padding: 11px;
   }

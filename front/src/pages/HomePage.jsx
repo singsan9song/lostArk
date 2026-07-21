@@ -533,22 +533,22 @@ function NoticeWidget() {
     <section className="section notice-panel notice-widget">
       <div className="mini-header">
         <h3>공지사항</h3>
-        <a href="#community">＋</a>
+        <Link to="/community?category=NOTICE">＋</Link>
       </div>
       <ul>
         <li>
           <span className="badge notice">공지</span>
-          <a href="#community">LOARK 서비스 오픈 안내</a>
+          <Link to="/community?category=NOTICE">LOARK 서비스 오픈 안내</Link>
           <time>07.12</time>
         </li>
         <li>
           <span className="badge update">업데이트</span>
-          <a href="#community">캐릭터 검색 기능 업데이트</a>
+          <Link to="/community?category=NOTICE">캐릭터 검색 기능 업데이트</Link>
           <time>07.11</time>
         </li>
         <li>
           <span className="badge notice">공지</span>
-          <a href="#community">서비스 이용 전 확인해 주세요</a>
+          <Link to="/community?category=NOTICE">서비스 이용 전 확인해 주세요</Link>
           <time>07.10</time>
         </li>
       </ul>
@@ -564,9 +564,9 @@ function CommunityWidget() {
         <h2>모험가님의 의견으로 더 좋은 서비스를 만듭니다.</h2>
         <p>필요한 기능이나 불편한 점을 알려주세요.</p>
       </div>
-      <button>
+      <Link className="banner-cta" to="/community?category=SUGGESTION">
         의견 보내기 <Send />
-      </button>
+      </Link>
     </section>
   )
 }

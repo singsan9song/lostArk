@@ -29,15 +29,19 @@ public class AccountController {
     private final GameCharacterRepository gameCharacters;
     private final ObjectMapper objectMapper;
     private final String discordAvatarBaseUrl;
+    private final Set<String> adminDiscordIds;
 
     public AccountController(UserAccountRepository accounts, UserPreferenceRepository preferences,
                              UserFavoriteRepository favorites, UserRaidTaskRepository raidTasks,
                              GameCharacterRepository gameCharacters,
                              ObjectMapper objectMapper,
-                             @Value("${discord.cdn.avatar-base-url}") String discordAvatarBaseUrl) {
+                             @Value("${discord.cdn.avatar-base-url}") String discordAvatarBaseUrl,
+                             @Value("${app.community.admin-discord-ids:}") String adminDiscordIds) {
         this.accounts = accounts; this.preferences = preferences; this.favorites = favorites;
         this.raidTasks = raidTasks; this.gameCharacters = gameCharacters; this.objectMapper = objectMapper;
         this.discordAvatarBaseUrl = discordAvatarBaseUrl;
+        this.adminDiscordIds = new LinkedHashSet<>(Arrays.asList(adminDiscordIds.split(",")));
+        this.adminDiscordIds.removeIf(String::isBlank);
     }
 
     @GetMapping("/auth/me")
@@ -45,7 +49,8 @@ public class AccountController {
         if (principal == null) return Map.of("authenticated", false);
         UserAccount account = account(principal);
         return Map.of("authenticated", true, "id", account.getDiscordId(), "username", account.getUsername(),
-                "avatarUrl", account.getAvatarUrl() == null ? "" : account.getAvatarUrl());
+                "avatarUrl", account.getAvatarUrl() == null ? "" : account.getAvatarUrl(),
+                "isAdmin", adminDiscordIds.contains(account.getDiscordId()));
     }
 
     @PostMapping("/auth/logout")

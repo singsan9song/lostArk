@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Gift, Heart, RotateCcw } from 'lucide-react'
+import '../rapport.css'
 
 const gifts = [
   { id: 'epic', name: '영웅 호감도 아이템', points: 300 },

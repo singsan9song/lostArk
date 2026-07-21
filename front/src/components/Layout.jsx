@@ -29,6 +29,7 @@ import CrystalIcon from './CrystalIcon'
 import GoldIcon from './GoldIcon'
 import { useAuth } from '../lib/auth'
 import '../header-crystal-rate.css'
+import '../auth.css'
 
 const links = [['/#community', '커뮤니티']]
 const honingLinks = [

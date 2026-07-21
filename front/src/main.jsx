@@ -17,8 +17,6 @@ import './favorites.css'
 import './home-dashboard.css'
 import './grade-overrides.css'
 import './theme.css'
-import './rapport.css'
-import './auth.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

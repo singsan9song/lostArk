@@ -25,18 +25,18 @@
 }
 .honing-optimizer-heading small {
   color: var(--primary);
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 800;
   letter-spacing: 0.12em;
 }
 .honing-optimizer-heading h1 {
   margin: 3px 0 2px;
-  font-size: 22px;
+  font-size: var(--fs-22);
 }
 .honing-optimizer-heading p {
   margin: 0;
   color: var(--muted);
-  font-size: 13px;
+  font-size: var(--fs-13);
 }
 .honing-optimizer-layout {
   display: grid;
@@ -57,19 +57,19 @@
 }
 .honing-settings > header small {
   color: var(--primary);
-  font-size: 11px;
+  font-size: var(--fs-11);
   font-weight: 800;
 }
 .honing-settings h2 {
   margin: 3px 0 0;
-  font-size: 16px;
+  font-size: var(--fs-16);
 }
 .honing-switch {
   display: flex;
   align-items: center;
   gap: 7px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 700;
   cursor: pointer;
 }
@@ -108,7 +108,7 @@
   gap: 13px;
   margin: 17px 0 8px;
   color: var(--text);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .honing-material-options label {
   display: flex;
@@ -138,7 +138,7 @@
 }
 .honing-setting-row > strong {
   align-self: center;
-  font-size: 13px;
+  font-size: var(--fs-13);
 }
 .honing-stage-field {
   min-width: 0;
@@ -147,7 +147,7 @@
   display: block;
   margin: 0 0 5px 2px;
   color: var(--muted);
-  font-size: 11px;
+  font-size: var(--fs-11);
 }
 .honing-stage-field select {
   width: 100%;
@@ -157,7 +157,7 @@
   border-radius: 8px;
   background: var(--surface-2);
   color: var(--text);
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 700;
   outline: 0;
 }
@@ -169,13 +169,13 @@
   justify-content: space-between;
   align-items: center;
   padding: 13px 0 10px;
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .honing-estimated-level span {
   color: var(--muted);
 }
 .honing-estimated-level strong {
-  font: 800 14px 'Outfit';
+  font: 800 var(--fs-14) 'Outfit';
 }
 .honing-calculate {
   width: 100%;
@@ -188,7 +188,7 @@
   border-radius: 9px;
   background: var(--primary);
   color: #17200e;
-  font-size: 14px;
+  font-size: var(--fs-14);
   font-weight: 900;
   cursor: pointer;
   transition: 0.18s;
@@ -221,7 +221,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
+  font-size: var(--fs-14);
   font-weight: 800;
 }
 .honing-overall > span svg {
@@ -231,7 +231,7 @@
 .honing-overall > strong {
   margin-left: auto;
   color: var(--primary);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .honing-overall > svg {
   width: 16px;
@@ -261,10 +261,10 @@
   cursor: pointer;
 }
 .honing-overall-body button span {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .honing-overall-body button b {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .honing-overall-body button.active {
   border-color: var(--primary);
@@ -274,7 +274,7 @@
   grid-column: 1/-1;
   margin: 7px;
   color: var(--muted);
-  font-size: 13px;
+  font-size: var(--fs-13);
 }
 .honing-result-card {
   overflow: hidden;
@@ -292,7 +292,7 @@
   border-radius: 999px;
   background: rgba(105, 160, 255, 0.1);
   color: #79a8ff;
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 800;
   text-align: center;
 }
@@ -301,11 +301,11 @@
 }
 .honing-result-title small {
   color: var(--muted);
-  font-size: 11px;
+  font-size: var(--fs-11);
 }
 .honing-result-title h2 {
   margin: 3px 0 0;
-  font-size: 17px;
+  font-size: var(--fs-17);
 }
 .honing-result-title em {
   margin-left: auto;
@@ -313,7 +313,7 @@
   border-radius: 7px;
   background: var(--surface-2);
   color: var(--muted);
-  font-size: 11px;
+  font-size: var(--fs-11);
   font-style: normal;
 }
 .honing-average-cost {
@@ -331,23 +331,23 @@
 }
 .honing-average-cost small {
   color: #79a8ff;
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 800;
 }
 .honing-average-cost strong {
   margin-top: 6px;
-  font-size: 20px;
+  font-size: var(--fs-20);
 }
 .honing-average-cost span {
   margin-top: 5px;
-  font-size: 15px;
+  font-size: var(--fs-15);
   font-weight: 800;
 }
 .honing-average-cost p {
   max-width: 390px;
   margin: 0;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
   text-align: right;
 }
 .silver-dot {
@@ -399,16 +399,16 @@
 }
 .honing-material-grid small {
   color: var(--muted);
-  font-size: 11px;
+  font-size: var(--fs-11);
 }
 .honing-material-grid b {
   margin-top: 3px;
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .honing-material-grid > div > strong {
   grid-column: 2;
   color: #79a8ff;
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .honing-segments {
   display: flex;
@@ -422,7 +422,7 @@
   border-radius: 999px;
   background: rgba(105, 160, 255, 0.07);
   color: #79a8ff;
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 800;
   cursor: pointer;
 }
@@ -463,7 +463,7 @@
 }
 .honing-route h3 {
   margin: 0;
-  font-size: 14px;
+  font-size: var(--fs-14);
 }
 .honing-route-summary {
   display: grid;
@@ -482,15 +482,15 @@
 }
 .honing-route-summary small {
   color: var(--muted);
-  font-size: 11px;
+  font-size: var(--fs-11);
 }
 .honing-route-summary b {
   margin-top: 4px;
-  font-size: 14px;
+  font-size: var(--fs-14);
 }
 .honing-route-summary em {
   margin-top: 3px;
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-style: normal;
   font-weight: 700;
 }
@@ -509,13 +509,13 @@
   min-height: 38px;
   background: var(--surface-2);
   color: var(--muted);
-  font-size: 11px;
+  font-size: var(--fs-11);
   font-weight: 700;
 }
 .honing-attempt-row {
   min-height: 43px;
   border-top: 1px solid var(--line);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .honing-attempt-head span,
 .honing-attempt-row span,

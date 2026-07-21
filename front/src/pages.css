@@ -13,7 +13,7 @@
   align-items: center;
   gap: 7px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 600;
 }
 .character-page-toolbar > a svg {
@@ -70,7 +70,7 @@
   color: var(--text);
   border-radius: 9px;
   padding: 10px 14px;
-  font-size: 12px;
+  font-size: var(--fs-12);
   cursor: pointer;
 }
 .character-state button svg {

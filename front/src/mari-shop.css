@@ -24,12 +24,12 @@
 .mari-shop-hero > aside span,
 .mari-shop-hero > aside small {
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .mari-shop-hero > aside strong {
   margin: 2px 0;
   color: var(--primary);
-  font: 800 18px 'Outfit';
+  font: 800 var(--fs-18) 'Outfit';
 }
 .mari-rotations {
   display: flex;
@@ -54,12 +54,12 @@
 }
 .mari-rotation > header span {
   color: var(--primary);
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 800;
 }
 .mari-rotation > header h2 {
   margin: 4px 0 0;
-  font-size: 19px;
+  font-size: var(--fs-19);
 }
 .mari-rotation > header > div:last-child {
   text-align: right;
@@ -70,12 +70,12 @@
 }
 .mari-rotation > header b {
   color: #79cea0;
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .mari-rotation > header small {
   margin-top: 4px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .mari-product-grid {
   display: grid;
@@ -140,25 +140,25 @@
 }
 .mari-product > div small {
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .mari-product > div strong {
   margin: 3px 0;
   overflow: hidden;
-  font-size: 12px;
+  font-size: var(--fs-12);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 .mari-product > div span {
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .mari-crystal-price {
   display: flex;
   align-items: center;
   gap: 4px;
   color: #7ba9ff;
-  font: 800 13px 'Outfit';
+  font: 800 var(--fs-13) 'Outfit';
   white-space: nowrap;
 }
 .mari-crystal-price svg {
@@ -166,7 +166,7 @@
 }
 .mari-crystal-price small {
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .mari-shop-state {
   min-height: 180px;
@@ -176,7 +176,7 @@
   gap: 8px;
   margin-top: 14px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .mari-shop-state svg {
   width: 18px;
@@ -248,12 +248,12 @@
   display: block;
 }
 .mari-rate-panel > div span b {
-  font-size: 13px;
+  font-size: var(--fs-13);
 }
 .mari-rate-panel > div span small {
   margin-top: 3px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .mari-rate-panel label {
   display: flex;
@@ -270,13 +270,13 @@
   outline: 0;
   background: transparent;
   color: var(--text);
-  font: 800 14px 'Outfit';
+  font: 800 var(--fs-14) 'Outfit';
   text-align: right;
 }
 .mari-rate-panel label span {
   padding-right: 11px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .mari-product-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -310,11 +310,11 @@
   display: block;
 }
 .mari-product-efficiency > span small {
-  font-size: 12px !important;
+  font-size: var(--fs-12) !important;
 }
 .mari-product-efficiency > span b {
   margin-top: 3px;
-  font: 800 12px 'Outfit';
+  font: 800 var(--fs-12) 'Outfit';
 }
 .mari-product-efficiency > strong {
   margin: 0 !important;
@@ -322,7 +322,7 @@
   border-radius: 7px;
   background: rgba(233, 141, 141, 0.09);
   color: #e98d8d;
-  font-size: 12px !important;
+  font-size: var(--fs-12) !important;
   text-align: center;
   white-space: nowrap;
 }
@@ -418,7 +418,7 @@
   object-fit: contain;
 }
 .mari-pheon-toggle b {
-  font-size: 12px;
+  font-size: var(--fs-12);
   white-space: nowrap;
 }
 .mari-pheon-toggle input {
@@ -452,7 +452,7 @@
 }
 .mari-price-stack .mari-crystal-price {
   gap: 5px;
-  font-size: 15px;
+  font-size: var(--fs-15);
 }
 .mari-price-stack .mari-crystal-price > .currency-crystal-icon {
   width: 18px !important;
@@ -460,7 +460,7 @@
 }
 .mari-price-stack > span {
   color: var(--muted) !important;
-  font-size: 12px !important;
+  font-size: var(--fs-12) !important;
   font-weight: 700;
 }
 .mari-price-stack > span.is-lowest {

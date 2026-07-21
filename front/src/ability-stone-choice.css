@@ -55,12 +55,12 @@
 .ability-stone-choice-current > span small {
   margin: 0 0 2px !important;
   color: var(--muted) !important;
-  font-size: 12px !important;
+  font-size: var(--fs-12) !important;
   font-weight: 600 !important;
 }
 .ability-stone-choice-current > span b {
   color: var(--text) !important;
-  font-size: 12px !important;
+  font-size: var(--fs-12) !important;
   font-weight: 800 !important;
 }
 .ability-stone-choice-current > em {
@@ -68,7 +68,7 @@
   border-radius: 4px;
   background: rgba(226, 161, 70, 0.18);
   color: #d58a22 !important;
-  font-size: 12px !important;
+  font-size: var(--fs-12) !important;
   font-style: normal;
   font-weight: 900;
   white-space: nowrap;
@@ -80,7 +80,7 @@
   justify-content: flex-end;
   gap: 3px;
   color: #5284f5 !important;
-  font: 800 12px 'Outfit' !important;
+  font: 800 var(--fs-12) 'Outfit' !important;
   white-space: nowrap;
 }
 .ability-stone-choice-current > svg {
@@ -163,20 +163,20 @@
 }
 .ability-stone-choice-options > button > span b {
   color: var(--text) !important;
-  font-size: 12px !important;
+  font-size: var(--fs-12) !important;
   font-weight: 800 !important;
 }
 .ability-stone-choice-options > button > span small {
   margin-top: 2px !important;
   color: var(--muted) !important;
-  font-size: 12px !important;
+  font-size: var(--fs-12) !important;
 }
 .ability-stone-choice-options > button > em {
   display: flex;
   align-items: center;
   gap: 3px;
   color: #d58a22 !important;
-  font-size: 12px !important;
+  font-size: var(--fs-12) !important;
   font-style: normal;
   font-weight: 900;
   white-space: nowrap;

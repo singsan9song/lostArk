@@ -14,7 +14,7 @@
   border: 1px solid var(--line);
   border-radius: 7px;
   color: var(--muted);
-  font-size: 10px;
+  font-size: var(--fs-10);
   cursor: pointer;
 }
 .expedition-raid-card-actions label.active {
@@ -40,7 +40,7 @@
 }
 .expedition-raid-totals > span {
   color: var(--muted);
-  font-size: 10px;
+  font-size: var(--fs-10);
 }
 .expedition-raid-totals > span b {
   color: var(--text);
@@ -51,7 +51,7 @@
   justify-content: flex-end;
   gap: 5px;
   color: var(--muted);
-  font-size: 10px;
+  font-size: var(--fs-10);
 }
 .expedition-raid-totals > label input {
   width: 76px;
@@ -62,7 +62,7 @@
   outline: 0;
   background: var(--surface-2);
   color: var(--text);
-  font: 800 11px 'Outfit';
+  font: 800 var(--fs-11) 'Outfit';
   text-align: right;
 }
 .expedition-gate-reward-rows {
@@ -92,7 +92,7 @@
   border-radius: 7px;
   background: var(--surface-2);
   color: #7ba9ff;
-  font-size: 10px;
+  font-size: var(--fs-10);
   font-weight: 800;
   cursor: pointer;
 }
@@ -106,7 +106,7 @@
 }
 .expedition-gate-reward-rows > div > span {
   color: var(--muted);
-  font-size: 10px;
+  font-size: var(--fs-10);
   white-space: nowrap;
 }
 .expedition-gate-reward-rows > div > span b {
@@ -118,7 +118,7 @@
   justify-content: flex-end;
   gap: 5px;
   color: var(--muted);
-  font-size: 10px;
+  font-size: var(--fs-10);
   cursor: pointer;
 }
 .expedition-gate-reward-rows > div > label input {
@@ -175,7 +175,7 @@
   border-radius: 9px;
   background: var(--surface-2);
   color: var(--text);
-  font-size: 11px;
+  font-size: var(--fs-11);
   font-weight: 800;
   cursor: pointer;
 }
@@ -191,7 +191,7 @@
   display: block;
   margin-top: 3px;
   color: var(--muted);
-  font-size: 9px;
+  font-size: var(--fs-9);
   font-style: normal;
   white-space: nowrap;
 }

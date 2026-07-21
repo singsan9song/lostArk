@@ -22,13 +22,13 @@
   outline: 0;
   background: none;
   color: var(--text);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .header-search input::placeholder {
   color: #697084;
 }
 .header-search kbd {
-  font: 500 12px 'Outfit';
+  font: 500 var(--fs-12) 'Outfit';
   color: #6e7587;
   border: 1px solid var(--line);
   border-radius: 4px;
@@ -81,7 +81,7 @@
   align-items: center;
   gap: 8px;
   color: #aab1c2;
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .profile-overline span {
   color: #d1c8ff;
@@ -94,7 +94,7 @@
   background: #6e7588;
 }
 .profile-copy h1 {
-  font-size: 34px;
+  font-size: var(--fs-34);
   line-height: 1.2;
   letter-spacing: -1.2px;
   margin: 10px 0 7px;
@@ -104,7 +104,7 @@
   align-items: center;
   gap: 7px;
   color: #9da5b8;
-  font-size: 12px;
+  font-size: var(--fs-12);
   margin: 0;
 }
 .profile-title svg {
@@ -133,7 +133,7 @@
   align-items: center;
   gap: 6px;
   color: #8e96aa;
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .profile-scores span svg {
   width: 14px;
@@ -141,7 +141,7 @@
 }
 .profile-scores strong {
   display: block;
-  font: 700 27px 'Outfit';
+  font: 700 var(--fs-27) 'Outfit';
   letter-spacing: 0.3px;
   margin-top: 3px;
 }
@@ -163,12 +163,12 @@
 .profile-copy dt {
   flex: 0 0 50px;
   color: #959db0;
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .profile-copy dd {
   margin: 0;
   color: #d6dae4;
-  font-size: 12px;
+  font-size: var(--fs-12);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -211,7 +211,7 @@
   place-items: center;
   background: #262c42;
   color: #b8a5f4;
-  font-size: 50px;
+  font-size: var(--fs-50);
 }
 .profile-quick {
   position: absolute;
@@ -240,11 +240,11 @@
   color: #9383d3;
 }
 .profile-quick span {
-  font-size: 12px;
+  font-size: var(--fs-12);
   color: #777f93;
 }
 .profile-quick strong {
-  font-size: 12px;
+  font-size: var(--fs-12);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -316,7 +316,7 @@
     width: 70%;
   }
   .profile-copy h1 {
-    font-size: 27px;
+    font-size: var(--fs-27);
   }
   .profile-visual {
     right: -18%;
@@ -328,7 +328,7 @@
     margin-top: 22px;
   }
   .profile-scores strong {
-    font-size: 22px;
+    font-size: var(--fs-22);
   }
   .profile-copy dl {
     width: 270px;
@@ -375,14 +375,14 @@
   width: 53%;
 }
 .profile-overline {
-  font-size: 13px;
+  font-size: var(--fs-13);
 }
 .profile-copy h1 {
-  font-size: 32px;
+  font-size: var(--fs-32);
   margin: 7px 0 5px;
 }
 .profile-title {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .profile-title svg {
   width: 15px;
@@ -392,13 +392,13 @@
   margin: 18px 0 15px;
 }
 .profile-scores span {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .profile-scores span svg {
   width: 15px;
 }
 .profile-scores strong {
-  font-size: 25px;
+  font-size: var(--fs-25);
 }
 .profile-scores > div + div:before {
   height: 40px;
@@ -409,10 +409,10 @@
 }
 .profile-copy dt {
   flex-basis: 58px;
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .profile-copy dd {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .profile-visual {
   right: 6%;
@@ -447,13 +447,13 @@
   width: 15px;
 }
 .profile-quick span {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .profile-quick strong {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .character-v2 .result-tabs button {
-  font-size: 13px;
+  font-size: var(--fs-13);
 }
 @media (max-width: 900px) {
   .profile-copy {
@@ -483,19 +483,19 @@
     width: 72%;
   }
   .profile-overline {
-    font-size: 12px;
+    font-size: var(--fs-12);
   }
   .profile-copy h1 {
-    font-size: 27px;
+    font-size: var(--fs-27);
   }
   .profile-title {
-    font-size: 12px;
+    font-size: var(--fs-12);
   }
   .profile-scores {
     margin: 17px 0 13px;
   }
   .profile-scores strong {
-    font-size: 22px;
+    font-size: var(--fs-22);
   }
   .profile-copy dl {
     width: 280px;
@@ -503,10 +503,10 @@
   }
   .profile-copy dt {
     flex-basis: 48px;
-    font-size: 12px;
+    font-size: var(--fs-12);
   }
   .profile-copy dd {
-    font-size: 12px;
+    font-size: var(--fs-12);
   }
   .profile-visual {
     right: -15%;
@@ -519,10 +519,10 @@
     width: auto;
   }
   .profile-quick span {
-    font-size: 12px;
+    font-size: var(--fs-12);
   }
   .profile-quick strong {
-    font-size: 12px;
+    font-size: var(--fs-12);
   }
 }
 
@@ -563,7 +563,7 @@
 .profile-class {
   margin: 0;
   color: #e4deea;
-  font-size: 14px;
+  font-size: var(--fs-14);
   font-weight: 600;
 }
 .profile-class span {
@@ -571,7 +571,7 @@
   font-weight: 500;
 }
 .profile-card-simple .profile-copy h1 {
-  font-size: 25px;
+  font-size: var(--fs-25);
   margin: 7px 0 11px;
 }
 .profile-card-simple .profile-scores {
@@ -588,7 +588,7 @@
   display: none;
 }
 .profile-card-simple .profile-scores strong {
-  font-size: 24px;
+  font-size: var(--fs-24);
   line-height: 1.18;
 }
 .profile-card-simple .profile-scores strong:before {
@@ -596,7 +596,7 @@
   place-items: center;
   width: 19px;
   margin-right: 6px;
-  font-size: 14px;
+  font-size: var(--fs-14);
 }
 .profile-card-simple .profile-scores > div:first-child strong:before {
   content: '♜';
@@ -626,13 +626,13 @@
   background: #161820;
   color: #d7d9e0;
   text-align: center;
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 600;
 }
 .profile-card-simple .profile-copy dd {
   padding-left: 9px;
   color: #eef0f5;
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .profile-card-simple .profile-visual {
   right: 0;
@@ -692,22 +692,22 @@
     width: 67%;
   }
   .profile-class {
-    font-size: 12px;
+    font-size: var(--fs-12);
   }
   .profile-card-simple .profile-copy h1 {
-    font-size: 23px;
+    font-size: var(--fs-23);
   }
   .profile-card-simple .profile-scores strong {
-    font-size: 21px;
+    font-size: var(--fs-21);
   }
   .profile-card-simple .profile-copy dl {
     width: 275px;
   }
   .profile-card-simple .profile-copy dt {
-    font-size: 12px;
+    font-size: var(--fs-12);
   }
   .profile-card-simple .profile-copy dd {
-    font-size: 12px;
+    font-size: var(--fs-12);
   }
   .profile-card-simple .profile-visual {
     right: -9%;
@@ -766,12 +766,12 @@
 .favorite-confirm h2 {
   margin: 0;
   color: #f2f3f7;
-  font-size: 17px;
+  font-size: var(--fs-17);
 }
 .favorite-confirm p {
   margin: 10px 0 20px;
   color: #aeb3c1;
-  font-size: 12px;
+  font-size: var(--fs-12);
   line-height: 1.65;
 }
 .favorite-confirm p strong {
@@ -788,7 +788,7 @@
   border-radius: 9px;
   background: #22252f;
   color: #c7cad4;
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 700;
   cursor: pointer;
 }
@@ -847,7 +847,7 @@
   border: 1px solid #484d5d;
   border-radius: 5px;
   color: #fff;
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-style: normal;
 }
 .favorite-roster-list label.checked > i {
@@ -863,7 +863,7 @@
   border-radius: 50%;
   background: #2c2543;
   color: #c0a8ff;
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .roster-choice-avatar img {
   width: 100%;
@@ -883,16 +883,16 @@
   text-overflow: ellipsis;
 }
 .favorite-roster-list strong {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .favorite-roster-list small {
   margin-top: 2px;
   color: #9299aa;
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .favorite-roster-list label > b {
   color: #b8a3ff;
-  font-size: 12px;
+  font-size: var(--fs-12);
   white-space: nowrap;
 }
 .favorite-confirm .favorite-confirm-actions {

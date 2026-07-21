@@ -11,7 +11,7 @@
   border-bottom: 0;
 }
 .hell-config-layout .hell-selection.panel > header span {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .hell-config-layout .hell-selection.panel > div,
 .hell-config-layout .hell-selection.panel > div:first-of-type {
@@ -31,7 +31,7 @@
   margin: 0;
 }
 .hell-config-layout .hell-selection.panel > div strong {
-  font-size: 14px;
+  font-size: var(--fs-14);
 }
 .hell-selection > .hell-ranking {
   grid-column: 1/-1;
@@ -108,12 +108,12 @@
   padding: 0;
   background: none;
   color: var(--primary-2);
-  font: 700 12px 'Outfit';
+  font: 700 var(--fs-12) 'Outfit';
   letter-spacing: 1.2px;
 }
 .hell-selection > header h2 {
   margin: 0;
-  font-size: 17px;
+  font-size: var(--fs-17);
 }
 .hell-selection > header span {
   margin-top: 6px;
@@ -134,7 +134,7 @@
   margin: 0;
 }
 .hell-config-layout .hell-selection > div strong {
-  font-size: 16px;
+  font-size: var(--fs-16);
 }
 .hell-config-layout .hell-selection > p {
   margin-top: auto;
@@ -144,7 +144,7 @@
   align-items: center;
   gap: 6px;
   color: var(--text);
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 700;
   white-space: nowrap;
   cursor: pointer;
@@ -198,11 +198,11 @@
 }
 .hell-filter-heading h2 {
   margin: 0;
-  font-size: 15px;
+  font-size: var(--fs-15);
 }
 .hell-filter-heading > span {
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .hell-type-tabs {
   display: grid;
@@ -223,7 +223,7 @@
   border-radius: 8px;
   background: transparent;
   color: var(--muted);
-  font-size: 13px;
+  font-size: var(--fs-13);
   font-weight: 800;
   cursor: pointer;
 }
@@ -253,7 +253,7 @@
   gap: 6px;
   margin: 0 0 13px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .hell-filter-block h3 svg {
   width: 15px;
@@ -289,12 +289,12 @@
   display: block;
 }
 .pheon-converter strong {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .pheon-converter small {
   margin-top: 3px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -312,7 +312,7 @@
   gap: 6px;
   padding: 0 9px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 700;
   white-space: nowrap;
   cursor: pointer;
@@ -346,7 +346,7 @@
   outline: 0;
   background: transparent;
   color: var(--text);
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 700;
 }
 .pheon-converter .pheon-price input:disabled {
@@ -356,14 +356,14 @@
 .pheon-converter label em {
   padding-right: 7px;
   color: var(--gold);
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-style: normal;
   white-space: nowrap;
 }
 .pheon-converter > b {
   grid-column: 1/-1;
   color: #6f9dff;
-  font-size: 12px;
+  font-size: var(--fs-12);
   text-align: right;
 }
 .hell-level-grid {
@@ -378,7 +378,7 @@
   border-radius: 8px;
   background: var(--surface);
   color: var(--text);
-  font: 800 12px 'Outfit';
+  font: 800 var(--fs-12) 'Outfit';
   cursor: pointer;
 }
 .hell-level-grid button.active,
@@ -395,7 +395,7 @@
 }
 .hell-stage-grid button small {
   margin-left: 2px;
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 700;
 }
 .hell-selection {
@@ -421,10 +421,10 @@
 .hell-selection span {
   margin-bottom: 6px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .hell-selection strong {
-  font-size: 14px;
+  font-size: var(--fs-14);
 }
 .hell-selection > p {
   grid-column: 1/-1;
@@ -436,7 +436,7 @@
   border-radius: 9px;
   background: var(--surface-2);
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .hell-selection > p svg {
   width: 15px;
@@ -483,12 +483,12 @@
 .hell-ranking > header p {
   margin: 0 0 4px;
   color: var(--primary-2);
-  font: 700 12px 'Outfit';
+  font: 700 var(--fs-12) 'Outfit';
   letter-spacing: 1.2px;
 }
 .hell-ranking > header h2 {
   margin: 0;
-  font-size: 17px;
+  font-size: var(--fs-17);
 }
 .hell-ranking > header button {
   display: flex;
@@ -497,7 +497,7 @@
   border: 0;
   background: transparent;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
   cursor: pointer;
 }
 .hell-ranking > header button svg {
@@ -532,7 +532,7 @@
   border-radius: 5px;
   background: var(--surface-2);
   color: var(--muted);
-  font: 800 12px 'Outfit';
+  font: 800 var(--fs-12) 'Outfit';
 }
 .hell-ranking-list article.top .hell-rank-number {
   background: #f3d91a;
@@ -561,12 +561,12 @@
   text-overflow: ellipsis;
 }
 .hell-reward-copy strong {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .hell-reward-copy small {
   margin-top: 5px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .hell-abundance {
   height: 30px;
@@ -578,7 +578,7 @@
   border-radius: 15px;
   background: transparent;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .hell-abundance i {
   width: 12px;
@@ -588,11 +588,11 @@
 }
 .hell-reward-value {
   color: #5284f5;
-  font: 800 15px 'Outfit';
+  font: 800 var(--fs-15) 'Outfit';
   text-align: right;
 }
 .hell-reward-value small {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .hell-reward-open {
   display: grid;
@@ -618,9 +618,9 @@
     display: none;
   }
   .hell-reward-value {
-    font-size: 13px;
+    font-size: var(--fs-13);
   }
   .hell-reward-copy small {
-    font-size: 12px;
+    font-size: var(--fs-12);
   }
 }

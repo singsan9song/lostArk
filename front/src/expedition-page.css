@@ -29,17 +29,17 @@
 .expedition-page-header p {
   margin: 0;
   color: var(--primary);
-  font-size: 11px;
+  font-size: var(--fs-11);
   font-weight: 800;
   letter-spacing: 0.14em;
 }
 .expedition-page-header h1 {
   margin: 4px 0 5px;
-  font-size: 27px;
+  font-size: var(--fs-27);
 }
 .expedition-page-header small {
   color: var(--muted);
-  font-size: 13px;
+  font-size: var(--fs-13);
 }
 .expedition-page-header aside {
   display: flex;
@@ -49,11 +49,11 @@
 }
 .expedition-page-header aside b {
   color: var(--primary);
-  font: 800 27px 'Outfit';
+  font: 800 var(--fs-27) 'Outfit';
 }
 .expedition-page-header aside span {
   color: var(--muted);
-  font-size: 13px;
+  font-size: var(--fs-13);
 }
 .expedition-groups {
   display: grid;
@@ -115,12 +115,12 @@
 }
 .expedition-group-name h2 {
   margin: 0;
-  font-size: 17px;
+  font-size: var(--fs-17);
   white-space: nowrap;
 }
 .expedition-group-name span {
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .expedition-group-summary {
   display: flex;
@@ -139,11 +139,11 @@
   border-radius: 999px;
   background: var(--surface-2);
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .expedition-group-summary span b {
   color: var(--text);
-  font: 800 13px 'Outfit';
+  font: 800 var(--fs-13) 'Outfit';
 }
 .expedition-group-summary button {
   cursor: pointer;
@@ -224,7 +224,7 @@
   border-radius: 50%;
   background: var(--surface-2);
   color: var(--primary);
-  font-size: 14px;
+  font-size: var(--fs-14);
   font-weight: 800;
 }
 .expedition-character-card > header img {
@@ -240,12 +240,12 @@
   white-space: nowrap;
 }
 .expedition-character-card > header strong {
-  font-size: 14px;
+  font-size: var(--fs-14);
 }
 .expedition-character-card > header small {
   margin-top: 4px;
   color: var(--muted);
-  font-size: 11px;
+  font-size: var(--fs-11);
 }
 .expedition-character-card > header i {
   color: var(--primary);
@@ -261,12 +261,12 @@
 }
 .expedition-character-level small {
   color: var(--muted);
-  font-size: 11px;
+  font-size: var(--fs-11);
 }
 .expedition-character-level strong {
   margin-top: 5px;
   color: var(--primary);
-  font: 800 19px 'Outfit';
+  font: 800 var(--fs-19) 'Outfit';
 }
 .expedition-character-card > footer {
   display: flex;
@@ -275,7 +275,7 @@
   padding: 9px 13px;
   border-top: 1px solid var(--line);
   color: var(--muted);
-  font-size: 11px;
+  font-size: var(--fs-11);
 }
 .expedition-character-card > footer svg {
   width: 13px;
@@ -296,12 +296,12 @@
 }
 .expedition-empty h2 {
   margin: 14px 0 5px;
-  font-size: 19px;
+  font-size: var(--fs-19);
 }
 .expedition-empty p {
   margin: 0;
   color: var(--muted);
-  font-size: 13px;
+  font-size: var(--fs-13);
 }
 @media (max-width: 1050px) {
   .expedition-character-grid {

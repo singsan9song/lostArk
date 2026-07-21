@@ -30,19 +30,19 @@
 .feature-landing-content header p {
   margin: 0 0 5px;
   color: #bed58d;
-  font-size: 11px;
+  font-size: var(--fs-11);
   font-weight: 800;
   letter-spacing: 0.13em;
 }
 .feature-landing-hero h1 {
   margin: 0;
-  font-size: 30px;
+  font-size: var(--fs-30);
 }
 .feature-landing-hero div > span {
   display: block;
   margin-top: 8px;
   color: var(--muted);
-  font-size: 14px;
+  font-size: var(--fs-14);
 }
 .feature-landing-content {
   padding: 24px;
@@ -56,11 +56,11 @@
 }
 .feature-landing-content h2 {
   margin: 0;
-  font-size: 21px;
+  font-size: var(--fs-21);
 }
 .feature-landing-content > header > span {
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .feature-landing-grid {
   display: grid;
@@ -92,12 +92,12 @@
   width: 21px;
 }
 .feature-landing-grid article strong {
-  font-size: 15px;
+  font-size: var(--fs-15);
 }
 .feature-landing-grid article p {
   margin: 6px 0 0;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
   line-height: 1.55;
 }
 .feature-landing-grid article > svg {

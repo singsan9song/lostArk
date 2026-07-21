@@ -38,7 +38,7 @@
   outline: 0;
   background: var(--surface-2);
   color: var(--text);
-  font-size: 14px;
+  font-size: var(--fs-14);
   font-weight: 800;
 }
 .expedition-name-editor button {

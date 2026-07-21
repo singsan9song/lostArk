@@ -35,7 +35,7 @@
   gap: 7px;
   margin: 0 0 10px;
   color: var(--primary);
-  font: 800 12px 'Outfit';
+  font: 800 var(--fs-12) 'Outfit';
   letter-spacing: 1.5px;
 }
 .representative-copy > p svg,
@@ -45,22 +45,22 @@
 }
 .representative-copy > small {
   color: var(--muted);
-  font-size: 13px;
+  font-size: var(--fs-13);
 }
 .representative-copy h1,
 .representative-empty h1 {
   margin: 7px 0 13px;
-  font-size: 38px;
+  font-size: var(--fs-38);
   letter-spacing: -1.3px;
 }
 .representative-empty h1 {
-  font-size: 31px;
+  font-size: var(--fs-31);
 }
 .representative-empty > div > span {
   display: block;
   margin-bottom: 21px;
   color: var(--muted);
-  font-size: 13px;
+  font-size: var(--fs-13);
 }
 .representative-empty .search-box {
   width: min(480px, 100%);
@@ -113,11 +113,11 @@
   border-radius: 7px;
   background: rgba(190, 213, 141, 0.12);
   color: var(--primary);
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 800;
 }
 .representative-level strong {
-  font: 800 22px 'Outfit';
+  font: 800 var(--fs-22) 'Outfit';
   color: #f3f7e9;
 }
 .representative-actions {
@@ -134,7 +134,7 @@
   border-radius: 9px;
   background: var(--primary);
   color: #192011;
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 800;
 }
 .representative-actions > a svg {
@@ -150,14 +150,14 @@
   border-radius: 9px;
   background: rgba(17, 20, 28, 0.8);
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .representative-actions select {
   max-width: 140px;
   border: 0;
   background: transparent;
   color: var(--text);
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 700;
   outline: 0;
 }
@@ -179,7 +179,7 @@
   align-items: center;
   gap: 5px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .representative-summary span svg {
   width: 12px;
@@ -188,7 +188,7 @@
   display: block;
   margin: 5px 0;
   color: var(--primary);
-  font: 800 20px 'Outfit';
+  font: 800 var(--fs-20) 'Outfit';
 }
 .representative-quick-picks {
   position: relative;
@@ -242,11 +242,11 @@
   text-overflow: ellipsis;
 }
 .representative-quick-picks b {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .representative-quick-picks small {
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .representative-guide {
   position: relative;
@@ -268,10 +268,10 @@
 .representative-guide strong {
   margin: 10px 0 5px;
   color: var(--text);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .representative-guide span {
-  font-size: 12px;
+  font-size: var(--fs-12);
   line-height: 1.6;
 }
 .home-layout-controls {
@@ -299,12 +299,12 @@
   display: block;
 }
 .home-layout-controls span b {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .home-layout-controls span small {
   margin-top: 3px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .home-layout-controls button {
   height: 34px;
@@ -316,7 +316,7 @@
   border-radius: 8px;
   background: var(--surface-2);
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 700;
   cursor: pointer;
 }
@@ -383,7 +383,7 @@
   border-radius: 7px;
   background: var(--surface);
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 700;
   cursor: pointer;
 }
@@ -441,7 +441,7 @@
   border: 1px dashed var(--line);
   border-radius: 14px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .home-favorites-empty svg {
   width: 23px;
@@ -515,7 +515,7 @@ body.light .representative-quick-picks button {
   }
   .representative-copy h1,
   .representative-empty h1 {
-    font-size: 27px;
+    font-size: var(--fs-27);
   }
   .representative-art {
     right: -22%;
@@ -616,7 +616,7 @@ body.light .representative-quick-picks button {
   color: #e6f8bf;
 }
 .representative-level strong {
-  font-size: 25px;
+  font-size: var(--fs-25);
 }
 .representative-actions > a {
   background: #d8efa7;
@@ -690,7 +690,7 @@ body.light .representative-quick-picks button {
 }
 .home-widget .section-heading h2,
 .home-widget .panel-header h2 {
-  font-size: 19px;
+  font-size: var(--fs-19);
 }
 .home-dashboard.editing {
   margin-top: 0;
@@ -722,7 +722,7 @@ body.light .representative-quick-picks button {
   border-radius: 7px;
   background: var(--surface-2);
   color: var(--muted);
-  font: 700 12px 'Outfit';
+  font: 700 var(--fs-12) 'Outfit';
 }
 .home-widget-toolbar > div {
   display: flex;
@@ -756,7 +756,7 @@ body.light .representative-quick-picks button {
   object-fit: cover;
 }
 .home-widget .tool-card strong {
-  font-size: 13px;
+  font-size: var(--fs-13);
 }
 .home-widget .content-grid {
   grid-template-columns: 1.35fr 1fr;
@@ -794,7 +794,7 @@ body.light .representative-quick-picks button {
   }
   .home-widget .section-heading h2,
   .home-widget .panel-header h2 {
-    font-size: 17px;
+    font-size: var(--fs-17);
   }
 }
 body.light .representative-hero {
@@ -906,24 +906,24 @@ body.light .representative-summary {
 .brand-hero-content > p {
   margin: 0;
   color: #def4ae;
-  font: 800 12px 'Outfit';
+  font: 800 var(--fs-12) 'Outfit';
   letter-spacing: 2px;
 }
 .brand-hero-content h1 {
   margin: 8px 0 7px;
-  font: 800 44px 'Outfit';
+  font: 800 var(--fs-44) 'Outfit';
   letter-spacing: 1px;
 }
 .brand-hero-content h1 span {
   color: #d9eea8;
 }
 .brand-hero-content > strong {
-  font-size: 18px;
+  font-size: var(--fs-18);
 }
 .brand-hero-content > small {
   margin: 8px 0 22px;
   color: #c2c9bc;
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .brand-hero-content .search-box {
   margin: 0 auto;
@@ -990,10 +990,10 @@ body.light .brand-hero-content > small {
     padding: 30px 20px;
   }
   .brand-hero-content h1 {
-    font-size: 37px;
+    font-size: var(--fs-37);
   }
   .brand-hero-content > strong {
-    font-size: 15px;
+    font-size: var(--fs-15);
   }
   .brand-hero-content .brand-hero-mark {
     width: 66px;
@@ -1027,10 +1027,10 @@ body.light .brand-hero-content > small {
 }
 .brand-hero-content h1 {
   margin: 4px 0;
-  font-size: 35px;
+  font-size: var(--fs-35);
 }
 .brand-hero-content > strong {
-  font-size: 15px;
+  font-size: var(--fs-15);
 }
 .brand-hero-content > small {
   margin: 5px 0 15px;
@@ -1130,10 +1130,10 @@ body.light .brand-hero-content > small {
     padding: 24px 18px;
   }
   .brand-hero-content h1 {
-    font-size: 31px;
+    font-size: var(--fs-31);
   }
   .brand-hero-content > strong {
-    font-size: 13px;
+    font-size: var(--fs-13);
   }
   .brand-hero-content > small {
     max-width: 280px;
@@ -1198,11 +1198,11 @@ body.light .brand-hero-content > small {
   border-bottom: 1px solid var(--line);
 }
 .home-board-menu header b {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .home-board-menu header small {
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .home-board-menu > div {
   display: flex;
@@ -1220,7 +1220,7 @@ body.light .brand-hero-content > small {
   border-radius: 8px;
   background: transparent;
   color: var(--text);
-  font-size: 12px;
+  font-size: var(--fs-12);
   text-align: left;
   cursor: pointer;
 }
@@ -1233,13 +1233,13 @@ body.light .brand-hero-content > small {
 }
 .home-board-menu > div span {
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .home-board-menu > p {
   margin: 0;
   padding: 20px 8px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
   text-align: center;
 }
 .home-board-menu .home-board-reset {
@@ -1253,7 +1253,7 @@ body.light .brand-hero-content > small {
   border-radius: 9px;
   background: var(--surface-2);
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 700;
   cursor: pointer;
 }
@@ -1409,7 +1409,7 @@ body.light .brand-hero-content > small {
   display: block;
   margin-top: 2px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .calendar-state {
   min-height: 116px;
@@ -1417,7 +1417,7 @@ body.light .brand-hero-content > small {
   place-items: center;
   border-top: 1px solid var(--line);
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
   text-align: center;
 }
 .calendar-state.error {
@@ -1432,7 +1432,7 @@ body.light .brand-hero-content > small {
   align-items: center;
 }
 .home-widget .schedule-widget .panel-header time {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .home-widget .schedule-widget .compact-day-tabs {
   grid-template-columns: repeat(7, minmax(0, 1fr));
@@ -1446,12 +1446,12 @@ body.light .brand-hero-content > small {
   padding: 7px 4px;
   border: 1px solid transparent;
   background: var(--surface-2);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .compact-day-tabs button span {
   display: block;
   margin: 0 0 3px;
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .home-widget .compact-day-tabs button.selected {
   border-color: rgba(190, 213, 141, 0.48);
@@ -1469,7 +1469,7 @@ body.light .brand-hero-content > small {
 }
 .home-widget .compact-day-tabs button.today span:after {
   content: ' · 오늘';
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .home-widget .compact-day-tabs button.selected.today {
   background: var(--primary);
@@ -1543,22 +1543,22 @@ body.light .brand-hero-content > small {
   white-space: nowrap;
 }
 .daily-content-card strong {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .daily-content-card small {
   margin-top: 3px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .daily-content-card time {
   color: var(--primary);
-  font: 800 12px 'Outfit';
+  font: 800 var(--fs-12) 'Outfit';
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 .daily-content-card time.unavailable {
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .compact-calendar-state {
   min-height: 62px;
@@ -1592,7 +1592,7 @@ body.light .brand-hero-content > small {
 .adventure-island-details > strong {
   display: block;
   margin-bottom: 8px;
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .adventure-island-details > div {
   display: grid;
@@ -1639,17 +1639,17 @@ body.light .brand-hero-content > small {
   white-space: nowrap;
 }
 .adventure-island-details b {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .adventure-island-details small {
   margin-top: 3px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .adventure-island-details p {
   margin: 0;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 @keyframes adventure-details-in {
   from {
@@ -1698,7 +1698,7 @@ body.light .brand-hero-content > small {
   border-radius: 5px;
   background: rgba(128, 137, 157, 0.12);
   color: var(--muted);
-  font-size: 12px !important;
+  font-size: var(--fs-12) !important;
   font-weight: 800;
   vertical-align: middle;
 }
@@ -1779,7 +1779,7 @@ body.light .brand-hero-content > small {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .adventure-reward-list {
   display: grid;
@@ -1813,7 +1813,7 @@ body.light .brand-hero-content > small {
   width: 13px;
 }
 .adventure-reward-list b {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .adventure-reward-list p {
   padding: 8px;

@@ -26,12 +26,12 @@
   color: var(--primary-2);
 }
 .battle-heading h2 {
-  font-size: 15px;
+  font-size: var(--fs-15);
   margin: 0;
 }
 .battle-heading > span {
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .equipment-columns {
   display: grid;
@@ -75,7 +75,7 @@
   border-radius: 5px;
   background: #17191f;
   color: #fff;
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-style: normal;
 }
 .equipment-copy {
@@ -84,7 +84,7 @@
 .equipment-copy strong {
   display: block;
   color: #e6bd67;
-  font-size: 12px;
+  font-size: var(--fs-12);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -92,7 +92,7 @@
 .equipment-copy span {
   display: block;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
   margin-top: 3px;
 }
 .quality {
@@ -103,7 +103,7 @@
   border-radius: 4px;
   background: #3b9bd2;
   color: #fff;
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .q-9,
 .q-10 {
@@ -132,11 +132,11 @@
   background: #7957d0;
   color: #fff;
   border-radius: 3px;
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-style: normal;
 }
 .accessory-options span {
-  font-size: 12px;
+  font-size: var(--fs-12);
   color: #a99bd4;
 }
 .special-equipment {
@@ -178,12 +178,12 @@
   background: #f1eee8;
   color: #df6e31;
   border-radius: 50%;
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .battle-gems span {
   display: block;
   margin-top: 4px;
-  font-size: 12px;
+  font-size: var(--fs-12);
   color: var(--muted);
   white-space: nowrap;
   overflow: hidden;
@@ -211,10 +211,10 @@
 .basic-stats span,
 .combat-stats span {
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .basic-stats strong {
-  font-size: 13px;
+  font-size: var(--fs-13);
 }
 .combat-stats {
   display: grid;
@@ -228,7 +228,7 @@
 .combat-stats strong {
   display: block;
   color: var(--primary-2);
-  font-size: 14px;
+  font-size: var(--fs-14);
   margin-top: 4px;
 }
 .battle-engravings {
@@ -261,11 +261,11 @@
   text-overflow: ellipsis;
 }
 .battle-engravings strong {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .battle-engravings small {
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
   margin-top: 3px;
 }
 .passive-columns {
@@ -286,7 +286,7 @@
 .passive-columns header strong {
   padding: 5px 13px;
   border-radius: 14px;
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .passive-columns .evolution header strong {
   background: #b89b50;
@@ -301,7 +301,7 @@
   color: #fff;
 }
 .passive-columns header span {
-  font-size: 12px;
+  font-size: var(--fs-12);
   color: var(--muted);
 }
 .passive-columns article > div {
@@ -324,10 +324,10 @@
   display: block;
 }
 .passive-columns article > div b {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .passive-columns article > div small {
-  font-size: 12px;
+  font-size: var(--fs-12);
   color: var(--muted);
   white-space: nowrap;
   overflow: hidden;
@@ -335,7 +335,7 @@
 }
 .passive-columns article > p {
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .battle-cards {
   display: grid;
@@ -366,7 +366,7 @@
   background: rgba(9, 11, 16, 0.75);
   color: #eecb63;
   border-radius: 4px;
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-style: normal;
 }
 .battle-cards strong,
@@ -377,12 +377,12 @@
   text-overflow: ellipsis;
 }
 .battle-cards strong {
-  font-size: 12px;
+  font-size: var(--fs-12);
   margin-top: 5px;
 }
 .battle-cards span {
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
   margin-top: 2px;
 }
 .battle-empty {
@@ -392,7 +392,7 @@
   justify-content: center;
   gap: 8px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .battle-empty svg {
   width: 20px;
@@ -452,7 +452,7 @@
   gap: 8px;
 }
 .battle-primary-row .battle-cards strong {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .battle-loadout-row .equipment-columns {
   grid-template-columns: 1fr 1fr;
@@ -505,7 +505,7 @@
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 50%;
   color: #f6e8d8;
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 800;
   text-shadow: 0 1px 3px #000;
   box-shadow:
@@ -547,13 +547,13 @@
 }
 .engraving-base {
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
   white-space: nowrap;
 }
 .battle-build-row .battle-engravings .engraving-row > strong {
   min-width: 0;
   color: var(--text);
-  font-size: 12px;
+  font-size: var(--fs-12);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -569,7 +569,7 @@
 }
 .ability-stone-level {
   color: #9ba5ba;
-  font-size: 12px;
+  font-size: var(--fs-12);
   white-space: nowrap;
 }
 @media (max-width: 900px) {
@@ -871,7 +871,7 @@
   top: -3px;
   width: 15px;
   height: 15px;
-  font-size: 12px;
+  font-size: var(--fs-12);
   border: 2px solid var(--surface);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
@@ -967,7 +967,7 @@
 }
 .gem-skill-line strong {
   min-width: 0;
-  font-size: 12px;
+  font-size: var(--fs-12);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -979,13 +979,13 @@
   margin-top: 4px;
   padding: 3px 5px;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 700;
   white-space: nowrap;
 }
 .gem-effect-badge em {
   font-style: normal;
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .gem-effect-badge.damage {
   color: #f2a06e;
@@ -1013,7 +1013,7 @@
 .equipment-copy .honing-level {
   flex: 0 0 auto;
   color: #f1a34d;
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-style: normal;
 }
 .equipment-copy > span {
@@ -1033,7 +1033,7 @@
   padding: 6px;
 }
 .accessory-copy strong {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .accessory-meta {
   display: flex;
@@ -1044,13 +1044,13 @@
 .accessory-meta .quality {
   width: 25px;
   height: 16px;
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .equipment-copy .accessory-meta > span {
   display: block;
   margin: 0;
   color: #9ba5ba;
-  font-size: 12px;
+  font-size: var(--fs-12);
   white-space: nowrap;
 }
 .accessory-effect-list {
@@ -1073,7 +1073,7 @@
   place-items: center;
   border-radius: 2px;
   color: #fff;
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-style: normal;
 }
 .accessory-effect-list i.high {
@@ -1088,13 +1088,13 @@
 .accessory-effect-list span {
   min-width: 0;
   color: #aab1c2;
-  font-size: 12px;
+  font-size: var(--fs-12);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .accessory-effect-list b {
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 700;
   white-space: nowrap;
 }
@@ -1109,7 +1109,7 @@
 }
 .accessory-effect-list small {
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 
 /* Dense equipment list matching the in-game information hierarchy. */
@@ -1131,7 +1131,7 @@
 .equipment-badges .quality {
   width: 25px;
   height: 16px;
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .equipment-copy .equipment-badges > span {
   display: grid;
@@ -1142,7 +1142,7 @@
   border-radius: 3px;
   background: #343a49;
   color: #bac1d1;
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .stone-row {
   grid-template-columns: 46px minmax(70px, 0.8fr) minmax(95px, 1.2fr) !important;
@@ -1157,7 +1157,7 @@
   border-radius: 3px;
   background: #343a49;
   color: #d0d5df;
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 700;
 }
 .stone-effect-list {
@@ -1180,11 +1180,11 @@
   border-radius: 2px;
   background: #7956d0;
   color: #fff;
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-style: normal;
 }
 .stone-effect-list span {
-  font-size: 12px;
+  font-size: var(--fs-12);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1201,114 +1201,114 @@
 
 /* Slightly larger typography across the combat information dashboard. */
 .battle-heading h2 {
-  font-size: 16px;
+  font-size: var(--fs-16);
 }
 .battle-heading > span {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .equipment-copy strong {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .equipment-copy > span {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .equipment-copy .honing-level {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .accessory-copy strong {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .equipment-copy .accessory-meta > span,
 .accessory-effect-list span,
 .accessory-effect-list b,
 .accessory-effect-list small {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .accessory-effect-list i,
 .stone-effect-list i {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .stone-effect-list span {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .stone-total {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .gem-skill-line strong {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .gem-effect-badge,
 .gem-effect-badge em {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .basic-stats span,
 .combat-stats span {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .basic-stats strong {
-  font-size: 14px;
+  font-size: var(--fs-14);
 }
 .combat-stats strong {
-  font-size: 15px;
+  font-size: var(--fs-15);
 }
 .battle-build-row .battle-engravings .engraving-row > strong {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .engraving-base,
 .ability-stone-level {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .passive-columns header strong,
 .passive-columns header span {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .passive-columns article > div b {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .passive-columns article > div small,
 .passive-columns article > p {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .battle-cards strong,
 .battle-primary-row .battle-cards strong {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .battle-cards span {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .battle-cards i {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 
 /* Combat dashboard body copy never drops below 10px. */
 .equipment-copy > span,
 .equipment-copy .accessory-meta > span {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .equipment-copy .honing-level,
 .accessory-copy strong {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .equipment-badges .quality,
 .accessory-meta .quality {
   width: 29px;
   height: 19px;
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .equipment-copy .equipment-badges > span {
   height: 19px;
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .accessory-effect-list span,
 .accessory-effect-list b,
 .accessory-effect-list small {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .accessory-effect-list i,
 .stone-effect-list i {
   width: 16px;
   height: 16px;
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .accessory-effect-list > div {
   grid-template-columns: 17px minmax(0, 1fr) auto;
@@ -1319,12 +1319,12 @@
 }
 .stone-effect-list span,
 .stone-total {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .gem-skill-line strong,
 .gem-effect-badge,
 .gem-effect-badge em {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .gem-effect-badge {
   padding: 4px 6px;
@@ -1332,19 +1332,19 @@
 .battle-gems .gem-grade-icon b {
   width: 18px;
   height: 18px;
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .passive-columns article > div small,
 .passive-columns article > p {
-  font-size: 12px;
+  font-size: var(--fs-12);
   line-height: 1.45;
 }
 .battle-cards span,
 .battle-cards i {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .battle-empty {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 
 /* Keep the seven left/right equipment slots on identical horizontal rows. */
@@ -1368,7 +1368,7 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 .gem-skill-line strong {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .battle-gems .gem-effect-badge {
   display: flex;
@@ -1376,7 +1376,7 @@
   justify-content: space-between;
   margin-top: 4px;
   padding: 5px 7px;
-  font-size: 12px;
+  font-size: var(--fs-12);
   line-height: 1.25;
 }
 .battle-gems .gem-effect-badge em {
@@ -1431,12 +1431,12 @@
 .passive-columns .passive-node i {
   flex: 0 0 auto;
   color: #9ba4b7;
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-style: normal;
 }
 .passive-columns .passive-node strong {
   min-width: 0;
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 500;
   overflow: hidden;
   text-overflow: ellipsis;

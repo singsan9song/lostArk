@@ -22,7 +22,7 @@
   border-radius: 50%;
   background: var(--surface-2);
   color: var(--primary);
-  font-size: 14px;
+  font-size: var(--fs-14);
   font-weight: 800;
 }
 .expedition-character-card > header > a img {
@@ -38,12 +38,12 @@
   white-space: nowrap;
 }
 .expedition-character-card > header > a strong {
-  font-size: 14px;
+  font-size: var(--fs-14);
 }
 .expedition-character-card > header > a small {
   margin-top: 4px;
   color: var(--muted);
-  font-size: 11px;
+  font-size: var(--fs-11);
 }
 .expedition-character-card > header > button {
   width: 29px;
@@ -82,12 +82,12 @@
 }
 .expedition-character-metrics small {
   color: var(--muted);
-  font-size: 10px;
+  font-size: var(--fs-10);
 }
 .expedition-character-metrics strong {
   margin-top: 4px;
   color: var(--primary);
-  font: 800 14px 'Outfit';
+  font: 800 var(--fs-14) 'Outfit';
   white-space: nowrap;
 }
 .expedition-character-metrics strong.combat {
@@ -104,7 +104,7 @@
   justify-content: center;
   gap: 5px;
   color: var(--muted);
-  font-size: 11px;
+  font-size: var(--fs-11);
 }
 .expedition-card-raids.empty > svg {
   width: 20px;
@@ -117,7 +117,7 @@
   border-radius: 7px;
   background: var(--surface-2);
   color: var(--primary);
-  font-size: 11px;
+  font-size: var(--fs-11);
   cursor: pointer;
 }
 .expedition-card-raid {
@@ -142,12 +142,12 @@
   white-space: nowrap;
 }
 .expedition-card-raid b {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .expedition-card-raid small {
   margin-top: 3px;
   color: var(--muted);
-  font-size: 10px;
+  font-size: var(--fs-10);
 }
 .expedition-card-raid > div {
   display: flex;
@@ -164,7 +164,7 @@
   border-radius: 50%;
   background: var(--surface-2);
   color: #7ba9ff;
-  font: 800 11px 'Outfit';
+  font: 800 var(--fs-11) 'Outfit';
   cursor: pointer;
 }
 .expedition-card-raid button.complete,
@@ -186,7 +186,7 @@
   align-items: center;
   justify-content: space-between;
   color: var(--muted);
-  font-size: 11px;
+  font-size: var(--fs-11);
 }
 .expedition-character-card > footer svg {
   width: 13px;
@@ -221,12 +221,12 @@
 }
 .expedition-raid-modal > header h2 {
   margin: 0;
-  font-size: 20px;
+  font-size: var(--fs-20);
 }
 .expedition-raid-modal > header p {
   margin: 5px 0 0;
   color: var(--muted);
-  font-size: 11px;
+  font-size: var(--fs-11);
 }
 .expedition-raid-modal > header button {
   width: 34px;
@@ -284,7 +284,7 @@
   border-radius: 50%;
   background: var(--surface);
   color: var(--primary);
-  font-size: 11px;
+  font-size: var(--fs-11);
 }
 .expedition-raid-characters img {
   width: 100%;
@@ -299,12 +299,12 @@
   white-space: nowrap;
 }
 .expedition-raid-characters b {
-  font-size: 11px;
+  font-size: var(--fs-11);
 }
 .expedition-raid-characters small {
   margin-top: 3px;
   color: var(--muted);
-  font-size: 10px;
+  font-size: var(--fs-10);
 }
 .expedition-raid-config {
   min-height: 0;
@@ -325,19 +325,19 @@
   display: block;
 }
 .expedition-raid-config-heading b {
-  font-size: 14px;
+  font-size: var(--fs-14);
 }
 .expedition-raid-config-heading small {
   margin-top: 4px;
   color: var(--muted);
-  font-size: 10px;
+  font-size: var(--fs-10);
 }
 .expedition-raid-config-heading em {
   padding: 5px 8px;
   border-radius: 999px;
   background: rgba(190, 213, 141, 0.12);
   color: var(--primary);
-  font-size: 10px;
+  font-size: var(--fs-10);
   font-style: normal;
   font-weight: 800;
 }
@@ -360,11 +360,11 @@
 }
 .expedition-raid-config-card > header small {
   color: var(--muted);
-  font-size: 9px;
+  font-size: var(--fs-9);
 }
 .expedition-raid-config-card > header strong {
   margin-top: 3px;
-  font-size: 13px;
+  font-size: var(--fs-13);
 }
 .expedition-raid-config-card > header button {
   display: flex;
@@ -375,7 +375,7 @@
   border-radius: 6px;
   background: rgba(235, 99, 99, 0.09);
   color: #eb7777;
-  font-size: 10px;
+  font-size: var(--fs-10);
   cursor: pointer;
 }
 .expedition-raid-config-card > header button svg {
@@ -405,11 +405,11 @@
   display: block;
 }
 .expedition-difficulty-options b {
-  font-size: 11px;
+  font-size: var(--fs-11);
 }
 .expedition-difficulty-options small {
   margin-top: 3px;
-  font-size: 9px;
+  font-size: var(--fs-9);
 }
 .expedition-gate-options {
   display: flex;
@@ -420,7 +420,7 @@
 .expedition-gate-options > span {
   margin-right: auto;
   color: var(--muted);
-  font-size: 10px;
+  font-size: var(--fs-10);
 }
 .expedition-raid-config-empty {
   height: calc(100% - 74px);
@@ -435,19 +435,19 @@
 }
 .expedition-raid-config-empty b {
   margin-top: 12px;
-  font-size: 13px;
+  font-size: var(--fs-13);
   color: var(--text);
 }
 .expedition-raid-config-empty span {
   margin-top: 5px;
-  font-size: 10px;
+  font-size: var(--fs-10);
 }
 .expedition-raid-list {
   border-left: 1px solid var(--line);
 }
 .expedition-raid-list > h3 {
   margin: 2px 5px 11px;
-  font-size: 14px;
+  font-size: var(--fs-14);
 }
 .expedition-raid-list section {
   margin-top: 12px;
@@ -455,7 +455,7 @@
 .expedition-raid-list h4 {
   margin: 0 5px 5px;
   color: var(--muted);
-  font-size: 9px;
+  font-size: var(--fs-9);
 }
 .expedition-raid-list section > button {
   width: 100%;
@@ -468,7 +468,7 @@
   border-radius: 8px;
   background: transparent;
   color: var(--text);
-  font-size: 10px;
+  font-size: var(--fs-10);
   text-align: left;
   cursor: pointer;
 }
@@ -544,6 +544,6 @@
     max-height: none;
   }
   .expedition-character-metrics strong {
-    font-size: 12px;
+    font-size: var(--fs-12);
   }
 }

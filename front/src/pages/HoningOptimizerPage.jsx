@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import {
   Anvil,
+  Award,
   ChevronDown,
   ChevronUp,
   Coins,
@@ -12,7 +13,14 @@ import {
 } from 'lucide-react'
 import { GoldAmount } from '../components/GoldIcon'
 import { lostArkApi } from '../lib/api'
-import { GRADE_OPTIONS, simulateRange, stagesForGrade } from '../lib/honingCalculator'
+import {
+  ALL_MATERIAL_NAMES,
+  GRADE_OPTIONS,
+  compareStrategies,
+  findRecord,
+  simulateRange,
+  stagesForGrade,
+} from '../lib/honingCalculator'
 import '../honing-optimizer.css'
 
 const equipment = [
@@ -34,21 +42,21 @@ const initialSettings = Object.fromEntries(
 )
 
 // Most of these material names are bound and have no market listing; 명예의 파편 is only
-// tradeable in its bundled form. Anything that doesn't resolve to a price is shown as
-// quantity-only rather than guessing a value.
+// tradeable in its bundled form. Anything that doesn't resolve to a price is excluded from
+// the optimizer's choices (never assumed free) and shown as quantity-only in the UI.
 const shardConversions = {
   '명예의 파편': { marketName: '명예의 파편 주머니(대)', contents: 1500 },
 }
 const marketNameFor = (name) => shardConversions[name]?.marketName || name
 const marketAmountFor = (name, count) =>
   shardConversions[name] ? count / shardConversions[name].contents : count
-const materialGoldValue = (name, count, prices) => {
-  if (name === '골드') return count
+const unitPriceOf = (name, prices) => {
+  if (name === '골드') return 1
   const market = prices[marketNameFor(name)]
   if (!(market?.currentMinPrice > 0)) return null
   return (
     (market.currentMinPrice / Math.max(1, Number(market.bundleCount) || 1)) *
-    marketAmountFor(name, count)
+    marketAmountFor(name, 1)
   )
 }
 const iconFor = (name) => {
@@ -93,11 +101,39 @@ export default function HoningOptimizerPage() {
   const [activeSegment, setActiveSegment] = useState(null)
   const [overallOpen, setOverallOpen] = useState(true)
   const [marketPrices, setMarketPrices] = useState({})
+  const [pricesReady, setPricesReady] = useState(false)
 
   const supportState = { strongholdResearch, growthSupport }
+  const getUnitPrice = (name) => unitPriceOf(name, marketPrices)
+
+  // Prices have to be loaded *before* simulating, not after — the optimizer needs catalyst
+  // prices to decide what to use, not just to total up a bill afterward. Fetches every
+  // material name that could ever appear, once, regardless of what's currently selected.
+  useEffect(() => {
+    let active = true
+    const uniqueNames = [...new Set(ALL_MATERIAL_NAMES.map(marketNameFor))].filter(
+      (name) => name !== '골드',
+    )
+    const batches = Array.from({ length: Math.ceil(uniqueNames.length / 30) }, (_, index) =>
+      uniqueNames.slice(index * 30, index * 30 + 30),
+    )
+    Promise.all(batches.map((batch) => lostArkApi.getMarketPrices(batch)))
+      .then((results) => {
+        if (active) setMarketPrices(Object.assign({}, ...results))
+      })
+      .catch(() => {
+        if (active) setMarketPrices({})
+      })
+      .finally(() => {
+        if (active) setPricesReady(true)
+      })
+    return () => {
+      active = false
+    }
+  }, [])
 
   const simulations = useMemo(() => {
-    if (!calculated) return {}
+    if (!calculated || !pricesReady) return {}
     return Object.fromEntries(
       equipment
         .filter((item) => calculated[item.id].target > calculated[item.id].current)
@@ -111,12 +147,13 @@ export default function HoningOptimizerPage() {
               currentStage: setting.current,
               targetStage: setting.target,
               supportState,
+              getUnitPrice,
             }),
           ]
         }),
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [calculated, strongholdResearch, growthSupport])
+  }, [calculated, pricesReady, strongholdResearch, growthSupport, marketPrices])
 
   const resultItems = equipment.filter((item) => simulations[item.id])
   const selectedItem =
@@ -130,30 +167,6 @@ export default function HoningOptimizerPage() {
       setActiveSegment(selectedSimulation.steps[0].fromStage)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSimulation])
-
-  useEffect(() => {
-    const names = new Set()
-    Object.values(simulations).forEach((simulation) =>
-      simulation.materials.forEach((material) => names.add(marketNameFor(material.name))),
-    )
-    const uniqueNames = [...names].filter((name) => name !== '골드')
-    if (!uniqueNames.length) return
-    let active = true
-    const batches = Array.from({ length: Math.ceil(uniqueNames.length / 30) }, (_, index) =>
-      uniqueNames.slice(index * 30, index * 30 + 30),
-    )
-    Promise.all(batches.map((batch) => lostArkApi.getMarketPrices(batch)))
-      .then((results) => {
-        if (active) setMarketPrices(Object.assign({}, ...results))
-      })
-      .catch(() => {
-        if (active) setMarketPrices({})
-      })
-    return () => {
-      active = false
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [calculated, strongholdResearch, growthSupport])
 
   const updateSetting = (id, key, value) => {
     setDraft((previous) => ({ ...previous, [id]: { ...previous[id], [key]: value } }))
@@ -185,17 +198,6 @@ export default function HoningOptimizerPage() {
     if (firstChanged) setActiveEquipment(firstChanged.id)
   }
 
-  const materialCostSummary = (materials) => {
-    let goldTotal = 0
-    let hasUnpriced = false
-    materials.forEach(({ name, expectedCount }) => {
-      const value = materialGoldValue(name, expectedCount, marketPrices)
-      if (value === null) hasUnpriced = true
-      else goldTotal += value
-    })
-    return { goldTotal, hasUnpriced }
-  }
-
   const activeStep = selectedSimulation?.steps.find((step) => step.fromStage === activeSegment)
   const displayRows = activeStep
     ? activeStep.attemptRows.length <= 10
@@ -207,6 +209,12 @@ export default function HoningOptimizerPage() {
     : []
   const truncated = activeStep ? activeStep.attemptRows.length > 10 : false
 
+  const activeRecord =
+    selectedItem && selectedSetting && activeStep
+      ? findRecord(selectedItem.type, selectedSetting.grade, activeStep.toStage, supportState)
+      : null
+  const strategyComparison = activeRecord ? compareStrategies(activeRecord, getUnitPrice) : []
+
   return (
     <main className="honing-optimizer-page page-content">
       <header className="honing-optimizer-heading panel">
@@ -216,7 +224,7 @@ export default function HoningOptimizerPage() {
         <div>
           <small>HONING OPTIMIZER</small>
           <h1>재련 최적화</h1>
-          <p>장비별 등급과 목표 단계를 설정하고 예상 재료·시도 횟수를 계산합니다.</p>
+          <p>장비별 등급과 목표 단계를 설정하고 예상 재료·시도 횟수·보조 재료 전략을 계산합니다.</p>
         </div>
       </header>
 
@@ -312,8 +320,13 @@ export default function HoningOptimizerPage() {
             ))}
           </div>
 
-          <button className="honing-calculate" type="button" onClick={calculate}>
-            <Anvil /> 계산
+          <button
+            className="honing-calculate"
+            type="button"
+            onClick={calculate}
+            disabled={!pricesReady}
+          >
+            <Anvil /> {pricesReady ? '계산' : '시세 불러오는 중…'}
           </button>
         </aside>
 
@@ -376,30 +389,34 @@ export default function HoningOptimizerPage() {
                       없어 계산에서 제외했습니다.
                     </p>
                   )}
+                  {(selectedSimulation.hasUnpricedRequiredMaterial ||
+                    selectedSimulation.excludedCatalysts.length > 0) && (
+                    <p className="honing-missing-note">
+                      {selectedSimulation.hasUnpricedRequiredMaterial &&
+                        '일부 필요 재료는 시세 정보가 없어 골드 비용에서 제외했습니다. '}
+                      {selectedSimulation.excludedCatalysts.length > 0 &&
+                        `보조 재료 중 ${selectedSimulation.excludedCatalysts.join(', ')}은(는) 시세 정보가 없어 최적화 대상에서 제외했습니다.`}
+                    </p>
+                  )}
 
                   <div className="honing-average-cost">
                     <div>
-                      <small>예상 시도 횟수</small>
+                      <small>예상 시도 횟수 (최적 보조 재료 사용 기준)</small>
                       <strong>{number(selectedSimulation.expectedAttempts)}회</strong>
                       <span>
-                        최대{' '}
-                        {selectedSimulation.steps.reduce(
-                          (sum, step) => sum + step.attemptRows.length,
-                          0,
-                        )}
-                        회 (확정 성공 기준)
+                        <GoldAmount>{number(selectedSimulation.expectedCost)}</GoldAmount>
                       </span>
                     </div>
                     <p>
-                      골드 비용은 시세 조회가 가능한 재료만 반영한 참고값입니다. 촉매(추가 재료)
-                      사용은 계산에 포함하지 않았습니다.
+                      골드 비용은 시세 조회가 가능한 재료만 반영한 참고값입니다. 보조 재료는
+                      시도마다 가장 저렴하게 목표에 도달하는 조합을 자동으로 계산합니다.
                     </p>
                   </div>
 
                   <div className="honing-material-grid">
                     {selectedSimulation.materials.map(({ name, expectedCount }) => {
                       const Icon = iconFor(name)
-                      const value = materialGoldValue(name, expectedCount, marketPrices)
+                      const price = getUnitPrice(name)
                       return (
                         <div key={name}>
                           <i>
@@ -410,8 +427,8 @@ export default function HoningOptimizerPage() {
                             <b>{number(expectedCount)}개</b>
                           </span>
                           <strong>
-                            {value !== null ? (
-                              <GoldAmount>{number(value)}</GoldAmount>
+                            {price !== null ? (
+                              <GoldAmount>{number(price * expectedCount)}</GoldAmount>
                             ) : (
                               '시세 없음'
                             )}
@@ -449,28 +466,17 @@ export default function HoningOptimizerPage() {
                             <b>{number(activeStep.expectedAttempts)}회</b>
                           </span>
                           <span>
-                            <small>최대 시도 횟수</small>
-                            <b>{activeStep.attemptRows.length}회</b>
-                            <em>확정 성공 기준</em>
-                          </span>
-                          <span>
                             <small>평균 비용</small>
                             <b>
-                              {(() => {
-                                const { goldTotal, hasUnpriced } = materialCostSummary(
-                                  activeStep.materials.map((material) => ({
-                                    name: material.name,
-                                    expectedCount: material.expectedCount,
-                                  })),
-                                )
-                                return (
-                                  <>
-                                    <GoldAmount>{number(goldTotal)}</GoldAmount>
-                                    {hasUnpriced && <em> +시세 미확인 재료</em>}
-                                  </>
-                                )
-                              })()}
+                              <GoldAmount>{number(activeStep.expectedCost)}</GoldAmount>
                             </b>
+                          </span>
+                          <span>
+                            <small>장기백 비용</small>
+                            <b>
+                              <GoldAmount>{number(activeStep.worstCaseCost)}</GoldAmount>
+                            </b>
+                            <em>{activeStep.worstCaseAttempts}회 (확정 성공 기준)</em>
                           </span>
                         </div>
                       </header>
@@ -479,9 +485,11 @@ export default function HoningOptimizerPage() {
                         <div className="honing-attempt-head">
                           <span>시도</span>
                           <span>도달 확률</span>
-                          <span>성공 확률</span>
+                          <span>기본 확률</span>
+                          <span>보조 재료</span>
+                          <span>최종 확률</span>
                           <span>장인의 기운</span>
-                          <span>결과</span>
+                          <span>시도 비용</span>
                         </div>
                         {displayRows.map((row, index) => (
                           <div className="honing-attempt-row" key={row.attempt}>
@@ -491,9 +499,62 @@ export default function HoningOptimizerPage() {
                                 : `${row.attempt}회`}
                             </span>
                             <span>{percent(row.reachProbability * 100)}%</span>
-                            <span>{percent(row.probability)}%</span>
+                            <span>{percent(row.rawBase)}%</span>
+                            <strong className={row.catalystUsage.length ? '' : 'honing-unused'}>
+                              {row.catalystUsage.length
+                                ? row.catalystUsage
+                                    .map((item) => `${item.name} x${item.count}`)
+                                    .join(', ')
+                                : '미사용'}
+                            </strong>
+                            <span>{percent(row.finalProbability)}%</span>
                             <span>{percent(row.energyBefore)}%</span>
-                            <strong>{row.guaranteed ? '확정 성공' : '일반'}</strong>
+                            <span>
+                              <GoldAmount>{number(row.attemptCost)}</GoldAmount>
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </section>
+                  )}
+
+                  {strategyComparison.length > 0 && (
+                    <section className="honing-strategy-compare">
+                      <header>
+                        <Award />
+                        <h3>전략 비교</h3>
+                        <small>
+                          {activeStep.fromStage}강 → {activeStep.toStage}강 구간, 보조 재료 조합별
+                          비용
+                        </small>
+                      </header>
+                      <div className="honing-strategy-table">
+                        <div className="honing-strategy-head">
+                          <span>순위</span>
+                          <span>전략</span>
+                          <span>평균 비용</span>
+                          <span>평균 시도</span>
+                          <span>비용 차이</span>
+                        </div>
+                        {strategyComparison.map((strategy, index) => (
+                          <div
+                            className={`honing-strategy-row ${index === 0 ? 'best' : ''}`}
+                            key={strategy.id}
+                          >
+                            <span>{index === 0 ? '🏆' : index + 1}</span>
+                            <span>
+                              {strategy.label}
+                              {strategy.recommended && ' ⭐'}
+                            </span>
+                            <span>
+                              <GoldAmount>{number(strategy.expectedCost)}</GoldAmount>
+                            </span>
+                            <span>{number(strategy.expectedAttempts)}회</span>
+                            <span>
+                              {index === 0
+                                ? '-'
+                                : `+${number(strategy.costDiff)} (+${strategy.costDiffPercent.toFixed(1)}%)`}
+                            </span>
                           </div>
                         ))}
                       </div>

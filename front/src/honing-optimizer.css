@@ -477,9 +477,9 @@
 }
 .honing-attempt-head,
 .honing-attempt-row {
-  min-width: 560px;
+  min-width: 860px;
   display: grid;
-  grid-template-columns: 0.5fr 1fr 1fr 1fr 0.8fr;
+  grid-template-columns: 0.5fr 0.8fr 0.8fr 1.3fr 0.8fr 0.9fr 0.9fr;
   align-items: center;
 }
 .honing-attempt-head {
@@ -501,6 +501,71 @@
 }
 .honing-attempt-row strong {
   color: #e9a969;
+  font-size: var(--fs-11);
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.honing-attempt-row strong.honing-unused {
+  color: var(--muted);
+  font-weight: 400;
+}
+.honing-strategy-compare {
+  margin-top: 14px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+}
+.honing-strategy-compare > header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  border-bottom: 1px solid var(--line);
+}
+.honing-strategy-compare > header svg {
+  width: 16px;
+  color: var(--primary);
+}
+.honing-strategy-compare > header h3 {
+  margin: 0;
+  font-size: var(--fs-14);
+}
+.honing-strategy-compare > header small {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: var(--fs-11);
+}
+.honing-strategy-table {
+  overflow: auto;
+}
+.honing-strategy-head,
+.honing-strategy-row {
+  min-width: 640px;
+  display: grid;
+  grid-template-columns: 0.5fr 1.6fr 1fr 0.8fr 1.1fr;
+  align-items: center;
+}
+.honing-strategy-head {
+  min-height: 36px;
+  background: var(--surface-2);
+  color: var(--muted);
+  font-size: var(--fs-11);
+  font-weight: 700;
+}
+.honing-strategy-row {
+  min-height: 42px;
+  border-top: 1px solid var(--line);
+  font-size: var(--fs-13);
+}
+.honing-strategy-head span,
+.honing-strategy-row span {
+  padding: 0 12px;
+}
+.honing-strategy-row.best {
+  background: rgba(190, 213, 141, 0.08);
+  font-weight: 700;
 }
 @keyframes honing-reveal {
   from {

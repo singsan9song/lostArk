@@ -64,45 +64,6 @@
   margin: 3px 0 0;
   font-size: var(--fs-16);
 }
-.honing-switch {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  color: var(--muted);
-  font-size: var(--fs-13);
-  font-weight: 700;
-  cursor: pointer;
-}
-.honing-switch input {
-  position: absolute;
-  opacity: 0;
-}
-.honing-switch i {
-  width: 34px;
-  height: 19px;
-  position: relative;
-  border-radius: 999px;
-  background: #626978;
-  transition: 0.2s;
-}
-.honing-switch i:after {
-  content: '';
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  background: #fff;
-  transition: 0.2s;
-}
-.honing-switch input:checked + i {
-  background: var(--primary);
-}
-.honing-switch input:checked + i:after {
-  left: 18px;
-  background: #17200e;
-}
 .honing-material-options {
   display: flex;
   gap: 13px;
@@ -125,20 +86,40 @@
   border-top: 1px solid var(--line);
 }
 .honing-setting-row {
-  display: grid;
-  grid-template-columns: 47px repeat(2, minmax(0, 1fr));
-  gap: 7px;
-  align-items: end;
-  min-height: 74px;
   padding: 10px 0;
   border-bottom: 1px solid var(--line);
 }
 .honing-setting-row.bulk strong {
   color: var(--primary);
 }
-.honing-setting-row > strong {
-  align-self: center;
+.honing-setting-row-top {
+  display: grid;
+  grid-template-columns: 47px minmax(0, 1fr);
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 7px;
+}
+.honing-setting-row-top > strong {
   font-size: var(--fs-13);
+}
+.honing-setting-row-top select {
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: var(--fs-11);
+  font-weight: 700;
+  outline: 0;
+}
+.honing-setting-row-top select:focus {
+  border-color: rgba(190, 213, 141, 0.7);
+}
+.honing-setting-row-bottom {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
 }
 .honing-stage-field {
   min-width: 0;
@@ -163,19 +144,6 @@
 }
 .honing-stage-field select:focus {
   border-color: rgba(190, 213, 141, 0.7);
-}
-.honing-estimated-level {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 13px 0 10px;
-  font-size: var(--fs-13);
-}
-.honing-estimated-level span {
-  color: var(--muted);
-}
-.honing-estimated-level strong {
-  font: 800 var(--fs-14) 'Outfit';
 }
 .honing-calculate {
   width: 100%;
@@ -315,6 +283,15 @@
   color: var(--muted);
   font-size: var(--fs-11);
   font-style: normal;
+}
+.honing-missing-note {
+  margin: 10px 0 0;
+  padding: 9px 12px;
+  border: 1px solid rgba(226, 122, 116, 0.35);
+  border-radius: 9px;
+  background: rgba(226, 122, 116, 0.08);
+  color: #e27a74;
+  font-size: var(--fs-13);
 }
 .honing-average-cost {
   display: flex;
@@ -500,9 +477,9 @@
 }
 .honing-attempt-head,
 .honing-attempt-row {
-  min-width: 660px;
+  min-width: 560px;
   display: grid;
-  grid-template-columns: 0.55fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 0.5fr 1fr 1fr 1fr 0.8fr;
   align-items: center;
 }
 .honing-attempt-head {
@@ -524,9 +501,6 @@
 }
 .honing-attempt-row strong {
   color: #e9a969;
-}
-.honing-attempt-row:nth-child(n + 7) {
-  display: none;
 }
 @keyframes honing-reveal {
   from {

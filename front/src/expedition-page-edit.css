@@ -1,1 +1,77 @@
-.expedition-group-name{position:relative}.expedition-name-edit{width:27px;height:27px;display:grid;place-items:center;padding:0;border:1px solid transparent;border-radius:7px;background:transparent;color:var(--muted);cursor:pointer}.expedition-name-edit:hover{border-color:var(--line);background:var(--surface-2);color:var(--primary)}.expedition-name-edit svg{width:13px}.expedition-group-name.editing{align-items:center}.expedition-name-editor{display:flex;align-items:center;gap:5px}.expedition-name-editor input{width:210px;height:34px;padding:0 10px;border:1px solid rgba(190,213,141,.55);border-radius:8px;outline:0;background:var(--surface-2);color:var(--text);font-size:14px;font-weight:800}.expedition-name-editor button{width:31px;height:31px;display:grid;place-items:center;padding:0;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);color:var(--muted);cursor:pointer}.expedition-name-editor button:first-of-type{border-color:rgba(190,213,141,.4);color:var(--primary)}.expedition-name-editor button:hover{background:rgba(190,213,141,.1)}.expedition-name-editor button svg{width:14px}@media(max-width:700px){.expedition-group-name.editing{width:calc(100% - 58px)}.expedition-name-editor{width:100%}.expedition-name-editor input{min-width:0;width:100%}}
+.expedition-group-name {
+  position: relative;
+}
+.expedition-name-edit {
+  width: 27px;
+  height: 27px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+.expedition-name-edit:hover {
+  border-color: var(--line);
+  background: var(--surface-2);
+  color: var(--primary);
+}
+.expedition-name-edit svg {
+  width: 13px;
+}
+.expedition-group-name.editing {
+  align-items: center;
+}
+.expedition-name-editor {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.expedition-name-editor input {
+  width: 210px;
+  height: 34px;
+  padding: 0 10px;
+  border: 1px solid rgba(190, 213, 141, 0.55);
+  border-radius: 8px;
+  outline: 0;
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 800;
+}
+.expedition-name-editor button {
+  width: 31px;
+  height: 31px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--muted);
+  cursor: pointer;
+}
+.expedition-name-editor button:first-of-type {
+  border-color: rgba(190, 213, 141, 0.4);
+  color: var(--primary);
+}
+.expedition-name-editor button:hover {
+  background: rgba(190, 213, 141, 0.1);
+}
+.expedition-name-editor button svg {
+  width: 14px;
+}
+@media (max-width: 700px) {
+  .expedition-group-name.editing {
+    width: calc(100% - 58px);
+  }
+  .expedition-name-editor {
+    width: 100%;
+  }
+  .expedition-name-editor input {
+    min-width: 0;
+    width: 100%;
+  }
+}

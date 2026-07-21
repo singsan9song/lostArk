@@ -46,6 +46,8 @@ const localEngravingIcons = {
 
 export function getEngravingIcon(name, fallback = '') {
   const engravingName = String(name || '').replace(/\s/g, '')
-  const matchedName = Object.keys(localEngravingIcons).find(key => engravingName.includes(key.replace(/\s/g, '')))
+  const matchedName = Object.keys(localEngravingIcons).find((key) =>
+    engravingName.includes(key.replace(/\s/g, '')),
+  )
   return matchedName ? localEngravingIcons[matchedName] : fallback
 }

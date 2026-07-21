@@ -1,18 +1,975 @@
-.raid-extra-page{padding-bottom:60px}.raid-extra-hero{background:radial-gradient(circle at 88% 15%,rgba(190,213,141,.16),transparent 34%),var(--surface)}.raid-extra-hero .efficiency-hero-icon{background:rgba(190,213,141,.14);color:var(--primary)}
-.raid-extra-content{margin-top:14px;padding:22px}.raid-extra-title,.raid-extra-title>div{display:flex;align-items:center}.raid-extra-title{padding-bottom:18px}.raid-extra-title>div{gap:11px}.raid-extra-title>div>span{width:42px;height:42px;display:grid;place-items:center;flex:none;border-radius:12px;background:rgba(190,213,141,.13);color:var(--primary)}.raid-extra-title svg{width:20px}.raid-extra-title h2{margin:0;font-size:18px}.raid-extra-title p{margin:5px 0 0;color:var(--muted);font-size:12px}
-.raid-category-tabs{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;padding:6px;border:1px solid var(--line);border-radius:13px;background:var(--surface-2)}.raid-category-tabs button{min-height:47px;display:flex;align-items:center;justify-content:center;gap:6px;padding:7px 5px;border:1px solid transparent;border-radius:9px;background:transparent;color:var(--muted);font-size:12px;font-weight:700;cursor:pointer;transition:.2s}.raid-category-tabs button svg{width:15px}.raid-category-tabs button small{min-width:18px;padding:2px 5px;border-radius:10px;background:rgba(128,135,153,.12);font-size:12px}.raid-category-tabs button.active{border-color:rgba(190,213,141,.48);background:rgba(190,213,141,.12);color:var(--text)}.raid-category-tabs button.active svg{color:var(--primary)}
-.raid-card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px;animation:raid-card-grid-in .28s ease-out}.raid-select-card{height:132px;position:relative;overflow:hidden;border:1px solid var(--line);border-radius:12px;background:radial-gradient(circle at 78% 18%,rgba(190,213,141,.1),transparent 38%),linear-gradient(135deg,#20242e,#11141c);box-shadow:inset 0 0 0 1px rgba(255,255,255,.015);transition:border-color .2s,transform .2s,box-shadow .2s}.raid-select-card:before{content:"";position:absolute;inset:0;background-image:var(--raid-image);background-size:cover;background-position:center;opacity:0;transition:opacity .2s}.raid-select-card.has-image:before{opacity:1}.raid-select-card:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,10,14,.93) 0%,rgba(8,10,14,.48) 55%,rgba(8,10,14,.14) 100%),linear-gradient(0deg,rgba(8,10,14,.88),transparent 55%);pointer-events:none}.raid-select-card:hover{transform:translateY(-2px);border-color:#4b5264}.raid-select-card.active{border-color:var(--primary);box-shadow:0 0 0 1px rgba(190,213,141,.16),0 8px 22px rgba(0,0,0,.16)}.raid-select-main{position:absolute;z-index:1;inset:0;width:100%;padding:14px;border:0;background:transparent;text-align:left;cursor:pointer}.raid-select-main>span{display:block}.raid-select-main strong,.raid-select-main small{display:block;text-shadow:0 1px 5px rgba(0,0,0,.7)}.raid-select-main strong{color:#fff;font-size:14px}.raid-select-main small{margin-top:4px;color:rgba(255,255,255,.7);font-size:12px}.raid-select-difficulties{position:absolute;z-index:2;right:8px;bottom:7px;left:8px;display:flex;justify-content:flex-end;gap:3px}.raid-select-difficulties button{min-width:48px;padding:5px 6px;border:0;border-radius:6px;background:rgba(12,14,19,.48);color:rgba(255,255,255,.72);backdrop-filter:blur(5px);cursor:pointer;transition:.18s}.raid-select-difficulties button span,.raid-select-difficulties button small{display:block;white-space:nowrap}.raid-select-difficulties button span{font-size:12px;font-weight:700}.raid-select-difficulties button small{max-height:0;margin:0;overflow:hidden;font:700 12px 'Outfit';opacity:0;transition:.18s}.raid-select-difficulties button:hover,.raid-select-difficulties button.active{background:rgba(190,213,141,.9);color:#17200e}.raid-select-difficulties button.active small{max-height:12px;margin-top:2px;font-size:12px;opacity:.8}
-.raid-overview{display:grid;grid-template-columns:minmax(220px,1.45fr) repeat(4,minmax(125px,.72fr));align-items:stretch;position:relative;margin-top:14px;overflow:hidden;cursor:pointer;outline:0;transition:border-color .2s,box-shadow .2s,transform .2s}.raid-overview:hover{border-color:rgba(190,213,141,.55);transform:translateY(-1px);box-shadow:0 8px 22px rgba(0,0,0,.12)}.raid-result-group.active .raid-overview{border-color:var(--primary);box-shadow:0 0 0 1px rgba(190,213,141,.12)}.raid-overview>div{min-height:96px;padding:18px;border-left:1px solid var(--line)}.raid-overview>div:first-child{border-left:0}.raid-overview-name{display:flex;align-items:center;gap:12px}.raid-overview-name>i{width:48px;height:48px;display:grid;place-items:center;flex:none;border-radius:13px;background:rgba(190,213,141,.13);color:var(--primary)}.raid-overview-name svg{width:22px}.raid-overview-name span>small{color:var(--muted);font-size:12px}.raid-overview-name h2{margin:4px 0;font-size:15px}.raid-overview-name span>b{color:var(--primary);font-size:12px}.raid-overview-stat,.raid-overview-result{display:flex;flex-direction:column;justify-content:center}.raid-overview-stat>small,.raid-overview-result>small{color:var(--muted);font-size:12px}.raid-overview-stat>strong,.raid-overview-result>strong{margin-top:7px;font:800 16px 'Outfit'}.raid-overview-stat>em,.raid-overview-result>em{margin-top:4px;color:var(--muted);font-size:12px;font-style:normal}.raid-overview-result{padding-right:36px!important;background:rgba(190,213,141,.07)}.raid-overview-result.positive>strong{color:#70c597}.raid-overview-result.negative>strong{color:#ea817a}.raid-overview-remove{position:absolute;z-index:2;top:8px;right:8px;width:24px;height:24px;display:grid;place-items:center;border:1px solid transparent;border-radius:7px;background:rgba(128,135,153,.1);color:var(--muted);cursor:pointer;transition:.18s}.raid-overview-remove svg{width:13px}.raid-overview-remove:hover{border-color:rgba(230,122,116,.45);background:rgba(218,90,84,.12);color:#e67a74}
-.raid-result-group{animation:raid-card-grid-in .28s ease-out}.raid-result-group+.raid-result-group{margin-top:13px}.raid-result-group.active+.raid-result-group{margin-top:26px}.raid-empty-selection{margin-top:14px;padding:45px;text-align:center;color:var(--muted)}.raid-empty-selection>svg{width:30px;color:var(--primary)}.raid-empty-selection h2{margin:10px 0 5px;color:var(--text);font-size:15px}.raid-empty-selection p{margin:0;font-size:12px}
-.raid-gates-section{margin-top:20px}.raid-gates-section>header{display:flex;align-items:end;justify-content:space-between;margin-bottom:10px;padding:0 3px}.raid-gates-section h2{margin:0;font-size:17px}.raid-gates-section header p{margin:5px 0 0;color:var(--muted);font-size:12px}.raid-gates-section>header>span{display:flex;align-items:center;gap:5px;color:var(--muted);font-size:12px}.raid-gates-section>header svg{width:14px;color:var(--primary)}.raid-gate-cards{display:grid;gap:8px}.raid-gate-card{overflow:hidden;transition:border-color .2s,box-shadow .2s}.raid-gate-card.selected{border-color:rgba(190,213,141,.48)}.raid-gate-summary{min-height:72px;display:grid;grid-template-columns:minmax(190px,1.5fr) repeat(3,minmax(115px,.72fr)) 92px;align-items:center}.raid-gate-summary>div,.raid-gate-expand{height:100%;display:flex;flex-direction:column;justify-content:center;padding:0 16px;border-left:1px solid var(--line)}.raid-gate-check{height:100%;display:flex;align-items:center;gap:10px;padding:0 17px;border:0;background:transparent;text-align:left;cursor:pointer}.raid-gate-check>i{width:25px;height:25px;display:grid;place-items:center;flex:none;border:1px solid var(--line);border-radius:7px;background:var(--surface-2)}.raid-gate-check>i svg{width:15px;color:#17200e}.raid-gate-card.selected .raid-gate-check>i{border-color:var(--primary);background:var(--primary)}.raid-gate-check span b,.raid-gate-check span small{display:block}.raid-gate-check span b{font-size:12px}.raid-gate-check span small{margin-top:4px;color:var(--muted);font-size:12px}.raid-gate-summary>div small{color:var(--muted);font-size:12px}.raid-gate-summary>div strong{margin-top:5px;font:800 13px 'Outfit'}.raid-gate-summary>div em{margin-top:2px;color:var(--muted);font-size:12px;font-style:normal}.raid-gate-summary>div.positive strong{color:#70c597}.raid-gate-summary>div.negative strong{color:#ea817a}.raid-gate-expand{flex-direction:row;align-items:center;gap:4px;border:0;border-left:1px solid var(--line);background:transparent;color:var(--muted);font-size:12px;cursor:pointer}.raid-gate-expand svg{width:14px;transition:transform .25s}.raid-gate-card.expanded .raid-gate-expand svg{transform:rotate(180deg)}
-.raid-gate-detail{display:grid;grid-template-columns:1.3fr .7fr;max-height:0;opacity:0;overflow:hidden;border-top:0 solid var(--line);background:var(--surface-2);transition:max-height .38s ease,opacity .25s,border-width .2s}.raid-gate-card.expanded .raid-gate-detail{max-height:1200px;opacity:1;border-top-width:1px}.raid-gate-reward-column{padding:17px}.raid-gate-reward-column+div{border-left:1px solid var(--line)}.raid-gate-reward-column h3{display:flex;justify-content:space-between;margin:0 0 8px;font-size:12px}.raid-gate-reward-column h3 small{color:var(--muted);font-size:12px}.raid-gate-reward-column>p{color:var(--muted);font-size:12px}.raid-reward-item{min-height:43px;display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:9px;border-top:1px solid var(--line)}.raid-reward-item:first-of-type{border-top:0}.raid-reward-item>img,.raid-reward-item>i{width:31px;height:31px;border-radius:7px;object-fit:cover}.raid-reward-item>i{display:grid;place-items:center;background:var(--surface);color:var(--muted)}.raid-reward-item>i svg{width:15px}.raid-reward-item span b,.raid-reward-item span small{display:block}.raid-reward-item span b{font-size:12px}.raid-reward-item span small{margin-top:2px;color:var(--muted);font-size:12px}.raid-reward-item>strong{color:#5284f5;font:800 12px 'Outfit'}.raid-clear-item{min-height:34px;display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid var(--line);font-size:12px}.raid-clear-item:first-of-type{border-top:0}.raid-clear-item span{color:var(--muted)}.raid-clear-item strong{font-size:12px}
-.raid-select-difficulties button{min-width:53px;padding:5px 7px;background:rgba(12,14,19,.58)}.raid-select-difficulties button small{max-height:12px;margin-top:2px;overflow:visible;color:rgba(255,255,255,.56);font:700 12px 'Outfit';opacity:1}.raid-select-difficulties button:hover small,.raid-select-difficulties button.active small{color:rgba(23,32,14,.7)}
-.raid-extra-title h2{font-size:20px}.raid-extra-title p{font-size:13px}.raid-category-tabs button{min-height:52px;font-size:12px}.raid-category-tabs button small{font-size:12px}.raid-select-card{height:150px}.raid-select-main{padding:17px}.raid-select-main strong{font-size:17px}.raid-select-main small{margin-top:5px;font-size:12px}.raid-select-difficulties{right:10px;bottom:9px;left:10px;gap:5px}.raid-select-difficulties button{min-width:60px;padding:7px 9px}.raid-select-difficulties button span{font-size:12px}.raid-select-difficulties button small{font-size:12px}
-.raid-overview>div{min-height:108px;padding:20px}.raid-overview-name>i{width:52px;height:52px}.raid-overview-name h2{font-size:18px}.raid-overview-name span>small{font-size:12px}.raid-overview-name span>b{font-size:12px}.raid-overview-stat>small,.raid-overview-result>small{font-size:12px}.raid-overview-stat>strong,.raid-overview-result>strong{font-size:19px}.raid-overview-stat>em,.raid-overview-result>em{font-size:12px}.raid-overview-remove{width:27px;height:27px}.raid-overview-remove svg{width:15px}
-.raid-gates-section{margin-top:24px}.raid-gates-section h2{font-size:20px}.raid-gates-section header p{font-size:12px}.raid-gates-section>header>span{font-size:12px}.raid-gate-summary{min-height:82px;grid-template-columns:minmax(205px,1.5fr) repeat(3,minmax(125px,.72fr)) 102px}.raid-gate-check span b{font-size:14px}.raid-gate-check span small{font-size:12px}.raid-gate-summary>div small{font-size:12px}.raid-gate-summary>div strong{font-size:16px}.raid-gate-summary>div em{font-size:12px}.raid-gate-expand{font-size:12px}.raid-gate-expand svg{width:16px}
-.raid-gate-reward-column{padding:20px}.raid-gate-reward-column h3{margin-bottom:10px;font-size:14px}.raid-gate-reward-column h3 small{font-size:12px}.raid-gate-reward-column>p{font-size:12px}.raid-reward-item{min-height:51px;grid-template-columns:39px minmax(0,1fr) 78px minmax(76px,auto);gap:10px}.raid-reward-icon{width:36px;height:36px;display:grid;place-items:center;overflow:hidden;border-radius:8px;background:var(--surface);color:var(--muted);font-style:normal}.raid-reward-icon img{width:100%;height:100%;display:block;object-fit:cover;background:transparent}.raid-reward-icon svg{width:16px}.raid-reward-icon.ancient{background:linear-gradient(135deg,#3d3325 0%,#dcc999 100%)}.raid-reward-icon.relic{background:linear-gradient(135deg,#341a09 0%,#a24006 100%)}.raid-reward-icon.legendary{background:linear-gradient(135deg,#362003 0%,#9e5f04 100%)}.raid-reward-icon.epic{background:linear-gradient(135deg,#261331 0%,#480d5d 100%)}.raid-reward-icon.rare{background:linear-gradient(135deg,#111f2c 0%,#113d5d 100%)}.raid-reward-icon.uncommon{background:linear-gradient(135deg,#18220b 0%,#304911 100%)}.raid-reward-icon.common{background:linear-gradient(135deg,#232323 0%,#575757 100%)}.raid-reward-item span{min-width:0}.raid-reward-item span b{display:block;overflow:hidden;font-size:12px;text-overflow:ellipsis;white-space:nowrap}.raid-reward-item span small{font-size:12px}.raid-material-upgrade{grid-column:3;padding:5px 7px;border:1px solid var(--line);border-radius:7px;background:var(--surface);color:var(--muted);font-size:12px;font-weight:700;cursor:pointer}.raid-material-upgrade:hover,.raid-material-upgrade.active{border-color:rgba(190,213,141,.55);background:rgba(190,213,141,.1);color:var(--primary)}.raid-reward-item>strong{grid-column:4;font-size:12px;text-align:right}.raid-clear-item{min-height:41px;font-size:12px}.raid-clear-item strong{font-size:12px}.raid-empty-selection h2{font-size:18px}.raid-empty-selection p{font-size:12px}
-.raid-overview{grid-template-columns:minmax(195px,1.3fr) repeat(5,minmax(112px,.72fr))}.raid-overview-name span>b>span{color:var(--text);font-weight:800}.raid-overview-stat.clear-gold>em{display:flex;flex-direction:column;gap:2px;line-height:1.35}.raid-overview-stat.clear-gold>em>span{display:block}.raid-clear-item>span small{display:block;margin-top:2px;color:#e98a83;font-size:12px}.raid-clear-item>strong{text-align:right}.raid-clear-item>strong small{display:block;margin-top:2px;color:#5284f5;font:800 12px 'Outfit'}
-.raid-overview-result>em{display:inline-flex;align-items:center;width:max-content;margin-top:7px;padding:3px 7px;border-radius:7px;background:rgba(112,197,151,.12);color:#70c597;font:800 13px 'Outfit';letter-spacing:.1px}.raid-overview-result.negative>em{background:rgba(234,129,122,.12);color:#ea817a}
-@keyframes raid-card-grid-in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
-@media(max-width:900px){.raid-category-tabs{grid-template-columns:repeat(3,1fr)}.raid-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.raid-overview{grid-template-columns:repeat(2,1fr)}.raid-overview-name{grid-column:1/-1}.raid-overview>div:nth-child(2),.raid-overview>div:nth-child(4){border-left:0}.raid-gate-summary{grid-template-columns:1.3fr repeat(3,.7fr) 78px}}
-@media(max-width:650px){.raid-extra-content{padding:15px}.raid-category-tabs{grid-template-columns:repeat(2,1fr)}.raid-card-grid{grid-template-columns:1fr}.raid-select-card{height:125px}.raid-overview{grid-template-columns:1fr 1fr}.raid-overview>div{min-height:82px;padding:13px}.raid-gate-summary{grid-template-columns:1fr 1fr 74px}.raid-gate-check{grid-column:1/-1;min-height:58px;border-bottom:1px solid var(--line)}.raid-gate-summary>div:nth-of-type(2){display:none}.raid-gate-summary>div{min-height:57px}.raid-gate-expand{min-height:57px}.raid-gate-detail{grid-template-columns:1fr}.raid-gate-reward-column+div{border-left:0;border-top:1px solid var(--line)}.raid-gates-section>header>span{display:none}}
+.raid-extra-page {
+  padding-bottom: 60px;
+}
+.raid-extra-hero {
+  background:
+    radial-gradient(circle at 88% 15%, rgba(190, 213, 141, 0.16), transparent 34%), var(--surface);
+}
+.raid-extra-hero .efficiency-hero-icon {
+  background: rgba(190, 213, 141, 0.14);
+  color: var(--primary);
+}
+.raid-extra-content {
+  margin-top: 14px;
+  padding: 22px;
+}
+.raid-extra-title,
+.raid-extra-title > div {
+  display: flex;
+  align-items: center;
+}
+.raid-extra-title {
+  padding-bottom: 18px;
+}
+.raid-extra-title > div {
+  gap: 11px;
+}
+.raid-extra-title > div > span {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  flex: none;
+  border-radius: 12px;
+  background: rgba(190, 213, 141, 0.13);
+  color: var(--primary);
+}
+.raid-extra-title svg {
+  width: 20px;
+}
+.raid-extra-title h2 {
+  margin: 0;
+  font-size: 18px;
+}
+.raid-extra-title p {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+.raid-category-tabs {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: var(--surface-2);
+}
+.raid-category-tabs button {
+  min-height: 47px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 5px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.raid-category-tabs button svg {
+  width: 15px;
+}
+.raid-category-tabs button small {
+  min-width: 18px;
+  padding: 2px 5px;
+  border-radius: 10px;
+  background: rgba(128, 135, 153, 0.12);
+  font-size: 12px;
+}
+.raid-category-tabs button.active {
+  border-color: rgba(190, 213, 141, 0.48);
+  background: rgba(190, 213, 141, 0.12);
+  color: var(--text);
+}
+.raid-category-tabs button.active svg {
+  color: var(--primary);
+}
+.raid-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+  animation: raid-card-grid-in 0.28s ease-out;
+}
+.raid-select-card {
+  height: 132px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 78% 18%, rgba(190, 213, 141, 0.1), transparent 38%),
+    linear-gradient(135deg, #20242e, #11141c);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.015);
+  transition:
+    border-color 0.2s,
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+.raid-select-card:before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--raid-image);
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.raid-select-card.has-image:before {
+  opacity: 1;
+}
+.raid-select-card:after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(8, 10, 14, 0.93) 0%,
+      rgba(8, 10, 14, 0.48) 55%,
+      rgba(8, 10, 14, 0.14) 100%
+    ),
+    linear-gradient(0deg, rgba(8, 10, 14, 0.88), transparent 55%);
+  pointer-events: none;
+}
+.raid-select-card:hover {
+  transform: translateY(-2px);
+  border-color: #4b5264;
+}
+.raid-select-card.active {
+  border-color: var(--primary);
+  box-shadow:
+    0 0 0 1px rgba(190, 213, 141, 0.16),
+    0 8px 22px rgba(0, 0, 0, 0.16);
+}
+.raid-select-main {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  width: 100%;
+  padding: 14px;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+.raid-select-main > span {
+  display: block;
+}
+.raid-select-main strong,
+.raid-select-main small {
+  display: block;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.7);
+}
+.raid-select-main strong {
+  color: #fff;
+  font-size: 14px;
+}
+.raid-select-main small {
+  margin-top: 4px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+}
+.raid-select-difficulties {
+  position: absolute;
+  z-index: 2;
+  right: 8px;
+  bottom: 7px;
+  left: 8px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 3px;
+}
+.raid-select-difficulties button {
+  min-width: 48px;
+  padding: 5px 6px;
+  border: 0;
+  border-radius: 6px;
+  background: rgba(12, 14, 19, 0.48);
+  color: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(5px);
+  cursor: pointer;
+  transition: 0.18s;
+}
+.raid-select-difficulties button span,
+.raid-select-difficulties button small {
+  display: block;
+  white-space: nowrap;
+}
+.raid-select-difficulties button span {
+  font-size: 12px;
+  font-weight: 700;
+}
+.raid-select-difficulties button small {
+  max-height: 0;
+  margin: 0;
+  overflow: hidden;
+  font: 700 12px 'Outfit';
+  opacity: 0;
+  transition: 0.18s;
+}
+.raid-select-difficulties button:hover,
+.raid-select-difficulties button.active {
+  background: rgba(190, 213, 141, 0.9);
+  color: #17200e;
+}
+.raid-select-difficulties button.active small {
+  max-height: 12px;
+  margin-top: 2px;
+  font-size: 12px;
+  opacity: 0.8;
+}
+.raid-overview {
+  display: grid;
+  grid-template-columns: minmax(220px, 1.45fr) repeat(4, minmax(125px, 0.72fr));
+  align-items: stretch;
+  position: relative;
+  margin-top: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  outline: 0;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s,
+    transform 0.2s;
+}
+.raid-overview:hover {
+  border-color: rgba(190, 213, 141, 0.55);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+}
+.raid-result-group.active .raid-overview {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 1px rgba(190, 213, 141, 0.12);
+}
+.raid-overview > div {
+  min-height: 96px;
+  padding: 18px;
+  border-left: 1px solid var(--line);
+}
+.raid-overview > div:first-child {
+  border-left: 0;
+}
+.raid-overview-name {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.raid-overview-name > i {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  flex: none;
+  border-radius: 13px;
+  background: rgba(190, 213, 141, 0.13);
+  color: var(--primary);
+}
+.raid-overview-name svg {
+  width: 22px;
+}
+.raid-overview-name span > small {
+  color: var(--muted);
+  font-size: 12px;
+}
+.raid-overview-name h2 {
+  margin: 4px 0;
+  font-size: 15px;
+}
+.raid-overview-name span > b {
+  color: var(--primary);
+  font-size: 12px;
+}
+.raid-overview-stat,
+.raid-overview-result {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.raid-overview-stat > small,
+.raid-overview-result > small {
+  color: var(--muted);
+  font-size: 12px;
+}
+.raid-overview-stat > strong,
+.raid-overview-result > strong {
+  margin-top: 7px;
+  font: 800 16px 'Outfit';
+}
+.raid-overview-stat > em,
+.raid-overview-result > em {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+}
+.raid-overview-result {
+  padding-right: 36px !important;
+  background: rgba(190, 213, 141, 0.07);
+}
+.raid-overview-result.positive > strong {
+  color: #70c597;
+}
+.raid-overview-result.negative > strong {
+  color: #ea817a;
+}
+.raid-overview-remove {
+  position: absolute;
+  z-index: 2;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: rgba(128, 135, 153, 0.1);
+  color: var(--muted);
+  cursor: pointer;
+  transition: 0.18s;
+}
+.raid-overview-remove svg {
+  width: 13px;
+}
+.raid-overview-remove:hover {
+  border-color: rgba(230, 122, 116, 0.45);
+  background: rgba(218, 90, 84, 0.12);
+  color: #e67a74;
+}
+.raid-result-group {
+  animation: raid-card-grid-in 0.28s ease-out;
+}
+.raid-result-group + .raid-result-group {
+  margin-top: 13px;
+}
+.raid-result-group.active + .raid-result-group {
+  margin-top: 26px;
+}
+.raid-empty-selection {
+  margin-top: 14px;
+  padding: 45px;
+  text-align: center;
+  color: var(--muted);
+}
+.raid-empty-selection > svg {
+  width: 30px;
+  color: var(--primary);
+}
+.raid-empty-selection h2 {
+  margin: 10px 0 5px;
+  color: var(--text);
+  font-size: 15px;
+}
+.raid-empty-selection p {
+  margin: 0;
+  font-size: 12px;
+}
+.raid-gates-section {
+  margin-top: 20px;
+}
+.raid-gates-section > header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 0 3px;
+}
+.raid-gates-section h2 {
+  margin: 0;
+  font-size: 17px;
+}
+.raid-gates-section header p {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+.raid-gates-section > header > span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.raid-gates-section > header svg {
+  width: 14px;
+  color: var(--primary);
+}
+.raid-gate-cards {
+  display: grid;
+  gap: 8px;
+}
+.raid-gate-card {
+  overflow: hidden;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+.raid-gate-card.selected {
+  border-color: rgba(190, 213, 141, 0.48);
+}
+.raid-gate-summary {
+  min-height: 72px;
+  display: grid;
+  grid-template-columns: minmax(190px, 1.5fr) repeat(3, minmax(115px, 0.72fr)) 92px;
+  align-items: center;
+}
+.raid-gate-summary > div,
+.raid-gate-expand {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 16px;
+  border-left: 1px solid var(--line);
+}
+.raid-gate-check {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 17px;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+.raid-gate-check > i {
+  width: 25px;
+  height: 25px;
+  display: grid;
+  place-items: center;
+  flex: none;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface-2);
+}
+.raid-gate-check > i svg {
+  width: 15px;
+  color: #17200e;
+}
+.raid-gate-card.selected .raid-gate-check > i {
+  border-color: var(--primary);
+  background: var(--primary);
+}
+.raid-gate-check span b,
+.raid-gate-check span small {
+  display: block;
+}
+.raid-gate-check span b {
+  font-size: 12px;
+}
+.raid-gate-check span small {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.raid-gate-summary > div small {
+  color: var(--muted);
+  font-size: 12px;
+}
+.raid-gate-summary > div strong {
+  margin-top: 5px;
+  font: 800 13px 'Outfit';
+}
+.raid-gate-summary > div em {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+}
+.raid-gate-summary > div.positive strong {
+  color: #70c597;
+}
+.raid-gate-summary > div.negative strong {
+  color: #ea817a;
+}
+.raid-gate-expand {
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  border: 0;
+  border-left: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  font-size: 12px;
+  cursor: pointer;
+}
+.raid-gate-expand svg {
+  width: 14px;
+  transition: transform 0.25s;
+}
+.raid-gate-card.expanded .raid-gate-expand svg {
+  transform: rotate(180deg);
+}
+.raid-gate-detail {
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  border-top: 0 solid var(--line);
+  background: var(--surface-2);
+  transition:
+    max-height 0.38s ease,
+    opacity 0.25s,
+    border-width 0.2s;
+}
+.raid-gate-card.expanded .raid-gate-detail {
+  max-height: 1200px;
+  opacity: 1;
+  border-top-width: 1px;
+}
+.raid-gate-reward-column {
+  padding: 17px;
+}
+.raid-gate-reward-column + div {
+  border-left: 1px solid var(--line);
+}
+.raid-gate-reward-column h3 {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 8px;
+  font-size: 12px;
+}
+.raid-gate-reward-column h3 small {
+  color: var(--muted);
+  font-size: 12px;
+}
+.raid-gate-reward-column > p {
+  color: var(--muted);
+  font-size: 12px;
+}
+.raid-reward-item {
+  min-height: 43px;
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  align-items: center;
+  gap: 9px;
+  border-top: 1px solid var(--line);
+}
+.raid-reward-item:first-of-type {
+  border-top: 0;
+}
+.raid-reward-item > img,
+.raid-reward-item > i {
+  width: 31px;
+  height: 31px;
+  border-radius: 7px;
+  object-fit: cover;
+}
+.raid-reward-item > i {
+  display: grid;
+  place-items: center;
+  background: var(--surface);
+  color: var(--muted);
+}
+.raid-reward-item > i svg {
+  width: 15px;
+}
+.raid-reward-item span b,
+.raid-reward-item span small {
+  display: block;
+}
+.raid-reward-item span b {
+  font-size: 12px;
+}
+.raid-reward-item span small {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.raid-reward-item > strong {
+  color: #5284f5;
+  font: 800 12px 'Outfit';
+}
+.raid-clear-item {
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+}
+.raid-clear-item:first-of-type {
+  border-top: 0;
+}
+.raid-clear-item span {
+  color: var(--muted);
+}
+.raid-clear-item strong {
+  font-size: 12px;
+}
+.raid-select-difficulties button {
+  min-width: 53px;
+  padding: 5px 7px;
+  background: rgba(12, 14, 19, 0.58);
+}
+.raid-select-difficulties button small {
+  max-height: 12px;
+  margin-top: 2px;
+  overflow: visible;
+  color: rgba(255, 255, 255, 0.56);
+  font: 700 12px 'Outfit';
+  opacity: 1;
+}
+.raid-select-difficulties button:hover small,
+.raid-select-difficulties button.active small {
+  color: rgba(23, 32, 14, 0.7);
+}
+.raid-extra-title h2 {
+  font-size: 20px;
+}
+.raid-extra-title p {
+  font-size: 13px;
+}
+.raid-category-tabs button {
+  min-height: 52px;
+  font-size: 12px;
+}
+.raid-category-tabs button small {
+  font-size: 12px;
+}
+.raid-select-card {
+  height: 150px;
+}
+.raid-select-main {
+  padding: 17px;
+}
+.raid-select-main strong {
+  font-size: 17px;
+}
+.raid-select-main small {
+  margin-top: 5px;
+  font-size: 12px;
+}
+.raid-select-difficulties {
+  right: 10px;
+  bottom: 9px;
+  left: 10px;
+  gap: 5px;
+}
+.raid-select-difficulties button {
+  min-width: 60px;
+  padding: 7px 9px;
+}
+.raid-select-difficulties button span {
+  font-size: 12px;
+}
+.raid-select-difficulties button small {
+  font-size: 12px;
+}
+.raid-overview > div {
+  min-height: 108px;
+  padding: 20px;
+}
+.raid-overview-name > i {
+  width: 52px;
+  height: 52px;
+}
+.raid-overview-name h2 {
+  font-size: 18px;
+}
+.raid-overview-name span > small {
+  font-size: 12px;
+}
+.raid-overview-name span > b {
+  font-size: 12px;
+}
+.raid-overview-stat > small,
+.raid-overview-result > small {
+  font-size: 12px;
+}
+.raid-overview-stat > strong,
+.raid-overview-result > strong {
+  font-size: 19px;
+}
+.raid-overview-stat > em,
+.raid-overview-result > em {
+  font-size: 12px;
+}
+.raid-overview-remove {
+  width: 27px;
+  height: 27px;
+}
+.raid-overview-remove svg {
+  width: 15px;
+}
+.raid-gates-section {
+  margin-top: 24px;
+}
+.raid-gates-section h2 {
+  font-size: 20px;
+}
+.raid-gates-section header p {
+  font-size: 12px;
+}
+.raid-gates-section > header > span {
+  font-size: 12px;
+}
+.raid-gate-summary {
+  min-height: 82px;
+  grid-template-columns: minmax(205px, 1.5fr) repeat(3, minmax(125px, 0.72fr)) 102px;
+}
+.raid-gate-check span b {
+  font-size: 14px;
+}
+.raid-gate-check span small {
+  font-size: 12px;
+}
+.raid-gate-summary > div small {
+  font-size: 12px;
+}
+.raid-gate-summary > div strong {
+  font-size: 16px;
+}
+.raid-gate-summary > div em {
+  font-size: 12px;
+}
+.raid-gate-expand {
+  font-size: 12px;
+}
+.raid-gate-expand svg {
+  width: 16px;
+}
+.raid-gate-reward-column {
+  padding: 20px;
+}
+.raid-gate-reward-column h3 {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+.raid-gate-reward-column h3 small {
+  font-size: 12px;
+}
+.raid-gate-reward-column > p {
+  font-size: 12px;
+}
+.raid-reward-item {
+  min-height: 51px;
+  grid-template-columns: 39px minmax(0, 1fr) 78px minmax(76px, auto);
+  gap: 10px;
+}
+.raid-reward-icon {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--muted);
+  font-style: normal;
+}
+.raid-reward-icon img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  background: transparent;
+}
+.raid-reward-icon svg {
+  width: 16px;
+}
+.raid-reward-icon.ancient {
+  background: linear-gradient(135deg, #3d3325 0%, #dcc999 100%);
+}
+.raid-reward-icon.relic {
+  background: linear-gradient(135deg, #341a09 0%, #a24006 100%);
+}
+.raid-reward-icon.legendary {
+  background: linear-gradient(135deg, #362003 0%, #9e5f04 100%);
+}
+.raid-reward-icon.epic {
+  background: linear-gradient(135deg, #261331 0%, #480d5d 100%);
+}
+.raid-reward-icon.rare {
+  background: linear-gradient(135deg, #111f2c 0%, #113d5d 100%);
+}
+.raid-reward-icon.uncommon {
+  background: linear-gradient(135deg, #18220b 0%, #304911 100%);
+}
+.raid-reward-icon.common {
+  background: linear-gradient(135deg, #232323 0%, #575757 100%);
+}
+.raid-reward-item span {
+  min-width: 0;
+}
+.raid-reward-item span b {
+  display: block;
+  overflow: hidden;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.raid-reward-item span small {
+  font-size: 12px;
+}
+.raid-material-upgrade {
+  grid-column: 3;
+  padding: 5px 7px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.raid-material-upgrade:hover,
+.raid-material-upgrade.active {
+  border-color: rgba(190, 213, 141, 0.55);
+  background: rgba(190, 213, 141, 0.1);
+  color: var(--primary);
+}
+.raid-reward-item > strong {
+  grid-column: 4;
+  font-size: 12px;
+  text-align: right;
+}
+.raid-clear-item {
+  min-height: 41px;
+  font-size: 12px;
+}
+.raid-clear-item strong {
+  font-size: 12px;
+}
+.raid-empty-selection h2 {
+  font-size: 18px;
+}
+.raid-empty-selection p {
+  font-size: 12px;
+}
+.raid-overview {
+  grid-template-columns: minmax(195px, 1.3fr) repeat(5, minmax(112px, 0.72fr));
+}
+.raid-overview-name span > b > span {
+  color: var(--text);
+  font-weight: 800;
+}
+.raid-overview-stat.clear-gold > em {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.35;
+}
+.raid-overview-stat.clear-gold > em > span {
+  display: block;
+}
+.raid-clear-item > span small {
+  display: block;
+  margin-top: 2px;
+  color: #e98a83;
+  font-size: 12px;
+}
+.raid-clear-item > strong {
+  text-align: right;
+}
+.raid-clear-item > strong small {
+  display: block;
+  margin-top: 2px;
+  color: #5284f5;
+  font: 800 12px 'Outfit';
+}
+.raid-overview-result > em {
+  display: inline-flex;
+  align-items: center;
+  width: max-content;
+  margin-top: 7px;
+  padding: 3px 7px;
+  border-radius: 7px;
+  background: rgba(112, 197, 151, 0.12);
+  color: #70c597;
+  font: 800 13px 'Outfit';
+  letter-spacing: 0.1px;
+}
+.raid-overview-result.negative > em {
+  background: rgba(234, 129, 122, 0.12);
+  color: #ea817a;
+}
+@keyframes raid-card-grid-in {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 900px) {
+  .raid-category-tabs {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .raid-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .raid-overview {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .raid-overview-name {
+    grid-column: 1/-1;
+  }
+  .raid-overview > div:nth-child(2),
+  .raid-overview > div:nth-child(4) {
+    border-left: 0;
+  }
+  .raid-gate-summary {
+    grid-template-columns: 1.3fr repeat(3, 0.7fr) 78px;
+  }
+}
+@media (max-width: 650px) {
+  .raid-extra-content {
+    padding: 15px;
+  }
+  .raid-category-tabs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .raid-card-grid {
+    grid-template-columns: 1fr;
+  }
+  .raid-select-card {
+    height: 125px;
+  }
+  .raid-overview {
+    grid-template-columns: 1fr 1fr;
+  }
+  .raid-overview > div {
+    min-height: 82px;
+    padding: 13px;
+  }
+  .raid-gate-summary {
+    grid-template-columns: 1fr 1fr 74px;
+  }
+  .raid-gate-check {
+    grid-column: 1/-1;
+    min-height: 58px;
+    border-bottom: 1px solid var(--line);
+  }
+  .raid-gate-summary > div:nth-of-type(2) {
+    display: none;
+  }
+  .raid-gate-summary > div {
+    min-height: 57px;
+  }
+  .raid-gate-expand {
+    min-height: 57px;
+  }
+  .raid-gate-detail {
+    grid-template-columns: 1fr;
+  }
+  .raid-gate-reward-column + div {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+  .raid-gates-section > header > span {
+    display: none;
+  }
+}

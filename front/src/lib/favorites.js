@@ -21,7 +21,8 @@ function saveFavorites(favorites) {
   setLocalData(STORAGE_KEY, JSON.stringify(favorites))
   window.dispatchEvent(new CustomEvent(CHANGE_EVENT, { detail: favorites }))
   const representativeName = getRepresentativeCharacterName()
-  if (representativeName && !favorites.some(item => item.characterName === representativeName)) setRepresentativeCharacter('')
+  if (representativeName && !favorites.some((item) => item.characterName === representativeName))
+    setRepresentativeCharacter('')
 }
 
 export function getRepresentativeCharacterName() {
@@ -29,7 +30,10 @@ export function getRepresentativeCharacterName() {
 }
 
 export function setRepresentativeCharacter(characterName) {
-  const next = characterName && getFavorites().some(item => item.characterName === characterName) ? characterName : ''
+  const next =
+    characterName && getFavorites().some((item) => item.characterName === characterName)
+      ? characterName
+      : ''
   if (next) setLocalData(REPRESENTATIVE_KEY, next)
   else removeLocalData(REPRESENTATIVE_KEY)
   window.dispatchEvent(new CustomEvent(REPRESENTATIVE_CHANGE_EVENT, { detail: next }))
@@ -53,22 +57,25 @@ function favoriteRecord(profile, group = {}) {
 }
 
 export function addFavorites(profiles, group = {}) {
-  const records = profiles.map(profile => favoriteRecord(profile, group)).filter(Boolean)
-  const names = new Set(records.map(item => item.characterName))
-  const next = [...records, ...getFavorites().filter(item => !names.has(item.characterName))].slice(0, 50)
+  const records = profiles.map((profile) => favoriteRecord(profile, group)).filter(Boolean)
+  const names = new Set(records.map((item) => item.characterName))
+  const next = [
+    ...records,
+    ...getFavorites().filter((item) => !names.has(item.characterName)),
+  ].slice(0, 50)
   saveFavorites(next)
   return next
 }
 
 export function removeFavorite(characterName) {
-  const next = getFavorites().filter(item => item.characterName !== characterName)
+  const next = getFavorites().filter((item) => item.characterName !== characterName)
   saveFavorites(next)
   return next
 }
 
 export function removeFavorites(characterNames) {
   const names = new Set(characterNames)
-  const next = getFavorites().filter(item => !names.has(item.characterName))
+  const next = getFavorites().filter((item) => !names.has(item.characterName))
   saveFavorites(next)
   return next
 }
@@ -81,7 +88,7 @@ export function renameFavoriteRoster(rosterId, rosterName, characterNames = []) 
   const assignedRosterId = isSingleGroup
     ? `custom-roster-${[...members].sort().join('-') || Date.now()}`
     : rosterId
-  const next = getFavorites().map(item => {
+  const next = getFavorites().map((item) => {
     const matches = isSingleGroup ? members.has(item.characterName) : item.rosterId === rosterId
     return matches ? { ...item, rosterId: assignedRosterId, rosterName: name } : item
   })
@@ -91,9 +98,10 @@ export function renameFavoriteRoster(rosterId, rosterName, characterNames = []) 
 
 export function groupFavorites(favorites) {
   const groups = new Map()
-  favorites.forEach(item => {
+  favorites.forEach((item) => {
     const key = item.rosterId || 'ungrouped'
-    if (!groups.has(key)) groups.set(key, { id: key, name: item.rosterName || '기타 즐겨찾기', characters: [] })
+    if (!groups.has(key))
+      groups.set(key, { id: key, name: item.rosterName || '기타 즐겨찾기', characters: [] })
     groups.get(key).characters.push(item)
   })
   return [...groups.values()]
@@ -103,7 +111,11 @@ function updateFavoriteProfile(profile) {
   const record = favoriteRecord(profile)
   if (!record) return
   const current = getFavorites()
-  const next = current.map(item => item.characterName === record.characterName ? { ...item, ...record, rosterId: item.rosterId || '', rosterName: item.rosterName || '' } : item)
+  const next = current.map((item) =>
+    item.characterName === record.characterName
+      ? { ...item, ...record, rosterId: item.rosterId || '', rosterName: item.rosterName || '' }
+      : item,
+  )
   saveFavorites(next)
 }
 
@@ -125,8 +137,10 @@ export function toggleFavorite(profile) {
   const characterName = profile?.CharacterName?.trim()
   if (!characterName) return getFavorites()
   const current = getFavorites()
-  const exists = current.some(item => item.characterName === characterName)
-  const next = exists ? current.filter(item => item.characterName !== characterName) : [favoriteRecord(profile), ...current].slice(0, 50)
+  const exists = current.some((item) => item.characterName === characterName)
+  const next = exists
+    ? current.filter((item) => item.characterName !== characterName)
+    : [favoriteRecord(profile), ...current].slice(0, 50)
   saveFavorites(next)
   return next
 }
@@ -135,9 +149,13 @@ export function useFavorites() {
   const [favorites, setFavorites] = useState(getFavorites)
   const [representativeName, setRepresentativeName] = useState(getRepresentativeCharacterName)
   useEffect(() => {
-    const sync = event => setFavorites(event.detail || getFavorites())
-    const syncRepresentative = event => setRepresentativeName(event.detail ?? getRepresentativeCharacterName())
-    const syncStorage = () => { setFavorites(getFavorites()); setRepresentativeName(getRepresentativeCharacterName()) }
+    const sync = (event) => setFavorites(event.detail || getFavorites())
+    const syncRepresentative = (event) =>
+      setRepresentativeName(event.detail ?? getRepresentativeCharacterName())
+    const syncStorage = () => {
+      setFavorites(getFavorites())
+      setRepresentativeName(getRepresentativeCharacterName())
+    }
     window.addEventListener(CHANGE_EVENT, sync)
     window.addEventListener(REPRESENTATIVE_CHANGE_EVENT, syncRepresentative)
     window.addEventListener('storage', syncStorage)
@@ -148,8 +166,18 @@ export function useFavorites() {
     }
   }, [])
   useEffect(() => {
-    favorites.filter(item => !item.characterImage).forEach(hydrateFavorite)
+    favorites.filter((item) => !item.characterImage).forEach(hydrateFavorite)
   }, [favorites])
-  const representative = favorites.find(item => item.characterName === representativeName) || null
-  return { favorites, representative, representativeName, setRepresentative: setRepresentativeCharacter, toggle: toggleFavorite, add: addFavorites, remove: removeFavorite, removeMany: removeFavorites, renameRoster: renameFavoriteRoster }
+  const representative = favorites.find((item) => item.characterName === representativeName) || null
+  return {
+    favorites,
+    representative,
+    representativeName,
+    setRepresentative: setRepresentativeCharacter,
+    toggle: toggleFavorite,
+    add: addFavorites,
+    remove: removeFavorite,
+    removeMany: removeFavorites,
+    renameRoster: renameFavoriteRoster,
+  }
 }

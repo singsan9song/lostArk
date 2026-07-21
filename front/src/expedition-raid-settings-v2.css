@@ -1,1 +1,240 @@
-.expedition-raid-modal{grid-template-rows:74px minmax(0,1fr) 66px}.expedition-raid-card-actions{display:flex;align-items:center;gap:7px}.expedition-raid-card-actions label{display:flex;align-items:center;gap:5px;padding:5px 8px;border:1px solid var(--line);border-radius:7px;color:var(--muted);font-size:10px;cursor:pointer}.expedition-raid-card-actions label.active{border-color:#e27a74;background:rgba(226,122,116,.09);color:#e27a74}.expedition-raid-card-actions label input{width:13px;height:13px;accent-color:#e27a74}.expedition-raid-totals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(130px,1.2fr);align-items:center;gap:7px;margin:0 12px 10px;padding:9px 10px;border:1px solid var(--line);border-radius:9px;background:var(--surface)}.expedition-raid-totals>span{color:var(--muted);font-size:10px}.expedition-raid-totals>span b{color:var(--text)}.expedition-raid-totals>label{display:flex;align-items:center;justify-content:flex-end;gap:5px;color:var(--muted);font-size:10px}.expedition-raid-totals>label input{width:76px;height:28px;padding:0 7px;border:1px solid var(--line);border-radius:6px;outline:0;background:var(--surface-2);color:var(--text);font:800 11px 'Outfit';text-align:right}.expedition-gate-reward-rows{display:grid;gap:5px;padding:0 12px 12px}.expedition-gate-reward-rows>div{min-height:42px;display:grid;grid-template-columns:66px repeat(3,minmax(78px,1fr)) minmax(115px,auto);align-items:center;gap:7px;padding:6px 8px;border:1px solid var(--line);border-radius:9px;background:var(--surface)}.expedition-gate-reward-rows>div>button{height:28px;display:flex;align-items:center;justify-content:center;gap:3px;padding:0 8px;border:1px solid var(--line);border-radius:7px;background:var(--surface-2);color:#7ba9ff;font-size:10px;font-weight:800;cursor:pointer}.expedition-gate-reward-rows>div>button.complete{border-color:#00b98e;background:rgba(0,185,142,.12);color:#00d3a2}.expedition-gate-reward-rows>div>button svg{width:12px}.expedition-gate-reward-rows>div>span{color:var(--muted);font-size:10px;white-space:nowrap}.expedition-gate-reward-rows>div>span b{color:var(--text)}.expedition-gate-reward-rows>div>label{display:flex;align-items:center;justify-content:flex-end;gap:5px;color:var(--muted);font-size:10px;cursor:pointer}.expedition-gate-reward-rows>div>label input{position:absolute;opacity:0;pointer-events:none}.expedition-gate-reward-rows>div>label i{position:relative;width:28px;height:16px;border-radius:999px;background:#3a3f4c;transition:.2s}.expedition-gate-reward-rows>div>label i:after{content:"";position:absolute;left:2px;top:2px;width:12px;height:12px;border-radius:50%;background:#8b92a2;transition:.2s}.expedition-gate-reward-rows>div>label.active{color:var(--primary)}.expedition-gate-reward-rows>div>label.active i{background:rgba(190,213,141,.35)}.expedition-gate-reward-rows>div>label.active i:after{left:14px;background:var(--primary)}.expedition-raid-modal-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;padding:0 18px;border-top:1px solid var(--line);background:var(--surface)}.expedition-raid-modal-actions button{min-width:92px;height:38px;display:flex;align-items:center;justify-content:center;gap:5px;border:1px solid var(--line);border-radius:9px;background:var(--surface-2);color:var(--text);font-size:11px;font-weight:800;cursor:pointer}.expedition-raid-modal-actions button.primary{border-color:var(--primary);background:var(--primary);color:#18200f}.expedition-raid-modal-actions button svg{width:14px}.expedition-card-raid>span>em{display:block;margin-top:3px;color:var(--muted);font-size:9px;font-style:normal;white-space:nowrap}.expedition-card-raid>span>em .gold-amount{font-size:inherit}@media(max-width:900px){.expedition-raid-modal{grid-template-rows:74px auto 66px}.expedition-raid-totals{grid-template-columns:repeat(2,1fr)}.expedition-gate-reward-rows>div{grid-template-columns:66px repeat(2,1fr)}.expedition-gate-reward-rows>div>label{grid-column:2/-1}.expedition-raid-modal-actions{position:sticky;bottom:0}}@media(max-width:650px){.expedition-raid-card-actions{align-items:flex-end;flex-direction:column}.expedition-raid-totals{grid-template-columns:1fr 1fr}.expedition-raid-totals>label{justify-content:flex-start}.expedition-gate-reward-rows>div{grid-template-columns:58px 1fr}.expedition-gate-reward-rows>div>label{grid-column:1/-1;justify-content:flex-start}.expedition-raid-modal-actions button{flex:1}}
+.expedition-raid-modal {
+  grid-template-rows: 74px minmax(0, 1fr) 66px;
+}
+.expedition-raid-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.expedition-raid-card-actions label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 8px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  color: var(--muted);
+  font-size: 10px;
+  cursor: pointer;
+}
+.expedition-raid-card-actions label.active {
+  border-color: #e27a74;
+  background: rgba(226, 122, 116, 0.09);
+  color: #e27a74;
+}
+.expedition-raid-card-actions label input {
+  width: 13px;
+  height: 13px;
+  accent-color: #e27a74;
+}
+.expedition-raid-totals {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(130px, 1.2fr);
+  align-items: center;
+  gap: 7px;
+  margin: 0 12px 10px;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--surface);
+}
+.expedition-raid-totals > span {
+  color: var(--muted);
+  font-size: 10px;
+}
+.expedition-raid-totals > span b {
+  color: var(--text);
+}
+.expedition-raid-totals > label {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  color: var(--muted);
+  font-size: 10px;
+}
+.expedition-raid-totals > label input {
+  width: 76px;
+  height: 28px;
+  padding: 0 7px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  outline: 0;
+  background: var(--surface-2);
+  color: var(--text);
+  font: 800 11px 'Outfit';
+  text-align: right;
+}
+.expedition-gate-reward-rows {
+  display: grid;
+  gap: 5px;
+  padding: 0 12px 12px;
+}
+.expedition-gate-reward-rows > div {
+  min-height: 42px;
+  display: grid;
+  grid-template-columns: 66px repeat(3, minmax(78px, 1fr)) minmax(115px, auto);
+  align-items: center;
+  gap: 7px;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--surface);
+}
+.expedition-gate-reward-rows > div > button {
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface-2);
+  color: #7ba9ff;
+  font-size: 10px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.expedition-gate-reward-rows > div > button.complete {
+  border-color: #00b98e;
+  background: rgba(0, 185, 142, 0.12);
+  color: #00d3a2;
+}
+.expedition-gate-reward-rows > div > button svg {
+  width: 12px;
+}
+.expedition-gate-reward-rows > div > span {
+  color: var(--muted);
+  font-size: 10px;
+  white-space: nowrap;
+}
+.expedition-gate-reward-rows > div > span b {
+  color: var(--text);
+}
+.expedition-gate-reward-rows > div > label {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  color: var(--muted);
+  font-size: 10px;
+  cursor: pointer;
+}
+.expedition-gate-reward-rows > div > label input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.expedition-gate-reward-rows > div > label i {
+  position: relative;
+  width: 28px;
+  height: 16px;
+  border-radius: 999px;
+  background: #3a3f4c;
+  transition: 0.2s;
+}
+.expedition-gate-reward-rows > div > label i:after {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #8b92a2;
+  transition: 0.2s;
+}
+.expedition-gate-reward-rows > div > label.active {
+  color: var(--primary);
+}
+.expedition-gate-reward-rows > div > label.active i {
+  background: rgba(190, 213, 141, 0.35);
+}
+.expedition-gate-reward-rows > div > label.active i:after {
+  left: 14px;
+  background: var(--primary);
+}
+.expedition-raid-modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 0 18px;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+}
+.expedition-raid-modal-actions button {
+  min-width: 92px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.expedition-raid-modal-actions button.primary {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: #18200f;
+}
+.expedition-raid-modal-actions button svg {
+  width: 14px;
+}
+.expedition-card-raid > span > em {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 9px;
+  font-style: normal;
+  white-space: nowrap;
+}
+.expedition-card-raid > span > em .gold-amount {
+  font-size: inherit;
+}
+@media (max-width: 900px) {
+  .expedition-raid-modal {
+    grid-template-rows: 74px auto 66px;
+  }
+  .expedition-raid-totals {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .expedition-gate-reward-rows > div {
+    grid-template-columns: 66px repeat(2, 1fr);
+  }
+  .expedition-gate-reward-rows > div > label {
+    grid-column: 2/-1;
+  }
+  .expedition-raid-modal-actions {
+    position: sticky;
+    bottom: 0;
+  }
+}
+@media (max-width: 650px) {
+  .expedition-raid-card-actions {
+    align-items: flex-end;
+    flex-direction: column;
+  }
+  .expedition-raid-totals {
+    grid-template-columns: 1fr 1fr;
+  }
+  .expedition-raid-totals > label {
+    justify-content: flex-start;
+  }
+  .expedition-gate-reward-rows > div {
+    grid-template-columns: 58px 1fr;
+  }
+  .expedition-gate-reward-rows > div > label {
+    grid-column: 1/-1;
+    justify-content: flex-start;
+  }
+  .expedition-raid-modal-actions button {
+    flex: 1;
+  }
+}

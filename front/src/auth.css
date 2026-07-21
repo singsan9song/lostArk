@@ -1,1 +1,132 @@
-.account-button{height:38px;display:flex;align-items:center;gap:7px;padding:0 11px;border:1px solid var(--line);border-radius:10px;background:var(--surface);font-size:12px;font-weight:700;cursor:pointer}.account-button svg{width:16px}.account-button img{width:24px;height:24px;border-radius:50%}.discord-login-dialog{width:min(420px,calc(100% - 32px));padding:0;border:1px solid var(--line);border-radius:20px;background:var(--surface);color:var(--text);box-shadow:0 24px 70px rgba(0,0,0,.45)}.discord-login-dialog::backdrop{background:rgba(5,7,12,.68);backdrop-filter:blur(5px)}.discord-login-content{position:relative;padding:32px;text-align:center}.discord-login-content>button{position:absolute;right:12px;top:12px;width:34px;height:34px;border:0;background:transparent;color:var(--muted);cursor:pointer}.discord-login-content>button svg{width:18px}.discord-logo{width:64px;height:64px;display:grid;place-items:center;margin:0 auto 16px;border-radius:20px;background:#5865f2;color:#fff}.discord-logo svg{width:30px}.discord-login-content h2{margin:0 0 8px}.discord-login-content p{margin:0;color:var(--muted);font-size:13px;line-height:1.6}.discord-login-link{height:45px;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:22px;border-radius:11px;background:#5865f2;color:#fff;font-weight:800}.discord-login-link svg{width:18px}.account-menu{position:relative}.account-popover{position:absolute;right:0;top:45px;width:210px;padding:10px;border:1px solid var(--line);border-radius:12px;background:var(--surface);box-shadow:0 14px 36px rgba(0,0,0,.28)}.account-popover header{display:flex;align-items:center;gap:9px;padding:5px 5px 11px;border-bottom:1px solid var(--line)}.account-popover img{width:34px;height:34px;border-radius:50%}.account-popover header span{display:flex;flex-direction:column}.account-popover small{color:var(--muted)}.account-popover button{width:100%;margin-top:8px;padding:8px;border:0;border-radius:8px;background:var(--surface-2);cursor:pointer}
+.account-button {
+  height: 38px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 11px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.account-button svg {
+  width: 16px;
+}
+.account-button img {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+.discord-login-dialog {
+  width: min(420px, calc(100% - 32px));
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+}
+.discord-login-dialog::backdrop {
+  background: rgba(5, 7, 12, 0.68);
+  backdrop-filter: blur(5px);
+}
+.discord-login-content {
+  position: relative;
+  padding: 32px;
+  text-align: center;
+}
+.discord-login-content > button {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+.discord-login-content > button svg {
+  width: 18px;
+}
+.discord-logo {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 16px;
+  border-radius: 20px;
+  background: #5865f2;
+  color: #fff;
+}
+.discord-logo svg {
+  width: 30px;
+}
+.discord-login-content h2 {
+  margin: 0 0 8px;
+}
+.discord-login-content p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.discord-login-link {
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 22px;
+  border-radius: 11px;
+  background: #5865f2;
+  color: #fff;
+  font-weight: 800;
+}
+.discord-login-link svg {
+  width: 18px;
+}
+.account-menu {
+  position: relative;
+}
+.account-popover {
+  position: absolute;
+  right: 0;
+  top: 45px;
+  width: 210px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.28);
+}
+.account-popover header {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 5px 5px 11px;
+  border-bottom: 1px solid var(--line);
+}
+.account-popover img {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+}
+.account-popover header span {
+  display: flex;
+  flex-direction: column;
+}
+.account-popover small {
+  color: var(--muted);
+}
+.account-popover button {
+  width: 100%;
+  margin-top: 8px;
+  padding: 8px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--surface-2);
+  cursor: pointer;
+}

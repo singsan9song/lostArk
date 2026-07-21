@@ -11,9 +11,11 @@ export const getSharedAbilityStoneValue = ({ refresh = false } = {}) => {
   if (!refresh && abilityStoneValue) return Promise.resolve(abilityStoneValue)
   if (abilityStoneRequest) return abilityStoneRequest
 
-  abilityStoneRequest = lostArkApi.getAbilityStoneAuctionValue()
-    .then(result => {
-      if (!result?.configurations?.length) throw new Error('어빌리티 스톤 가격 조합이 비어 있습니다.')
+  abilityStoneRequest = lostArkApi
+    .getAbilityStoneAuctionValue()
+    .then((result) => {
+      if (!result?.configurations?.length)
+        throw new Error('어빌리티 스톤 가격 조합이 비어 있습니다.')
       abilityStoneValue = result
       return result
     })
@@ -24,24 +26,30 @@ export const getSharedAbilityStoneValue = ({ refresh = false } = {}) => {
   return abilityStoneRequest
 }
 
-export const highestAbilityStonePrice = data => Math.max(
-  0,
-  ...(data?.configurations || []).map(configuration => Number(configuration.currentMinPrice) || 0),
-)
+export const highestAbilityStonePrice = (data) =>
+  Math.max(
+    0,
+    ...(data?.configurations || []).map(
+      (configuration) => Number(configuration.currentMinPrice) || 0,
+    ),
+  )
 
-export const storedAbilityStoneConfigurationId = () => typeof window === 'undefined'
-  ? ''
-  : window.localStorage.getItem(ABILITY_STONE_CONFIGURATION_KEY) || ''
+export const storedAbilityStoneConfigurationId = () =>
+  typeof window === 'undefined'
+    ? ''
+    : window.localStorage.getItem(ABILITY_STONE_CONFIGURATION_KEY) || ''
 
-export const storeAbilityStoneConfigurationId = id => {
+export const storeAbilityStoneConfigurationId = (id) => {
   if (typeof window === 'undefined' || !id) return
   setLocalData(ABILITY_STONE_CONFIGURATION_KEY, id)
 }
 
 export const resolveAbilityStoneConfiguration = (data, selectedId) => {
   const configurations = data?.configurations || []
-  return configurations.find(configuration => configuration.id === selectedId)
-    || configurations.find(configuration => configuration.id === data?.selectedConfigurationId)
-    || configurations[0]
-    || null
+  return (
+    configurations.find((configuration) => configuration.id === selectedId) ||
+    configurations.find((configuration) => configuration.id === data?.selectedConfigurationId) ||
+    configurations[0] ||
+    null
+  )
 }

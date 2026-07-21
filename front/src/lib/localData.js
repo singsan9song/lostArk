@@ -17,29 +17,33 @@ const DATA_VERSION = '2'
 if (typeof window !== 'undefined') localStorage.removeItem('loark-roster-discoveries')
 
 if (typeof window !== 'undefined' && localStorage.getItem(DATA_VERSION_KEY) !== DATA_VERSION) {
-  ACCOUNT_STORAGE_KEYS.forEach(key => localStorage.removeItem(key))
+  ACCOUNT_STORAGE_KEYS.forEach((key) => localStorage.removeItem(key))
   localStorage.setItem(DATA_VERSION_KEY, DATA_VERSION)
 }
 
 export function setLocalData(key, value) {
   localStorage.setItem(key, value)
-  if (ACCOUNT_STORAGE_KEYS.includes(key)) window.dispatchEvent(new CustomEvent(LOCAL_DATA_CHANGED_EVENT))
+  if (ACCOUNT_STORAGE_KEYS.includes(key))
+    window.dispatchEvent(new CustomEvent(LOCAL_DATA_CHANGED_EVENT))
 }
 
 export function removeLocalData(key) {
   localStorage.removeItem(key)
-  if (ACCOUNT_STORAGE_KEYS.includes(key)) window.dispatchEvent(new CustomEvent(LOCAL_DATA_CHANGED_EVENT))
+  if (ACCOUNT_STORAGE_KEYS.includes(key))
+    window.dispatchEvent(new CustomEvent(LOCAL_DATA_CHANGED_EVENT))
 }
 
 export function localDataSnapshot() {
-  return Object.fromEntries(ACCOUNT_STORAGE_KEYS.flatMap(key => {
-    const value = localStorage.getItem(key)
-    return value === null ? [] : [[key, value]]
-  }))
+  return Object.fromEntries(
+    ACCOUNT_STORAGE_KEYS.flatMap((key) => {
+      const value = localStorage.getItem(key)
+      return value === null ? [] : [[key, value]]
+    }),
+  )
 }
 
 export function applyLocalData(data) {
-  ACCOUNT_STORAGE_KEYS.forEach(key => {
+  ACCOUNT_STORAGE_KEYS.forEach((key) => {
     if (Object.hasOwn(data, key)) localStorage.setItem(key, String(data[key]))
   })
 }

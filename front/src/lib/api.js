@@ -19,7 +19,8 @@ export const discordLoginUrl = `${API_BASE_URL.replace(/\/api$/, '')}/oauth2/aut
 
 export const lostArkApi = {
   getCharacter: (characterName) => request(`/characters/${encodeURIComponent(characterName)}`),
-  getMarketPrices: (names) => request('/markets/prices', { method: 'POST', body: JSON.stringify({ names }) }),
+  getMarketPrices: (names) =>
+    request('/markets/prices', { method: 'POST', body: JSON.stringify({ names }) }),
   getBraceletAuctionValue: () => request('/auctions/bracelets/value'),
   getRelicBraceletAuctionValue: () => request('/auctions/bracelets/relic/value'),
   getAbilityStoneAuctionValue: () => request('/auctions/ability-stones/value'),
@@ -29,5 +30,5 @@ export const lostArkApi = {
   getCurrentUser: () => request('/auth/me'),
   logout: () => request('/auth/logout', { method: 'POST' }),
   getUserData: () => request('/user-data'),
-  saveUserData: data => request('/user-data', { method: 'PUT', body: JSON.stringify(data) }),
+  saveUserData: (data) => request('/user-data', { method: 'PUT', body: JSON.stringify(data) }),
 }

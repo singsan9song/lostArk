@@ -1,1 +1,549 @@
-.expedition-character-card{min-height:290px;grid-template-rows:auto auto 1fr auto}.expedition-character-card>header{grid-template-columns:minmax(0,1fr) 18px 30px}.expedition-character-card>header>a{min-width:0;display:grid;grid-template-columns:42px minmax(0,1fr);align-items:center;gap:9px;color:var(--text)}.expedition-character-card>header>a>span{width:42px;height:42px;display:grid;place-items:center;overflow:hidden;border-radius:50%;background:var(--surface-2);color:var(--primary);font-size:14px;font-weight:800}.expedition-character-card>header>a img{width:100%;height:100%;object-fit:cover}.expedition-character-card>header>a strong,.expedition-character-card>header>a small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.expedition-character-card>header>a strong{font-size:14px}.expedition-character-card>header>a small{margin-top:4px;color:var(--muted);font-size:11px}.expedition-character-card>header>button{width:29px;height:29px;display:grid;place-items:center;padding:0;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);color:var(--muted);cursor:pointer}.expedition-character-card>header>button:hover{border-color:rgba(190,213,141,.45);color:var(--primary)}.expedition-character-card>header>button svg{width:14px}.expedition-character-metrics{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line)}.expedition-character-metrics>span{min-width:0;padding:11px 13px}.expedition-character-metrics>span+span{border-left:1px solid var(--line)}.expedition-character-metrics small,.expedition-character-metrics strong{display:block}.expedition-character-metrics small{color:var(--muted);font-size:10px}.expedition-character-metrics strong{margin-top:4px;color:var(--primary);font:800 14px 'Outfit';white-space:nowrap}.expedition-character-metrics strong.combat{color:#ef837e}.expedition-card-raids{min-height:112px;display:flex;flex-direction:column;padding:3px 13px}.expedition-card-raids.empty{align-items:center;justify-content:center;gap:5px;color:var(--muted);font-size:11px}.expedition-card-raids.empty>svg{width:20px;opacity:.55}.expedition-card-raids.empty button{margin-top:3px;padding:6px 9px;border:1px solid var(--line);border-radius:7px;background:var(--surface-2);color:var(--primary);font-size:11px;cursor:pointer}.expedition-card-raid{min-height:54px;display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:1px dashed var(--line)}.expedition-card-raid:last-child{border-bottom:0}.expedition-card-raid>span{min-width:0}.expedition-card-raid b,.expedition-card-raid small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.expedition-card-raid b{font-size:12px}.expedition-card-raid small{margin-top:3px;color:var(--muted);font-size:10px}.expedition-card-raid>div{display:flex;gap:4px}.expedition-card-raid button,.expedition-gate-options button{width:29px;height:29px;display:grid;place-items:center;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--surface-2);color:#7ba9ff;font:800 11px 'Outfit';cursor:pointer}.expedition-card-raid button.complete,.expedition-gate-options button.complete{border-color:#00b98e;background:rgba(0,185,142,.12);color:#00d3a2}.expedition-card-raid button svg,.expedition-gate-options button svg{width:13px}.expedition-character-card>footer{padding:8px 12px}.expedition-character-card>footer>a{width:100%;display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:11px}.expedition-character-card>footer svg{width:13px}.expedition-raid-backdrop{position:fixed;z-index:1000;inset:0;display:grid;place-items:center;padding:22px;background:rgba(3,5,9,.78);backdrop-filter:blur(5px)}.expedition-raid-modal{width:min(1180px,calc(100vw - 44px));height:min(780px,calc(100vh - 44px));display:grid;grid-template-rows:74px 1fr;overflow:hidden;border:1px solid #303544;border-radius:20px;background:var(--surface);box-shadow:0 30px 80px rgba(0,0,0,.5)}.expedition-raid-modal>header{display:flex;align-items:center;justify-content:space-between;padding:0 22px;border-bottom:1px solid var(--line)}.expedition-raid-modal>header h2{margin:0;font-size:20px}.expedition-raid-modal>header p{margin:5px 0 0;color:var(--muted);font-size:11px}.expedition-raid-modal>header button{width:34px;height:34px;display:grid;place-items:center;border:0;border-radius:9px;background:var(--surface-2);color:var(--muted);cursor:pointer}.expedition-raid-modal>header button svg{width:17px}.expedition-raid-layout{min-height:0;display:grid;grid-template-columns:205px minmax(0,1fr) 245px}.expedition-raid-characters,.expedition-raid-list{min-height:0;overflow:auto;padding:12px;background:var(--surface-2)}.expedition-raid-characters{border-right:1px solid var(--line)}.expedition-raid-characters>button{width:100%;display:grid;grid-template-columns:34px minmax(0,1fr);align-items:center;gap:8px;padding:8px;border:1px solid transparent;border-radius:10px;background:transparent;color:var(--text);text-align:left;cursor:pointer}.expedition-raid-characters>button.active{border-color:rgba(190,213,141,.4);background:rgba(190,213,141,.1)}.expedition-raid-characters>button>span{width:34px;height:34px;display:grid;place-items:center;overflow:hidden;border-radius:50%;background:var(--surface);color:var(--primary);font-size:11px}.expedition-raid-characters img{width:100%;height:100%;object-fit:cover}.expedition-raid-characters b,.expedition-raid-characters small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.expedition-raid-characters b{font-size:11px}.expedition-raid-characters small{margin-top:3px;color:var(--muted);font-size:10px}.expedition-raid-config{min-height:0;overflow:auto;padding:16px}.expedition-raid-config-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;padding:12px 14px;border-radius:11px;background:var(--surface-2)}.expedition-raid-config-heading b,.expedition-raid-config-heading small{display:block}.expedition-raid-config-heading b{font-size:14px}.expedition-raid-config-heading small{margin-top:4px;color:var(--muted);font-size:10px}.expedition-raid-config-heading em{padding:5px 8px;border-radius:999px;background:rgba(190,213,141,.12);color:var(--primary);font-size:10px;font-style:normal;font-weight:800}.expedition-raid-config-card{margin-top:9px;border:1px solid var(--line);border-radius:13px;background:var(--surface-2)}.expedition-raid-config-card>header{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;border-bottom:1px solid var(--line)}.expedition-raid-config-card>header small,.expedition-raid-config-card>header strong{display:block}.expedition-raid-config-card>header small{color:var(--muted);font-size:9px}.expedition-raid-config-card>header strong{margin-top:3px;font-size:13px}.expedition-raid-config-card>header button{display:flex;align-items:center;gap:3px;padding:5px 7px;border:0;border-radius:6px;background:rgba(235,99,99,.09);color:#eb7777;font-size:10px;cursor:pointer}.expedition-raid-config-card>header button svg{width:11px}.expedition-difficulty-options{display:flex;gap:6px;padding:10px 12px}.expedition-difficulty-options button{min-width:72px;padding:7px 10px;border:1px solid var(--line);border-radius:9px;background:var(--surface);color:var(--muted);cursor:pointer}.expedition-difficulty-options button.active{border-color:var(--primary);background:rgba(190,213,141,.12);color:var(--text)}.expedition-difficulty-options b,.expedition-difficulty-options small{display:block}.expedition-difficulty-options b{font-size:11px}.expedition-difficulty-options small{margin-top:3px;font-size:9px}.expedition-gate-options{display:flex;align-items:center;gap:6px;padding:0 12px 12px}.expedition-gate-options>span{margin-right:auto;color:var(--muted);font-size:10px}.expedition-raid-config-empty{height:calc(100% - 74px);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--muted)}.expedition-raid-config-empty svg{width:30px}.expedition-raid-config-empty b{margin-top:12px;font-size:13px;color:var(--text)}.expedition-raid-config-empty span{margin-top:5px;font-size:10px}.expedition-raid-list{border-left:1px solid var(--line)}.expedition-raid-list>h3{margin:2px 5px 11px;font-size:14px}.expedition-raid-list section{margin-top:12px}.expedition-raid-list h4{margin:0 5px 5px;color:var(--muted);font-size:9px}.expedition-raid-list section>button{width:100%;display:grid;grid-template-columns:19px minmax(0,1fr) 14px;align-items:center;gap:6px;padding:7px;border:0;border-radius:8px;background:transparent;color:var(--text);font-size:10px;text-align:left;cursor:pointer}.expedition-raid-list section>button:hover{background:var(--surface)}.expedition-raid-list section>button>i{width:17px;height:17px;display:grid;place-items:center;border:1px solid var(--line);border-radius:5px}.expedition-raid-list section>button.selected>i{border-color:var(--primary);background:var(--primary);color:#18200f}.expedition-raid-list section>button svg{width:11px}.expedition-raid-list section>button>svg{color:var(--muted)}@media(max-width:900px){.expedition-raid-layout{grid-template-columns:150px minmax(0,1fr)}.expedition-raid-list{grid-column:1/-1;max-height:220px;border-top:1px solid var(--line);border-left:0}.expedition-raid-list section{display:inline}.expedition-raid-list section>button{width:auto;display:inline-grid;margin:2px}.expedition-raid-modal{overflow:auto}.expedition-raid-layout{overflow:visible}}@media(max-width:650px){.expedition-raid-backdrop{padding:8px}.expedition-raid-modal{width:calc(100vw - 16px);height:calc(100vh - 16px);grid-template-rows:66px auto}.expedition-raid-layout{display:block}.expedition-raid-characters{display:flex;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line)}.expedition-raid-characters>button{min-width:150px}.expedition-raid-config{max-height:none}.expedition-character-metrics strong{font-size:12px}}
+.expedition-character-card {
+  min-height: 290px;
+  grid-template-rows: auto auto 1fr auto;
+}
+.expedition-character-card > header {
+  grid-template-columns: minmax(0, 1fr) 18px 30px;
+}
+.expedition-character-card > header > a {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  align-items: center;
+  gap: 9px;
+  color: var(--text);
+}
+.expedition-character-card > header > a > span {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--surface-2);
+  color: var(--primary);
+  font-size: 14px;
+  font-weight: 800;
+}
+.expedition-character-card > header > a img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.expedition-character-card > header > a strong,
+.expedition-character-card > header > a small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.expedition-character-card > header > a strong {
+  font-size: 14px;
+}
+.expedition-character-card > header > a small {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 11px;
+}
+.expedition-character-card > header > button {
+  width: 29px;
+  height: 29px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--muted);
+  cursor: pointer;
+}
+.expedition-character-card > header > button:hover {
+  border-color: rgba(190, 213, 141, 0.45);
+  color: var(--primary);
+}
+.expedition-character-card > header > button svg {
+  width: 14px;
+}
+.expedition-character-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--line);
+}
+.expedition-character-metrics > span {
+  min-width: 0;
+  padding: 11px 13px;
+}
+.expedition-character-metrics > span + span {
+  border-left: 1px solid var(--line);
+}
+.expedition-character-metrics small,
+.expedition-character-metrics strong {
+  display: block;
+}
+.expedition-character-metrics small {
+  color: var(--muted);
+  font-size: 10px;
+}
+.expedition-character-metrics strong {
+  margin-top: 4px;
+  color: var(--primary);
+  font: 800 14px 'Outfit';
+  white-space: nowrap;
+}
+.expedition-character-metrics strong.combat {
+  color: #ef837e;
+}
+.expedition-card-raids {
+  min-height: 112px;
+  display: flex;
+  flex-direction: column;
+  padding: 3px 13px;
+}
+.expedition-card-raids.empty {
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: var(--muted);
+  font-size: 11px;
+}
+.expedition-card-raids.empty > svg {
+  width: 20px;
+  opacity: 0.55;
+}
+.expedition-card-raids.empty button {
+  margin-top: 3px;
+  padding: 6px 9px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface-2);
+  color: var(--primary);
+  font-size: 11px;
+  cursor: pointer;
+}
+.expedition-card-raid {
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border-bottom: 1px dashed var(--line);
+}
+.expedition-card-raid:last-child {
+  border-bottom: 0;
+}
+.expedition-card-raid > span {
+  min-width: 0;
+}
+.expedition-card-raid b,
+.expedition-card-raid small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.expedition-card-raid b {
+  font-size: 12px;
+}
+.expedition-card-raid small {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 10px;
+}
+.expedition-card-raid > div {
+  display: flex;
+  gap: 4px;
+}
+.expedition-card-raid button,
+.expedition-gate-options button {
+  width: 29px;
+  height: 29px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--surface-2);
+  color: #7ba9ff;
+  font: 800 11px 'Outfit';
+  cursor: pointer;
+}
+.expedition-card-raid button.complete,
+.expedition-gate-options button.complete {
+  border-color: #00b98e;
+  background: rgba(0, 185, 142, 0.12);
+  color: #00d3a2;
+}
+.expedition-card-raid button svg,
+.expedition-gate-options button svg {
+  width: 13px;
+}
+.expedition-character-card > footer {
+  padding: 8px 12px;
+}
+.expedition-character-card > footer > a {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 11px;
+}
+.expedition-character-card > footer svg {
+  width: 13px;
+}
+.expedition-raid-backdrop {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+  background: rgba(3, 5, 9, 0.78);
+  backdrop-filter: blur(5px);
+}
+.expedition-raid-modal {
+  width: min(1180px, calc(100vw - 44px));
+  height: min(780px, calc(100vh - 44px));
+  display: grid;
+  grid-template-rows: 74px 1fr;
+  overflow: hidden;
+  border: 1px solid #303544;
+  border-radius: 20px;
+  background: var(--surface);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+}
+.expedition-raid-modal > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+  border-bottom: 1px solid var(--line);
+}
+.expedition-raid-modal > header h2 {
+  margin: 0;
+  font-size: 20px;
+}
+.expedition-raid-modal > header p {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+}
+.expedition-raid-modal > header button {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 9px;
+  background: var(--surface-2);
+  color: var(--muted);
+  cursor: pointer;
+}
+.expedition-raid-modal > header button svg {
+  width: 17px;
+}
+.expedition-raid-layout {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 205px minmax(0, 1fr) 245px;
+}
+.expedition-raid-characters,
+.expedition-raid-list {
+  min-height: 0;
+  overflow: auto;
+  padding: 12px;
+  background: var(--surface-2);
+}
+.expedition-raid-characters {
+  border-right: 1px solid var(--line);
+}
+.expedition-raid-characters > button {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+}
+.expedition-raid-characters > button.active {
+  border-color: rgba(190, 213, 141, 0.4);
+  background: rgba(190, 213, 141, 0.1);
+}
+.expedition-raid-characters > button > span {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--primary);
+  font-size: 11px;
+}
+.expedition-raid-characters img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.expedition-raid-characters b,
+.expedition-raid-characters small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.expedition-raid-characters b {
+  font-size: 11px;
+}
+.expedition-raid-characters small {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 10px;
+}
+.expedition-raid-config {
+  min-height: 0;
+  overflow: auto;
+  padding: 16px;
+}
+.expedition-raid-config-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding: 12px 14px;
+  border-radius: 11px;
+  background: var(--surface-2);
+}
+.expedition-raid-config-heading b,
+.expedition-raid-config-heading small {
+  display: block;
+}
+.expedition-raid-config-heading b {
+  font-size: 14px;
+}
+.expedition-raid-config-heading small {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 10px;
+}
+.expedition-raid-config-heading em {
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: rgba(190, 213, 141, 0.12);
+  color: var(--primary);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 800;
+}
+.expedition-raid-config-card {
+  margin-top: 9px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: var(--surface-2);
+}
+.expedition-raid-config-card > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 13px;
+  border-bottom: 1px solid var(--line);
+}
+.expedition-raid-config-card > header small,
+.expedition-raid-config-card > header strong {
+  display: block;
+}
+.expedition-raid-config-card > header small {
+  color: var(--muted);
+  font-size: 9px;
+}
+.expedition-raid-config-card > header strong {
+  margin-top: 3px;
+  font-size: 13px;
+}
+.expedition-raid-config-card > header button {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 5px 7px;
+  border: 0;
+  border-radius: 6px;
+  background: rgba(235, 99, 99, 0.09);
+  color: #eb7777;
+  font-size: 10px;
+  cursor: pointer;
+}
+.expedition-raid-config-card > header button svg {
+  width: 11px;
+}
+.expedition-difficulty-options {
+  display: flex;
+  gap: 6px;
+  padding: 10px 12px;
+}
+.expedition-difficulty-options button {
+  min-width: 72px;
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+}
+.expedition-difficulty-options button.active {
+  border-color: var(--primary);
+  background: rgba(190, 213, 141, 0.12);
+  color: var(--text);
+}
+.expedition-difficulty-options b,
+.expedition-difficulty-options small {
+  display: block;
+}
+.expedition-difficulty-options b {
+  font-size: 11px;
+}
+.expedition-difficulty-options small {
+  margin-top: 3px;
+  font-size: 9px;
+}
+.expedition-gate-options {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px 12px;
+}
+.expedition-gate-options > span {
+  margin-right: auto;
+  color: var(--muted);
+  font-size: 10px;
+}
+.expedition-raid-config-empty {
+  height: calc(100% - 74px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+}
+.expedition-raid-config-empty svg {
+  width: 30px;
+}
+.expedition-raid-config-empty b {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--text);
+}
+.expedition-raid-config-empty span {
+  margin-top: 5px;
+  font-size: 10px;
+}
+.expedition-raid-list {
+  border-left: 1px solid var(--line);
+}
+.expedition-raid-list > h3 {
+  margin: 2px 5px 11px;
+  font-size: 14px;
+}
+.expedition-raid-list section {
+  margin-top: 12px;
+}
+.expedition-raid-list h4 {
+  margin: 0 5px 5px;
+  color: var(--muted);
+  font-size: 9px;
+}
+.expedition-raid-list section > button {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 19px minmax(0, 1fr) 14px;
+  align-items: center;
+  gap: 6px;
+  padding: 7px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text);
+  font-size: 10px;
+  text-align: left;
+  cursor: pointer;
+}
+.expedition-raid-list section > button:hover {
+  background: var(--surface);
+}
+.expedition-raid-list section > button > i {
+  width: 17px;
+  height: 17px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+}
+.expedition-raid-list section > button.selected > i {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: #18200f;
+}
+.expedition-raid-list section > button svg {
+  width: 11px;
+}
+.expedition-raid-list section > button > svg {
+  color: var(--muted);
+}
+@media (max-width: 900px) {
+  .expedition-raid-layout {
+    grid-template-columns: 150px minmax(0, 1fr);
+  }
+  .expedition-raid-list {
+    grid-column: 1/-1;
+    max-height: 220px;
+    border-top: 1px solid var(--line);
+    border-left: 0;
+  }
+  .expedition-raid-list section {
+    display: inline;
+  }
+  .expedition-raid-list section > button {
+    width: auto;
+    display: inline-grid;
+    margin: 2px;
+  }
+  .expedition-raid-modal {
+    overflow: auto;
+  }
+  .expedition-raid-layout {
+    overflow: visible;
+  }
+}
+@media (max-width: 650px) {
+  .expedition-raid-backdrop {
+    padding: 8px;
+  }
+  .expedition-raid-modal {
+    width: calc(100vw - 16px);
+    height: calc(100vh - 16px);
+    grid-template-rows: 66px auto;
+  }
+  .expedition-raid-layout {
+    display: block;
+  }
+  .expedition-raid-characters {
+    display: flex;
+    overflow-x: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .expedition-raid-characters > button {
+    min-width: 150px;
+  }
+  .expedition-raid-config {
+    max-height: none;
+  }
+  .expedition-character-metrics strong {
+    font-size: 12px;
+  }
+}

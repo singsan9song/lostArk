@@ -1,22 +1,22 @@
-:root{
-  --primary:#bed58d;
-  --primary-2:#bed58d;
+:root {
+  --primary: #bed58d;
+  --primary-2: #bed58d;
 }
 
-.brand-mark{
-  color:#1b2410;
-  background:linear-gradient(145deg,#91aa61,#bed58d);
-  box-shadow:0 0 25px rgba(190,213,141,.32);
+.brand-mark {
+  color: #1b2410;
+  background: linear-gradient(145deg, #91aa61, #bed58d);
+  box-shadow: 0 0 25px rgba(190, 213, 141, 0.32);
 }
 
-.search-box button{
-  color:#1b2410;
-  background:linear-gradient(135deg,#9fb96c,#bed58d);
+.search-box button {
+  color: #1b2410;
+  background: linear-gradient(135deg, #9fb96c, #bed58d);
 }
 
-.hero h1 span{
-  background:linear-gradient(90deg,#d7e8b3,#bed58d);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
+.hero h1 span {
+  background: linear-gradient(90deg, #d7e8b3, #bed58d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }

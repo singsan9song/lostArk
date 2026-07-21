@@ -20,6 +20,6 @@ const raidImages = {
   rimerake: '/images/raid/rimerake.jpg',
 }
 
-export const getRaidImage = raidId => raidImages[raidId] || null
+export const getRaidImage = (raidId) => raidImages[raidId] || null
 
 export default raidImages

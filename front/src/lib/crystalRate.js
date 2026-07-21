@@ -10,7 +10,7 @@ const readRate = () => {
   return value > 0 ? value : DEFAULT_RATE
 }
 
-const subscribe = callback => {
+const subscribe = (callback) => {
   const notify = () => callback()
   window.addEventListener('storage', notify)
   window.addEventListener(CHANGE_EVENT, notify)
@@ -20,11 +20,12 @@ const subscribe = callback => {
   }
 }
 
-export const setCrystalGoldPrice = value => {
+export const setCrystalGoldPrice = (value) => {
   const normalized = Math.max(0, Math.round(Number(value) || 0))
   if (normalized > 0) setLocalData(STORAGE_KEY, String(normalized))
   else removeLocalData(STORAGE_KEY)
   window.dispatchEvent(new Event(CHANGE_EVENT))
 }
 
-export const useCrystalGoldPrice = () => useSyncExternalStore(subscribe, readRate, () => DEFAULT_RATE)
+export const useCrystalGoldPrice = () =>
+  useSyncExternalStore(subscribe, readRate, () => DEFAULT_RATE)

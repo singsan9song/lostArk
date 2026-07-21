@@ -1,11 +1,23 @@
-import { Anvil, Calculator, ChartNoAxesCombined, Coins, FlaskConical, Gauge, PackagePlus, Route, Sparkles, TrendingUp } from 'lucide-react'
+import {
+  Anvil,
+  Calculator,
+  ChartNoAxesCombined,
+  Coins,
+  FlaskConical,
+  Gauge,
+  PackagePlus,
+  Route,
+  Sparkles,
+  TrendingUp,
+} from 'lucide-react'
 import FeatureLandingPage from '../components/FeatureLandingPage'
 import HoningOptimizerPage from './HoningOptimizerPage'
 
 const configs = {
   optimizer: {
     title: '재련 최적화',
-    description: '목표 아이템 레벨까지 필요한 재료와 골드를 계산하고 가장 효율적인 재련 경로를 찾습니다.',
+    description:
+      '목표 아이템 레벨까지 필요한 재료와 골드를 계산하고 가장 효율적인 재련 경로를 찾습니다.',
     items: [
       [Calculator, '목표 장비 설정', '현재 단계와 목표 단계를 기준으로 재련 구간을 설정합니다.'],
       [Coins, '보유 재료 반영', '귀속 및 거래 가능 재료를 나누어 실제 지출 비용에 반영합니다.'],
@@ -35,5 +47,13 @@ const configs = {
 export default function HoningPage({ mode = 'optimizer' }) {
   if (mode === 'optimizer') return <HoningOptimizerPage />
   const config = configs[mode] || configs.optimizer
-  return <FeatureLandingPage eyebrow="HONING LAB" title={config.title} description={config.description} icon={Anvil} items={config.items} />
+  return (
+    <FeatureLandingPage
+      eyebrow="HONING LAB"
+      title={config.title}
+      description={config.description}
+      icon={Anvil}
+      items={config.items}
+    />
+  )
 }

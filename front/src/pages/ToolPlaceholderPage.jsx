@@ -30,9 +30,34 @@ export default function ToolPlaceholderPage({ type }) {
   const config = configs[type]
   const Icon = config.icon
 
-  return <div className="efficiency-page placeholder-efficiency-page">
-    <nav className="efficiency-tabs">{efficiencyToolTabs.map(([path, label]) => <Link className={path === config.path ? 'active' : ''} to={path} key={path}>{label}</Link>)}</nav>
-    <header className="efficiency-hero placeholder-efficiency-hero"><div className="efficiency-hero-icon"><Icon /></div><div><p>{config.eyebrow}</p><h1>{config.title}</h1><span>{config.description}</span></div></header>
-    <section className="panel placeholder-efficiency-content"><span><PackageOpen /></span><h2>페이지 준비 중</h2><p>페이지 연결이 완료되었습니다. 상품 데이터가 준비되면 계산 기능이 이 영역에 추가됩니다.</p></section>
-  </div>
+  return (
+    <div className="efficiency-page placeholder-efficiency-page">
+      <nav className="efficiency-tabs">
+        {efficiencyToolTabs.map(([path, label]) => (
+          <Link className={path === config.path ? 'active' : ''} to={path} key={path}>
+            {label}
+          </Link>
+        ))}
+      </nav>
+      <header className="efficiency-hero placeholder-efficiency-hero">
+        <div className="efficiency-hero-icon">
+          <Icon />
+        </div>
+        <div>
+          <p>{config.eyebrow}</p>
+          <h1>{config.title}</h1>
+          <span>{config.description}</span>
+        </div>
+      </header>
+      <section className="panel placeholder-efficiency-content">
+        <span>
+          <PackageOpen />
+        </span>
+        <h2>페이지 준비 중</h2>
+        <p>
+          페이지 연결이 완료되었습니다. 상품 데이터가 준비되면 계산 기능이 이 영역에 추가됩니다.
+        </p>
+      </section>
+    </div>
+  )
 }

@@ -3,25 +3,33 @@
 .legendary .gem-grade-icon,
 .legendary .rune-grade-icon,
 .hell-reward-icon.legendary,
-.hell-reward-details img.legendary{background:linear-gradient(135deg,#362003 0%,#9e5f04 100%)}
+.hell-reward-details img.legendary {
+  background: linear-gradient(135deg, #362003 0%, #9e5f04 100%);
+}
 
 .battle-equipment.epic .equipment-icon,
 .epic .gem-grade-icon,
 .epic .rune-grade-icon,
 .hell-reward-icon.epic,
-.hell-reward-details img.epic{background:linear-gradient(135deg,#261331 0%,#480d5d 100%)}
+.hell-reward-details img.epic {
+  background: linear-gradient(135deg, #261331 0%, #480d5d 100%);
+}
 
 .battle-equipment.rare .equipment-icon,
 .rare .gem-grade-icon,
 .rare .rune-grade-icon,
 .hell-reward-icon.rare,
-.hell-reward-details img.rare{background:linear-gradient(135deg,#111f2c 0%,#113d5d 100%)}
+.hell-reward-details img.rare {
+  background: linear-gradient(135deg, #111f2c 0%, #113d5d 100%);
+}
 
 .battle-equipment.uncommon .equipment-icon,
 .uncommon .gem-grade-icon,
 .uncommon .rune-grade-icon,
 .hell-reward-icon.uncommon,
-.hell-reward-details img.uncommon{background:linear-gradient(135deg,#18220b 0%,#304911 100%)}
+.hell-reward-details img.uncommon {
+  background: linear-gradient(135deg, #18220b 0%, #304911 100%);
+}
 
 .battle-equipment.common .equipment-icon,
 .battle-equipment.normal .equipment-icon,
@@ -30,4 +38,6 @@
 .common .rune-grade-icon,
 .normal .rune-grade-icon,
 .hell-reward-icon.common,
-.hell-reward-details img.common{background:linear-gradient(135deg,#232323 0%,#575757 100%)}
+.hell-reward-details img.common {
+  background: linear-gradient(135deg, #232323 0%, #575757 100%);
+}

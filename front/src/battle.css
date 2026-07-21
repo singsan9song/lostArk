@@ -1,166 +1,1452 @@
-.battle-dashboard{display:flex;flex-direction:column;gap:14px;margin-top:14px}.battle-panel{padding:22px;background:var(--surface);border:1px solid var(--line);border-radius:15px}.battle-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}.battle-heading>div{display:flex;align-items:center;gap:8px}.battle-heading svg{width:17px;color:var(--primary-2)}.battle-heading h2{font-size:15px;margin:0}.battle-heading>span{color:var(--muted);font-size:12px}.equipment-columns{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px}.equipment-columns>div{display:flex;flex-direction:column;gap:7px}.battle-equipment{min-height:57px;display:grid;grid-template-columns:48px minmax(0,1fr) auto;gap:10px;align-items:center;padding:5px 8px;border:1px solid var(--line);border-radius:10px;background:var(--surface-2)}.equipment-icon{width:46px;height:46px;position:relative}.equipment-icon img{width:100%;height:100%;border-radius:7px}.equipment-icon em{position:absolute;left:-3px;top:-3px;width:17px;height:17px;display:grid;place-items:center;border-radius:5px;background:#17191f;color:#fff;font-size:12px;font-style:normal}.equipment-copy{min-width:0}.equipment-copy strong{display:block;color:#e6bd67;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.equipment-copy span{display:block;color:var(--muted);font-size:12px;margin-top:3px}.quality{width:27px;height:19px;display:grid;place-items:center;border-radius:4px;background:#3b9bd2;color:#fff;font-size:12px}.q-9,.q-10{background:#e9a62a}.q-8{background:#3e9fdb}.q-7{background:#35a8d5}.q-6{background:#875ed7}.accessory-options{display:flex;align-items:center;gap:4px;margin-left:2px}.accessory-options i{display:grid;place-items:center;width:16px;height:16px;background:#7957d0;color:#fff;border-radius:3px;font-size:12px;font-style:normal}.accessory-options span{font-size:12px;color:#a99bd4}.special-equipment{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;margin-top:13px;padding-top:13px;border-top:1px solid var(--line)}.battle-gems{display:grid;grid-template-columns:repeat(11,1fr);gap:8px}.battle-gems>div{position:relative;min-width:0;text-align:center;border:1px solid var(--line);border-radius:9px;background:var(--surface-2);padding:6px}.battle-gems img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px}.battle-gems b{position:absolute;right:3px;top:3px;width:18px;height:18px;display:grid;place-items:center;background:#f1eee8;color:#df6e31;border-radius:50%;font-size:12px}.battle-gems span{display:block;margin-top:4px;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.battle-two-column{display:grid;grid-template-columns:1fr 1fr;gap:14px}.basic-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-bottom:15px;border-bottom:1px solid var(--line)}.basic-stats>div{display:flex;justify-content:space-between;background:var(--surface-2);border-radius:8px;padding:11px}.basic-stats span,.combat-stats span{color:var(--muted);font-size:12px}.basic-stats strong{font-size:13px}.combat-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:13px}.combat-stats>div{text-align:center}.combat-stats strong{display:block;color:var(--primary-2);font-size:14px;margin-top:4px}.battle-engravings{display:grid;grid-template-columns:1fr 1fr;gap:7px}.battle-engravings>div{display:flex;align-items:center;gap:8px;background:var(--surface-2);border-radius:8px;padding:7px}.battle-engravings img,.battle-engravings svg{width:34px;height:34px;border-radius:50%}.battle-engravings span{min-width:0}.battle-engravings strong,.battle-engravings small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.battle-engravings strong{font-size:12px}.battle-engravings small{color:var(--muted);font-size:12px;margin-top:3px}.passive-columns{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.passive-columns article+article{border-left:1px solid var(--line);padding-left:18px}.passive-columns header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.passive-columns header strong{padding:5px 13px;border-radius:14px;font-size:12px}.passive-columns .evolution header strong{background:#b89b50;color:#fff}.passive-columns .enlightenment header strong{background:#48a7bd;color:#fff}.passive-columns .leap header strong{background:#82b943;color:#fff}.passive-columns header span{font-size:12px;color:var(--muted)}.passive-columns article>div{display:flex;gap:8px;align-items:center;margin:8px 0}.passive-columns article>div img,.passive-columns article>div svg{width:29px;height:29px;border-radius:5px}.passive-columns article>div span{min-width:0}.passive-columns article>div b,.passive-columns article>div small{display:block}.passive-columns article>div b{font-size:12px}.passive-columns article>div small{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.passive-columns article>p{color:var(--muted);font-size:12px}.battle-cards{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}.battle-cards article{text-align:center}.battle-cards article>div{position:relative}.battle-cards img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:7px;border:1px solid #9e742e}.battle-cards i{position:absolute;left:5px;right:5px;bottom:5px;height:15px;display:grid;place-items:center;background:rgba(9,11,16,.75);color:#eecb63;border-radius:4px;font-size:12px;font-style:normal}.battle-cards strong,.battle-cards span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.battle-cards strong{font-size:12px;margin-top:5px}.battle-cards span{color:var(--muted);font-size:12px;margin-top:2px}.battle-empty{min-height:90px;display:flex;align-items:center;justify-content:center;gap:8px;color:var(--muted);font-size:12px}.battle-empty svg{width:20px;opacity:.5}
-@media(max-width:900px){.battle-gems{grid-template-columns:repeat(6,1fr)}.battle-two-column{grid-template-columns:1fr}.passive-columns{grid-template-columns:1fr}.passive-columns article+article{border-left:0;border-top:1px solid var(--line);padding-left:0;padding-top:15px}}
-@media(max-width:560px){.battle-panel{padding:15px}.equipment-columns,.special-equipment{grid-template-columns:1fr}.battle-gems{grid-template-columns:repeat(4,1fr)}.battle-engravings{grid-template-columns:1fr}.battle-cards{grid-template-columns:repeat(3,1fr)}}
+.battle-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 14px;
+}
+.battle-panel {
+  padding: 22px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 15px;
+}
+.battle-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 17px;
+}
+.battle-heading > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.battle-heading svg {
+  width: 17px;
+  color: var(--primary-2);
+}
+.battle-heading h2 {
+  font-size: 15px;
+  margin: 0;
+}
+.battle-heading > span {
+  color: var(--muted);
+  font-size: 12px;
+}
+.equipment-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 24px;
+}
+.equipment-columns > div {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.battle-equipment {
+  min-height: 57px;
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  padding: 5px 8px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface-2);
+}
+.equipment-icon {
+  width: 46px;
+  height: 46px;
+  position: relative;
+}
+.equipment-icon img {
+  width: 100%;
+  height: 100%;
+  border-radius: 7px;
+}
+.equipment-icon em {
+  position: absolute;
+  left: -3px;
+  top: -3px;
+  width: 17px;
+  height: 17px;
+  display: grid;
+  place-items: center;
+  border-radius: 5px;
+  background: #17191f;
+  color: #fff;
+  font-size: 12px;
+  font-style: normal;
+}
+.equipment-copy {
+  min-width: 0;
+}
+.equipment-copy strong {
+  display: block;
+  color: #e6bd67;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.equipment-copy span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 3px;
+}
+.quality {
+  width: 27px;
+  height: 19px;
+  display: grid;
+  place-items: center;
+  border-radius: 4px;
+  background: #3b9bd2;
+  color: #fff;
+  font-size: 12px;
+}
+.q-9,
+.q-10 {
+  background: #e9a62a;
+}
+.q-8 {
+  background: #3e9fdb;
+}
+.q-7 {
+  background: #35a8d5;
+}
+.q-6 {
+  background: #875ed7;
+}
+.accessory-options {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 2px;
+}
+.accessory-options i {
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  background: #7957d0;
+  color: #fff;
+  border-radius: 3px;
+  font-size: 12px;
+  font-style: normal;
+}
+.accessory-options span {
+  font-size: 12px;
+  color: #a99bd4;
+}
+.special-equipment {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 24px;
+  margin-top: 13px;
+  padding-top: 13px;
+  border-top: 1px solid var(--line);
+}
+.battle-gems {
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  gap: 8px;
+}
+.battle-gems > div {
+  position: relative;
+  min-width: 0;
+  text-align: center;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--surface-2);
+  padding: 6px;
+}
+.battle-gems img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 6px;
+}
+.battle-gems b {
+  position: absolute;
+  right: 3px;
+  top: 3px;
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+  background: #f1eee8;
+  color: #df6e31;
+  border-radius: 50%;
+  font-size: 12px;
+}
+.battle-gems span {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.battle-two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.basic-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--line);
+}
+.basic-stats > div {
+  display: flex;
+  justify-content: space-between;
+  background: var(--surface-2);
+  border-radius: 8px;
+  padding: 11px;
+}
+.basic-stats span,
+.combat-stats span {
+  color: var(--muted);
+  font-size: 12px;
+}
+.basic-stats strong {
+  font-size: 13px;
+}
+.combat-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 13px;
+}
+.combat-stats > div {
+  text-align: center;
+}
+.combat-stats strong {
+  display: block;
+  color: var(--primary-2);
+  font-size: 14px;
+  margin-top: 4px;
+}
+.battle-engravings {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+}
+.battle-engravings > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface-2);
+  border-radius: 8px;
+  padding: 7px;
+}
+.battle-engravings img,
+.battle-engravings svg {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+}
+.battle-engravings span {
+  min-width: 0;
+}
+.battle-engravings strong,
+.battle-engravings small {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.battle-engravings strong {
+  font-size: 12px;
+}
+.battle-engravings small {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 3px;
+}
+.passive-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.passive-columns article + article {
+  border-left: 1px solid var(--line);
+  padding-left: 18px;
+}
+.passive-columns header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.passive-columns header strong {
+  padding: 5px 13px;
+  border-radius: 14px;
+  font-size: 12px;
+}
+.passive-columns .evolution header strong {
+  background: #b89b50;
+  color: #fff;
+}
+.passive-columns .enlightenment header strong {
+  background: #48a7bd;
+  color: #fff;
+}
+.passive-columns .leap header strong {
+  background: #82b943;
+  color: #fff;
+}
+.passive-columns header span {
+  font-size: 12px;
+  color: var(--muted);
+}
+.passive-columns article > div {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 8px 0;
+}
+.passive-columns article > div img,
+.passive-columns article > div svg {
+  width: 29px;
+  height: 29px;
+  border-radius: 5px;
+}
+.passive-columns article > div span {
+  min-width: 0;
+}
+.passive-columns article > div b,
+.passive-columns article > div small {
+  display: block;
+}
+.passive-columns article > div b {
+  font-size: 12px;
+}
+.passive-columns article > div small {
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.passive-columns article > p {
+  color: var(--muted);
+  font-size: 12px;
+}
+.battle-cards {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+}
+.battle-cards article {
+  text-align: center;
+}
+.battle-cards article > div {
+  position: relative;
+}
+.battle-cards img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  border-radius: 7px;
+  border: 1px solid #9e742e;
+}
+.battle-cards i {
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  height: 15px;
+  display: grid;
+  place-items: center;
+  background: rgba(9, 11, 16, 0.75);
+  color: #eecb63;
+  border-radius: 4px;
+  font-size: 12px;
+  font-style: normal;
+}
+.battle-cards strong,
+.battle-cards span {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.battle-cards strong {
+  font-size: 12px;
+  margin-top: 5px;
+}
+.battle-cards span {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 2px;
+}
+.battle-empty {
+  min-height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.battle-empty svg {
+  width: 20px;
+  opacity: 0.5;
+}
+@media (max-width: 900px) {
+  .battle-gems {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .battle-two-column {
+    grid-template-columns: 1fr;
+  }
+  .passive-columns {
+    grid-template-columns: 1fr;
+  }
+  .passive-columns article + article {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    padding-left: 0;
+    padding-top: 15px;
+  }
+}
+@media (max-width: 560px) {
+  .battle-panel {
+    padding: 15px;
+  }
+  .equipment-columns,
+  .special-equipment {
+    grid-template-columns: 1fr;
+  }
+  .battle-gems {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .battle-engravings {
+    grid-template-columns: 1fr;
+  }
+  .battle-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 
 /* Two-column combat information layout. */
-.battle-primary-row,.battle-loadout-row,.battle-build-row{align-items:start}
-.battle-loadout-row{grid-template-columns:minmax(0,1.3fr) minmax(300px,.7fr)}
-.battle-primary-row>.battle-panel,.battle-loadout-row>.battle-panel,.battle-build-row>.battle-panel{height:100%}
-.battle-primary-row .battle-cards{gap:8px}
-.battle-primary-row .battle-cards strong{font-size:12px}
-.battle-loadout-row .equipment-columns{grid-template-columns:1fr 1fr;gap:7px 10px}
-.battle-loadout-row .special-equipment{grid-template-columns:1fr;margin-top:7px;padding-top:7px;gap:7px}
-.battle-loadout-row .battle-gems{grid-template-columns:repeat(8,1fr);gap:8px 6px}
-.battle-build-row .passive-columns{grid-template-columns:repeat(3,1fr);gap:12px}
-.battle-build-row .passive-columns article+article{border-left:1px solid var(--line);border-top:0;padding-left:12px;padding-top:0;margin-top:0}
-.battle-build-row .battle-engravings{grid-template-columns:1fr}
-.battle-build-row .battle-engravings .engraving-row{display:grid;grid-template-columns:38px 14px auto minmax(0,1fr) 11px auto;align-items:center;gap:7px;min-height:49px;padding:5px 2px;border-bottom:1px solid var(--line);border-radius:0;background:transparent}
-.battle-build-row .battle-engravings .engraving-row:last-child{border-bottom:0}
-.engraving-symbol{width:34px;height:34px;display:grid;place-items:center;overflow:hidden;border:1px solid rgba(255,255,255,.12);border-radius:50%;color:#f6e8d8;font-size:12px;font-weight:800;text-shadow:0 1px 3px #000;box-shadow:inset 0 0 9px rgba(0,0,0,.55),0 2px 5px rgba(0,0,0,.22)}
-.engraving-symbol img{width:100%;height:100%;object-fit:cover;border-radius:50%}
-.engraving-symbol.symbol-0{background:radial-gradient(circle at 35% 30%,#c16437,#481610 68%,#170909)}.engraving-symbol.symbol-1{background:radial-gradient(circle at 35% 30%,#9c6b3f,#382317 68%,#100a07)}.engraving-symbol.symbol-2{background:radial-gradient(circle at 35% 30%,#477c88,#18323b 68%,#071014)}.engraving-symbol.symbol-3{background:radial-gradient(circle at 35% 30%,#96534f,#3d1718 68%,#130708)}.engraving-symbol.symbol-4{background:radial-gradient(circle at 35% 30%,#9c783c,#3d2b12 68%,#120c05)}
-.engraving-level-mark{width:11px;height:11px;display:block;transform:rotate(45deg);border:1px solid #ff9a54;border-radius:2px;background:linear-gradient(135deg,#ff8a29,#b7250b 62%,#5c1108);box-shadow:inset 0 0 2px #ffd19c,0 1px 3px rgba(0,0,0,.35)}
-.engraving-base{color:var(--muted);font-size:12px;white-space:nowrap}
-.battle-build-row .battle-engravings .engraving-row>strong{min-width:0;color:var(--text);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ability-stone-mark{width:8px;height:15px;display:block;clip-path:polygon(50% 0,100% 70%,50% 100%,0 70%);background:linear-gradient(90deg,#14758d,#85ecff 52%,#13657b);box-shadow:inset 0 0 2px #d9fbff;filter:drop-shadow(0 1px 1px rgba(0,0,0,.4))}
-.ability-stone-level{color:#9ba5ba;font-size:12px;white-space:nowrap}
-@media(max-width:900px){.battle-primary-row,.battle-loadout-row,.battle-build-row{grid-template-columns:1fr}.battle-loadout-row .equipment-columns{grid-template-columns:1fr 1fr}.battle-loadout-row .special-equipment{grid-template-columns:1fr 1fr;margin-top:13px;padding-top:13px}.battle-loadout-row .battle-gems{grid-template-columns:repeat(6,1fr)}.battle-build-row .passive-columns{grid-template-columns:repeat(3,1fr);gap:18px}.battle-build-row .passive-columns article+article{border-top:0;border-left:1px solid var(--line);padding-top:0;padding-left:18px;margin-top:0}}
-@media(max-width:560px){.battle-loadout-row .equipment-columns,.battle-loadout-row .special-equipment{grid-template-columns:1fr}.battle-loadout-row .battle-gems{grid-template-columns:repeat(4,1fr)}.battle-build-row .passive-columns{grid-template-columns:1fr;gap:0}.battle-build-row .passive-columns article+article{border-left:0;border-top:1px solid var(--line);padding-left:0;padding-top:13px;margin-top:5px}}
+.battle-primary-row,
+.battle-loadout-row,
+.battle-build-row {
+  align-items: start;
+}
+.battle-loadout-row {
+  grid-template-columns: minmax(0, 1.3fr) minmax(300px, 0.7fr);
+}
+.battle-primary-row > .battle-panel,
+.battle-loadout-row > .battle-panel,
+.battle-build-row > .battle-panel {
+  height: 100%;
+}
+.battle-primary-row .battle-cards {
+  gap: 8px;
+}
+.battle-primary-row .battle-cards strong {
+  font-size: 12px;
+}
+.battle-loadout-row .equipment-columns {
+  grid-template-columns: 1fr 1fr;
+  gap: 7px 10px;
+}
+.battle-loadout-row .special-equipment {
+  grid-template-columns: 1fr;
+  margin-top: 7px;
+  padding-top: 7px;
+  gap: 7px;
+}
+.battle-loadout-row .battle-gems {
+  grid-template-columns: repeat(8, 1fr);
+  gap: 8px 6px;
+}
+.battle-build-row .passive-columns {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.battle-build-row .passive-columns article + article {
+  border-left: 1px solid var(--line);
+  border-top: 0;
+  padding-left: 12px;
+  padding-top: 0;
+  margin-top: 0;
+}
+.battle-build-row .battle-engravings {
+  grid-template-columns: 1fr;
+}
+.battle-build-row .battle-engravings .engraving-row {
+  display: grid;
+  grid-template-columns: 38px 14px auto minmax(0, 1fr) 11px auto;
+  align-items: center;
+  gap: 7px;
+  min-height: 49px;
+  padding: 5px 2px;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+}
+.battle-build-row .battle-engravings .engraving-row:last-child {
+  border-bottom: 0;
+}
+.engraving-symbol {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  color: #f6e8d8;
+  font-size: 12px;
+  font-weight: 800;
+  text-shadow: 0 1px 3px #000;
+  box-shadow:
+    inset 0 0 9px rgba(0, 0, 0, 0.55),
+    0 2px 5px rgba(0, 0, 0, 0.22);
+}
+.engraving-symbol img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.engraving-symbol.symbol-0 {
+  background: radial-gradient(circle at 35% 30%, #c16437, #481610 68%, #170909);
+}
+.engraving-symbol.symbol-1 {
+  background: radial-gradient(circle at 35% 30%, #9c6b3f, #382317 68%, #100a07);
+}
+.engraving-symbol.symbol-2 {
+  background: radial-gradient(circle at 35% 30%, #477c88, #18323b 68%, #071014);
+}
+.engraving-symbol.symbol-3 {
+  background: radial-gradient(circle at 35% 30%, #96534f, #3d1718 68%, #130708);
+}
+.engraving-symbol.symbol-4 {
+  background: radial-gradient(circle at 35% 30%, #9c783c, #3d2b12 68%, #120c05);
+}
+.engraving-level-mark {
+  width: 11px;
+  height: 11px;
+  display: block;
+  transform: rotate(45deg);
+  border: 1px solid #ff9a54;
+  border-radius: 2px;
+  background: linear-gradient(135deg, #ff8a29, #b7250b 62%, #5c1108);
+  box-shadow:
+    inset 0 0 2px #ffd19c,
+    0 1px 3px rgba(0, 0, 0, 0.35);
+}
+.engraving-base {
+  color: var(--muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+.battle-build-row .battle-engravings .engraving-row > strong {
+  min-width: 0;
+  color: var(--text);
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ability-stone-mark {
+  width: 8px;
+  height: 15px;
+  display: block;
+  clip-path: polygon(50% 0, 100% 70%, 50% 100%, 0 70%);
+  background: linear-gradient(90deg, #14758d, #85ecff 52%, #13657b);
+  box-shadow: inset 0 0 2px #d9fbff;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.4));
+}
+.ability-stone-level {
+  color: #9ba5ba;
+  font-size: 12px;
+  white-space: nowrap;
+}
+@media (max-width: 900px) {
+  .battle-primary-row,
+  .battle-loadout-row,
+  .battle-build-row {
+    grid-template-columns: 1fr;
+  }
+  .battle-loadout-row .equipment-columns {
+    grid-template-columns: 1fr 1fr;
+  }
+  .battle-loadout-row .special-equipment {
+    grid-template-columns: 1fr 1fr;
+    margin-top: 13px;
+    padding-top: 13px;
+  }
+  .battle-loadout-row .battle-gems {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .battle-build-row .passive-columns {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .battle-build-row .passive-columns article + article {
+    border-top: 0;
+    border-left: 1px solid var(--line);
+    padding-top: 0;
+    padding-left: 18px;
+    margin-top: 0;
+  }
+}
+@media (max-width: 560px) {
+  .battle-loadout-row .equipment-columns,
+  .battle-loadout-row .special-equipment {
+    grid-template-columns: 1fr;
+  }
+  .battle-loadout-row .battle-gems {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .battle-build-row .passive-columns {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .battle-build-row .passive-columns article + article {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    padding-left: 0;
+    padding-top: 13px;
+    margin-top: 5px;
+  }
+}
 
 /* Ancient grade item treatment */
-.battle-equipment.ancient{border-color:rgba(215,193,127,.32)}.battle-equipment.ancient .equipment-copy strong{color:#d7c17f}.battle-equipment.ancient .equipment-icon{padding:2px;border:1px solid #d7c17f;border-radius:8px;background:linear-gradient(135deg,#3d3325 0%,#dcc999 100%);box-shadow:inset 0 0 8px rgba(15,13,8,.42),0 0 0 1px rgba(215,193,127,.08)}.battle-equipment.ancient .equipment-icon img{width:100%;height:100%;border-radius:5px}.battle-equipment.ancient .equipment-icon em{left:-4px;top:-4px;border:1px solid rgba(215,193,127,.5);background:#29271f;color:#e9ddb8}
+.battle-equipment.ancient {
+  border-color: rgba(215, 193, 127, 0.32);
+}
+.battle-equipment.ancient .equipment-copy strong {
+  color: #d7c17f;
+}
+.battle-equipment.ancient .equipment-icon {
+  padding: 2px;
+  border: 1px solid #d7c17f;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #3d3325 0%, #dcc999 100%);
+  box-shadow:
+    inset 0 0 8px rgba(15, 13, 8, 0.42),
+    0 0 0 1px rgba(215, 193, 127, 0.08);
+}
+.battle-equipment.ancient .equipment-icon img {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+.battle-equipment.ancient .equipment-icon em {
+  left: -4px;
+  top: -4px;
+  border: 1px solid rgba(215, 193, 127, 0.5);
+  background: #29271f;
+  color: #e9ddb8;
+}
 
 /* Relic grade item treatment */
-.battle-equipment.relic{border-color:rgba(173,65,2,.38)}.battle-equipment.relic .equipment-copy strong{color:#ad4102}.battle-equipment.relic .equipment-icon{padding:2px;border:1px solid #ad4102;border-radius:8px;background:linear-gradient(135deg,#341a09 0%,#a24006 100%);box-shadow:inset 0 0 8px rgba(18,7,2,.48),0 0 0 1px rgba(173,65,2,.1)}.battle-equipment.relic .equipment-icon img{width:100%;height:100%;border-radius:5px}.battle-equipment.relic .equipment-icon em{left:-4px;top:-4px;border:1px solid rgba(173,65,2,.58);background:#29160e;color:#dc7840}
+.battle-equipment.relic {
+  border-color: rgba(173, 65, 2, 0.38);
+}
+.battle-equipment.relic .equipment-copy strong {
+  color: #ad4102;
+}
+.battle-equipment.relic .equipment-icon {
+  padding: 2px;
+  border: 1px solid #ad4102;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #341a09 0%, #a24006 100%);
+  box-shadow:
+    inset 0 0 8px rgba(18, 7, 2, 0.48),
+    0 0 0 1px rgba(173, 65, 2, 0.1);
+}
+.battle-equipment.relic .equipment-icon img {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+.battle-equipment.relic .equipment-icon em {
+  left: -4px;
+  top: -4px;
+  border: 1px solid rgba(173, 65, 2, 0.58);
+  background: #29160e;
+  color: #dc7840;
+}
 
 /* Legendary grade item treatment */
-.battle-equipment.legendary{border-color:rgba(177,104,0,.38)}.battle-equipment.legendary .equipment-copy strong{color:#b16800}.battle-equipment.legendary .equipment-icon{padding:2px;border:1px solid #b16800;border-radius:8px;background:linear-gradient(145deg,#35240d 0%,#72500b 58%,#b16800 100%);box-shadow:inset 0 0 8px rgba(20,12,2,.48),0 0 0 1px rgba(177,104,0,.1)}.battle-equipment.legendary .equipment-icon img{width:100%;height:100%;border-radius:5px}.battle-equipment.legendary .equipment-icon em{left:-4px;top:-4px;border:1px solid rgba(177,104,0,.58);background:#2a1d0d;color:#dc9b3c}
+.battle-equipment.legendary {
+  border-color: rgba(177, 104, 0, 0.38);
+}
+.battle-equipment.legendary .equipment-copy strong {
+  color: #b16800;
+}
+.battle-equipment.legendary .equipment-icon {
+  padding: 2px;
+  border: 1px solid #b16800;
+  border-radius: 8px;
+  background: linear-gradient(145deg, #35240d 0%, #72500b 58%, #b16800 100%);
+  box-shadow:
+    inset 0 0 8px rgba(20, 12, 2, 0.48),
+    0 0 0 1px rgba(177, 104, 0, 0.1);
+}
+.battle-equipment.legendary .equipment-icon img {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+.battle-equipment.legendary .equipment-icon em {
+  left: -4px;
+  top: -4px;
+  border: 1px solid rgba(177, 104, 0, 0.58);
+  background: #2a1d0d;
+  color: #dc9b3c;
+}
 
 /* Epic grade item treatment */
-.battle-equipment.epic{border-color:rgba(82,15,105,.42)}.battle-equipment.epic .equipment-copy strong{color:#520f69}.battle-equipment.epic .equipment-icon{padding:2px;border:1px solid #520f69;border-radius:8px;background:linear-gradient(145deg,#211027 0%,#371044 58%,#520f69 100%);box-shadow:inset 0 0 8px rgba(12,3,15,.5),0 0 0 1px rgba(82,15,105,.12)}.battle-equipment.epic .equipment-icon img{width:100%;height:100%;border-radius:5px}.battle-equipment.epic .equipment-icon em{left:-4px;top:-4px;border:1px solid rgba(82,15,105,.62);background:#201025;color:#a85fc0}
+.battle-equipment.epic {
+  border-color: rgba(82, 15, 105, 0.42);
+}
+.battle-equipment.epic .equipment-copy strong {
+  color: #520f69;
+}
+.battle-equipment.epic .equipment-icon {
+  padding: 2px;
+  border: 1px solid #520f69;
+  border-radius: 8px;
+  background: linear-gradient(145deg, #211027 0%, #371044 58%, #520f69 100%);
+  box-shadow:
+    inset 0 0 8px rgba(12, 3, 15, 0.5),
+    0 0 0 1px rgba(82, 15, 105, 0.12);
+}
+.battle-equipment.epic .equipment-icon img {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+.battle-equipment.epic .equipment-icon em {
+  left: -4px;
+  top: -4px;
+  border: 1px solid rgba(82, 15, 105, 0.62);
+  background: #201025;
+  color: #a85fc0;
+}
 
 /* Rare grade item treatment */
-.battle-equipment.rare{border-color:rgba(17,62,94,.48)}.battle-equipment.rare .equipment-copy strong{color:#113e5e}.battle-equipment.rare .equipment-icon{padding:2px;border:1px solid #113e5e;border-radius:8px;background:linear-gradient(145deg,#0b1c29 0%,#0e2b40 58%,#113e5e 100%);box-shadow:inset 0 0 8px rgba(2,9,14,.52),0 0 0 1px rgba(17,62,94,.14)}.battle-equipment.rare .equipment-icon img{width:100%;height:100%;border-radius:5px}.battle-equipment.rare .equipment-icon em{left:-4px;top:-4px;border:1px solid rgba(17,62,94,.7);background:#0c1c28;color:#5e9fc9}
+.battle-equipment.rare {
+  border-color: rgba(17, 62, 94, 0.48);
+}
+.battle-equipment.rare .equipment-copy strong {
+  color: #113e5e;
+}
+.battle-equipment.rare .equipment-icon {
+  padding: 2px;
+  border: 1px solid #113e5e;
+  border-radius: 8px;
+  background: linear-gradient(145deg, #0b1c29 0%, #0e2b40 58%, #113e5e 100%);
+  box-shadow:
+    inset 0 0 8px rgba(2, 9, 14, 0.52),
+    0 0 0 1px rgba(17, 62, 94, 0.14);
+}
+.battle-equipment.rare .equipment-icon img {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+.battle-equipment.rare .equipment-icon em {
+  left: -4px;
+  top: -4px;
+  border: 1px solid rgba(17, 62, 94, 0.7);
+  background: #0c1c28;
+  color: #5e9fc9;
+}
 
 /* Uncommon grade item treatment */
-.battle-equipment.uncommon{border-color:rgba(60,91,21,.5)}.battle-equipment.uncommon .equipment-copy strong{color:#3c5b15}.battle-equipment.uncommon .equipment-icon{padding:2px;border:1px solid #3c5b15;border-radius:8px;background:linear-gradient(145deg,#17220d 0%,#293d11 58%,#3c5b15 100%);box-shadow:inset 0 0 8px rgba(7,11,3,.52),0 0 0 1px rgba(60,91,21,.14)}.battle-equipment.uncommon .equipment-icon img{width:100%;height:100%;border-radius:5px}.battle-equipment.uncommon .equipment-icon em{left:-4px;top:-4px;border:1px solid rgba(60,91,21,.72);background:#18230e;color:#82ad4e}
+.battle-equipment.uncommon {
+  border-color: rgba(60, 91, 21, 0.5);
+}
+.battle-equipment.uncommon .equipment-copy strong {
+  color: #3c5b15;
+}
+.battle-equipment.uncommon .equipment-icon {
+  padding: 2px;
+  border: 1px solid #3c5b15;
+  border-radius: 8px;
+  background: linear-gradient(145deg, #17220d 0%, #293d11 58%, #3c5b15 100%);
+  box-shadow:
+    inset 0 0 8px rgba(7, 11, 3, 0.52),
+    0 0 0 1px rgba(60, 91, 21, 0.14);
+}
+.battle-equipment.uncommon .equipment-icon img {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+.battle-equipment.uncommon .equipment-icon em {
+  left: -4px;
+  top: -4px;
+  border: 1px solid rgba(60, 91, 21, 0.72);
+  background: #18230e;
+  color: #82ad4e;
+}
 
 /* Common grade item treatment */
-.battle-equipment.common{border-color:rgba(88,88,88,.52)}.battle-equipment.common .equipment-copy strong{color:#585858}.battle-equipment.common .equipment-icon{padding:2px;border:1px solid #585858;border-radius:8px;background:linear-gradient(145deg,#282828 0%,#414141 58%,#585858 100%);box-shadow:inset 0 0 8px rgba(8,8,8,.52),0 0 0 1px rgba(88,88,88,.16)}.battle-equipment.common .equipment-icon img{width:100%;height:100%;border-radius:5px}.battle-equipment.common .equipment-icon em{left:-4px;top:-4px;border:1px solid rgba(88,88,88,.75);background:#292929;color:#a5a5a5}
+.battle-equipment.common {
+  border-color: rgba(88, 88, 88, 0.52);
+}
+.battle-equipment.common .equipment-copy strong {
+  color: #585858;
+}
+.battle-equipment.common .equipment-icon {
+  padding: 2px;
+  border: 1px solid #585858;
+  border-radius: 8px;
+  background: linear-gradient(145deg, #282828 0%, #414141 58%, #585858 100%);
+  box-shadow:
+    inset 0 0 8px rgba(8, 8, 8, 0.52),
+    0 0 0 1px rgba(88, 88, 88, 0.16);
+}
+.battle-equipment.common .equipment-icon img {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+.battle-equipment.common .equipment-icon em {
+  left: -4px;
+  top: -4px;
+  border: 1px solid rgba(88, 88, 88, 0.75);
+  background: #292929;
+  color: #a5a5a5;
+}
 
 /* Gems use the same grade language as equipment, in a compact circular frame. */
-.ancient .gem-grade-icon,.ancient .rune-grade-icon{background:linear-gradient(135deg,#3d3325 0%,#dcc999 100%)}.relic .gem-grade-icon,.relic .rune-grade-icon{background:linear-gradient(135deg,#341a09 0%,#a24006 100%)}
-.battle-gems>div{border:0;background:transparent;padding:3px;text-align:center}
-.gem-grade-icon{position:relative;width:80%;aspect-ratio:1;margin:0 auto;padding:2px;border:1px solid var(--grade,#585858);border-radius:50%;background:linear-gradient(145deg,var(--grade-dark,#282828) 0%,var(--grade-mid,#414141) 58%,var(--grade,#585858) 100%);box-shadow:inset 0 0 10px rgba(5,5,8,.48),0 3px 9px rgba(0,0,0,.22)}
-.battle-gems .gem-grade-icon img{display:block;width:100%;height:100%;object-fit:cover;border-radius:50%;background:transparent}
-.battle-gems .gem-grade-icon b{right:-3px;top:-3px;width:15px;height:15px;font-size:12px;border:2px solid var(--surface);box-shadow:0 2px 5px rgba(0,0,0,.3)}
-.battle-gems>div>span{margin-top:6px}
-.ancient{--grade:#d7c17f;--grade-mid:#776b49;--grade-dark:#3d382b}.relic{--grade:#ad4102;--grade-mid:#682b0c;--grade-dark:#32180c}.legendary{--grade:#b16800;--grade-mid:#72500b;--grade-dark:#35240d}.epic{--grade:#520f69;--grade-mid:#371044;--grade-dark:#211027}.rare{--grade:#113e5e;--grade-mid:#0e2b40;--grade-dark:#0b1c29}.uncommon{--grade:#3c5b15;--grade-mid:#293d11;--grade-dark:#17220d}.common,.normal{--grade:#585858;--grade-mid:#414141;--grade-dark:#282828}
+.ancient .gem-grade-icon,
+.ancient .rune-grade-icon {
+  background: linear-gradient(135deg, #3d3325 0%, #dcc999 100%);
+}
+.relic .gem-grade-icon,
+.relic .rune-grade-icon {
+  background: linear-gradient(135deg, #341a09 0%, #a24006 100%);
+}
+.battle-gems > div {
+  border: 0;
+  background: transparent;
+  padding: 3px;
+  text-align: center;
+}
+.gem-grade-icon {
+  position: relative;
+  width: 80%;
+  aspect-ratio: 1;
+  margin: 0 auto;
+  padding: 2px;
+  border: 1px solid var(--grade, #585858);
+  border-radius: 50%;
+  background: linear-gradient(
+    145deg,
+    var(--grade-dark, #282828) 0%,
+    var(--grade-mid, #414141) 58%,
+    var(--grade, #585858) 100%
+  );
+  box-shadow:
+    inset 0 0 10px rgba(5, 5, 8, 0.48),
+    0 3px 9px rgba(0, 0, 0, 0.22);
+}
+.battle-gems .gem-grade-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  background: transparent;
+}
+.battle-gems .gem-grade-icon b {
+  right: -3px;
+  top: -3px;
+  width: 15px;
+  height: 15px;
+  font-size: 12px;
+  border: 2px solid var(--surface);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+.battle-gems > div > span {
+  margin-top: 6px;
+}
+.ancient {
+  --grade: #d7c17f;
+  --grade-mid: #776b49;
+  --grade-dark: #3d382b;
+}
+.relic {
+  --grade: #ad4102;
+  --grade-mid: #682b0c;
+  --grade-dark: #32180c;
+}
+.legendary {
+  --grade: #b16800;
+  --grade-mid: #72500b;
+  --grade-dark: #35240d;
+}
+.epic {
+  --grade: #520f69;
+  --grade-mid: #371044;
+  --grade-dark: #211027;
+}
+.rare {
+  --grade: #113e5e;
+  --grade-mid: #0e2b40;
+  --grade-dark: #0b1c29;
+}
+.uncommon {
+  --grade: #3c5b15;
+  --grade-mid: #293d11;
+  --grade-dark: #17220d;
+}
+.common,
+.normal {
+  --grade: #585858;
+  --grade-mid: #414141;
+  --grade-dark: #282828;
+}
 
 /* Compact gem-to-skill mapping. */
-.battle-loadout-row .battle-gems{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
-.battle-gems>.gem-entry{display:grid;grid-template-columns:38px minmax(0,1fr);align-items:center;gap:8px;min-width:0;padding:6px;border:1px solid var(--line);border-radius:10px;background:var(--surface-2);text-align:left}
-.battle-gems .gem-entry .gem-grade-icon{width:36px;height:36px;margin:0;padding:2px}
-.battle-gems .gem-entry .gem-image-clip{position:absolute;inset:2px;display:block;margin:0;overflow:hidden;border-radius:50%}
-.battle-gems .gem-entry .gem-image-clip img{transform:scale(1.2)}
-.gem-link-copy{min-width:0}
-.gem-skill-line{display:flex;align-items:center;gap:5px;min-width:0}
-.battle-gems .gem-skill-line img{flex:0 0 21px;width:21px;height:21px;object-fit:cover;border-radius:5px}
-.gem-skill-line strong{min-width:0;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.gem-effect-badge{display:inline-flex;align-items:center;gap:3px;margin-top:4px;padding:3px 5px;border-radius:5px;font-size:12px;font-weight:700;white-space:nowrap}
-.gem-effect-badge em{font-style:normal;font-size:12px}
-.gem-effect-badge.damage{color:#f2a06e;background:rgba(190,73,42,.14)}
-.gem-effect-badge.cooldown{color:#74c9ed;background:rgba(42,139,190,.14)}
-@media(max-width:560px){.battle-loadout-row .battle-gems{grid-template-columns:1fr}.battle-gems>.gem-entry{grid-template-columns:38px minmax(0,1fr)}}
+.battle-loadout-row .battle-gems {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+.battle-gems > .gem-entry {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface-2);
+  text-align: left;
+}
+.battle-gems .gem-entry .gem-grade-icon {
+  width: 36px;
+  height: 36px;
+  margin: 0;
+  padding: 2px;
+}
+.battle-gems .gem-entry .gem-image-clip {
+  position: absolute;
+  inset: 2px;
+  display: block;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.battle-gems .gem-entry .gem-image-clip img {
+  transform: scale(1.2);
+}
+.gem-link-copy {
+  min-width: 0;
+}
+.gem-skill-line {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+}
+.battle-gems .gem-skill-line img {
+  flex: 0 0 21px;
+  width: 21px;
+  height: 21px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+.gem-skill-line strong {
+  min-width: 0;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.gem-effect-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-top: 4px;
+  padding: 3px 5px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.gem-effect-badge em {
+  font-style: normal;
+  font-size: 12px;
+}
+.gem-effect-badge.damage {
+  color: #f2a06e;
+  background: rgba(190, 73, 42, 0.14);
+}
+.gem-effect-badge.cooldown {
+  color: #74c9ed;
+  background: rgba(42, 139, 190, 0.14);
+}
+@media (max-width: 560px) {
+  .battle-loadout-row .battle-gems {
+    grid-template-columns: 1fr;
+  }
+  .battle-gems > .gem-entry {
+    grid-template-columns: 38px minmax(0, 1fr);
+  }
+}
 
 /* Equipment-specific summary text. */
-.equipment-copy strong{display:flex;align-items:center;gap:4px}
-.equipment-copy .honing-level{flex:0 0 auto;color:#f1a34d;font-size:12px;font-style:normal}
-.equipment-copy>span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.battle-equipment.ancient .equipment-copy .honing-level{color:#e6bd67}
+.equipment-copy strong {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.equipment-copy .honing-level {
+  flex: 0 0 auto;
+  color: #f1a34d;
+  font-size: 12px;
+  font-style: normal;
+}
+.equipment-copy > span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.battle-equipment.ancient .equipment-copy .honing-level {
+  color: #e6bd67;
+}
 
 /* Accessory rows expose quality, enlightenment and polishing options. */
-.battle-equipment.accessory-row{grid-template-columns:46px minmax(74px,.82fr) minmax(105px,1.18fr);gap:7px;min-height:68px;padding:6px}
-.accessory-copy strong{font-size:12px}
-.accessory-meta{display:flex;align-items:center;gap:5px;margin-top:5px}
-.accessory-meta .quality{width:25px;height:16px;font-size:12px}
-.equipment-copy .accessory-meta>span{display:block;margin:0;color:#9ba5ba;font-size:12px;white-space:nowrap}
-.accessory-effect-list{display:flex;flex-direction:column;gap:3px;min-width:0}
-.accessory-effect-list>div{display:grid;grid-template-columns:14px minmax(0,1fr) auto;align-items:center;gap:3px;min-width:0}
-.accessory-effect-list i{width:13px;height:13px;display:grid;place-items:center;border-radius:2px;color:#fff;font-size:12px;font-style:normal}
-.accessory-effect-list i.high{background:#d59b27}.accessory-effect-list i.middle{background:#8057d2}.accessory-effect-list i.low{background:#299dd5}
-.accessory-effect-list span{min-width:0;color:#aab1c2;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.accessory-effect-list b{font-size:12px;font-weight:700;white-space:nowrap}
-.accessory-effect-list i.high~b{color:#e7bd54}.accessory-effect-list i.middle~b{color:#a884ed}.accessory-effect-list i.low~b{color:#55bcec}
-.accessory-effect-list small{color:var(--muted);font-size:12px}
+.battle-equipment.accessory-row {
+  grid-template-columns: 46px minmax(74px, 0.82fr) minmax(105px, 1.18fr);
+  gap: 7px;
+  min-height: 68px;
+  padding: 6px;
+}
+.accessory-copy strong {
+  font-size: 12px;
+}
+.accessory-meta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 5px;
+}
+.accessory-meta .quality {
+  width: 25px;
+  height: 16px;
+  font-size: 12px;
+}
+.equipment-copy .accessory-meta > span {
+  display: block;
+  margin: 0;
+  color: #9ba5ba;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.accessory-effect-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.accessory-effect-list > div {
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 3px;
+  min-width: 0;
+}
+.accessory-effect-list i {
+  width: 13px;
+  height: 13px;
+  display: grid;
+  place-items: center;
+  border-radius: 2px;
+  color: #fff;
+  font-size: 12px;
+  font-style: normal;
+}
+.accessory-effect-list i.high {
+  background: #d59b27;
+}
+.accessory-effect-list i.middle {
+  background: #8057d2;
+}
+.accessory-effect-list i.low {
+  background: #299dd5;
+}
+.accessory-effect-list span {
+  min-width: 0;
+  color: #aab1c2;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.accessory-effect-list b {
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.accessory-effect-list i.high ~ b {
+  color: #e7bd54;
+}
+.accessory-effect-list i.middle ~ b {
+  color: #a884ed;
+}
+.accessory-effect-list i.low ~ b {
+  color: #55bcec;
+}
+.accessory-effect-list small {
+  color: var(--muted);
+  font-size: 12px;
+}
 
 /* Dense equipment list matching the in-game information hierarchy. */
-.equipment-board .battle-equipment{border-width:0;border-radius:0;background:transparent;padding:4px 0}
-.equipment-board .battle-equipment+.battle-equipment{border-top:1px solid rgba(128,137,158,.1)}
-.equipment-badges{display:flex;align-items:center;gap:4px;margin-top:5px}
-.equipment-badges .quality{width:25px;height:16px;font-size:12px}
-.equipment-copy .equipment-badges>span{display:grid;place-items:center;height:16px;margin:0;padding:0 5px;border-radius:3px;background:#343a49;color:#bac1d1;font-size:12px}
-.stone-row{grid-template-columns:46px minmax(70px,.8fr) minmax(95px,1.2fr)!important;gap:7px!important;min-height:66px}
-.stone-total{display:inline-grid;place-items:center;margin-top:5px;padding:3px 6px;border-radius:3px;background:#343a49;color:#d0d5df;font-size:12px;font-weight:700}
-.stone-effect-list{display:flex;flex-direction:column;gap:3px;min-width:0}
-.stone-effect-list>div{display:grid;grid-template-columns:13px minmax(0,1fr);align-items:center;gap:4px}
-.stone-effect-list i{width:13px;height:13px;display:grid;place-items:center;border-radius:2px;background:#7956d0;color:#fff;font-size:12px;font-style:normal}
-.stone-effect-list span{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.stone-effect-list .harmful i{background:#646b7b}.stone-effect-list .harmful span{color:var(--muted)}
-.orb-row .equipment-copy strong{color:#b973e0}
+.equipment-board .battle-equipment {
+  border-width: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 4px 0;
+}
+.equipment-board .battle-equipment + .battle-equipment {
+  border-top: 1px solid rgba(128, 137, 158, 0.1);
+}
+.equipment-badges {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 5px;
+}
+.equipment-badges .quality {
+  width: 25px;
+  height: 16px;
+  font-size: 12px;
+}
+.equipment-copy .equipment-badges > span {
+  display: grid;
+  place-items: center;
+  height: 16px;
+  margin: 0;
+  padding: 0 5px;
+  border-radius: 3px;
+  background: #343a49;
+  color: #bac1d1;
+  font-size: 12px;
+}
+.stone-row {
+  grid-template-columns: 46px minmax(70px, 0.8fr) minmax(95px, 1.2fr) !important;
+  gap: 7px !important;
+  min-height: 66px;
+}
+.stone-total {
+  display: inline-grid;
+  place-items: center;
+  margin-top: 5px;
+  padding: 3px 6px;
+  border-radius: 3px;
+  background: #343a49;
+  color: #d0d5df;
+  font-size: 12px;
+  font-weight: 700;
+}
+.stone-effect-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.stone-effect-list > div {
+  display: grid;
+  grid-template-columns: 13px minmax(0, 1fr);
+  align-items: center;
+  gap: 4px;
+}
+.stone-effect-list i {
+  width: 13px;
+  height: 13px;
+  display: grid;
+  place-items: center;
+  border-radius: 2px;
+  background: #7956d0;
+  color: #fff;
+  font-size: 12px;
+  font-style: normal;
+}
+.stone-effect-list span {
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.stone-effect-list .harmful i {
+  background: #646b7b;
+}
+.stone-effect-list .harmful span {
+  color: var(--muted);
+}
+.orb-row .equipment-copy strong {
+  color: #b973e0;
+}
 
 /* Slightly larger typography across the combat information dashboard. */
-.battle-heading h2{font-size:16px}.battle-heading>span{font-size:12px}
-.equipment-copy strong{font-size:12px}.equipment-copy>span{font-size:12px}
-.equipment-copy .honing-level{font-size:12px}
-.accessory-copy strong{font-size:12px}
-.equipment-copy .accessory-meta>span,.accessory-effect-list span,.accessory-effect-list b,.accessory-effect-list small{font-size:12px}
-.accessory-effect-list i,.stone-effect-list i{font-size:12px}
-.stone-effect-list span{font-size:12px}.stone-total{font-size:12px}
-.gem-skill-line strong{font-size:12px}.gem-effect-badge,.gem-effect-badge em{font-size:12px}
-.basic-stats span,.combat-stats span{font-size:12px}.basic-stats strong{font-size:14px}.combat-stats strong{font-size:15px}
-.battle-build-row .battle-engravings .engraving-row>strong{font-size:12px}.engraving-base,.ability-stone-level{font-size:12px}
-.passive-columns header strong,.passive-columns header span{font-size:12px}.passive-columns article>div b{font-size:12px}.passive-columns article>div small,.passive-columns article>p{font-size:12px}
-.battle-cards strong,.battle-primary-row .battle-cards strong{font-size:12px}.battle-cards span{font-size:12px}.battle-cards i{font-size:12px}
+.battle-heading h2 {
+  font-size: 16px;
+}
+.battle-heading > span {
+  font-size: 12px;
+}
+.equipment-copy strong {
+  font-size: 12px;
+}
+.equipment-copy > span {
+  font-size: 12px;
+}
+.equipment-copy .honing-level {
+  font-size: 12px;
+}
+.accessory-copy strong {
+  font-size: 12px;
+}
+.equipment-copy .accessory-meta > span,
+.accessory-effect-list span,
+.accessory-effect-list b,
+.accessory-effect-list small {
+  font-size: 12px;
+}
+.accessory-effect-list i,
+.stone-effect-list i {
+  font-size: 12px;
+}
+.stone-effect-list span {
+  font-size: 12px;
+}
+.stone-total {
+  font-size: 12px;
+}
+.gem-skill-line strong {
+  font-size: 12px;
+}
+.gem-effect-badge,
+.gem-effect-badge em {
+  font-size: 12px;
+}
+.basic-stats span,
+.combat-stats span {
+  font-size: 12px;
+}
+.basic-stats strong {
+  font-size: 14px;
+}
+.combat-stats strong {
+  font-size: 15px;
+}
+.battle-build-row .battle-engravings .engraving-row > strong {
+  font-size: 12px;
+}
+.engraving-base,
+.ability-stone-level {
+  font-size: 12px;
+}
+.passive-columns header strong,
+.passive-columns header span {
+  font-size: 12px;
+}
+.passive-columns article > div b {
+  font-size: 12px;
+}
+.passive-columns article > div small,
+.passive-columns article > p {
+  font-size: 12px;
+}
+.battle-cards strong,
+.battle-primary-row .battle-cards strong {
+  font-size: 12px;
+}
+.battle-cards span {
+  font-size: 12px;
+}
+.battle-cards i {
+  font-size: 12px;
+}
 
 /* Combat dashboard body copy never drops below 10px. */
-.equipment-copy>span,.equipment-copy .accessory-meta>span{font-size:12px}
-.equipment-copy .honing-level,.accessory-copy strong{font-size:12px}
-.equipment-badges .quality,.accessory-meta .quality{width:29px;height:19px;font-size:12px}
-.equipment-copy .equipment-badges>span{height:19px;font-size:12px}
-.accessory-effect-list span,.accessory-effect-list b,.accessory-effect-list small{font-size:12px}
-.accessory-effect-list i,.stone-effect-list i{width:16px;height:16px;font-size:12px}
-.accessory-effect-list>div{grid-template-columns:17px minmax(0,1fr) auto;gap:4px}
-.stone-effect-list>div{grid-template-columns:17px minmax(0,1fr)}
-.stone-effect-list span,.stone-total{font-size:12px}
-.gem-skill-line strong,.gem-effect-badge,.gem-effect-badge em{font-size:12px}
-.gem-effect-badge{padding:4px 6px}
-.battle-gems .gem-grade-icon b{width:18px;height:18px;font-size:12px}
-.passive-columns article>div small,.passive-columns article>p{font-size:12px;line-height:1.45}
-.battle-cards span,.battle-cards i{font-size:12px}
-.battle-empty{font-size:12px}
+.equipment-copy > span,
+.equipment-copy .accessory-meta > span {
+  font-size: 12px;
+}
+.equipment-copy .honing-level,
+.accessory-copy strong {
+  font-size: 12px;
+}
+.equipment-badges .quality,
+.accessory-meta .quality {
+  width: 29px;
+  height: 19px;
+  font-size: 12px;
+}
+.equipment-copy .equipment-badges > span {
+  height: 19px;
+  font-size: 12px;
+}
+.accessory-effect-list span,
+.accessory-effect-list b,
+.accessory-effect-list small {
+  font-size: 12px;
+}
+.accessory-effect-list i,
+.stone-effect-list i {
+  width: 16px;
+  height: 16px;
+  font-size: 12px;
+}
+.accessory-effect-list > div {
+  grid-template-columns: 17px minmax(0, 1fr) auto;
+  gap: 4px;
+}
+.stone-effect-list > div {
+  grid-template-columns: 17px minmax(0, 1fr);
+}
+.stone-effect-list span,
+.stone-total {
+  font-size: 12px;
+}
+.gem-skill-line strong,
+.gem-effect-badge,
+.gem-effect-badge em {
+  font-size: 12px;
+}
+.gem-effect-badge {
+  padding: 4px 6px;
+}
+.battle-gems .gem-grade-icon b {
+  width: 18px;
+  height: 18px;
+  font-size: 12px;
+}
+.passive-columns article > div small,
+.passive-columns article > p {
+  font-size: 12px;
+  line-height: 1.45;
+}
+.battle-cards span,
+.battle-cards i {
+  font-size: 12px;
+}
+.battle-empty {
+  font-size: 12px;
+}
 
 /* Keep the seven left/right equipment slots on identical horizontal rows. */
-.battle-loadout-row .equipment-columns>div{display:grid;grid-template-rows:repeat(7,76px);gap:0;align-items:stretch}
-.equipment-board .battle-equipment{height:76px;min-height:76px;align-self:stretch}
-.equipment-board .battle-equipment+.battle-equipment{border-top:1px solid rgba(128,137,158,.16)}
+.battle-loadout-row .equipment-columns > div {
+  display: grid;
+  grid-template-rows: repeat(7, 76px);
+  gap: 0;
+  align-items: stretch;
+}
+.equipment-board .battle-equipment {
+  height: 76px;
+  min-height: 76px;
+  align-self: stretch;
+}
+.equipment-board .battle-equipment + .battle-equipment {
+  border-top: 1px solid rgba(128, 137, 158, 0.16);
+}
 
 /* Gem effect labels need to remain clearly readable in the narrow panel. */
-.battle-loadout-row .battle-gems{grid-template-columns:repeat(2,minmax(0,1fr))}
-.gem-skill-line strong{font-size:12px}
-.battle-gems .gem-effect-badge{display:flex;width:100%;justify-content:space-between;margin-top:4px;padding:5px 7px;font-size:12px;line-height:1.25}
-.battle-gems .gem-effect-badge em{font-size:inherit;line-height:inherit}
-.battle-gems>.gem-entry{grid-template-columns:36px minmax(0,1fr);gap:7px;min-height:65px}
-@media(max-width:560px){.battle-loadout-row .equipment-columns>div{grid-template-rows:none;grid-auto-rows:minmax(76px,auto)}.equipment-board .battle-equipment{height:auto;min-height:76px}}
-@media(max-width:560px){.battle-loadout-row .battle-gems{grid-template-columns:1fr}}
+.battle-loadout-row .battle-gems {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.gem-skill-line strong {
+  font-size: 12px;
+}
+.battle-gems .gem-effect-badge {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 4px;
+  padding: 5px 7px;
+  font-size: 12px;
+  line-height: 1.25;
+}
+.battle-gems .gem-effect-badge em {
+  font-size: inherit;
+  line-height: inherit;
+}
+.battle-gems > .gem-entry {
+  grid-template-columns: 36px minmax(0, 1fr);
+  gap: 7px;
+  min-height: 65px;
+}
+@media (max-width: 560px) {
+  .battle-loadout-row .equipment-columns > div {
+    grid-template-rows: none;
+    grid-auto-rows: minmax(76px, auto);
+  }
+  .equipment-board .battle-equipment {
+    height: auto;
+    min-height: 76px;
+  }
+}
+@media (max-width: 560px) {
+  .battle-loadout-row .battle-gems {
+    grid-template-columns: 1fr;
+  }
+}
 
 /* Ark Passive is a simple three-column node list. */
-.passive-columns article{min-width:0}
-.passive-columns .passive-node{display:flex;align-items:center;gap:7px;margin:6px 0}
-.passive-columns .passive-node img,.passive-columns .passive-node svg{flex:0 0 26px;width:26px;height:26px;border-radius:5px}
-.passive-columns .passive-node>span{display:flex;align-items:center;gap:4px;min-width:0;white-space:nowrap}
-.passive-columns .passive-node i{flex:0 0 auto;color:#9ba4b7;font-size:12px;font-style:normal}
-.passive-columns .passive-node strong{min-width:0;font-size:12px;font-weight:500;overflow:hidden;text-overflow:ellipsis}
-.passive-columns .evolution .passive-node strong{color:#d7ad55}
-.passive-columns .enlightenment .passive-node strong{color:#55b9d2}
-.passive-columns .leap .passive-node strong{color:#9bc849}
+.passive-columns article {
+  min-width: 0;
+}
+.passive-columns .passive-node {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 6px 0;
+}
+.passive-columns .passive-node img,
+.passive-columns .passive-node svg {
+  flex: 0 0 26px;
+  width: 26px;
+  height: 26px;
+  border-radius: 5px;
+}
+.passive-columns .passive-node > span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  white-space: nowrap;
+}
+.passive-columns .passive-node i {
+  flex: 0 0 auto;
+  color: #9ba4b7;
+  font-size: 12px;
+  font-style: normal;
+}
+.passive-columns .passive-node strong {
+  min-width: 0;
+  font-size: 12px;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.passive-columns .evolution .passive-node strong {
+  color: #d7ad55;
+}
+.passive-columns .enlightenment .passive-node strong {
+  color: #55b9d2;
+}
+.passive-columns .leap .passive-node strong {
+  color: #9bc849;
+}

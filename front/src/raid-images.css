@@ -25,9 +25,6 @@
   min-width: 0;
 }
 
-.expedition-raid-list section > button {
-  grid-template-columns: 19px 34px minmax(0, 1fr) 14px;
-}
 .expedition-raid-list section > button > img {
   width: 34px;
   height: 27px;

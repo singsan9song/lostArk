@@ -248,6 +248,29 @@
   grid-template-columns: 205px minmax(0, 1fr) 245px;
 }
 .expedition-raid-characters,
+.expedition-raid-list,
+.expedition-raid-config {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+.expedition-raid-characters::-webkit-scrollbar,
+.expedition-raid-list::-webkit-scrollbar,
+.expedition-raid-config::-webkit-scrollbar {
+  width: 8px;
+}
+.expedition-raid-characters::-webkit-scrollbar-track,
+.expedition-raid-list::-webkit-scrollbar-track,
+.expedition-raid-config::-webkit-scrollbar-track {
+  background: transparent;
+}
+.expedition-raid-characters::-webkit-scrollbar-thumb,
+.expedition-raid-list::-webkit-scrollbar-thumb,
+.expedition-raid-config::-webkit-scrollbar-thumb {
+  border: 2px solid var(--surface-2);
+  border-radius: 999px;
+  background: var(--line);
+}
+.expedition-raid-characters,
 .expedition-raid-list {
   min-height: 0;
   overflow: auto;
@@ -460,7 +483,7 @@
 .expedition-raid-list section > button {
   width: 100%;
   display: grid;
-  grid-template-columns: 19px minmax(0, 1fr) 14px;
+  grid-template-columns: 19px 34px minmax(0, 1fr) 14px;
   align-items: center;
   gap: 6px;
   padding: 7px;

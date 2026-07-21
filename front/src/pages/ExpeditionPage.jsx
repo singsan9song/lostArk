@@ -32,6 +32,16 @@ import '../raid-images.css'
 const raids = raidExtraData.categories.flatMap((category) =>
   category.raids.map((raid) => ({ ...raid, categoryName: category.name })),
 )
+const minRequiredLevel = (raid) =>
+  Math.min(
+    ...(raid.difficulties || []).map((difficulty) => Number(difficulty.requiredItemLevel || 0)),
+  )
+const raidCategoriesByLevel = raidExtraData.categories
+  .map((category) => ({
+    ...category,
+    raids: [...category.raids].sort((a, b) => minRequiredLevel(a) - minRequiredLevel(b)),
+  }))
+  .sort((a, b) => minRequiredLevel(a.raids[0]) - minRequiredLevel(b.raids[0]))
 const levelNumber = (value) => Number(String(value || '0').replace(/,/g, '')) || 0
 const formatLevel = (value) =>
   levelNumber(value).toLocaleString('ko-KR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
@@ -317,7 +327,7 @@ function RaidSettingsModal({ group, initialCharacter, settings, save, close }) {
           </main>
           <aside className="expedition-raid-list">
             <h3>레이드 선택</h3>
-            {raidExtraData.categories.map((category) => (
+            {raidCategoriesByLevel.map((category) => (
               <section key={category.id}>
                 <h4>{category.name}</h4>
                 {category.raids.map((raid) => {

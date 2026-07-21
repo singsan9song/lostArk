@@ -14,9 +14,13 @@ export function AuthProvider({ children }) {
       .getCurrentUser()
       .then(async (result) => {
         if (!active || !result.authenticated) return
-        const remote = await lostArkApi.getUserData()
-        applyLocalData({ ...localDataSnapshot(), ...remote })
-        if (active) setUser(result)
+        setUser(result)
+        try {
+          const remote = await lostArkApi.getUserData()
+          if (active) applyLocalData({ ...localDataSnapshot(), ...remote })
+        } catch {
+          // Cloud data failed to load; local data stays as-is and login still succeeds.
+        }
       })
       .catch(() => {})
       .finally(() => {

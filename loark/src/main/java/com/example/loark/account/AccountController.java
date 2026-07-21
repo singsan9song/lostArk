@@ -69,6 +69,7 @@ public class AccountController {
         ArrayNode favoriteRows = objectMapper.createArrayNode();
         favorites.findByDiscordIdOrderBySortOrderAsc(account.getDiscordId()).forEach(favorite -> {
             GameCharacter character = favorite.getCharacter();
+            if (character == null || !gameCharacters.existsById(character.getId())) return;
             ObjectNode row = favoriteRows.addObject();
             row.put("characterName", character.getCharacterName()); row.put("serverName", character.getServerName());
             row.put("className", character.getClassName()); row.put("itemLevel", character.getItemLevel());

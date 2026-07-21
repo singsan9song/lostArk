@@ -135,12 +135,22 @@ function FavoritePopover({
   )
 }
 
-function AccountControl() {
+function AccountControl({
+  open,
+  setOpen,
+  toggleOpen,
+  favorites,
+  favoriteGroups,
+  representativeName,
+  setRepresentative,
+  remove,
+  removeGroup,
+}) {
   const { user, loginUrl, logout, saveToCloud, clearLocalData, clearCloudData } = useAuth()
-  const [open, setOpen] = useState(false)
   const [busy, setBusy] = useState(false)
   const [status, setStatus] = useState('')
   const dialogRef = useRef(null)
+  const close = () => setOpen(false)
 
   const flash = (message) => {
     setStatus(message)
@@ -180,71 +190,92 @@ function AccountControl() {
     }
   }
 
-  if (!user)
-    return (
-      <>
-        <button className="account-button" onClick={() => dialogRef.current?.showModal()}>
-          <LogIn /> 로그인
-        </button>
-        <dialog
-          className="discord-login-dialog"
-          ref={dialogRef}
-          onClick={(event) => {
-            if (event.target === dialogRef.current) dialogRef.current.close()
-          }}
-        >
-          <div className="discord-login-content">
-            <button onClick={() => dialogRef.current?.close()} aria-label="닫기">
-              <X />
-            </button>
-            <span className="discord-logo">
-              <MessageCircle />
-            </span>
-            <h2>Discord로 로그인</h2>
-            <p>
-              즐겨찾기와 원정대 설정을 계정에 안전하게 저장하고
-              <br />
-              다른 기기에서도 그대로 불러올 수 있습니다.
-            </p>
-            <a className="discord-login-link" href={loginUrl}>
-              <MessageCircle /> Discord로 계속하기
-            </a>
-          </div>
-        </dialog>
-      </>
-    )
   return (
     <div className="account-menu">
-      <button className="account-button" onClick={() => setOpen((value) => !value)}>
-        {user.avatarUrl ? <img src={user.avatarUrl} alt="" /> : <MessageCircle />}
-        <span>{user.username}</span>
+      <button className={`account-button ${open ? 'active' : ''}`} onClick={toggleOpen}>
+        {user?.avatarUrl ? (
+          <img src={user.avatarUrl} alt="" />
+        ) : user ? (
+          <MessageCircle />
+        ) : (
+          <Star />
+        )}
+        <span>{user ? user.username : '즐겨찾기'}</span>
+        {favorites.length > 0 && <b>{favorites.length}</b>}
       </button>
       {open && (
         <div className="account-popover">
-          <header>
-            {user.avatarUrl && <img src={user.avatarUrl} alt="" />}
-            <span>
-              <b>{user.username}</b>
-              <small>Discord 연동됨</small>
-            </span>
-          </header>
-          <div className="account-data-actions">
-            <button onClick={handleSave} disabled={busy}>
-              <Save /> 로컬 캐시 저장
-            </button>
-            <button onClick={handleClearLocal} disabled={busy}>
-              <Eraser /> 로컬 캐시 삭제
-            </button>
-            <button className="danger" onClick={handleClearCloud} disabled={busy}>
-              <Trash2 /> 서버 데이터 삭제
-            </button>
-            {status && <small className="account-data-status">{status}</small>}
-          </div>
-          <button onClick={logout}>
-            <LogOut /> 로그아웃
-          </button>
+          {user ? (
+            <header>
+              {user.avatarUrl && <img src={user.avatarUrl} alt="" />}
+              <span>
+                <b>{user.username}</b>
+                <small>Discord 연동됨</small>
+              </span>
+            </header>
+          ) : (
+            <div className="account-login-prompt">
+              <p>Discord로 로그인하면 즐겨찾기를 계정에 저장할 수 있습니다.</p>
+              <button onClick={() => dialogRef.current?.showModal()}>
+                <LogIn /> Discord 로그인
+              </button>
+            </div>
+          )}
+          <FavoritePopover
+            favorites={favorites}
+            favoriteGroups={favoriteGroups}
+            representativeName={representativeName}
+            setRepresentative={setRepresentative}
+            remove={remove}
+            removeGroup={removeGroup}
+            close={close}
+          />
+          {user && (
+            <>
+              <div className="account-data-actions">
+                <button onClick={handleSave} disabled={busy}>
+                  <Save /> 로컬 캐시 저장
+                </button>
+                <button onClick={handleClearLocal} disabled={busy}>
+                  <Eraser /> 로컬 캐시 삭제
+                </button>
+                <button className="danger" onClick={handleClearCloud} disabled={busy}>
+                  <Trash2 /> 서버 데이터 삭제
+                </button>
+                {status && <small className="account-data-status">{status}</small>}
+              </div>
+              <button onClick={logout}>
+                <LogOut /> 로그아웃
+              </button>
+            </>
+          )}
         </div>
       )}
+      <dialog
+        className="discord-login-dialog"
+        ref={dialogRef}
+        onClick={(event) => {
+          if (event.target === dialogRef.current) dialogRef.current.close()
+        }}
+      >
+        <div className="discord-login-content">
+          <button onClick={() => dialogRef.current?.close()} aria-label="닫기">
+            <X />
+          </button>
+          <span className="discord-logo">
+            <MessageCircle />
+          </span>
+          <h2>Discord로 로그인</h2>
+          <p>
+            즐겨찾기와 원정대 설정을 계정에 안전하게 저장하고
+            <br />
+            다른 기기에서도 그대로 불러올 수 있습니다.
+          </p>
+          <a className="discord-login-link" href={loginUrl}>
+            <MessageCircle /> Discord로 계속하기
+          </a>
+        </div>
+      </dialog>
     </div>
   )
 }
@@ -456,29 +487,17 @@ function Header({ light, setLight }) {
             <GoldIcon />
           </label>
           <div className="nav-actions">
-            <div className="favorites-menu">
-              <button
-                className={`favorites-button ${favoritesOpen ? 'active' : ''}`}
-                onClick={toggleFavorites}
-                aria-expanded={favoritesOpen}
-              >
-                <Star />
-                <span>즐겨찾기</span>
-                {favorites.length > 0 && <b>{favorites.length}</b>}
-              </button>
-              {favoritesOpen && (
-                <FavoritePopover
-                  favorites={favorites}
-                  favoriteGroups={favoriteGroups}
-                  representativeName={representativeName}
-                  setRepresentative={setRepresentative}
-                  remove={remove}
-                  removeGroup={removeGroup}
-                  close={() => setFavoritesOpen(false)}
-                />
-              )}
-            </div>
-            <AccountControl />
+            <AccountControl
+              open={favoritesOpen}
+              setOpen={setFavoritesOpen}
+              toggleOpen={toggleFavorites}
+              favorites={favorites}
+              favoriteGroups={favoriteGroups}
+              representativeName={representativeName}
+              setRepresentative={setRepresentative}
+              remove={remove}
+              removeGroup={removeGroup}
+            />
             <button className="icon-button" onClick={() => setLight(!light)} aria-label="테마 변경">
               {light ? <Sun /> : <Moon />}
             </button>

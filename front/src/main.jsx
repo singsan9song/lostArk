@@ -17,6 +17,7 @@ import './favorites.css'
 import './home-dashboard.css'
 import './grade-overrides.css'
 import './theme.css'
+import './item-tooltip.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

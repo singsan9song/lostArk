@@ -110,7 +110,7 @@
   background: var(--surface-2);
   color: var(--text);
   font-size: var(--fs-11);
-  font-weight: 700;
+  font-weight: 500;
   outline: 0;
 }
 .honing-setting-row-top select:focus {
@@ -139,11 +139,46 @@
   background: var(--surface-2);
   color: var(--text);
   font-size: var(--fs-13);
-  font-weight: 700;
+  font-weight: 500;
   outline: 0;
 }
 .honing-stage-field select:focus {
   border-color: rgba(190, 213, 141, 0.7);
+}
+.honing-setting-row-progress {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+  margin-top: 7px;
+}
+.honing-progress-field {
+  min-width: 0;
+}
+.honing-progress-field > span {
+  display: block;
+  margin: 0 0 5px 2px;
+  color: var(--muted);
+  font-size: var(--fs-11);
+}
+.honing-progress-field input {
+  width: 100%;
+  height: 35px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: var(--fs-13);
+  font-weight: 500;
+  outline: 0;
+}
+.honing-progress-field input:focus {
+  border-color: rgba(190, 213, 141, 0.7);
+}
+.honing-progress-field input::placeholder {
+  color: var(--muted);
+  font-weight: 400;
+  font-size: var(--fs-11);
 }
 .honing-calculate {
   width: 100%;
@@ -167,6 +202,49 @@
 }
 .honing-calculate svg {
   width: 17px;
+}
+.honing-calculate:disabled {
+  cursor: not-allowed;
+  filter: none;
+  transform: none;
+  opacity: 0.85;
+}
+.honing-spin {
+  animation: honing-spin-rotate 0.9s linear infinite;
+}
+@keyframes honing-spin-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.honing-calculating-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 40px 20px;
+  color: var(--muted);
+}
+.honing-calculating-card .honing-spin {
+  width: 26px;
+  height: 26px;
+  color: var(--primary);
+}
+.honing-overall-body button b .honing-spin {
+  width: 13px;
+  height: 13px;
+  margin-right: 4px;
+  vertical-align: -2px;
+}
+.honing-overall strong .honing-spin {
+  width: 13px;
+  height: 13px;
+  margin-right: 4px;
+  vertical-align: -1px;
 }
 .honing-results {
   min-width: 0;
@@ -357,12 +435,18 @@
   height: 31px;
   display: grid;
   place-items: center;
+  overflow: hidden;
   border-radius: 8px;
   background: rgba(190, 213, 141, 0.12);
   color: var(--primary);
 }
 .honing-material-grid i svg {
   width: 16px;
+}
+.honing-material-grid i img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .honing-material-grid span {
   min-width: 0;
@@ -469,7 +553,7 @@
   margin-top: 3px;
   font-size: var(--fs-13);
   font-style: normal;
-  font-weight: 700;
+  font-weight: 500;
 }
 .honing-attempt-table {
   border-top: 1px solid var(--line);
@@ -477,39 +561,100 @@
 }
 .honing-attempt-head,
 .honing-attempt-row {
-  min-width: 860px;
+  min-width: 980px;
   display: grid;
-  grid-template-columns: 0.5fr 0.8fr 0.8fr 1.3fr 0.8fr 0.9fr 0.9fr;
+  grid-template-columns: 0.5fr 0.8fr 1.9fr 0.8fr 0.9fr 0.9fr;
   align-items: center;
+}
+.honing-attempt-head.cols-6-eff,
+.honing-attempt-row.cols-6-eff {
+  min-width: 760px;
+  grid-template-columns: 0.5fr 0.8fr 0.9fr 0.9fr 1.1fr 1.1fr;
 }
 .honing-attempt-head {
   min-height: 38px;
   background: var(--surface-2);
   color: var(--muted);
   font-size: var(--fs-11);
-  font-weight: 700;
+  font-weight: 500;
 }
 .honing-attempt-row {
   min-height: 43px;
   border-top: 1px solid var(--line);
   font-size: var(--fs-13);
+  padding: 8px 0;
 }
 .honing-attempt-head span,
-.honing-attempt-row span,
-.honing-attempt-row strong {
+.honing-attempt-row span {
   padding: 0 12px;
 }
-.honing-attempt-row strong {
+.honing-catalyst-usage {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 12px;
+}
+.honing-catalyst-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   color: #e9a969;
   font-size: var(--fs-11);
-  font-weight: 700;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-weight: 500;
   white-space: nowrap;
 }
-.honing-attempt-row strong.honing-unused {
+.honing-catalyst-chip i {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 5px;
+  background: rgba(190, 213, 141, 0.12);
+  overflow: hidden;
+}
+.honing-catalyst-chip i svg {
+  width: 11px;
+  height: 11px;
+  color: var(--primary);
+}
+.honing-catalyst-chip i img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.honing-material-grid i.ancient,
+.honing-catalyst-chip i.ancient {
+  background: linear-gradient(135deg, #3d3325 0%, #dcc999 100%);
+}
+.honing-material-grid i.relic,
+.honing-catalyst-chip i.relic {
+  background: linear-gradient(135deg, #341a09 0%, #a24006 100%);
+}
+.honing-material-grid i.legendary,
+.honing-catalyst-chip i.legendary {
+  background: linear-gradient(135deg, #362003 0%, #9e5f04 100%);
+}
+.honing-material-grid i.epic,
+.honing-catalyst-chip i.epic {
+  background: linear-gradient(135deg, #261331 0%, #480d5d 100%);
+}
+.honing-material-grid i.rare,
+.honing-catalyst-chip i.rare {
+  background: linear-gradient(135deg, #111f2c 0%, #113d5d 100%);
+}
+.honing-material-grid i.uncommon,
+.honing-catalyst-chip i.uncommon {
+  background: linear-gradient(135deg, #18220b 0%, #304911 100%);
+}
+.honing-material-grid i.common,
+.honing-catalyst-chip i.common {
+  background: linear-gradient(135deg, #232323 0%, #575757 100%);
+}
+.honing-catalyst-usage .honing-unused {
   color: var(--muted);
   font-weight: 400;
+  font-size: var(--fs-11);
 }
 .honing-strategy-compare {
   margin-top: 14px;
@@ -552,7 +697,7 @@
   background: var(--surface-2);
   color: var(--muted);
   font-size: var(--fs-11);
-  font-weight: 700;
+  font-weight: 500;
 }
 .honing-strategy-row {
   min-height: 42px;
@@ -565,7 +710,7 @@
 }
 .honing-strategy-row.best {
   background: rgba(190, 213, 141, 0.08);
-  font-weight: 700;
+  font-weight: 500;
 }
 @keyframes honing-reveal {
   from {

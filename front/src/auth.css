@@ -8,7 +8,7 @@
   border-radius: 10px;
   background: var(--surface);
   font-size: var(--fs-13);
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
 }
 .account-button svg {
@@ -159,7 +159,7 @@
   border-radius: 9px;
   background: #5865f2;
   color: #fff;
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
 }
 .account-data-actions button,

@@ -321,7 +321,7 @@
 .history-placeholder > div:last-child strong {
   display: block;
   color: var(--primary-2);
-  font: 700 var(--fs-19) 'Outfit';
+  font: 700 var(--fs-19) 'Loark Gwangju';
   margin: 3px;
 }
 .collectible-grid {
@@ -346,7 +346,7 @@
 }
 .collectible-grid article > strong {
   display: block;
-  font: 700 var(--fs-20) 'Outfit';
+  font: 700 var(--fs-20) 'Loark Gwangju';
   margin: 13px 0 7px;
 }
 .collectible-grid article > strong small {

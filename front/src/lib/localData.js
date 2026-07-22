@@ -1,12 +1,9 @@
+// Calculator settings and home-widget layout/hidden state are local-cache-only —
+// intentionally excluded so they never round-trip through cloud save/restore.
 export const ACCOUNT_STORAGE_KEYS = [
   'loark-favorite-characters',
   'loark-representative-character',
   'loark-expedition-raid-settings',
-  'loark-home-layout',
-  'loark-home-hidden-widgets',
-  'loark.includePheonCost',
-  'loark.crystalGoldPer100',
-  'loark.abilityStoneConfiguration',
   'loark-theme',
 ]
 

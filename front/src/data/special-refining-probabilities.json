@@ -1,0 +1,23 @@
+{
+  "grades": [
+    { "grade": "T4 1590 (4티어)", "stoneName": "순환 돌파석" },
+    { "grade": "T4 1730 (상위 고대)", "stoneName": "전이 돌파석" }
+  ],
+  "stages": [
+    { "stage": 11, "probability": 10, "armorCost": 12, "weaponCost": 30 },
+    { "stage": 12, "probability": 10, "armorCost": 12, "weaponCost": 30 },
+    { "stage": 13, "probability": 5, "armorCost": 16, "weaponCost": 40 },
+    { "stage": 14, "probability": 5, "armorCost": 16, "weaponCost": 40 },
+    { "stage": 15, "probability": 4, "armorCost": 16, "weaponCost": 40 },
+    { "stage": 16, "probability": 4, "armorCost": 16, "weaponCost": 40 },
+    { "stage": 17, "probability": 3, "armorCost": 20, "weaponCost": 50 },
+    { "stage": 18, "probability": 3, "armorCost": 20, "weaponCost": 50 },
+    { "stage": 19, "probability": 3, "armorCost": 20, "weaponCost": 50 },
+    { "stage": 20, "probability": 1.5, "armorCost": 20, "weaponCost": 50 },
+    { "stage": 21, "probability": 1.5, "armorCost": 20, "weaponCost": 50 },
+    { "stage": 22, "probability": 1, "armorCost": 20, "weaponCost": 50 },
+    { "stage": 23, "probability": 1, "armorCost": 20, "weaponCost": 50 },
+    { "stage": 24, "probability": 0.5, "armorCost": 20, "weaponCost": 50 },
+    { "stage": 25, "probability": 0.5, "armorCost": 20, "weaponCost": 50 }
+  ]
+}

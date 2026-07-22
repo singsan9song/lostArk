@@ -35,9 +35,10 @@ import '../auth.css'
 
 const links = [['/community', '커뮤니티']]
 const honingLinks = [
-  ['/honing/optimizer', '재련 최적화', Anvil],
-  ['/honing/special', '특수 재련 효율', Sparkles],
-  ['/honing/support', '보조 재련 효율', Boxes],
+  ['/honing-optimizer', '재련 최적화', Anvil],
+  ['/advanced-honing-optimizer', '상급 재련 최적화', Crown],
+  ['/integrated-honing-optimizer', '통합 재련 최적화', Boxes],
+  ['/special-honing', '특수 재련 효율', Sparkles],
 ]
 const toolLinks = [
   ['/hell-reward', '낙원 보상 효율', Skull],
@@ -420,7 +421,9 @@ function Header({ light, setLight }) {
             </div>
             <div className="tool-nav-menu">
               <button
-                className={location.pathname.startsWith('/honing') ? 'active' : ''}
+                className={
+                  honingLinks.some(([path]) => path === location.pathname) ? 'active' : ''
+                }
                 onClick={toggleHoning}
               >
                 재련 <ChevronDown />

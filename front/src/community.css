@@ -18,7 +18,7 @@
   border-radius: 10px;
   background: var(--surface);
   color: var(--muted);
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
 }
 .community-category-tabs button.selected {
@@ -49,7 +49,7 @@
 .community-sort-tabs button.selected {
   border-color: var(--primary);
   color: var(--primary);
-  font-weight: 700;
+  font-weight: 500;
 }
 .community-search {
   display: flex;
@@ -198,7 +198,7 @@
   border-color: var(--primary);
   background: var(--primary);
   color: #18200f;
-  font-weight: 700;
+  font-weight: 500;
 }
 .community-pagination button:disabled {
   opacity: 0.4;
@@ -214,7 +214,7 @@
   border-radius: 10px;
   background: var(--primary);
   color: #18200f;
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
 }
 .community-write-button svg {
@@ -310,7 +310,7 @@
   border-radius: 9px;
   background: var(--surface-2);
   color: var(--text);
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
 }
 .community-write-form footer button.primary {
@@ -351,7 +351,7 @@
   background: rgba(190, 213, 141, 0.12);
   color: var(--primary);
   font-size: var(--fs-11);
-  font-weight: 700;
+  font-weight: 500;
 }
 .community-post-detail h1 {
   margin: 10px 0;
@@ -410,7 +410,7 @@
   border-radius: 999px;
   background: var(--surface-2);
   color: var(--muted);
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
 }
 .community-like-button svg,
@@ -546,7 +546,7 @@
 }
 .community-comment-login a {
   color: var(--primary);
-  font-weight: 700;
+  font-weight: 500;
 }
 
 @media (max-width: 700px) {

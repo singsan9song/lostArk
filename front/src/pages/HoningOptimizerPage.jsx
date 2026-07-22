@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   Anvil,
   Award,
@@ -7,6 +7,7 @@ import {
   Coins,
   Gem,
   Layers3,
+  Loader2,
   PackageOpen,
   ShieldCheck,
   Sparkles,
@@ -16,11 +17,16 @@ import { lostArkApi } from '../lib/api'
 import {
   ALL_MATERIAL_NAMES,
   GRADE_OPTIONS,
-  compareStrategies,
+  currentStagesForGrade,
+  currentStagesForGradeAnyType,
   findRecord,
-  simulateRange,
   stagesForGrade,
+  stagesForGradeAnyType,
 } from '../lib/honingCalculator'
+import { marketNameFor, unitPriceOf } from '../lib/honingPricing'
+import { HONING_TIMEOUT_MS, runHoningCalculation } from '../lib/honingWorkerClient'
+import singleCoinData from '../data/single-coin.json'
+import paradiseData from '../data/paradise-season3.json'
 import '../honing-optimizer.css'
 
 const equipment = [
@@ -33,38 +39,61 @@ const equipment = [
 ]
 
 const DEFAULT_GRADE = 'T3 1525 (상위 고대)'
-const GENERIC_STAGES = Array.from({ length: 26 }, (_, index) => index)
 const initialSettings = Object.fromEntries(
   equipment.map((item) => [
     item.id,
-    { grade: DEFAULT_GRADE, current: 10, target: item.id === 'chest' ? 12 : 10 },
+    { grade: DEFAULT_GRADE, current: 10, target: 10, startProbability: '', startEnergy: '' },
   ]),
 )
 
-// Most of these material names are bound and have no market listing; 명예의 파편 is only
-// tradeable in its bundled form. Anything that doesn't resolve to a price is excluded from
-// the optimizer's choices (never assumed free) and shown as quantity-only in the UI.
-const shardConversions = {
-  '명예의 파편': { marketName: '명예의 파편 주머니(대)', contents: 1500 },
-}
-const marketNameFor = (name) => shardConversions[name]?.marketName || name
-const marketAmountFor = (name, count) =>
-  shardConversions[name] ? count / shardConversions[name].contents : count
-const unitPriceOf = (name, prices) => {
-  if (name === '골드') return 1
-  const market = prices[marketNameFor(name)]
-  if (!(market?.currentMinPrice > 0)) return null
-  return (
-    (market.currentMinPrice / Math.max(1, Number(market.bundleCount) || 1)) *
-    marketAmountFor(name, 1)
-  )
-}
 const iconFor = (name) => {
   if (name === '골드') return Coins
   if (name.includes('돌파') || name.includes('명예')) return Gem
   if (name.includes('수호')) return ShieldCheck
   if (name.includes('융화')) return PackageOpen
   return Sparkles
+}
+
+// Same static item image/grade lookup other pages (RaidExtraPage) use, so honing materials
+// show the real game icon and a grade-tinted background instead of a generic lucide icon.
+const collectItemMeta = (value, map = new Map()) => {
+  if (Array.isArray(value)) value.forEach((item) => collectItemMeta(item, map))
+  else if (value && typeof value === 'object') {
+    if (value.name && (value.image || value.grade))
+      map.set(value.name, { image: value.image, grade: value.grade })
+    if (value.item && (value.image || value.grade))
+      map.set(value.item, { image: value.image, grade: value.grade })
+    Object.values(value).forEach((item) => collectItemMeta(item, map))
+  }
+  return map
+}
+const staticItemMeta = collectItemMeta([singleCoinData, paradiseData])
+const metaOverrides = {
+  골드: { image: '/images/rewards/money_4.png', grade: '일반' },
+  '명예의 파편': { image: '/images/rewards/money_13.png', grade: '일반' },
+}
+const gradeClass = (grade) =>
+  ({
+    고대: 'ancient',
+    유물: 'relic',
+    전설: 'legendary',
+    영웅: 'epic',
+    희귀: 'rare',
+    고급: 'uncommon',
+    일반: 'common',
+  })[grade] || ''
+const metaFor = (name, prices) => {
+  const market = prices[marketNameFor(name)]
+  const hasOverride = Object.prototype.hasOwnProperty.call(metaOverrides, name)
+  const override = metaOverrides[name]
+  const staticMeta = staticItemMeta.get(name)
+  return {
+    // An explicit override always wins for the image, even when it's null — that's how an
+    // item with no real icon yet (명예의 파편) stays blank instead of falling back to a
+    // market icon that would show the wrong art (e.g. the pouch's icon).
+    image: hasOverride ? override.image : staticMeta?.image || market?.icon || null,
+    grade: override?.grade || staticMeta?.grade || market?.grade || null,
+  }
 }
 
 const number = (value) => Number(value || 0).toLocaleString('ko-KR', { maximumFractionDigits: 1 })
@@ -105,6 +134,7 @@ export default function HoningOptimizerPage() {
 
   const supportState = { strongholdResearch, growthSupport }
   const getUnitPrice = (name) => unitPriceOf(name, marketPrices)
+  const getMeta = (name) => metaFor(name, marketPrices)
 
   // Prices have to be loaded *before* simulating, not after — the optimizer needs catalyst
   // prices to decide what to use, not just to total up a bill afterward. Fetches every
@@ -132,32 +162,77 @@ export default function HoningOptimizerPage() {
     }
   }, [])
 
-  const simulations = useMemo(() => {
-    if (!calculated || !pricesReady) return {}
-    return Object.fromEntries(
-      equipment
-        .filter((item) => calculated[item.id].target > calculated[item.id].current)
-        .map((item) => {
-          const setting = calculated[item.id]
-          return [
-            item.id,
-            simulateRange({
-              equipmentType: item.type,
-              grade: setting.grade,
-              currentStage: setting.current,
-              targetStage: setting.target,
-              supportState,
-              getUnitPrice,
-            }),
-          ]
-        }),
+  const [simulations, setSimulations] = useState({})
+  const [calculatingIds, setCalculatingIds] = useState(() => new Set())
+  const [timedOutIds, setTimedOutIds] = useState(() => new Set())
+  const runIdRef = useRef(0)
+
+  // Runs each equipment's calculation in its own Web Worker so the UI thread never blocks —
+  // the "계산 중" spinner keeps animating for real instead of just freezing along with a
+  // synchronous computation. If a single equipment's calculation runs past HONING_TIMEOUT_MS
+  // its worker is killed and that item is flagged as timed out (no backend fallback yet — see
+  // the note on this page's PR/plan — so for now a timeout just stops and tells the user).
+  useEffect(() => {
+    setSimulations({})
+    setTimedOutIds(new Set())
+    if (!calculated || !pricesReady) {
+      setCalculatingIds(new Set())
+      return
+    }
+
+    const runId = ++runIdRef.current
+    const itemsToRun = equipment.filter(
+      (item) => calculated[item.id].target > calculated[item.id].current,
     )
+    setCalculatingIds(new Set(itemsToRun.map((item) => item.id)))
+
+    const handles = itemsToRun.map((item) => {
+      const setting = calculated[item.id]
+      const { promise, cancel } = runHoningCalculation({
+        equipmentType: item.type,
+        grade: setting.grade,
+        currentStage: setting.current,
+        targetStage: setting.target,
+        supportState,
+        marketPrices,
+        startProbability: setting.startProbability,
+        startEnergy: setting.startEnergy,
+      })
+      promise
+        .then((result) => {
+          if (runIdRef.current !== runId) return
+          setSimulations((previous) => ({ ...previous, [item.id]: result }))
+        })
+        .catch((error) => {
+          if (runIdRef.current !== runId) return
+          if (error.message === 'TIMEOUT') {
+            setTimedOutIds((previous) => new Set(previous).add(item.id))
+          }
+        })
+        .finally(() => {
+          if (runIdRef.current !== runId) return
+          setCalculatingIds((previous) => {
+            const next = new Set(previous)
+            next.delete(item.id)
+            return next
+          })
+        })
+      return cancel
+    })
+
+    return () => {
+      handles.forEach((cancel) => cancel())
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [calculated, pricesReady, strongholdResearch, growthSupport, marketPrices])
 
+  const isCalculating = calculatingIds.size > 0
   const resultItems = equipment.filter((item) => simulations[item.id])
+  const visibleItems = equipment.filter(
+    (item) => simulations[item.id] || calculatingIds.has(item.id) || timedOutIds.has(item.id),
+  )
   const selectedItem =
-    resultItems.find((item) => item.id === activeEquipment) || resultItems[0] || null
+    visibleItems.find((item) => item.id === activeEquipment) || visibleItems[0] || null
   const selectedSimulation = selectedItem ? simulations[selectedItem.id] : null
   const selectedSetting = selectedItem ? calculated[selectedItem.id] : null
 
@@ -168,8 +243,28 @@ export default function HoningOptimizerPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSimulation])
 
+  const clampToOptions = (value, options) =>
+    !options.length || value === '' ? value : Math.min(options[options.length - 1], Math.max(options[0], value))
+
   const updateSetting = (id, key, value) => {
-    setDraft((previous) => ({ ...previous, [id]: { ...previous[id], [key]: value } }))
+    setDraft((previous) => {
+      const next = { ...previous[id], [key]: value }
+      if (key === 'grade') {
+        const type = equipment.find((item) => item.id === id).type
+        next.current = clampToOptions(next.current, currentStagesForGrade(type, value))
+        next.target = clampToOptions(next.target, stagesForGrade(type, value))
+      }
+      return { ...previous, [id]: next }
+    })
+  }
+
+  // The stage the user is currently mid-attempt on is "current + 1" — its attempt-1 probability
+  // bounds how high/low a manually-entered starting probability can be (rawBaseProbability
+  // never goes below the fresh value or above double it).
+  const progressBoundsFor = (item, setting) => {
+    const record = findRecord(item.type, setting.grade, setting.current + 1, supportState)
+    if (!record) return null
+    return { min: record.probability.total, max: record.probability.total * 2 }
   }
 
   const applyBulk = (key, value) => {
@@ -179,7 +274,14 @@ export default function HoningOptimizerPage() {
     if (value === '') return
     setDraft((previous) =>
       Object.fromEntries(
-        equipment.map((item) => [item.id, { ...previous[item.id], [key]: value }]),
+        equipment.map((item) => {
+          const next = { ...previous[item.id], [key]: value }
+          if (key === 'grade') {
+            next.current = clampToOptions(next.current, currentStagesForGrade(item.type, value))
+            next.target = clampToOptions(next.target, stagesForGrade(item.type, value))
+          }
+          return [item.id, next]
+        }),
       ),
     )
   }
@@ -188,7 +290,20 @@ export default function HoningOptimizerPage() {
     const normalized = Object.fromEntries(
       equipment.map((item) => {
         const setting = draft[item.id]
-        return [item.id, { ...setting, target: Math.max(setting.current, setting.target) }]
+        const target = Math.max(setting.current, setting.target)
+        const bounds = progressBoundsFor(item, { ...setting, target })
+        const rawStartProbability =
+          setting.startProbability === '' ? null : Number(setting.startProbability)
+        const startProbability =
+          bounds && rawStartProbability !== null && !Number.isNaN(rawStartProbability)
+            ? Math.min(bounds.max, Math.max(bounds.min, rawStartProbability))
+            : null
+        const rawStartEnergy = setting.startEnergy === '' ? null : Number(setting.startEnergy)
+        const startEnergy =
+          rawStartEnergy !== null && !Number.isNaN(rawStartEnergy)
+            ? Math.min(100, Math.max(0, rawStartEnergy))
+            : null
+        return [item.id, { ...setting, target, startProbability, startEnergy }]
       }),
     )
     setCalculated(normalized)
@@ -199,21 +314,8 @@ export default function HoningOptimizerPage() {
   }
 
   const activeStep = selectedSimulation?.steps.find((step) => step.fromStage === activeSegment)
-  const displayRows = activeStep
-    ? activeStep.attemptRows.length <= 10
-      ? activeStep.attemptRows
-      : [
-          ...activeStep.attemptRows.slice(0, 9),
-          activeStep.attemptRows[activeStep.attemptRows.length - 1],
-        ]
-    : []
-  const truncated = activeStep ? activeStep.attemptRows.length > 10 : false
-
-  const activeRecord =
-    selectedItem && selectedSetting && activeStep
-      ? findRecord(selectedItem.type, selectedSetting.grade, activeStep.toStage, supportState)
-      : null
-  const strategyComparison = activeRecord ? compareStrategies(activeRecord, getUnitPrice) : []
+  const displayRows = activeStep ? activeStep.attemptRows : []
+  const strategyComparison = activeStep?.strategies || []
 
   return (
     <main className="honing-optimizer-page page-content">
@@ -244,7 +346,7 @@ export default function HoningOptimizerPage() {
                 checked={strongholdResearch}
                 onChange={(event) => setStrongholdResearch(event.target.checked)}
               />{' '}
-              군령 재련 지원
+              영지성장 지원
             </label>
             <label>
               <input
@@ -252,7 +354,7 @@ export default function HoningOptimizerPage() {
                 checked={growthSupport}
                 onChange={(event) => setGrowthSupport(event.target.checked)}
               />{' '}
-              재련 성장 지원
+              재련성장 지원
             </label>
           </div>
 
@@ -275,13 +377,13 @@ export default function HoningOptimizerPage() {
                 <StageSelect
                   label="현재"
                   value={bulkCurrent}
-                  options={GENERIC_STAGES}
+                  options={currentStagesForGradeAnyType(bulkGrade)}
                   onChange={(value) => applyBulk('current', value)}
                 />
                 <StageSelect
                   label="목표"
                   value={bulkTarget}
-                  options={GENERIC_STAGES}
+                  options={stagesForGradeAnyType(bulkGrade)}
                   allowEmpty
                   onChange={(value) => applyBulk('target', value)}
                 />
@@ -306,7 +408,7 @@ export default function HoningOptimizerPage() {
                   <StageSelect
                     label="현재"
                     value={draft[item.id].current}
-                    options={GENERIC_STAGES}
+                    options={currentStagesForGrade(item.type, draft[item.id].grade)}
                     onChange={(value) => updateSetting(item.id, 'current', value)}
                   />
                   <StageSelect
@@ -316,6 +418,38 @@ export default function HoningOptimizerPage() {
                     onChange={(value) => updateSetting(item.id, 'target', value)}
                   />
                 </div>
+                <div className="honing-setting-row-progress">
+                  <label className="honing-progress-field">
+                    <span>
+                      현재 확률(%)
+                      {(() => {
+                        const bounds = progressBoundsFor(item, draft[item.id])
+                        return bounds ? ` · 최대 ${number(bounds.max)}%` : ''
+                      })()}
+                    </span>
+                    <input
+                      type="number"
+                      inputMode="decimal"
+                      placeholder="하다 만 강화면 입력"
+                      value={draft[item.id].startProbability}
+                      onChange={(event) =>
+                        updateSetting(item.id, 'startProbability', event.target.value)
+                      }
+                    />
+                  </label>
+                  <label className="honing-progress-field">
+                    <span>현재 장인의 기운(%)</span>
+                    <input
+                      type="number"
+                      inputMode="decimal"
+                      placeholder="0"
+                      value={draft[item.id].startEnergy}
+                      onChange={(event) =>
+                        updateSetting(item.id, 'startEnergy', event.target.value)
+                      }
+                    />
+                  </label>
+                </div>
               </div>
             ))}
           </div>
@@ -324,9 +458,17 @@ export default function HoningOptimizerPage() {
             className="honing-calculate"
             type="button"
             onClick={calculate}
-            disabled={!pricesReady}
+            disabled={!pricesReady || isCalculating}
           >
-            <Anvil /> {pricesReady ? '계산' : '시세 불러오는 중…'}
+            {isCalculating ? (
+              <>
+                <Loader2 className="honing-spin" /> 계산 중…
+              </>
+            ) : (
+              <>
+                <Anvil /> {pricesReady ? '계산' : '시세 불러오는 중…'}
+              </>
+            )}
           </button>
         </aside>
 
@@ -347,29 +489,61 @@ export default function HoningOptimizerPage() {
                 <span>
                   <Layers3 /> 전체 계산 결과
                 </span>
-                <strong>{resultItems.length}개 장비</strong>
+                <strong>
+                  {isCalculating && <Loader2 className="honing-spin" />}
+                  {resultItems.length}개 장비
+                </strong>
                 {overallOpen ? <ChevronUp /> : <ChevronDown />}
               </button>
 
               <div className={`honing-overall-body panel ${overallOpen ? 'open' : ''}`}>
-                {resultItems.length ? (
-                  resultItems.map((item) => (
-                    <button
-                      type="button"
-                      key={item.id}
-                      className={selectedItem?.id === item.id ? 'active' : ''}
-                      onClick={() => setActiveEquipment(item.id)}
-                    >
-                      <span>{item.name}</span>
-                      <b>
-                        {calculated[item.id].current}강 → {calculated[item.id].target}강
-                      </b>
-                    </button>
-                  ))
+                {visibleItems.length ? (
+                  visibleItems.map((item) => {
+                    const pending = calculatingIds.has(item.id) && !simulations[item.id]
+                    const timedOut = timedOutIds.has(item.id) && !simulations[item.id]
+                    return (
+                      <button
+                        type="button"
+                        key={item.id}
+                        className={selectedItem?.id === item.id ? 'active' : ''}
+                        disabled={pending}
+                        onClick={() => setActiveEquipment(item.id)}
+                      >
+                        <span>{item.name}</span>
+                        {pending ? (
+                          <b>
+                            <Loader2 className="honing-spin" /> 계산 중…
+                          </b>
+                        ) : timedOut ? (
+                          <b>시간 초과</b>
+                        ) : (
+                          <b>
+                            {calculated[item.id].current}강 → {calculated[item.id].target}강
+                          </b>
+                        )}
+                      </button>
+                    )
+                  })
                 ) : (
                   <p>목표 단계가 현재 단계보다 높은 장비를 설정해 주세요.</p>
                 )}
               </div>
+
+              {selectedItem && calculatingIds.has(selectedItem.id) && !selectedSimulation && (
+                <div className="honing-result-card panel honing-calculating-card">
+                  <Loader2 className="honing-spin" />
+                  <p>{selectedItem.name} 최적화를 계산하고 있습니다…</p>
+                </div>
+              )}
+
+              {selectedItem && timedOutIds.has(selectedItem.id) && !selectedSimulation && (
+                <div className="honing-result-card panel">
+                  <p className="honing-missing-note">
+                    {selectedItem.name} 계산이 {HONING_TIMEOUT_MS / 1000}초를 넘어 중단되었습니다.
+                    구간을 줄이거나 다시 시도해 주세요.
+                  </p>
+                </div>
+              )}
 
               {selectedItem && selectedSimulation && (
                 <article className="honing-result-card panel">
@@ -416,11 +590,12 @@ export default function HoningOptimizerPage() {
                   <div className="honing-material-grid">
                     {selectedSimulation.materials.map(({ name, expectedCount }) => {
                       const Icon = iconFor(name)
+                      const meta = getMeta(name)
                       const price = getUnitPrice(name)
                       return (
                         <div key={name}>
-                          <i>
-                            <Icon />
+                          <i className={gradeClass(meta.grade)}>
+                            {meta.image ? <img src={meta.image} alt="" /> : <Icon />}
                           </i>
                           <span>
                             <small>{name}</small>
@@ -484,29 +659,34 @@ export default function HoningOptimizerPage() {
                       <div className="honing-attempt-table">
                         <div className="honing-attempt-head">
                           <span>시도</span>
-                          <span>도달 확률</span>
                           <span>기본 확률</span>
                           <span>보조 재료</span>
                           <span>최종 확률</span>
                           <span>장인의 기운</span>
                           <span>시도 비용</span>
                         </div>
-                        {displayRows.map((row, index) => (
+                        {displayRows.map((row) => (
                           <div className="honing-attempt-row" key={row.attempt}>
-                            <span>
-                              {truncated && index === displayRows.length - 1
-                                ? '…'
-                                : `${row.attempt}회`}
-                            </span>
-                            <span>{percent(row.reachProbability * 100)}%</span>
+                            <span>{row.attempt}회</span>
                             <span>{percent(row.rawBase)}%</span>
-                            <strong className={row.catalystUsage.length ? '' : 'honing-unused'}>
-                              {row.catalystUsage.length
-                                ? row.catalystUsage
-                                    .map((item) => `${item.name} x${item.count}`)
-                                    .join(', ')
-                                : '미사용'}
-                            </strong>
+                            <div className="honing-catalyst-usage">
+                              {row.catalystUsage.length ? (
+                                row.catalystUsage.map((item) => {
+                                  const Icon = iconFor(item.name)
+                                  const meta = getMeta(item.name)
+                                  return (
+                                    <span className="honing-catalyst-chip" key={item.name}>
+                                      <i className={gradeClass(meta.grade)}>
+                                        {meta.image ? <img src={meta.image} alt="" /> : <Icon />}
+                                      </i>
+                                      {item.name} x{item.count}
+                                    </span>
+                                  )
+                                })
+                              ) : (
+                                <span className="honing-unused">미사용</span>
+                              )}
+                            </div>
                             <span>{percent(row.finalProbability)}%</span>
                             <span>{percent(row.energyBefore)}%</span>
                             <span>

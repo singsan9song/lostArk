@@ -191,7 +191,7 @@ body.light .hell-reward-details {
 }
 .hell-reward-details .detail-values > b {
   color: #5284f5;
-  font: 800 var(--fs-13) 'Outfit';
+  font: 800 var(--fs-13) 'Loark Gwangju';
 }
 .hell-reward-icon.ancient {
   padding: 2px;
@@ -348,7 +348,7 @@ body.light .hell-reward-details {
   background: var(--surface);
   color: var(--muted);
   font-size: var(--fs-13);
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
 }
 .hell-reward-options button:hover {
@@ -373,7 +373,7 @@ body.light .hell-reward-details {
   background: var(--surface-2);
   color: var(--muted);
   font-size: var(--fs-13);
-  font-weight: 700;
+  font-weight: 500;
   line-height: 1.25;
   cursor: pointer;
 }
@@ -636,7 +636,7 @@ body.light .hell-reward-details {
 }
 .bracelet-value-summary b {
   color: #5284f5;
-  font: 800 var(--fs-14) 'Outfit';
+  font: 800 var(--fs-14) 'Loark Gwangju';
   white-space: nowrap;
 }
 .bracelet-value-summary svg {
@@ -703,11 +703,11 @@ body.light .hell-reward-details {
 .bracelet-value-total span {
   color: var(--text);
   font-size: var(--fs-13);
-  font-weight: 700;
+  font-weight: 500;
 }
 .bracelet-value-total strong {
   color: #5284f5;
-  font: 800 var(--fs-14) 'Outfit';
+  font: 800 var(--fs-14) 'Loark Gwangju';
 }
 .bracelet-value-content > p {
   margin: 0;
@@ -823,7 +823,7 @@ body.light .hell-reward-details {
 .ability-stone-options button > b {
   grid-area: price;
   color: #5284f5;
-  font: 800 var(--fs-13) 'Outfit';
+  font: 800 var(--fs-13) 'Loark Gwangju';
   white-space: nowrap;
 }
 .ability-stone-selector > p {

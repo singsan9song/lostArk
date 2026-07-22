@@ -333,7 +333,6 @@ const formatRemainingTime = (milliseconds) => {
 
 function ScheduleWidget() {
   const [calendar, setCalendar] = useState([])
-  const [selectedDate, setSelectedDate] = useState(() => lostArkDate(new Date()))
   const [now, setNow] = useState(() => new Date())
   const [adventureOpen, setAdventureOpen] = useState(false)
   const [loading, setLoading] = useState(true)
@@ -364,13 +363,7 @@ function ScheduleWidget() {
 
   const today = lostArkDate(now)
   today.setHours(0, 0, 0, 0)
-  const days = [-1, 0, 1, 2, 3, 4, 5].map((offset) => {
-    const date = new Date(today)
-    date.setDate(date.getDate() + offset)
-    return date
-  })
   const todayKey = dateKey(today)
-  const selectedKey = dateKey(selectedDate)
   const contentStates = DAILY_CONTENT_TYPES.map((type) => {
     const matchingContents = calendar.filter(
       (content) => normalizeCalendarCategory(content.CategoryName) === type.category,
@@ -379,7 +372,7 @@ function ScheduleWidget() {
       .flatMap((content) =>
         (content.StartTimes || [])
           .map((time) => ({ content, time: new Date(time) }))
-          .filter((item) => lostArkDateKey(item.time) === selectedKey),
+          .filter((item) => lostArkDateKey(item.time) === todayKey),
       )
       .filter((item) => !Number.isNaN(item.time.getTime()))
       .sort((a, b) => a.time - b.time)
@@ -395,11 +388,6 @@ function ScheduleWidget() {
       ]),
     ).values(),
   ]
-  const dateLabel = new Intl.DateTimeFormat('ko-KR', {
-    month: 'long',
-    day: 'numeric',
-    weekday: 'long',
-  }).format(selectedDate)
 
   return (
     <section className="section schedule-widget" id="schedule">
@@ -408,25 +396,6 @@ function ScheduleWidget() {
           <p className="section-kicker">DAILY CONTENTS</p>
           <h2>오늘의 콘텐츠</h2>
         </div>
-        <time>{dateLabel}</time>
-      </div>
-      <div className="day-tabs compact-day-tabs">
-        {days.map((date) => {
-          const key = dateKey(date)
-          const className = [
-            selectedKey === key ? 'selected' : '',
-            todayKey === key ? 'today' : '',
-            date.getDay() === 0 ? 'sunday' : '',
-          ]
-            .filter(Boolean)
-            .join(' ')
-          return (
-            <button className={className} onClick={() => setSelectedDate(date)} key={key}>
-              <span>{new Intl.DateTimeFormat('ko-KR', { weekday: 'short' }).format(date)}</span>
-              {date.getDate()}
-            </button>
-          )
-        })}
       </div>
       {loading && (
         <div className="calendar-state compact-calendar-state">
@@ -466,7 +435,7 @@ function ScheduleWidget() {
           {adventureIslands.length ? (
             <div>
               {adventureIslands.map(({ content }) => {
-                const rewards = calendarRewards(content, selectedKey)
+                const rewards = calendarRewards(content, todayKey)
                 const rewardType = adventureRewardType(rewards)
                 return (
                   <article

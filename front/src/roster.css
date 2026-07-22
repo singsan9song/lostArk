@@ -11,8 +11,15 @@
 .roster-achievements {
   height: 360px;
   display: grid;
-  grid-template-rows: auto 1fr 1fr;
+  grid-template-rows: auto 1fr;
   gap: 10px;
+}
+.roster-achievements .stat-board {
+  min-height: 0;
+  padding: 12px 14px;
+}
+.roster-achievements .stat-board .battle-heading {
+  margin-bottom: 10px;
 }
 .roster-summary,
 .collection-box {
@@ -48,11 +55,11 @@
   font-size: var(--fs-13);
 }
 .roster-summary strong {
-  font: 700 var(--fs-13) 'Outfit';
+  font: 700 var(--fs-13) 'Loark Gwangju';
   margin-top: 3px;
 }
 .roster-summary small {
-  font: 500 var(--fs-13) 'Noto Sans KR';
+  font: 500 var(--fs-13) 'Loark Gwangju';
   color: var(--muted);
   margin-left: 2px;
 }
@@ -72,7 +79,7 @@
   background: rgba(139, 108, 255, 0.15);
   color: #bca8ff;
   font-size: var(--fs-13);
-  font-weight: 700;
+  font-weight: 500;
 }
 .collection-box header svg {
   width: 13px;
@@ -217,7 +224,7 @@
 .ranking-scope {
   color: var(--primary-2);
   font-size: var(--fs-13);
-  font-weight: 700;
+  font-weight: 500;
 }
 .ranking-metric {
   color: var(--muted);

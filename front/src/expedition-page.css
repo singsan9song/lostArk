@@ -49,7 +49,7 @@
 }
 .expedition-page-header aside b {
   color: var(--primary);
-  font: 800 var(--fs-27) 'Outfit';
+  font: 800 var(--fs-27) 'Loark Gwangju';
 }
 .expedition-page-header aside span {
   color: var(--muted);
@@ -143,7 +143,7 @@
 }
 .expedition-group-summary span b {
   color: var(--text);
-  font: 800 var(--fs-13) 'Outfit';
+  font: 800 var(--fs-13) 'Loark Gwangju';
 }
 .expedition-group-summary button {
   cursor: pointer;
@@ -266,7 +266,7 @@
 .expedition-character-level strong {
   margin-top: 5px;
   color: var(--primary);
-  font: 800 var(--fs-19) 'Outfit';
+  font: 800 var(--fs-19) 'Loark Gwangju';
 }
 .expedition-character-card > footer {
   display: flex;

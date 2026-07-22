@@ -1,0 +1,469 @@
+/* Reproduces lostark.game.onstove.com's real .game-tooltip-item styling,
+   captured live from the site (ex/css2.css / ex/html.html). */
+.game-tooltip-item {
+  position: fixed;
+  z-index: 9999;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 342px;
+  padding: 0 0 20px;
+  font-family: 'Loark Gwangju', sans-serif;
+  font-size: 13px;
+  color: #fff;
+  background-color: #2a2c35;
+  border: 1px solid #1c1f2a;
+  pointer-events: none;
+}
+
+.game-tooltip-item font[size='11'] {
+  font-size: 12px;
+}
+.game-tooltip-item font[size='12'] {
+  font-size: 13px;
+}
+.game-tooltip-item font[size='14'] {
+  font-size: 14px;
+}
+.game-tooltip-item font[size='18'] {
+  font-size: 17px;
+}
+
+.game-tooltip-item > div {
+  margin: 10px 12px 0;
+}
+
+.game-tooltip-item .NameTagBox {
+  margin: 0 !important;
+  text-align: center;
+  background-color: #2b2e37;
+  border-bottom: 1px solid #1c1f2a;
+  padding: 4px 25px 5px;
+  font-size: 17px;
+}
+.game-tooltip-item .NameTagBox font {
+  font-size: inherit;
+}
+
+.game-tooltip-item .ItemTitle {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  height: 68px;
+  padding-bottom: 10px;
+  padding-left: 81px;
+  line-height: 18px;
+}
+.game-tooltip-item .ItemTitle::after {
+  content: '';
+  position: absolute;
+  left: -12px;
+  bottom: -1px;
+  width: 100%;
+  height: 1px;
+  padding: 0 12px;
+  background-color: #1c1f2a;
+}
+.game-tooltip-item .ItemTitle .slotData {
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 68px;
+  height: 68px;
+  border: 1px solid #000;
+  background-size: 46px 46px;
+}
+.game-tooltip-item .ItemTitle .slotData img {
+  width: 64px;
+  height: 64px;
+}
+.game-tooltip-item .ItemTitle .slotData[data-grade='0'] {
+  background: linear-gradient(135deg, #232323 0%, #575757 100%);
+}
+.game-tooltip-item .ItemTitle .slotData[data-grade='1'] {
+  background: linear-gradient(135deg, #18220b 0%, #304911 100%);
+}
+.game-tooltip-item .ItemTitle .slotData[data-grade='2'] {
+  background: linear-gradient(135deg, #111f2c 0%, #113d5d 100%);
+}
+.game-tooltip-item .ItemTitle .slotData[data-grade='3'] {
+  background: linear-gradient(135deg, #261331 0%, #480d5d 100%);
+}
+.game-tooltip-item .ItemTitle .slotData[data-grade='4'] {
+  background: linear-gradient(135deg, #362003 0%, #9e5f04 100%);
+}
+.game-tooltip-item .ItemTitle .slotData[data-grade='5'] {
+  background: linear-gradient(135deg, #341a09 0%, #a24006 100%);
+}
+.game-tooltip-item .ItemTitle .slotData[data-grade='6'] {
+  background: linear-gradient(135deg, #3d3325 0%, #dcc999 100%);
+}
+.game-tooltip-item .ItemTitle .slotData[data-grade='7'] {
+  background: linear-gradient(135deg, #0c2e2c 0%, #2faba8 100%);
+}
+.game-tooltip-item .ItemTitle .slotData[data-grade='8'] {
+  background: linear-gradient(135deg, #3d173e 0%, #a00c80 100%);
+}
+
+.game-tooltip-item .ItemTitle .leftStr0 {
+  display: block;
+  min-width: 120px;
+}
+.game-tooltip-item .ItemTitle .leftStr0 font {
+  font-size: inherit;
+}
+.game-tooltip-item .ItemTitle .leftStr0 font[size='12'] {
+  font-size: 14px;
+}
+.game-tooltip-item .ItemTitle .rightStr0 {
+  display: block;
+  min-width: 30px;
+  margin-left: auto;
+  /* The source markup has whitespace between sibling spans (collapses to a
+     gap in the browser); JSX renders them with none, so when leftStr2 stays
+     on the same flex line (short item names) it would otherwise run into
+     this with no space. Harmless when leftStr2 wraps to its own line. */
+  padding-right: 8px;
+  line-height: 15px;
+}
+.game-tooltip-item .ItemTitle .leftStr1 {
+  display: flex;
+  align-items: center;
+  flex: 0 0 100%;
+  font-size: 14px;
+}
+.game-tooltip-item .ItemTitle .leftStr2 {
+  display: block;
+  margin-top: 1px;
+}
+
+.game-tooltip-item .ItemTitle .qualityValue {
+  position: relative;
+  display: flex;
+  clear: both;
+  width: 100%;
+  height: 12px;
+  margin-top: 4px;
+}
+.game-tooltip-item .ItemTitle .qualityValue .bar_txt {
+  z-index: 10;
+  margin-top: -3px;
+  margin-right: 12px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+.game-tooltip-item .ItemTitle .qualityValue .bar_wrap {
+  display: block;
+  flex: auto;
+  background: #000;
+}
+.game-tooltip-item .ItemTitle .qualityValue .bar {
+  display: block;
+  height: 12px;
+}
+.game-tooltip-item .ItemTitle .qualityValue.q6 .bar {
+  background: #fe9600;
+}
+.game-tooltip-item .ItemTitle .qualityValue.q6 .bar_txt {
+  color: #fe9600;
+}
+.game-tooltip-item .ItemTitle .qualityValue.q5 .bar {
+  background: #ce43fc;
+}
+.game-tooltip-item .ItemTitle .qualityValue.q5 .bar_txt {
+  color: #ce43fc;
+}
+.game-tooltip-item .ItemTitle .qualityValue.q4 .bar {
+  background: #00b5ff;
+}
+.game-tooltip-item .ItemTitle .qualityValue.q4 .bar_txt {
+  color: #00b5ff;
+}
+.game-tooltip-item .ItemTitle .qualityValue.q3 .bar {
+  background: #91fe02;
+}
+.game-tooltip-item .ItemTitle .qualityValue.q3 .bar_txt {
+  color: #91fe02;
+}
+.game-tooltip-item .ItemTitle .qualityValue.q2 .bar {
+  background: #ffd200;
+}
+.game-tooltip-item .ItemTitle .qualityValue.q2 .bar_txt {
+  color: #ffd200;
+}
+.game-tooltip-item .ItemTitle .qualityValue.q1 .bar {
+  background: #ff6000;
+}
+.game-tooltip-item .ItemTitle .qualityValue.q1 .bar_txt {
+  color: #ff6000;
+}
+
+.game-tooltip-item .MultiTextBox,
+.game-tooltip-item .ShowMeTheMoney {
+  display: flex;
+}
+.game-tooltip-item .MultiTextBox span:nth-child(2),
+.game-tooltip-item .ShowMeTheMoney span:nth-child(2) {
+  display: block;
+  margin-left: auto;
+}
+
+.game-tooltip-item .ItemPartBox {
+  line-height: 20px;
+}
+
+.game-tooltip-item .greenDot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin: 0 4px;
+  border-radius: 50%;
+  background-color: #95cd36;
+}
+
+.game-tooltip-item .Progress > span:first-child {
+  display: block;
+  margin-bottom: 3px;
+}
+.game-tooltip-item .Progress .graph {
+  position: relative;
+  height: 15px;
+  padding: 1px;
+  border: 1px solid #414b4e;
+}
+.game-tooltip-item .Progress .graph .bar {
+  display: block;
+  height: 100%;
+  background-color: #ad7e00;
+  background-image: linear-gradient(90deg, #ad7e00 0%, #d8ad03 100%);
+}
+.game-tooltip-item .Progress .graph .text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 15px;
+  font-size: 12px;
+  color: #fff;
+  text-shadow: 1px 1px 5px #000;
+}
+
+.game-tooltip-item .IndentStringGroup > span {
+  display: block;
+  margin: 3px 0 1px;
+}
+.game-tooltip-item .IndentStringGroup > span:first-child {
+  margin-top: 0;
+}
+.game-tooltip-item .IndentStringGroup > div {
+  margin-left: 13px;
+}
+.game-tooltip-item .IndentStringGroup > div > span {
+  display: block;
+  position: relative;
+}
+.game-tooltip-item .IndentStringGroup > div > span[data-bpoint]::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: -13px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #95cd36;
+}
+
+/* Reproduces lostark.game.onstove.com's real .game-tooltip-skill styling
+   (ex/css2.css) — the tooltip shown when hovering a skill icon. */
+.game-tooltip-skill {
+  position: fixed;
+  z-index: 9999;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 342px;
+  padding: 0 0 15px;
+  font-family: 'Loark Gwangju', sans-serif;
+  font-size: 13px;
+  color: #fff;
+  background-color: #2a2c35;
+  border: 1px solid #1c1f2a;
+  pointer-events: none;
+}
+
+.game-tooltip-skill font[size='11'] {
+  font-size: 12px;
+}
+.game-tooltip-skill font[size='12'] {
+  font-size: 13px;
+}
+.game-tooltip-skill font[size='14'] {
+  font-size: 14px;
+}
+.game-tooltip-skill font[size='18'] {
+  font-size: 17px;
+}
+
+.game-tooltip-skill > div {
+  margin: 10px 12px 0;
+}
+
+.game-tooltip-skill .NameTagBox {
+  margin: 0 !important;
+  text-align: center;
+  background-color: #2b2e37;
+  border-bottom: 1px solid #1c1f2a;
+  padding: 4px 25px 5px;
+  font-size: 17px;
+}
+.game-tooltip-skill .NameTagBox font {
+  font-size: inherit;
+}
+
+.game-tooltip-skill .CommonSkillTitle {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  height: 68px;
+  padding-bottom: 10px;
+  padding-left: 81px;
+  line-height: 18px;
+}
+.game-tooltip-skill .CommonSkillTitle::after {
+  content: '';
+  position: absolute;
+  left: -12px;
+  bottom: -1px;
+  width: 100%;
+  height: 1px;
+  padding: 0 12px;
+  background-color: #1c1f2a;
+}
+.game-tooltip-skill .CommonSkillTitle .slotData {
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 68px;
+  height: 68px;
+  background: url('/images/information/bg_tooltip_skill.png') 50% no-repeat;
+}
+.game-tooltip-skill .CommonSkillTitle .slotData img {
+  width: 64px;
+  height: 64px;
+}
+.game-tooltip-skill .CommonSkillTitle .name {
+  display: block;
+  height: 20px;
+  padding: 2px 0 0;
+  line-height: 1;
+}
+.game-tooltip-skill .CommonSkillTitle .name font {
+  font-size: inherit;
+}
+.game-tooltip-skill .CommonSkillTitle .name font[size='12'] {
+  font-size: 14px;
+}
+.game-tooltip-skill .CommonSkillTitle .level {
+  display: block;
+  height: 20px;
+  margin-left: auto;
+  line-height: 1;
+}
+.game-tooltip-skill .CommonSkillTitle .middleText,
+.game-tooltip-skill .CommonSkillTitle .leftText {
+  display: flex;
+  align-items: center;
+  flex: 0 0 100%;
+  height: 20px;
+  line-height: 1;
+}
+.game-tooltip-skill .CommonSkillTitle .middleText font,
+.game-tooltip-skill .CommonSkillTitle .leftText font {
+  font-size: inherit;
+}
+.game-tooltip-skill .CommonSkillTitle .middleText font[size='12'],
+.game-tooltip-skill .CommonSkillTitle .leftText font[size='12'] {
+  font-size: 14px;
+}
+
+.game-tooltip-skill .MultiTextBox {
+  display: flex;
+}
+.game-tooltip-skill .MultiTextBox span:nth-child(2) {
+  display: block;
+  margin-left: auto;
+}
+
+.game-tooltip-skill .TripodSkillCustom > div {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  min-height: 40px;
+  margin-top: 10px;
+  padding-left: 50px;
+  line-height: 1.35;
+}
+.game-tooltip-skill .TripodSkillCustom > div:first-child {
+  margin-top: 0;
+}
+.game-tooltip-skill .TripodSkillCustom > div .slotData {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background: url('/images/information/bg_skill_slot_s.png') 50% no-repeat;
+}
+.game-tooltip-skill .TripodSkillCustom > div .slotData img {
+  max-width: 38px;
+  max-height: 38px;
+}
+.game-tooltip-skill .TripodSkillCustom > div .name {
+  height: 20px;
+}
+.game-tooltip-skill .TripodSkillCustom > div .tier {
+  display: block;
+  height: 20px;
+  margin-left: auto;
+}
+.game-tooltip-skill .TripodSkillCustom > div .desc {
+  flex: 0 0 100%;
+}
+
+.game-tooltip-skill .IndentStringGroup > span {
+  display: block;
+  margin: 3px 0 1px;
+}
+.game-tooltip-skill .IndentStringGroup > span:first-child {
+  margin-top: 0;
+}
+.game-tooltip-skill .IndentStringGroup > div {
+  margin-left: 13px;
+}
+.game-tooltip-skill .IndentStringGroup > div > span {
+  display: block;
+  position: relative;
+}
+.game-tooltip-skill .IndentStringGroup > div > span[data-bpoint]::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: -13px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #95cd36;
+}

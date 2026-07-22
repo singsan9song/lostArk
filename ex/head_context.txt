@@ -1,0 +1,106 @@
+363781
+0'>유물 대형 낫</FONT></FONT>",
+          "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+          "leftStr2": "<FONT SIZE='14'>아이템 레벨 1640 (티어 4)</FONT>",
+          "qualityValue": 70,
+          "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+          "slotData": {
+            "advBookIcon": 0,
+            "battleItemTypeIcon": 0,
+            "blackListIcon": 0,
+            "cardIcon": false,
+            "friendship": 0,
+            "iconGrade": 5,
+            "iconPath": "efui_iconatlas/se_item/se_item_01_125.png",
+            "imagePath": "",
+            "islandIcon": 0,
+            "petBorder": 0,
+            "rtString": "",
+            "temporary": 0,
+            "town": 0,
+            "trash": 0
+          }
+        }
+      },
+      "Element_002": {
+        "type": "SingleTextBox",
+        "value": "<FONT SIZE='12'>소울이터 전용</FONT>"
+      },
+      "Element_003": {
+        "type": "SingleTextBox",
+        "value": "<FONT SIZE='12'>캐릭터 귀속됨</FONT>"
+      },
+      "Element_004": {
+        "type": "MultiTextBox",
+        "value": "|<font color='#C24B46'>거래 불가</font>"
+      },
+      "Element_005": {
+        "type": "ItemPartBox",
+        "value": {
+          "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+          "Element_001": "무기 공격력 +100036"
+        }
+      },
+      "Element_006": null,
+      "Element_007": {
+        "type": "ItemPartBox",
+        "value": {
+          "Element_000": "<FONT COLOR='#A9D0F5'>추가 효과</FONT>",
+          "Element_001": "추가 피해 +19.81%"
+        }
+      },
+      "Element_008": {
+        "type": "Progress",
+        "value": {
+          "forceValue": " ",
+          "maximum": 21000,
+          "minimum": 0,
+          "title": "<FONT SIZE='12'><FONT COLOR='#A9D0F5'>현재 단계 재련 경험치</FONT></FONT>",
+          "value": 0,
+          "valueType": 1
+        }
+      },
+      "Element_009": {
+        "type": "SingleTextBox",
+        "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>파괴불가</FONT>, <FONT COLOR='#C24B46'>분해불가</FONT></FONT>"
+      },
+      "Element_010": {
+        "type": "Progress",
+        "value": null
+      },
+      "Element_011": {
+        "type": "Progress",
+        "value": null
+      },
+      "Element_012": {
+        "type": "SingleTextBox",
+        "value": "<Font color='#5FD3F1'>[퀘스트] 쿠르잔 북부 - 나아가야 할 길</font><BR><Font color='#5FD3F1'>[물물교환] 갈기파도 항구 - 장비 상인</font>"
+      },
+      "Element_013": {
+        "type": "ShowMeTheMoney",
+        "value": "<FONT SIZE='12'><FONT COLOR='#FFFFFF'>내구도 <FONT COLOR='#FFFFFF'>146 / 175</FONT></FONT></FONT>|"
+      }
+    },
+    "Ebb8c465_001": {
+      "Element_000": {
+        "type": "NameTagBox",
+        "value": "<P ALIGN='CENTER'><FONT COLOR='#FA5D00'>+10 운명의 결단 머리장식</FONT></P>"
+      },
+      "Element_001": {
+        "type": "ItemTitle",
+        "value": {
+          "bEquip": 0,
+          "itemIrochiCount": 0,
+          "leftStr0": "<FONT SIZE='12'><FONT COLOR='#FA5D00'>유물 머리 방어구</FONT></FONT>",
+          "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+          "leftStr2": "<FONT SIZE='14'>아이템 레벨 1640 (티어 4)</FONT>",
+          "qualityValue": 70,
+          "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+          "slotData": {
+            "advBookIcon": 0,
+            "battleItemTypeIcon": 0,
+            "blackListIcon": 0,
+            "cardIcon": false,
+            "friendship": 0,
+            "iconGrade": 5,
+            "iconPath": 

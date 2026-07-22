@@ -4,6 +4,37 @@
   gap: 14px;
   margin-top: 14px;
 }
+.battle-category-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 5px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+}
+.battle-category-tabs button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 38px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--muted);
+  font-size: var(--fs-13);
+  font-weight: 500;
+  cursor: pointer;
+}
+.battle-category-tabs button svg {
+  width: 15px;
+}
+.battle-category-tabs button.active {
+  background: var(--surface-2);
+  color: var(--text);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
 .battle-panel {
   padding: 22px;
   background: var(--surface);
@@ -341,49 +372,76 @@
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 12px;
+  justify-items: center;
 }
 .battle-cards article {
   text-align: center;
 }
 .battle-cards article > div {
   position: relative;
+  /* Fixed box (not aspect-ratio) so the absolutely positioned img/frame below
+     always have a definite containing block — img_card_grade.png's frame art
+     is 134x200 per slice, scaled here to a 78px-wide card (matches
+     CARD_FRAME.displayWidth in BattleOverview.jsx — keep both in sync). */
+  width: 78px;
+  height: 116px;
+  overflow: hidden;
+  margin: 0 auto;
 }
 .battle-cards img {
-  width: 100%;
-  aspect-ratio: 3/4;
-  object-fit: cover;
-  border-radius: 7px;
-  border: 1px solid #9e742e;
-}
-.battle-cards i {
+  /* Matches the official .card-slot's own rule exactly: padding:8px 3px on a
+     134x200 slot (⇒ top 4%, sides 2.24%), width:100% of that content box,
+     height auto (no forced crop) — the frame (painted after) covers the rest. */
   position: absolute;
-  left: 5px;
-  right: 5px;
-  bottom: 5px;
-  height: 15px;
-  display: grid;
-  place-items: center;
-  background: rgba(9, 11, 16, 0.75);
-  color: #eecb63;
-  border-radius: 4px;
-  font-size: var(--fs-13);
-  font-style: normal;
+  top: 4%;
+  left: 2.24%;
+  width: 95.52%;
+  height: auto;
+  max-width: none;
+  border-radius: 2px;
 }
-.battle-cards strong,
-.battle-cards span {
-  display: block;
+.card-frame {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url('/images/information/img_card_grade.png');
+  background-repeat: no-repeat;
+}
+.card-awake {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background-image: url('/images/information/img_profile_awake.png');
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  pointer-events: none;
+}
+.card-awake .awake {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background-image: url('/images/information/img_profile_awake.png');
+  background-repeat: no-repeat;
+}
+.battle-cards strong {
+  /* Official card-slot strong overlays the name on the frame itself
+     (position:absolute; top:0), not as a caption below the card. */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  /* Official: padding:12px 10px; font-size:14px; line-height:16px on a
+     134x200 slot — scaled here by our 78/134 card size. */
+  padding: 12px 6px;
+  font-size: 9px;
+  font-weight: 400;
+  line-height: 10px;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85);
+  pointer-events: none;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-.battle-cards strong {
-  font-size: var(--fs-13);
-  margin-top: 5px;
-}
-.battle-cards span {
-  color: var(--muted);
-  font-size: var(--fs-13);
-  margin-top: 2px;
 }
 .battle-empty {
   min-height: 90px;
@@ -449,7 +507,7 @@
   height: 100%;
 }
 .battle-primary-row .battle-cards {
-  gap: 8px;
+  gap: 6px;
 }
 .battle-primary-row .battle-cards strong {
   font-size: var(--fs-13);
@@ -484,7 +542,7 @@
 }
 .battle-build-row .battle-engravings .engraving-row {
   display: grid;
-  grid-template-columns: 38px 14px auto minmax(0, 1fr) 11px auto;
+  grid-template-columns: 38px 24px auto minmax(0, 1fr) 24px auto;
   align-items: center;
   gap: 7px;
   min-height: 49px;
@@ -534,16 +592,12 @@
   background: radial-gradient(circle at 35% 30%, #9c783c, #3d2b12 68%, #120c05);
 }
 .engraving-level-mark {
-  width: 11px;
-  height: 11px;
+  width: 24px;
+  height: 26px;
   display: block;
-  transform: rotate(45deg);
-  border: 1px solid #ff9a54;
-  border-radius: 2px;
-  background: linear-gradient(135deg, #ff8a29, #b7250b 62%, #5c1108);
-  box-shadow:
-    inset 0 0 2px #ffd19c,
-    0 1px 3px rgba(0, 0, 0, 0.35);
+  background: url('/images/information/img_engrave_icon.png') no-repeat;
+  background-size: 141px 26px;
+  background-position-y: 0;
 }
 .engraving-base {
   color: var(--muted);
@@ -559,13 +613,12 @@
   text-overflow: ellipsis;
 }
 .ability-stone-mark {
-  width: 8px;
-  height: 15px;
+  width: 24px;
+  height: 26px;
   display: block;
-  clip-path: polygon(50% 0, 100% 70%, 50% 100%, 0 70%);
-  background: linear-gradient(90deg, #14758d, #85ecff 52%, #13657b);
-  box-shadow: inset 0 0 2px #d9fbff;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.4));
+  background: url('/images/information/img_engrave_icon.png') no-repeat;
+  background-size: 141px 26px;
+  background-position: 0 0;
 }
 .ability-stone-level {
   color: #9ba5ba;
@@ -825,14 +878,85 @@
   color: #a5a5a5;
 }
 
-/* Gems use the same grade language as equipment, in a compact circular frame. */
-.ancient .gem-grade-icon,
-.ancient .rune-grade-icon {
-  background: linear-gradient(135deg, #3d3325 0%, #dcc999 100%);
+/* Lost Ark equipment-slot frame decoration, using locally hosted assets in
+   /public/images/information (see front/public/images/information). */
+.equipment-icon::before {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  z-index: 0;
+  pointer-events: none;
+  background: url('/images/information/bg_equipment_slot1.png') center / contain no-repeat;
+}
+.equipment-icon img {
+  position: relative;
+  z-index: 1;
+}
+.equipment-icon em {
+  z-index: 3;
+}
+
+/* Ark Passive ring overlay: left-column gear, right-column accessories, and the
+   bracelet each use a distinct ring asset (bracelet's is not mirrored). */
+.honing-row .equipment-icon::after,
+.accessory-row .equipment-icon::after,
+.bracelet-row .equipment-icon::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  z-index: 2;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.honing-row .equipment-icon::after {
+  background-image: url('/images/information/bg_equipment_arkpassive.png');
+}
+.accessory-row .equipment-icon::after {
+  background-image: url('/images/information/bg_equipment_arkpassive2.png');
+}
+.bracelet-row .equipment-icon::after {
+  background-image: url('/images/information/bg_equipment_arkpassive3.png');
+}
+
+.orb-row .equipment-icon::before {
+  background-image: url('/images/information/bg_equipment_slot_orb.png');
+}
+.orb-row .equipment-icon::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  z-index: 2;
+  pointer-events: none;
+  background: url('/images/information/bg_equipment_slot_orb_over.png') center / contain no-repeat;
+}
+
+/* Gems have their own grade gradients (.jewel_btn[data-grade]), distinct from
+   equipment's — close in hue but not identical, so they get their own rules. */
+.uncommon .gem-grade-icon,
+.uncommon .rune-grade-icon {
+  background: linear-gradient(135deg, #1a230e 0%, #374e18 100%);
+}
+.rare .gem-grade-icon,
+.rare .rune-grade-icon {
+  background: linear-gradient(135deg, #111d29 0%, #103550 100%);
+}
+.epic .gem-grade-icon,
+.epic .rune-grade-icon {
+  background: linear-gradient(135deg, #27013d 0%, #6e00aa 100%);
+}
+.legendary .gem-grade-icon,
+.legendary .rune-grade-icon {
+  background: linear-gradient(135deg, #3c2201 0%, #a86200 100%);
 }
 .relic .gem-grade-icon,
 .relic .rune-grade-icon {
-  background: linear-gradient(135deg, #341a09 0%, #a24006 100%);
+  background: linear-gradient(135deg, #3b1303 0%, #a23405 100%);
+}
+.ancient .gem-grade-icon,
+.ancient .rune-grade-icon {
+  background: linear-gradient(135deg, #403527 0%, #d2bf91 100%);
 }
 .battle-gems > div {
   border: 0;
@@ -915,95 +1039,227 @@
   --grade-dark: #282828;
 }
 
-/* Compact gem-to-skill mapping. */
-.battle-loadout-row .battle-gems {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 7px;
-}
+/* Matches the official jewel-effect__list li exactly: a wrapping flex row
+   (not a grid) — .slot + .skill share the first line (vertically centered
+   against each other), and .add_effect is a separate 100%-wide flex child
+   that wraps to its own line below, uninvolved in that centering. */
 .battle-gems > .gem-entry {
-  display: grid;
-  grid-template-columns: 38px minmax(0, 1fr);
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
-  padding: 6px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: var(--surface-2);
-  text-align: left;
-}
-.battle-gems .gem-entry .gem-grade-icon {
-  width: 36px;
-  height: 36px;
-  margin: 0;
-  padding: 2px;
-}
-.battle-gems .gem-entry .gem-image-clip {
-  position: absolute;
-  inset: 2px;
-  display: block;
-  margin: 0;
-  overflow: hidden;
-  border-radius: 50%;
-}
-.battle-gems .gem-entry .gem-image-clip img {
-  transform: scale(1.2);
-}
-.gem-link-copy {
-  min-width: 0;
-}
-.gem-skill-line {
+  position: relative;
+  box-sizing: border-box;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 5px;
   min-width: 0;
+  min-height: 100px;
+  padding: 5px 15px;
+  border-bottom: 1px solid #131419;
+  cursor: pointer;
+  text-align: left;
+  overflow: hidden;
 }
-.battle-gems .gem-skill-line img {
-  flex: 0 0 21px;
+/* Fixed size (not aspect-ratio + stretch, which didn't reliably shrink) —
+   directly controls both the icon and its background box together. */
+.battle-gems .gem-entry .slot {
+  box-sizing: border-box;
+  display: flex;
+  flex: none;
+  justify-content: center;
+  align-items: center;
+  width: 56px;
+  height: 56px;
+  padding: 3px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+}
+.battle-gems .gem-entry .slot img {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  object-fit: contain;
+}
+.battle-gems .gem-entry .skill {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  margin-top: -2px;
+  padding: 0 0 2px 10px;
+}
+
+/* Gem diagram, matching the official .jewel__wrap: a fixed body-shaped
+   background (bg_jewel.jpg, 506x718 native) with 11 absolutely positioned
+   gem slots, next to the always-visible effect list. */
+.jewel-diagram-layout {
+  display: flex;
+  align-items: flex-start;
+}
+.jewel-effect-list {
+  box-sizing: border-box;
+  flex: none;
+  width: 409px;
+  height: 745px;
+  background: #1d2026;
+  border-left: 1px solid #15171c;
+  display: flex;
+  flex-direction: column;
+}
+.jewel-effect-list-heading {
+  position: relative;
+  box-sizing: border-box;
+  flex: none;
+  height: 52px;
+  padding-left: 19px;
+  background: #191b20;
+  border-bottom: 1px solid #090a0b;
+}
+.jewel-effect-list-heading h4 {
+  margin: 0;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 52px;
+}
+.jewel-effect-list-heading .default-power {
+  position: absolute;
+  top: 0;
+  right: 17px;
+  height: 52px;
+  color: #b7fb00;
+  font-size: 14px;
+  line-height: 52px;
+}
+.jewel-effect-list .battle-gems {
+  box-sizing: border-box;
+  flex: none;
+  min-width: 0;
+  grid-template-columns: 1fr;
+  gap: 0;
+  height: 689px;
+  border-top: 1px solid #23262d;
+  overflow-y: auto;
+}
+.jewel-diagram {
+  position: relative;
+  flex: none;
+  width: 505px;
+  height: 745px;
+  background: #14191f url('/images/information/bg_jewel.jpg') no-repeat;
+}
+.jewel-slot {
+  position: absolute;
+  width: 54px;
+  text-align: center;
+  cursor: pointer;
+}
+.jewel_img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--grade-dark, #282823) 0%, var(--grade, #585858) 100%);
+}
+.jewel_img img {
+  width: 46px;
+}
+.jewel-slot.active .jewel_img {
+  box-shadow:
+    0 0 0 2px #84bbe3,
+    0 0 16px 4px rgba(132, 187, 227, 0.65);
+}
+.jewel_level {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4px;
+  color: #fff;
+  font-size: 13px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+}
+.jewel_level em {
+  display: block;
   width: 21px;
-  height: 21px;
-  object-fit: cover;
-  border-radius: 5px;
+  height: 23px;
+  margin-right: 3px;
+  background: url('/images/information/ico_gemsymbol_attack.png') center / contain no-repeat;
 }
-.gem-skill-line strong {
+.jewel_level em.gemsymbol-time {
+  width: 22px;
+  height: 22px;
+  background-image: url('/images/information/ico_gemsymbol_time.png');
+}
+@media (max-width: 900px) {
+  .jewel-diagram-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+@media (max-width: 560px) {
+  .jewel-diagram {
+    transform: scale(0.72);
+    transform-origin: top center;
+    margin-bottom: -208px;
+  }
+}
+
+/* Matches the official jewel-effect__list li: cyan skill title, then a
+   restated (gold) name + plain-text effect sentence below it. */
+.skill_tit {
+  display: block;
   min-width: 0;
-  font-size: var(--fs-13);
+  margin-bottom: 2px;
+  color: #3cf;
+  font-size: 15px;
+  line-height: 1.2;
+  font-weight: 400;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.gem-effect-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  margin-top: 4px;
-  padding: 3px 5px;
-  border-radius: 5px;
-  font-size: var(--fs-13);
-  font-weight: 700;
-  white-space: nowrap;
-}
-.gem-effect-badge em {
+.skill_detail {
+  margin: 0;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.3;
   font-style: normal;
-  font-size: var(--fs-13);
 }
-.gem-effect-badge.damage {
-  color: #f2a06e;
-  background: rgba(190, 73, 42, 0.14);
+.skill_detail em {
+  color: #fcd03b;
+  font-style: normal;
 }
-.gem-effect-badge.cooldown {
-  color: #74c9ed;
-  background: rgba(42, 139, 190, 0.14);
+.add_effect {
+  margin: 4px 0 0;
+  padding-top: 4px;
+  border-top: 1px solid #28303e;
+  color: #b7fb00;
+  font-size: 14px;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-@media (max-width: 560px) {
-  .battle-loadout-row .battle-gems {
-    grid-template-columns: 1fr;
-  }
-  .battle-gems > .gem-entry {
-    grid-template-columns: 38px minmax(0, 1fr);
-  }
+.add_effect em {
+  color: #919ca6;
+  font-style: normal;
+  padding-right: 5px;
 }
-
+/* Hovering either the diagram slot or the list entry highlights both. */
+.gem-entry.active {
+  background-color: rgba(61, 79, 108, 0.45);
+}
+.gem-entry.active::before {
+  content: '';
+  z-index: 0;
+  pointer-events: none;
+  border: 1px solid #84bbe3;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 /* Equipment-specific summary text. */
 .equipment-copy strong {
   display: flex;
@@ -1069,21 +1325,20 @@
 .accessory-effect-list i {
   width: 13px;
   height: 13px;
-  display: grid;
-  place-items: center;
-  border-radius: 2px;
-  color: #fff;
-  font-size: var(--fs-13);
+  display: block;
+  background-image: url('/images/information/ico_accessory_option.png');
+  background-repeat: no-repeat;
+  background-size: 300% 100%;
   font-style: normal;
 }
 .accessory-effect-list i.high {
-  background: #d59b27;
+  background-position-x: 0%;
 }
 .accessory-effect-list i.middle {
-  background: #8057d2;
+  background-position-x: 50%;
 }
 .accessory-effect-list i.low {
-  background: #299dd5;
+  background-position-x: 100%;
 }
 .accessory-effect-list span {
   min-width: 0;
@@ -1095,17 +1350,14 @@
 }
 .accessory-effect-list b {
   font-size: var(--fs-13);
-  font-weight: 700;
+  font-weight: 500;
   white-space: nowrap;
 }
 .accessory-effect-list i.high ~ b {
-  color: #e7bd54;
+  color: #ffd200;
 }
 .accessory-effect-list i.middle ~ b {
-  color: #a884ed;
-}
-.accessory-effect-list i.low ~ b {
-  color: #55bcec;
+  color: #ce43fc;
 }
 .accessory-effect-list small {
   color: var(--muted);
@@ -1158,7 +1410,7 @@
   background: #343a49;
   color: #d0d5df;
   font-size: var(--fs-13);
-  font-weight: 700;
+  font-weight: 500;
 }
 .stone-effect-list {
   display: flex;
@@ -1168,29 +1420,28 @@
 }
 .stone-effect-list > div {
   display: grid;
-  grid-template-columns: 13px minmax(0, 1fr);
+  grid-template-columns: 16px minmax(0, 1fr);
   align-items: center;
   gap: 4px;
 }
 .stone-effect-list i {
-  width: 13px;
-  height: 13px;
-  display: grid;
-  place-items: center;
-  border-radius: 2px;
-  background: #7956d0;
-  color: #fff;
-  font-size: var(--fs-13);
+  width: 16px;
+  height: 17px;
+  background: url('/images/information/img_engrave_icon.png') no-repeat;
+  background-size: 141px 26px;
   font-style: normal;
+}
+.stone-effect-list i.stone-gem-blue {
+  background-position: 0 0;
+}
+.stone-effect-list i.stone-gem-red {
+  background-position: -29px 0;
 }
 .stone-effect-list span {
   font-size: var(--fs-13);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-.stone-effect-list .harmful i {
-  background: #646b7b;
 }
 .stone-effect-list .harmful span {
   color: var(--muted);
@@ -1271,13 +1522,7 @@
 }
 .battle-cards strong,
 .battle-primary-row .battle-cards strong {
-  font-size: var(--fs-13);
-}
-.battle-cards span {
-  font-size: var(--fs-13);
-}
-.battle-cards i {
-  font-size: var(--fs-13);
+  font-size: var(--fs-11);
 }
 
 /* Combat dashboard body copy never drops below 10px. */
@@ -1339,10 +1584,6 @@
   font-size: var(--fs-13);
   line-height: 1.45;
 }
-.battle-cards span,
-.battle-cards i {
-  font-size: var(--fs-13);
-}
 .battle-empty {
   font-size: var(--fs-13);
 }
@@ -1363,31 +1604,6 @@
   border-top: 1px solid rgba(128, 137, 158, 0.16);
 }
 
-/* Gem effect labels need to remain clearly readable in the narrow panel. */
-.battle-loadout-row .battle-gems {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-.gem-skill-line strong {
-  font-size: var(--fs-13);
-}
-.battle-gems .gem-effect-badge {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  margin-top: 4px;
-  padding: 5px 7px;
-  font-size: var(--fs-13);
-  line-height: 1.25;
-}
-.battle-gems .gem-effect-badge em {
-  font-size: inherit;
-  line-height: inherit;
-}
-.battle-gems > .gem-entry {
-  grid-template-columns: 36px minmax(0, 1fr);
-  gap: 7px;
-  min-height: 65px;
-}
 @media (max-width: 560px) {
   .battle-loadout-row .equipment-columns > div {
     grid-template-rows: none;

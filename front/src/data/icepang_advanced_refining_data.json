@@ -1,0 +1,480 @@
+{
+  "records": [
+    {
+      "equipment_type": "무기",
+      "equipment_grade": "T3",
+      "target_stage": "1~10단계",
+      "required_materials": [
+        {
+          "name": "정제된 파괴강석",
+          "count": 301
+        },
+        {
+          "name": "찬란한 명예의 돌파석",
+          "count": 9
+        },
+        {
+          "name": "최상급 오레하 융화 재료",
+          "count": 10
+        },
+        {
+          "name": "명예의 파편",
+          "count": 900
+        },
+        {
+          "name": "골드",
+          "count": 563
+        }
+      ],
+      "additional_materials": [
+        {
+          "name": "태양의 은총",
+          "count": 8
+        },
+        {
+          "name": "태양의 축복",
+          "count": 4
+        },
+        {
+          "name": "태양의 가호",
+          "count": 2
+        },
+        {
+          "name": "장인의 야금술 : 1단계",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "equipment_type": "무기",
+      "equipment_grade": "T3",
+      "target_stage": "11~20단계",
+      "required_materials": [
+        {
+          "name": "정제된 파괴강석",
+          "count": 481
+        },
+        {
+          "name": "찬란한 명예의 돌파석",
+          "count": 11
+        },
+        {
+          "name": "최상급 오레하 융화 재료",
+          "count": 10
+        },
+        {
+          "name": "명예의 파편",
+          "count": 1700
+        },
+        {
+          "name": "골드",
+          "count": 1250
+        }
+      ],
+      "additional_materials": [
+        {
+          "name": "태양의 은총",
+          "count": 11
+        },
+        {
+          "name": "태양의 축복",
+          "count": 6
+        },
+        {
+          "name": "태양의 가호",
+          "count": 2
+        },
+        {
+          "name": "장인의 야금술 : 2단계",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "equipment_type": "무기",
+      "equipment_grade": "T4",
+      "target_stage": "1~10단계",
+      "required_materials": [
+        {
+          "name": "운명의 파괴석",
+          "count": 181
+        },
+        {
+          "name": "운명의 돌파석",
+          "count": 5
+        },
+        {
+          "name": "아비도스 융화 재료",
+          "count": 8
+        },
+        {
+          "name": "운명의 파편",
+          "count": 500
+        },
+        {
+          "name": "골드",
+          "count": 563
+        }
+      ],
+      "additional_materials": [
+        {
+          "name": "용암의 숨결",
+          "count": 4
+        },
+        {
+          "name": "장인의 야금술 : 1단계",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "equipment_type": "무기",
+      "equipment_grade": "T4",
+      "target_stage": "11~20단계",
+      "required_materials": [
+        {
+          "name": "운명의 파괴석",
+          "count": 331
+        },
+        {
+          "name": "운명의 돌파석",
+          "count": 7
+        },
+        {
+          "name": "아비도스 융화 재료",
+          "count": 9
+        },
+        {
+          "name": "운명의 파편",
+          "count": 1000
+        },
+        {
+          "name": "골드",
+          "count": 1250
+        }
+      ],
+      "additional_materials": [
+        {
+          "name": "용암의 숨결",
+          "count": 6
+        },
+        {
+          "name": "장인의 야금술 : 2단계",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "equipment_type": "무기",
+      "equipment_grade": "T4",
+      "target_stage": "21~30단계",
+      "required_materials": [
+        {
+          "name": "운명의 파괴석",
+          "count": 1200
+        },
+        {
+          "name": "운명의 돌파석",
+          "count": 25
+        },
+        {
+          "name": "아비도스 융화 재료",
+          "count": 28
+        },
+        {
+          "name": "운명의 파편",
+          "count": 11500
+        },
+        {
+          "name": "골드",
+          "count": 3000
+        }
+      ],
+      "additional_materials": [
+        {
+          "name": "용암의 숨결",
+          "count": 20
+        },
+        {
+          "name": "장인의 야금술 : 3단계",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "equipment_type": "무기",
+      "equipment_grade": "T4",
+      "target_stage": "31~40단계",
+      "required_materials": [
+        {
+          "name": "운명의 파괴석",
+          "count": 1400
+        },
+        {
+          "name": "운명의 돌파석",
+          "count": 32
+        },
+        {
+          "name": "아비도스 융화 재료",
+          "count": 30
+        },
+        {
+          "name": "운명의 파편",
+          "count": 13000
+        },
+        {
+          "name": "골드",
+          "count": 4000
+        }
+      ],
+      "additional_materials": [
+        {
+          "name": "용암의 숨결",
+          "count": 24
+        },
+        {
+          "name": "장인의 야금술 : 4단계",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "equipment_type": "방어구",
+      "equipment_grade": "T3",
+      "target_stage": "1~10단계",
+      "required_materials": [
+        {
+          "name": "정제된 수호강석",
+          "count": 286
+        },
+        {
+          "name": "찬란한 명예의 돌파석",
+          "count": 7
+        },
+        {
+          "name": "최상급 오레하 융화 재료",
+          "count": 6
+        },
+        {
+          "name": "명예의 파편",
+          "count": 550
+        },
+        {
+          "name": "골드",
+          "count": 475
+        }
+      ],
+      "additional_materials": [
+        {
+          "name": "태양의 은총",
+          "count": 8
+        },
+        {
+          "name": "태양의 축복",
+          "count": 4
+        },
+        {
+          "name": "태양의 가호",
+          "count": 2
+        },
+        {
+          "name": "장인의 재봉술 : 1단계",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "equipment_type": "방어구",
+      "equipment_grade": "T3",
+      "target_stage": "11~20단계",
+      "required_materials": [
+        {
+          "name": "정제된 수호강석",
+          "count": 391
+        },
+        {
+          "name": "찬란한 명예의 돌파석",
+          "count": 9
+        },
+        {
+          "name": "최상급 오레하 융화 재료",
+          "count": 7
+        },
+        {
+          "name": "명예의 파편",
+          "count": 1100
+        },
+        {
+          "name": "골드",
+          "count": 900
+        }
+      ],
+      "additional_materials": [
+        {
+          "name": "태양의 은총",
+          "count": 11
+        },
+        {
+          "name": "태양의 축복",
+          "count": 6
+        },
+        {
+          "name": "태양의 가호",
+          "count": 2
+        },
+        {
+          "name": "장인의 재봉술 : 2단계",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "equipment_type": "방어구",
+      "equipment_grade": "T4",
+      "target_stage": "1~10단계",
+      "required_materials": [
+        {
+          "name": "운명의 수호석",
+          "count": 151
+        },
+        {
+          "name": "운명의 돌파석",
+          "count": 4
+        },
+        {
+          "name": "아비도스 융화 재료",
+          "count": 5
+        },
+        {
+          "name": "운명의 파편",
+          "count": 300
+        },
+        {
+          "name": "골드",
+          "count": 475
+        }
+      ],
+      "additional_materials": [
+        {
+          "name": "빙하의 숨결",
+          "count": 4
+        },
+        {
+          "name": "장인의 재봉술 : 1단계",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "equipment_type": "방어구",
+      "equipment_grade": "T4",
+      "target_stage": "11~20단계",
+      "required_materials": [
+        {
+          "name": "운명의 수호석",
+          "count": 271
+        },
+        {
+          "name": "운명의 돌파석",
+          "count": 5
+        },
+        {
+          "name": "아비도스 융화 재료",
+          "count": 5
+        },
+        {
+          "name": "운명의 파편",
+          "count": 600
+        },
+        {
+          "name": "골드",
+          "count": 900
+        }
+      ],
+      "additional_materials": [
+        {
+          "name": "빙하의 숨결",
+          "count": 6
+        },
+        {
+          "name": "장인의 재봉술 : 2단계",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "equipment_type": "방어구",
+      "equipment_grade": "T4",
+      "target_stage": "21~30단계",
+      "required_materials": [
+        {
+          "name": "운명의 수호석",
+          "count": 1000
+        },
+        {
+          "name": "운명의 돌파석",
+          "count": 18
+        },
+        {
+          "name": "아비도스 융화 재료",
+          "count": 17
+        },
+        {
+          "name": "운명의 파편",
+          "count": 7000
+        },
+        {
+          "name": "골드",
+          "count": 2000
+        }
+      ],
+      "additional_materials": [
+        {
+          "name": "빙하의 숨결",
+          "count": 20
+        },
+        {
+          "name": "장인의 재봉술 : 3단계",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "equipment_type": "방어구",
+      "equipment_grade": "T4",
+      "target_stage": "31~40단계",
+      "required_materials": [
+        {
+          "name": "운명의 수호석",
+          "count": 1200
+        },
+        {
+          "name": "운명의 돌파석",
+          "count": 23
+        },
+        {
+          "name": "아비도스 융화 재료",
+          "count": 19
+        },
+        {
+          "name": "운명의 파편",
+          "count": 8000
+        },
+        {
+          "name": "골드",
+          "count": 2400
+        }
+      ],
+      "additional_materials": [
+        {
+          "name": "빙하의 숨결",
+          "count": 24
+        },
+        {
+          "name": "장인의 재봉술 : 4단계",
+          "count": 1
+        }
+      ]
+    }
+  ]
+}

@@ -93,11 +93,6 @@ public class AccountController {
 
         UserPreference preference = preferences.findById(account.getDiscordId()).orElse(new UserPreference(account.getDiscordId()));
         result.put("loark-theme", preference.getTheme());
-        result.put("loark.includePheonCost", Boolean.toString(preference.isIncludePheonCost()));
-        if (preference.getCrystalGoldPer100() != null) result.put("loark.crystalGoldPer100", preference.getCrystalGoldPer100().toString());
-        if (preference.getAbilityStoneConfiguration() != null) result.put("loark.abilityStoneConfiguration", preference.getAbilityStoneConfiguration());
-        result.put("loark-home-layout", preference.getHomeLayout());
-        result.put("loark-home-hidden-widgets", preference.getHiddenHomeWidgets());
         return result;
     }
 
@@ -109,8 +104,17 @@ public class AccountController {
         String discordId = account.getDiscordId();
         if (data.size() > 50) throw new IllegalArgumentException("저장 가능한 설정 수를 초과했습니다.");
 
+        // Upsert by character instead of delete-all-then-reinsert: keeps existing
+        // rows (and their ids) for characters still favorited, adds new ones,
+        // removes ones no longer in the list, and updates in place if the same
+        // character appears twice in one request (rather than a duplicate INSERT
+        // hitting the discord_id+character_id unique constraint).
         JsonNode favoriteRows = parse(data.get("loark-favorite-characters"), "[]");
-        favorites.deleteAll(favorites.findByDiscordIdOrderBySortOrderAsc(discordId));
+        Map<Long, UserFavorite> existingFavorites = new HashMap<>();
+        favorites.findByDiscordIdOrderBySortOrderAsc(discordId).forEach(favorite -> {
+            if (favorite.getCharacter() != null) existingFavorites.put(favorite.getCharacter().getId(), favorite);
+        });
+        Set<Long> keptCharacterIds = new HashSet<>();
         int order = 0;
         if (favoriteRows.isArray()) for (JsonNode row : favoriteRows) {
             String name = row.path("characterName").asText("").trim();
@@ -126,9 +130,19 @@ public class AccountController {
                         text(row, "combatPower"), text(row, "characterImage"), null, Instant.now());
                 gameCharacters.save(character);
             }
-            favorites.save(new UserFavorite(discordId, character, text(row, "rosterId"), text(row, "rosterName"),
-                    order++, instant(row.path("savedAt").asText())));
+            if (!keptCharacterIds.add(character.getId())) continue;
+            UserFavorite favorite = existingFavorites.get(character.getId());
+            if (favorite != null) {
+                favorite.update(text(row, "rosterId"), text(row, "rosterName"), order++, instant(row.path("savedAt").asText()));
+                favorites.save(favorite);
+            } else {
+                favorites.save(new UserFavorite(discordId, character, text(row, "rosterId"), text(row, "rosterName"),
+                        order++, instant(row.path("savedAt").asText())));
+            }
         }
+        existingFavorites.forEach((characterId, favorite) -> {
+            if (!keptCharacterIds.contains(characterId)) favorites.delete(favorite);
+        });
         account.setRepresentativeCharacterName(data.get("loark-representative-character"));
 
         raidTasks.deleteAll(raidTasks.findByDiscordIdOrderByCharacterNameAscIdAsc(discordId));
@@ -145,9 +159,7 @@ public class AccountController {
         });
 
         UserPreference preference = preferences.findById(discordId).orElse(new UserPreference(discordId));
-        preference.update(data.get("loark-theme"), Boolean.parseBoolean(data.get("loark.includePheonCost")),
-                integer(data.get("loark.crystalGoldPer100")), blankToNull(data.get("loark.abilityStoneConfiguration")),
-                validatedJson(data.get("loark-home-layout"), "[]"), validatedJson(data.get("loark-home-hidden-widgets"), "[]"));
+        preference.update(data.get("loark-theme"));
         preferences.save(preference);
         account.markDataInitialized(); accounts.save(account);
         return data;
@@ -182,11 +194,8 @@ public class AccountController {
         try { return objectMapper.readTree(value == null || value.isBlank() ? fallback : value); }
         catch (Exception ignored) { try { return objectMapper.readTree(fallback); } catch (Exception impossible) { throw new IllegalStateException(impossible); } }
     }
-    private String validatedJson(String value, String fallback) { return parse(value, fallback).toString(); }
     private String text(JsonNode node, String field) { return node.path(field).asText(""); }
     private Instant instant(String value) { try { return Instant.parse(value); } catch (Exception ignored) { return Instant.now(); } }
-    private Integer integer(String value) { try { return value == null ? null : Integer.valueOf(value); } catch (Exception ignored) { return null; } }
-    private String blankToNull(String value) { return value == null || value.isBlank() ? null : value; }
     private Set<Integer> integers(JsonNode values) {
         Set<Integer> result = new LinkedHashSet<>(); if (values.isArray()) values.forEach(value -> result.add(value.asInt())); return result;
     }

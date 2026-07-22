@@ -58,7 +58,7 @@
 .ark-pass-panel > header > div:last-child b {
   margin-top: 4px;
   color: #e0bd67;
-  font: 800 var(--fs-17) 'Outfit';
+  font: 800 var(--fs-17) 'Loark Gwangju';
 }
 .ark-pass-table {
   overflow: hidden;
@@ -102,7 +102,7 @@
   display: grid;
   place-items: center;
   color: var(--text);
-  font: 800 var(--fs-17) 'Outfit';
+  font: 800 var(--fs-17) 'Loark Gwangju';
   background: var(--surface);
 }
 .ark-pass-reward-cell {
@@ -293,7 +293,7 @@
 .ark-pass-totals span b {
   margin-top: 6px;
   color: #79a8ff;
-  font: 800 var(--fs-19) 'Outfit';
+  font: 800 var(--fs-19) 'Loark Gwangju';
 }
 .ark-pass-totals em {
   color: var(--muted);
@@ -420,7 +420,7 @@
 .ark-pass-gem-options button span {
   overflow: hidden;
   font-size: var(--fs-13);
-  font-weight: 700;
+  font-weight: 500;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
@@ -475,7 +475,7 @@
   background: var(--surface-2);
   color: var(--text);
   font-size: var(--fs-13);
-  font-weight: 700;
+  font-weight: 500;
 }
 .ark-pass-reward > i.ancient {
   background: linear-gradient(135deg, #3d3325 0%, #dcc999 100%);
@@ -584,7 +584,7 @@
 .ark-pass-level-heading {
   border-left: 1px solid var(--line);
   color: var(--text);
-  font: 800 var(--fs-16) 'Outfit';
+  font: 800 var(--fs-16) 'Loark Gwangju';
 }
 .ark-pass-track-row {
   display: grid;
@@ -793,7 +793,7 @@
   background: var(--surface);
   color: var(--text);
   font-size: var(--fs-13);
-  font-weight: 700;
+  font-weight: 500;
 }
 @media (max-width: 900px) {
   .ark-pass-matrix {

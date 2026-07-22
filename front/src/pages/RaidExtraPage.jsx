@@ -35,6 +35,16 @@ const shardConversions = {
   '운명의 파편': { marketName: '운명의 파편 주머니(대)', contents: 3000 },
   '명예의 파편': { marketName: '명예의 파편 주머니(대)', contents: 1500 },
 }
+// 특수 재련 돌파석 (농축/순환/전이) are all bound with no market listing at any tier, so market
+// lookup always fails for them. Values are the lowest per-stone gold value the 특수 재련 효율 page
+// derives (일반 재련 평균 비용 ÷ 특수 재련 예상 사용량, across every equipment type and stage) for
+// 순환/전이; 농축 has no honing data of its own, so its value is backed out via the same 5:1
+// upgrade ratio material-upgrades.json already uses for this group.
+const specialHoningLeapstoneValues = {
+  '특수 재련 : 전이 돌파석': 229,
+  '특수 재련 : 순환 돌파석': 51,
+  '특수 재련 : 농축 돌파석': 51 / 5,
+}
 const raidRewardImages = {
   '명예의 파편': '/images/rewards/money_13.png',
 }
@@ -95,6 +105,8 @@ const upgradedReward = (reward, upgradeLevels = {}) => {
 }
 const rewardMarketValue = (reward, prices, upgradeLevels) => {
   const valuedReward = upgradedReward(reward, upgradeLevels)
+  const fixedValue = specialHoningLeapstoneValues[valuedReward.item]
+  if (fixedValue > 0) return valuedReward.amount * fixedValue
   const market = prices[marketNameFor(valuedReward.item)]
   if (!(market?.currentMinPrice > 0)) return null
   return (

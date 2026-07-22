@@ -1,17 +1,7 @@
-import {
-  Anvil,
-  Calculator,
-  ChartNoAxesCombined,
-  Coins,
-  FlaskConical,
-  Gauge,
-  PackagePlus,
-  Route,
-  Sparkles,
-  TrendingUp,
-} from 'lucide-react'
+import { Anvil, Calculator, Coins, FlaskConical, PackagePlus, Route, TrendingUp } from 'lucide-react'
 import FeatureLandingPage from '../components/FeatureLandingPage'
 import HoningOptimizerPage from './HoningOptimizerPage'
+import SpecialHoningPage from './SpecialHoningPage'
 
 const configs = {
   optimizer: {
@@ -24,28 +14,29 @@ const configs = {
       [Route, '최적 경로 비교', '장비별 재련 순서와 예상 비용을 비교합니다.'],
     ],
   },
-  special: {
-    title: '특수 재련 효율',
-    description: '특수 재련 재료의 시세와 성공 기대값을 일반 재련 비용과 비교합니다.',
+  advanced: {
+    title: '상급 재련 최적화',
+    description: '상급 재련 단계별 재료와 비용을 비교해 가장 효율적인 성장 경로를 계산합니다.',
     items: [
-      [Sparkles, '특수 재료 선택', '사용할 특수 재련 돌파석과 적용 장비를 선택합니다.'],
-      [Gauge, '성공 기대값', '단계별 성공 확률을 반영해 기대 비용을 계산합니다.'],
-      [ChartNoAxesCombined, '일반 재련 비교', '같은 단계의 일반 재련 대비 절약 가치를 확인합니다.'],
+      [PackagePlus, '상급 재련 구간 설정', '장비 종류와 현재·목표 상급 재련 단계를 설정합니다.'],
+      [FlaskConical, '재료 투입 계산', '상급 재련에 필요한 재료와 단계별 기대 비용을 계산합니다.'],
+      [TrendingUp, '단계별 효율 비교', '아이템 레벨 상승량 대비 비용이 좋은 구간을 비교합니다.'],
     ],
   },
-  support: {
-    title: '보조 재련 효율',
-    description: '숨결과 재련 보조 재료를 얼마나 사용하는 것이 유리한지 시세 기준으로 계산합니다.',
+  integrated: {
+    title: '통합 재련 최적화',
+    description: '일반 재련과 상급 재련을 함께 비교해 목표 레벨까지의 최적 경로를 찾습니다.',
     items: [
-      [PackagePlus, '보조 재료 구성', '용암·빙하의 숨결 등 사용할 재료 수량을 설정합니다.'],
-      [FlaskConical, '확률 증가 계산', '추가 성공 확률과 장인의 기운 증가량을 반영합니다.'],
-      [TrendingUp, '투입 효율 비교', '재료를 넣지 않은 경우와 단계별 비용 효율을 비교합니다.'],
+      [Calculator, '통합 목표 설정', '현재 장비 상태와 최종 목표 아이템 레벨을 설정합니다.'],
+      [Route, '재련 경로 통합 비교', '일반 재련과 상급 재련의 가능한 성장 순서를 비교합니다.'],
+      [Coins, '최종 비용 최적화', '보유 재료와 시세를 반영해 전체 예상 지출을 최소화합니다.'],
     ],
   },
 }
 
 export default function HoningPage({ mode = 'optimizer' }) {
   if (mode === 'optimizer') return <HoningOptimizerPage />
+  if (mode === 'special') return <SpecialHoningPage />
   const config = configs[mode] || configs.optimizer
   return (
     <FeatureLandingPage

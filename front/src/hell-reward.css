@@ -108,7 +108,7 @@
   padding: 0;
   background: none;
   color: var(--primary-2);
-  font: 700 var(--fs-13) 'Outfit';
+  font: 700 var(--fs-13) 'Loark Gwangju';
   letter-spacing: 1.2px;
 }
 .hell-selection > header h2 {
@@ -145,7 +145,7 @@
   gap: 6px;
   color: var(--text);
   font-size: var(--fs-13);
-  font-weight: 700;
+  font-weight: 500;
   white-space: nowrap;
   cursor: pointer;
 }
@@ -313,7 +313,7 @@
   padding: 0 9px;
   color: var(--muted);
   font-size: var(--fs-13);
-  font-weight: 700;
+  font-weight: 500;
   white-space: nowrap;
   cursor: pointer;
 }
@@ -347,7 +347,7 @@
   background: transparent;
   color: var(--text);
   font-size: var(--fs-13);
-  font-weight: 700;
+  font-weight: 500;
 }
 .pheon-converter .pheon-price input:disabled {
   color: var(--muted);
@@ -378,7 +378,7 @@
   border-radius: 8px;
   background: var(--surface);
   color: var(--text);
-  font: 800 var(--fs-13) 'Outfit';
+  font: 800 var(--fs-13) 'Loark Gwangju';
   cursor: pointer;
 }
 .hell-level-grid button.active,
@@ -396,7 +396,7 @@
 .hell-stage-grid button small {
   margin-left: 2px;
   font-size: var(--fs-13);
-  font-weight: 700;
+  font-weight: 500;
 }
 .hell-selection {
   display: grid;
@@ -483,7 +483,7 @@
 .hell-ranking > header p {
   margin: 0 0 4px;
   color: var(--primary-2);
-  font: 700 var(--fs-13) 'Outfit';
+  font: 700 var(--fs-13) 'Loark Gwangju';
   letter-spacing: 1.2px;
 }
 .hell-ranking > header h2 {
@@ -532,7 +532,7 @@
   border-radius: 5px;
   background: var(--surface-2);
   color: var(--muted);
-  font: 800 var(--fs-13) 'Outfit';
+  font: 800 var(--fs-13) 'Loark Gwangju';
 }
 .hell-ranking-list article.top .hell-rank-number {
   background: #f3d91a;
@@ -588,7 +588,7 @@
 }
 .hell-reward-value {
   color: #5284f5;
-  font: 800 var(--fs-15) 'Outfit';
+  font: 800 var(--fs-15) 'Loark Gwangju';
   text-align: right;
 }
 .hell-reward-value small {

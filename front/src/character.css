@@ -91,7 +91,7 @@
 }
 .level-score strong {
   display: block;
-  font: 700 var(--fs-27) 'Outfit';
+  font: 700 var(--fs-27) 'Loark Gwangju';
   color: #bca8ff;
   margin: 4px 0;
 }
@@ -185,7 +185,7 @@
 }
 .combat-power strong {
   display: block;
-  font: 700 var(--fs-20) 'Outfit';
+  font: 700 var(--fs-20) 'Loark Gwangju';
   margin-top: 2px;
 }
 .stat-grid {
@@ -449,8 +449,14 @@
   border-radius: 50%;
   display: grid;
   place-items: center;
+  overflow: hidden;
   background: #2b2540;
   color: #b69bf9;
+}
+.sibling-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .sibling-grid strong,
 .sibling-grid small {

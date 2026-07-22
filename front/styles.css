@@ -1,21 +1,21 @@
 @font-face {
   font-family: 'Loark Gwangju';
-  src: url('/fonts/otf/빛고을광주_Medium.otf') format('opentype');
-  font-weight: 100 900;
+  src: url('/fonts/otf/빛고을광주_Light.otf') format('opentype');
+  font-weight: 100 300;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Noto Sans KR';
+  font-family: 'Loark Gwangju';
   src: url('/fonts/otf/빛고을광주_Medium.otf') format('opentype');
-  font-weight: 100 900;
+  font-weight: 301 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Outfit';
-  src: url('/fonts/otf/빛고을광주_Medium.otf') format('opentype');
-  font-weight: 100 900;
+  font-family: 'Loark Gwangju';
+  src: url('/fonts/otf/빛고을광주_Bold.otf') format('opentype');
+  font-weight: 501 900;
   font-style: normal;
   font-display: swap;
 }
@@ -77,7 +77,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'Loark Gwangju', sans-serif;
   font-size: var(--fs-15);
 }
 a {
@@ -128,7 +128,7 @@ button {
   width: 19px;
 }
 .brand-name {
-  font: 700 var(--fs-20) 'Outfit';
+  font: 700 var(--fs-20) 'Loark Gwangju';
   letter-spacing: 1.4px;
 }
 .brand-name span {
@@ -273,7 +273,7 @@ main {
 .section-kicker {
   margin: 0 0 13px;
   color: var(--primary-2);
-  font: 700 var(--fs-13) 'Outfit';
+  font: 700 var(--fs-13) 'Loark Gwangju';
   letter-spacing: 1.7px;
 }
 .eyebrow {
@@ -334,7 +334,7 @@ main {
   background: linear-gradient(135deg, #7657e7, #936ffc);
   border: 0;
   border-radius: 10px;
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
 }
 .recent-searches {
@@ -582,7 +582,7 @@ main {
 .day-tabs button.selected {
   background: var(--primary);
   color: #fff;
-  font-weight: 700;
+  font-weight: 500;
   box-shadow: 0 7px 18px rgba(125, 88, 235, 0.2);
 }
 .event-list {
@@ -709,7 +709,7 @@ main {
 .ranking-panel em {
   font-style: normal;
   color: var(--gold);
-  font-weight: 700;
+  font-weight: 500;
 }
 .avatar {
   width: 30px;
@@ -745,7 +745,7 @@ main {
 }
 .banner span {
   color: #a990ff;
-  font: 700 var(--fs-13) 'Outfit';
+  font: 700 var(--fs-13) 'Loark Gwangju';
   letter-spacing: 1.5px;
 }
 .banner h2 {
@@ -785,7 +785,7 @@ footer {
   color: var(--muted);
 }
 .footer-brand {
-  font: 700 var(--fs-17) 'Outfit';
+  font: 700 var(--fs-17) 'Loark Gwangju';
   color: #aaa0cc;
 }
 .footer-inner p {

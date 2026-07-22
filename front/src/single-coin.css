@@ -71,7 +71,7 @@
   background: var(--surface-2);
   color: var(--muted);
   font-size: var(--fs-13);
-  font-weight: 700;
+  font-weight: 500;
 }
 .single-coin-table {
   width: 100%;
@@ -93,7 +93,7 @@
   background: var(--surface-2);
   color: var(--muted);
   font-size: var(--fs-13);
-  font-weight: 700;
+  font-weight: 500;
 }
 .single-coin-head > span {
   min-width: 0;
@@ -162,7 +162,7 @@
   border-radius: 6px;
   background: var(--surface-2);
   color: var(--muted);
-  font: 800 var(--fs-13) 'Outfit';
+  font: 800 var(--fs-13) 'Loark Gwangju';
   font-style: normal;
 }
 .single-coin-row:nth-child(2) .single-value-rank {
@@ -206,7 +206,7 @@
   border-radius: 10px;
   background: var(--surface);
   color: var(--muted);
-  font: 800 var(--fs-13) 'Outfit';
+  font: 800 var(--fs-13) 'Loark Gwangju';
 }
 .single-category-tabs button.active {
   border-color: rgba(226, 161, 70, 0.42);
@@ -252,7 +252,7 @@
   background: var(--surface);
   color: var(--muted);
   font-size: var(--fs-13);
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
 }
 .single-value-exclusions > div {
@@ -270,7 +270,7 @@
   background: var(--surface);
   color: var(--muted);
   font-size: var(--fs-13);
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
   transition:
     border-color 0.15s,
@@ -341,7 +341,7 @@
   margin-top: 4px;
   color: var(--text);
   font-size: var(--fs-13);
-  font-weight: 700;
+  font-weight: 500;
 }
 .single-coin-row > .single-coin-cost-cell {
   display: grid;
@@ -383,7 +383,7 @@
 }
 .single-coin-cost-copy > span:first-child {
   font-size: var(--fs-13);
-  font-weight: 700;
+  font-weight: 500;
 }
 .single-coin-cost-copy > span:first-child strong {
   font-size: var(--fs-13);
@@ -396,7 +396,7 @@
 }
 .single-coin-row .coin-gold-value {
   color: #5284f5;
-  font: 800 var(--fs-15) 'Outfit';
+  font: 800 var(--fs-15) 'Loark Gwangju';
 }
 .single-coin-row.placeholder {
   opacity: 0.58;
@@ -497,7 +497,7 @@
   overflow: hidden;
   color: var(--text);
   font-size: var(--fs-13);
-  font-weight: 700;
+  font-weight: 500;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
@@ -514,7 +514,7 @@
 }
 .single-chance-card-main > strong {
   color: #5284f5;
-  font: 800 var(--fs-13) 'Outfit';
+  font: 800 var(--fs-13) 'Loark Gwangju';
   text-align: right;
   white-space: nowrap;
 }
@@ -581,7 +581,7 @@
   overflow: hidden;
   color: var(--text);
   font-size: var(--fs-13);
-  font-weight: 700;
+  font-weight: 500;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
@@ -602,7 +602,7 @@
   justify-content: flex-end;
   gap: 3px;
   color: #5284f5;
-  font: 800 var(--fs-13) 'Outfit';
+  font: 800 var(--fs-13) 'Loark Gwangju';
   text-align: right;
   white-space: nowrap;
 }
@@ -788,7 +788,7 @@
 }
 .single-selection-bom > header > strong {
   color: #5284f5;
-  font: 800 var(--fs-13) 'Outfit';
+  font: 800 var(--fs-13) 'Loark Gwangju';
   white-space: nowrap;
 }
 .single-selection-title {
@@ -884,7 +884,7 @@
 }
 .single-selection-grid > button > strong {
   color: #5284f5;
-  font: 800 var(--fs-13) 'Outfit';
+  font: 800 var(--fs-13) 'Loark Gwangju';
   text-align: right;
   white-space: nowrap;
 }
@@ -1167,7 +1167,7 @@
 }
 .single-chance-card > strong {
   color: #5284f5;
-  font: 800 var(--fs-13) 'Outfit';
+  font: 800 var(--fs-13) 'Loark Gwangju';
   text-align: right;
   white-space: nowrap;
 }
@@ -1187,7 +1187,7 @@
   color: var(--muted);
   font-size: var(--fs-13);
   font-style: normal;
-  font-weight: 700;
+  font-weight: 500;
 }
 .single-chance-title img.ancient,
 .single-chance-row img.ancient {

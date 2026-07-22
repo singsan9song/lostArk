@@ -31,6 +31,9 @@ public class UserFavorite {
         this.discordId = discordId; this.character = character; this.rosterId = rosterId; this.rosterName = rosterName;
         this.sortOrder = sortOrder; this.savedAt = savedAt;
     }
+    public void update(String rosterId, String rosterName, int sortOrder, Instant savedAt) {
+        this.rosterId = rosterId; this.rosterName = rosterName; this.sortOrder = sortOrder; this.savedAt = savedAt;
+    }
     public GameCharacter getCharacter() { return character; }
     public String getRosterId() { return rosterId; }
     public String getRosterName() { return rosterName; }

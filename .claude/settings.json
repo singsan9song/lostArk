@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s \"http://localhost:5173/src/battle.css\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"http://localhost:8081/\")",
+      "Bash(curl -s \"http://localhost:8081/\")",
+      "Bash(find 'C:\\\\Users\\\\User/.gradle/caches/modules-2/files-2.1/com.h2database' -iname h2-*.jar)",
+      "Bash(/c/Users/User/.jdks/openjdk-22.0.1/bin/java.exe -cp /c/Users/User/.gradle/caches/modules-2/files-2.1/com.h2database/h2/2.4.240/686180ad33981ad943fdc0ab381e619b2c2fdfe5/h2-2.4.240.jar org.h2.tools.Shell -url 'jdbc:h2:file:C:/SES/Project/Development/Dynamic Web/lostArk/loark/data/loark-cache;AUTO_SERVER=TRUE' -user sa -password '' -sql 'SHOW TABLES;')",
+      "Bash(curl -s \"http://localhost:8081/api/characters/%EC%8B%9C%EC%9D%B4%EC%9D%B4%EC%9D%B4%EC%9D%B4%EC%9D%B5\" -o correct_char.json)",
+      "Bash(curl -s \"http://localhost:8081/api/characters/%EC%8B%9C%EC%9D%B4%EC%9D%B4%EC%9D%B4%EC%9D%B4%EC%9D%B5\" -o correct_char_fresh.json)",
+      "Bash(curl -s \"http://localhost:8081/api/characters/%EC%84%9C%ED%8F%AF%ED%95%98%EB%82%98%EB%8D%94%ED%82%A4%EC%9A%B0%EC%9E%90\")",
+      "Bash(curl -s \"http://localhost:8081/api/characters/%ED%97%B7%EC%A7%80\")",
+      "Bash(JAVA_HOME=\"/c/Users/User/.jdks/openjdk-22.0.1\" ./gradlew compileJava)",
+      "Bash(JAVA_HOME=\"/c/Users/User/.jdks/openjdk-22.0.1\" ./gradlew compileJava --rerun-tasks)"
+    ]
+  }
+}

@@ -38,10 +38,10 @@ export default function App() {
           <Route path="/mari-shop" element={<MariShopPage />} />
           <Route path="/event-shop" element={<EventShopPage />} />
           <Route path="/other-efficiency" element={<OtherEfficiencyPage />} />
-          <Route path="/honing" element={<Navigate to="/honing/optimizer" replace />} />
-          <Route path="/honing/optimizer" element={<HoningPage mode="optimizer" />} />
-          <Route path="/honing/special" element={<HoningPage mode="special" />} />
-          <Route path="/honing/support" element={<HoningPage mode="support" />} />
+          <Route path="/honing-optimizer" element={<HoningPage mode="optimizer" />} />
+          <Route path="/advanced-honing-optimizer" element={<HoningPage mode="advanced" />} />
+          <Route path="/integrated-honing-optimizer" element={<HoningPage mode="integrated" />} />
+          <Route path="/special-honing" element={<HoningPage mode="special" />} />
           <Route path="/expedition" element={<ExpeditionPage />} />
           <Route path="/rapport" element={<RapportPage />} />
           <Route path="/community" element={<CommunityPage />} />

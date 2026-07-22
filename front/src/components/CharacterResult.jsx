@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   Award,
   BarChart3,
@@ -21,15 +21,15 @@ import { useSearchParams } from 'react-router-dom'
 import ProfileHero from './ProfileHero'
 import BattleOverview from './BattleOverview'
 import AvatarOverview from './AvatarOverview'
-import SkillOverview from './SkillOverview'
 import RosterAchievementPanel from './RosterAchievementPanel'
 import { cleanApiText } from '../lib/text'
 import { getEngravingIcon } from '../lib/engravingIcons'
+import { lostArkApi } from '../lib/api'
 
+// 스킬 tab folded into 전투정보's own 스킬 category (see BattleOverview).
 const tabs = [
   ['overview', '전투정보', Swords],
   ['avatar', '아바타', Palette],
-  ['skill', '스킬', Sparkles],
   ['history', '성장기록', History],
   ['collectible', '수집형 포인트', Grid3X3],
   ['expedition', '원정대', Users],
@@ -76,7 +76,7 @@ export default function CharacterResult({ data, onSiblingSearch }) {
     <section className="character-result character-v2">
       <div className="character-summary-grid">
         <ProfileHero profile={profile} siblings={siblings} />
-        <RosterAchievementPanel discoveries={data.discoveries} />
+        <RosterAchievementPanel discoveries={data.discoveries} stats={stats} />
       </div>
 
       <nav className="result-tabs">
@@ -88,9 +88,10 @@ export default function CharacterResult({ data, onSiblingSearch }) {
         ))}
       </nav>
 
-      {tab === 'overview' && <BattleOverview armory={armory} profile={profile} stats={stats} />}
+      {tab === 'overview' && (
+        <BattleOverview armory={armory} profile={profile} stats={stats} skills={skills} />
+      )}
       {tab === 'avatar' && <AvatarOverview profile={profile} avatars={avatars} />}
-      {tab === 'skill' && <SkillOverview profile={profile} skills={skills} armory={armory} />}
       {tab === 'history' && <HistoryTab profile={profile} fetchedAt={data.fetchedAt} />}
       {tab === 'collectible' && <CollectibleTab collectibles={collectibles} />}
       {tab === 'expedition' && (
@@ -385,6 +386,21 @@ function CollectibleTab({ collectibles }) {
 }
 
 function ExpeditionTab({ siblings, servers, server, setServer, onSearch }) {
+  const [images, setImages] = useState({})
+  useEffect(() => {
+    siblings
+      .filter((item) => item.CharacterName && !(item.CharacterName in images))
+      .forEach((item) => {
+        lostArkApi
+          .getCharacter(item.CharacterName)
+          .then((data) => {
+            const image = data?.armory?.ArmoryProfile?.CharacterImage || ''
+            setImages((current) => ({ ...current, [item.CharacterName]: image }))
+          })
+          .catch(() => setImages((current) => ({ ...current, [item.CharacterName]: '' })))
+      })
+  }, [siblings])
+
   return (
     <section className="result-panel tab-page">
       <div className="result-title">
@@ -409,7 +425,13 @@ function ExpeditionTab({ siblings, servers, server, setServer, onSearch }) {
               onClick={() => onSearch(item.CharacterName)}
               key={`${item.ServerName}-${item.CharacterName}-${i}`}
             >
-              <span className="sibling-avatar">{item.CharacterClassName?.[0]}</span>
+              <span className="sibling-avatar">
+                {images[item.CharacterName] ? (
+                  <img src={images[item.CharacterName]} alt="" />
+                ) : (
+                  item.CharacterClassName?.[0]
+                )}
+              </span>
               <div>
                 <strong>{item.CharacterName}</strong>
                 <small>

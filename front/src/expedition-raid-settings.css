@@ -87,7 +87,7 @@
 .expedition-character-metrics strong {
   margin-top: 4px;
   color: var(--primary);
-  font: 800 var(--fs-14) 'Outfit';
+  font: 800 var(--fs-14) 'Loark Gwangju';
   white-space: nowrap;
 }
 .expedition-character-metrics strong.combat {
@@ -164,7 +164,7 @@
   border-radius: 50%;
   background: var(--surface-2);
   color: #7ba9ff;
-  font: 800 var(--fs-11) 'Outfit';
+  font: 800 var(--fs-11) 'Loark Gwangju';
   cursor: pointer;
 }
 .expedition-card-raid button.complete,

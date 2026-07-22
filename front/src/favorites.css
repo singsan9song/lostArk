@@ -220,7 +220,7 @@
   background: rgba(125, 99, 215, 0.1);
   color: var(--primary-2);
   font-size: var(--fs-13);
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
 }
 .api-cache-status > button:hover:not(:disabled) {

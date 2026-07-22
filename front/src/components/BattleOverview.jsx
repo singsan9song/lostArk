@@ -1,6 +1,15 @@
-import { Activity, BookOpen, Gem, Layers3, Shield, Sparkles, Swords } from 'lucide-react'
+import { useState } from 'react'
+import { BookOpen, Gem, Layers3, Shield, Sparkles, Swords } from 'lucide-react'
 import { cleanApiText } from '../lib/text'
 import { getEngravingIcon } from '../lib/engravingIcons'
+import ItemTooltip from './ItemTooltip'
+import SkillOverview from './SkillOverview'
+
+const categories = [
+  ['equipment', '장비', Shield],
+  ['gem', '보석', Gem],
+  ['skill', '스킬', Sparkles],
+]
 
 const gradeClass = (grade) =>
   ({
@@ -16,6 +25,26 @@ const accessoryTypes = ['목걸이', '귀걸이', '반지']
 const leftEquipmentTypes = ['무기', '투구', '상의', '하의', '장갑', '어깨', '보주']
 const rightEquipmentTypes = ['목걸이', '귀걸이', '반지', '어빌리티 스톤', '팔찌']
 const honingTypes = ['무기', '투구', '상의', '하의', '장갑', '어깨']
+const cardGradeOrder = ['일반', '고급', '희귀', '영웅', '전설', '고대']
+const cardGradeIndex = (grade) => {
+  const index = cardGradeOrder.indexOf(grade)
+  return index === -1 ? cardGradeOrder.length - 1 : index
+}
+// img_card_grade.png sprite: each 134px-wide frame is separated by a 13px gap
+// (147px pitch), with no trailing gap after the last frame — not 6 even slices.
+const CARD_FRAME = { width: 134, height: 200, pitch: 147, displayWidth: 78 }
+const cardFrameScale = CARD_FRAME.displayWidth / CARD_FRAME.width
+const cardFrameSheetWidth = (5 * CARD_FRAME.pitch + CARD_FRAME.width) * cardFrameScale
+const cardFrameSheetHeight = CARD_FRAME.height * cardFrameScale
+const cardFramePositionX = (grade) => -(cardGradeIndex(grade) * CARD_FRAME.pitch * cardFrameScale)
+// Matches the official card-slot[data-grade] name-text colors, in the same order as cardGradeOrder.
+const cardGradeTextColor = ['#ffffff', '#91fe02', '#46a1ff', '#bf33ec', '#ffba16', '#d75414']
+// img_profile_awake.png: two 120x36 rows (unlit, lit) of 5x 24px-wide pips;
+// official slot places it at bottom:14px, centered, on a 134x200 card.
+const CARD_AWAKE_PIP = 24 * cardFrameScale
+const CARD_AWAKE_HEIGHT = 36 * cardFrameScale
+const CARD_AWAKE_BOTTOM = 14 * cardFrameScale
+const cardAwakeSheetSize = `${CARD_AWAKE_PIP * 5}px ${CARD_AWAKE_HEIGHT * 2}px`
 
 function equipmentByOrder(equipment, types) {
   return equipment
@@ -99,23 +128,44 @@ function tooltipPart(raw, heading) {
 }
 
 function parseAccessoryEffects(raw = '') {
-  const plain = cleanApiText(raw)
-  return [...plain.matchAll(/([가-힣\s]+?)\s*(\+[\d,]+(?:\.\d+)?%?)/g)]
-    .map((match, index) => {
-      const name = match[1].trim()
-      const value = match[2]
-      const rawIndex = raw.indexOf(name)
-      const color = raw
-        .slice(Math.max(0, rawIndex), rawIndex + name.length + 150)
-        .match(/COLOR=['"]?#?([A-F0-9]{6})/i)?.[1]
-        ?.toUpperCase()
-      const tier = color === 'FFD200' ? 'high' : color === 'CE43FC' ? 'middle' : 'low'
-      return { name, value, tier, key: `${name}-${index}` }
+  // Each 연마 효과 line is its own <br>-separated segment, e.g.
+  // "...<img .../>적에게 주는 피해 <FONT color='CE43FC'>+1.20%</FONT>". Parsing
+  // line-by-line (rather than scanning the whole blob with indexOf + a fuzzy
+  // lookahead) avoids misattributing color when two lines share a stat name
+  // (e.g. "무기 공격력" appears both as a random roll and as the fixed line).
+  return raw
+    .split(/<br\s*\/?>/i)
+    .map((segment, index) => {
+      const match = segment.match(
+        /([가-힣\s]+?)\s*<FONT\s+color=['"]?#?([A-F0-9]{6})['"]?[^>]*>\s*(\+[\d,]+(?:\.\d+)?%?)/i,
+      )
+      if (!match) return null
+      const name = cleanApiText(match[1]).trim()
+      const color = match[2].toUpperCase()
+      const value = match[3]
+      // FFD200/CE43FC = "high"/"middle" are confirmed by the real site's own
+      // CSS class names (item_grade_high/item_grade_medium). FE9600 has no
+      // such confirmed label — it's only ever seen on the 3rd (item-level-
+      // scaled) line, where a higher bracket ("+390") showed FE9600 vs a lower
+      // bracket ("+195") showing 00B5FF, so treating it as "high" here is an
+      // inference from that one comparison — scoped to 연마 효과 only, not a
+      // confirmed rule to reuse elsewhere.
+      const tier =
+        color === 'FFD200' || color === 'FE9600' ? 'high' : color === 'CE43FC' ? 'middle' : 'low'
+      return { name, value, tier, color, key: `${name}-${index}` }
     })
+    .filter(Boolean)
     .slice(0, 3)
 }
 
-export default function BattleOverview({ armory, profile, stats }) {
+export default function BattleOverview({ armory, profile, stats, skills }) {
+  const [category, setCategory] = useState('equipment')
+  const [hover, setHover] = useState(null)
+  // Separate from `hover` (which drives the item tooltip): the gem list only
+  // needs to indicate which gem a row belongs to (syncing the diagram
+  // highlight), not pop up the full tooltip — that's reserved for hovering
+  // the diagram icon itself.
+  const [hoverGemSlot, setHoverGemSlot] = useState(null)
   const equipment = (armory.ArmoryEquipment || []).filter(
     (item) => !['나침반', '부적'].includes(item.Type),
   )
@@ -132,115 +182,10 @@ export default function BattleOverview({ armory, profile, stats }) {
     armory.ArmoryEngraving?.ArkPassiveEffects || armory.ArmoryEngraving?.Effects || []
   const cards = armory.ArmoryCard?.Cards || []
   const cardEffects = armory.ArmoryCard?.Effects || []
-  const passive = armory.ArkPassive || {}
 
   return (
     <div className="battle-dashboard">
       <div className="battle-two-column battle-primary-row">
-        <section className="battle-panel stat-board">
-          <div className="battle-heading">
-            <div>
-              <Activity />
-              <h2>기본 및 전투 특성</h2>
-            </div>
-          </div>
-          <div className="basic-stats">
-            <div>
-              <span>공격력</span>
-              <strong>{stats['공격력'] || '-'}</strong>
-            </div>
-            <div>
-              <span>최대 생명력</span>
-              <strong>{stats['최대 생명력'] || '-'}</strong>
-            </div>
-          </div>
-          <div className="combat-stats">
-            {['치명', '특화', '신속', '제압', '인내', '숙련'].map((name) => (
-              <div key={name}>
-                <span>{name}</span>
-                <strong>{stats[name] || 0}</strong>
-              </div>
-            ))}
-          </div>
-        </section>
-        <section className="battle-panel card-board">
-          <div className="battle-heading">
-            <div>
-              <BookOpen />
-              <h2>카드</h2>
-            </div>
-            <span>{cardEffects.at(-1)?.Items?.at(-1)?.Name || `${cards.length}장 장착`}</span>
-          </div>
-          {cards.length ? (
-            <div className="battle-cards">
-              {cards.map((card, index) => (
-                <article key={index}>
-                  <div>
-                    <img src={card.Icon} alt="" />
-                    <i>{card.AwakeCount || 0}</i>
-                  </div>
-                  <strong>{card.Name}</strong>
-                  <span>
-                    각성 {card.AwakeCount || 0}/{card.AwakeTotal || 0}
-                  </span>
-                </article>
-              ))}
-            </div>
-          ) : (
-            <Empty icon={BookOpen} text="장착된 카드가 없습니다." />
-          )}
-        </section>
-      </div>
-
-      <div className="battle-two-column battle-loadout-row">
-        <section className="battle-panel equipment-board">
-          <div className="battle-heading">
-            <div>
-              <Shield />
-              <h2>장비</h2>
-            </div>
-            <span>아이템 레벨 {profile.ItemAvgLevel}</span>
-          </div>
-          <div className="equipment-columns">
-            <div>
-              {leftEquipment.map((item, index) => (
-                <EquipmentRow item={item} key={`${item.Type}-${index}`} />
-              ))}
-            </div>
-            <div>
-              {rightEquipment.map((item, index) => (
-                <EquipmentRow
-                  item={item}
-                  accessory={accessoryTypes.includes(item.Type)}
-                  key={`${item.Type}-${index}`}
-                />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="battle-panel gem-board">
-          <div className="battle-heading">
-            <div>
-              <Gem />
-              <h2>보석</h2>
-            </div>
-            <span>{gems.length}개 장착</span>
-          </div>
-          {gems.length ? (
-            <div className="battle-gems">
-              {orderedGems.map(({ gem, effect }, index) => (
-                <GemRow gem={gem} effect={effect} key={gem.Slot ?? index} />
-              ))}
-            </div>
-          ) : (
-            <Empty icon={Gem} text="장착된 보석이 없습니다." />
-          )}
-        </section>
-      </div>
-
-      <div className="battle-two-column battle-build-row">
-        <ArkPassive passive={passive} />
         <section className="battle-panel engraving-board">
           <div className="battle-heading">
             <div>
@@ -259,41 +204,196 @@ export default function BattleOverview({ armory, profile, stats }) {
             <Empty icon={Layers3} text="각인 정보가 없습니다." />
           )}
         </section>
+        <section className="battle-panel card-board">
+          <div className="battle-heading">
+            <div>
+              <BookOpen />
+              <h2>카드</h2>
+            </div>
+            <span>{cardEffects.at(-1)?.Items?.at(-1)?.Name || `${cards.length}장 장착`}</span>
+          </div>
+          {cards.length ? (
+            <div className="battle-cards">
+              {cards.map((card, index) => (
+                <article key={index}>
+                  <div>
+                    <img src={card.Icon} alt="" />
+                    <div
+                      className="card-frame"
+                      style={{
+                        backgroundSize: `${cardFrameSheetWidth}px ${cardFrameSheetHeight}px`,
+                        backgroundPositionX: `${cardFramePositionX(card.Grade)}px`,
+                      }}
+                    />
+                    <div
+                      className="card-awake"
+                      style={{
+                        width: `${(card.AwakeTotal || 0) * CARD_AWAKE_PIP}px`,
+                        height: `${CARD_AWAKE_HEIGHT}px`,
+                        bottom: `${CARD_AWAKE_BOTTOM}px`,
+                        backgroundSize: cardAwakeSheetSize,
+                      }}
+                    >
+                      <div
+                        className="awake"
+                        style={{
+                          width: `${(card.AwakeCount || 0) * CARD_AWAKE_PIP}px`,
+                          backgroundSize: cardAwakeSheetSize,
+                          backgroundPositionY: `-${CARD_AWAKE_HEIGHT}px`,
+                        }}
+                      />
+                    </div>
+                    <strong style={{ color: cardGradeTextColor[cardGradeIndex(card.Grade)] }}>
+                      {card.Name}
+                    </strong>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <Empty icon={BookOpen} text="장착된 카드가 없습니다." />
+          )}
+        </section>
       </div>
+
+      <nav className="battle-category-tabs">
+        {categories.map(([id, label, Icon]) => (
+          <button className={category === id ? 'active' : ''} onClick={() => setCategory(id)} key={id}>
+            <Icon />
+            {label}
+          </button>
+        ))}
+      </nav>
+
+      {category === 'equipment' && (
+        <section className="battle-panel equipment-board">
+          <div className="battle-heading">
+            <div>
+              <Shield />
+              <h2>장비</h2>
+            </div>
+            <span>아이템 레벨 {profile.ItemAvgLevel}</span>
+          </div>
+          <div className="equipment-columns">
+            <div>
+              {leftEquipment.map((item, index) => (
+                <EquipmentRow item={item} onHover={setHover} key={`${item.Type}-${index}`} />
+              ))}
+            </div>
+            <div>
+              {rightEquipment.map((item, index) => (
+                <EquipmentRow
+                  item={item}
+                  accessory={accessoryTypes.includes(item.Type)}
+                  onHover={setHover}
+                  key={`${item.Type}-${index}`}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {category === 'gem' && (
+        <section className="battle-panel gem-board">
+          <div className="battle-heading">
+            <div>
+              <Gem />
+              <h2>보석</h2>
+            </div>
+            <span>{gems.length}개 장착</span>
+          </div>
+          {gems.length ? (
+            <div className="jewel-diagram-layout">
+              <div className="jewel-diagram">
+                {gems.map((gem) => (
+                  <JewelSlot
+                    gem={gem}
+                    effect={gemEffects.find((item) => Number(item.GemSlot) === Number(gem.Slot))}
+                    onHover={setHover}
+                    onHoverSlot={setHoverGemSlot}
+                    active={hoverGemSlot === gem.Slot}
+                    key={gem.Slot}
+                  />
+                ))}
+              </div>
+              <div className="jewel-effect-list">
+                <div className="jewel-effect-list-heading">
+                  <h4>장착 중인 보석 효과</h4>
+                  <span className="default-power">
+                    기본 공격력 총합 : {totalBasePower(gemEffects)}%
+                  </span>
+                </div>
+                <div className="battle-gems">
+                  {orderedGems.map(({ gem, effect }, index) => (
+                    <GemRow
+                      gem={gem}
+                      effect={effect}
+                      onHoverSlot={setHoverGemSlot}
+                      active={hoverGemSlot === gem.Slot}
+                      key={gem.Slot ?? index}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <Empty icon={Gem} text="장착된 보석이 없습니다." />
+          )}
+        </section>
+      )}
+
+      {category === 'skill' && (
+        <SkillOverview profile={profile} skills={skills} armory={armory} onHover={setHover} />
+      )}
+
+      <ItemTooltip item={hover?.item} left={hover?.left} right={hover?.right} top={hover?.top} />
     </div>
   )
 }
 
-function EquipmentRow({ item }) {
+function EquipmentRow({ item, onHover }) {
   const details = tooltipData(item)
-  if (accessoryTypes.includes(item.Type)) return <AccessoryRow item={item} details={details} />
-  if (honingTypes.includes(item.Type)) return <HoningRow item={item} details={details} />
-  if (item.Type === '어빌리티 스톤') return <StoneRow item={item} details={details} />
-  if (item.Type === '보주') return <OrbRow item={item} details={details} />
-  const meta = equipmentMeta(item, details)
+  if (accessoryTypes.includes(item.Type)) return <AccessoryRow item={item} details={details} onHover={onHover} />
+  if (honingTypes.includes(item.Type)) return <HoningRow item={item} details={details} onHover={onHover} />
+  if (item.Type === '어빌리티 스톤') return <StoneRow item={item} details={details} onHover={onHover} />
+  if (item.Type === '보주') return <OrbRow item={item} details={details} onHover={onHover} />
   return (
-    <article className={`battle-equipment ${gradeClass(item.Grade)}`} title={meta}>
-      <div className="equipment-icon">
-        <img src={item.Icon} alt="" />
-        <em>{item.Grade?.[0]}</em>
-      </div>
+    <article
+      className={`battle-equipment ${gradeClass(item.Grade)} ${item.Type === '팔찌' ? 'bracelet-row' : ''}`}
+    >
+      <EquipmentIcon item={item} onHover={onHover} />
       <div className="equipment-copy">
         <strong>{item.Name}</strong>
-        <span>{meta}</span>
+        <span>{equipmentMeta(item, details)}</span>
       </div>
     </article>
   )
 }
 
-function HoningRow({ item, details }) {
+// Hovering only the icon (not the name/stats text) triggers the item tooltip,
+// anchored to float beside the icon rather than following the cursor.
+function EquipmentIcon({ item, onHover }) {
+  return (
+    <div
+      className="equipment-icon"
+      onMouseEnter={(e) => {
+        const rect = e.currentTarget.getBoundingClientRect()
+        onHover?.({ item, left: rect.left, right: rect.right, top: rect.top })
+      }}
+      onMouseLeave={() => onHover?.(null)}
+    >
+      <img src={item.Icon} alt="" />
+    </div>
+  )
+}
+
+function HoningRow({ item, details, onHover }) {
   const enhancement = item.Name?.match(/^\+(\d+)/)?.[1]
   const itemName = item.Name?.replace(/^\+\d+\s*/, '')
   return (
     <article className={`battle-equipment honing-row ${gradeClass(item.Grade)}`}>
-      <div className="equipment-icon">
-        <img src={item.Icon} alt="" />
-        <em>{item.Grade?.[0]}</em>
-      </div>
+      <EquipmentIcon item={item} onHover={onHover} />
       <div className="equipment-copy">
         <strong>
           <em className="honing-level">
@@ -313,13 +413,10 @@ function HoningRow({ item, details }) {
   )
 }
 
-function AccessoryRow({ item, details }) {
+function AccessoryRow({ item, details, onHover }) {
   return (
     <article className={`battle-equipment accessory-row ${gradeClass(item.Grade)}`}>
-      <div className="equipment-icon">
-        <img src={item.Icon} alt="" />
-        <em>{item.Grade?.[0]}</em>
-      </div>
+      <EquipmentIcon item={item} onHover={onHover} />
       <div className="equipment-copy accessory-copy">
         <strong title={item.Name}>{item.Name}</strong>
         <div className="accessory-meta">
@@ -333,11 +430,14 @@ function AccessoryRow({ item, details }) {
         {details.accessoryEffects.length ? (
           details.accessoryEffects.map((effect) => (
             <div key={effect.key}>
-              <i className={effect.tier}>
-                {effect.tier === 'high' ? '상' : effect.tier === 'middle' ? '중' : '하'}
-              </i>
+              <i
+                className={effect.tier}
+                aria-label={effect.tier === 'high' ? '상' : effect.tier === 'middle' ? '중' : '하'}
+              />
               <span>{effect.name}</span>
-              <b>{effect.value}</b>
+              <b style={effect.color !== 'FFD200' && effect.color !== 'CE43FC' ? { color: `#${effect.color}` } : undefined}>
+                {effect.value}
+              </b>
             </div>
           ))
         ) : (
@@ -348,13 +448,10 @@ function AccessoryRow({ item, details }) {
   )
 }
 
-function StoneRow({ item, details }) {
+function StoneRow({ item, details, onHover }) {
   return (
     <article className={`battle-equipment stone-row ${gradeClass(item.Grade)}`}>
-      <div className="equipment-icon">
-        <img src={item.Icon} alt="" />
-        <em>{item.Grade?.[0]}</em>
-      </div>
+      <EquipmentIcon item={item} onHover={onHover} />
       <div className="equipment-copy">
         <strong>{item.Name}</strong>
         <div className="stone-total">Lv.{details.stoneLevel}</div>
@@ -362,8 +459,10 @@ function StoneRow({ item, details }) {
       <div className="stone-effect-list">
         {details.stoneEngravings.map((effect) => (
           <div className={effect.harmful ? 'harmful' : ''} key={effect.name}>
-            <i>{effect.level}</i>
-            <span>{effect.name}</span>
+            <i className={effect.harmful ? 'stone-gem-red' : 'stone-gem-blue'} />
+            <span>
+              {effect.name} Lv.{effect.level}
+            </span>
           </div>
         ))}
       </div>
@@ -371,13 +470,10 @@ function StoneRow({ item, details }) {
   )
 }
 
-function OrbRow({ item, details }) {
+function OrbRow({ item, details, onHover }) {
   return (
     <article className={`battle-equipment orb-row ${gradeClass(item.Grade)}`} title={item.Name}>
-      <div className="equipment-icon">
-        <img src={item.Icon} alt="" />
-        <em>{item.Grade?.[0]}</em>
-      </div>
+      <EquipmentIcon item={item} onHover={onHover} />
       <div className="equipment-copy">
         <strong>{details.orbName || item.Name}</strong>
         <span>
@@ -415,6 +511,12 @@ function equipmentMeta(item, details) {
   return item.Grade || ''
 }
 
+const engravingGradePosition = {
+  전설: '-58px',
+  영웅: '-87px',
+  유물: '-116px',
+}
+
 function EngravingRow({ item, index }) {
   const baseLevel = Number(item.Level ?? 0)
   const stoneLevel = Number(item.AbilityStoneLevel ?? 0)
@@ -424,7 +526,11 @@ function EngravingRow({ item, index }) {
       <div className={`engraving-symbol symbol-${index % 5}`}>
         {icon ? <img src={icon} alt={`${item.Name} 각인`} /> : <span>{item.Name?.[0] || '?'}</span>}
       </div>
-      <i className="engraving-level-mark" aria-hidden="true" />
+      <i
+        className="engraving-level-mark"
+        style={{ backgroundPositionX: engravingGradePosition[item.Grade] || '-116px' }}
+        aria-hidden="true"
+      />
       <span className="engraving-base" aria-label={`기본 각인 레벨 ${baseLevel}`}>
         × {baseLevel}
       </span>
@@ -444,31 +550,80 @@ function EngravingRow({ item, index }) {
   )
 }
 
-function GemRow({ gem, effect }) {
-  const { description, isCooldown, amount } = gemEffectDetails(effect)
-  const typeLabel = isCooldown ? '쿨타임 감소' : '피해 증가'
-  const amountLabel = amount ? `${isCooldown ? '-' : '+'}${amount}` : ''
+// Matches the official .jewel__wrap layout: 11 fixed slots (top row of 4,
+// middle row of 3, bottom row of 4) over bg_jewel.jpg, keyed by gem.Slot.
+const JEWEL_SLOT_POSITIONS = [
+  { top: 221, left: 30 },
+  { top: 221, left: 113 },
+  { top: 221, left: 329 },
+  { top: 221, left: 412 },
+  { top: 319, left: 140 },
+  { top: 319, left: 223 },
+  { top: 319, left: 306 },
+  { top: 417, left: 30 },
+  { top: 417, left: 113 },
+  { top: 417, left: 329 },
+  { top: 417, left: 412 },
+]
+
+function totalBasePower(effects) {
+  const sum = effects.reduce((total, effect) => {
+    const match = String(effect?.Option || '').match(/([\d.]+)\s*%/)
+    return total + (match ? parseFloat(match[1]) : 0)
+  }, 0)
+  return sum.toFixed(2)
+}
+
+function JewelSlot({ gem, effect, onHover, onHoverSlot, active }) {
+  const position = JEWEL_SLOT_POSITIONS[gem.Slot] ?? JEWEL_SLOT_POSITIONS[0]
+  const isCooldown = gemEffectDetails(effect).isCooldown
+  return (
+    <div
+      className={`jewel-slot ${gradeClass(gem.Grade)} ${active ? 'active' : ''}`}
+      style={{ top: position.top, left: position.left }}
+      onMouseEnter={(e) => {
+        const rect = e.currentTarget.getBoundingClientRect()
+        onHover?.({ item: gem, left: rect.left, right: rect.right, top: rect.top })
+        onHoverSlot?.(gem.Slot)
+      }}
+      onMouseLeave={() => {
+        onHover?.(null)
+        onHoverSlot?.(null)
+      }}
+    >
+      <span className="jewel_img">
+        <img src={gem.Icon} alt="" />
+      </span>
+      <b className="jewel_level">
+        <em className={isCooldown ? 'gemsymbol-time' : 'gemsymbol-attack'} />
+        Lv.{gem.Level}
+      </b>
+    </div>
+  )
+}
+
+function GemRow({ gem, effect, onHoverSlot, active }) {
+  const { description } = gemEffectDetails(effect)
 
   return (
     <div
-      className={`gem-entry ${gradeClass(gem.Grade)}`}
-      title={description || cleanApiText(gem.Name)}
+      className={`gem-entry ${gradeClass(gem.Grade)} ${active ? 'active' : ''}`}
+      onMouseEnter={() => onHoverSlot?.(gem.Slot)}
+      onMouseLeave={() => onHoverSlot?.(null)}
     >
-      <div className="gem-grade-icon">
-        <span className="gem-image-clip">
-          <img src={gem.Icon} alt="" />
-        </span>
-        <b>{gem.Level}</b>
-      </div>
-      <div className="gem-link-copy">
-        <div className="gem-skill-line">
-          {effect?.Icon && <img src={effect.Icon} alt="" />}
-          <strong>{effect?.Name || '연계 스킬 없음'}</strong>
-        </div>
-        <span className={`gem-effect-badge ${isCooldown ? 'cooldown' : 'damage'}`}>
-          {typeLabel}
-          {amountLabel && <em>{amountLabel}</em>}
-        </span>
+      <span className="slot">{effect?.Icon && <img src={effect.Icon} alt="" />}</span>
+      <div className="skill">
+        <strong className="skill_tit">{effect?.Name || '연계 스킬 없음'}</strong>
+        {description && (
+          <p className="skill_detail">
+            <em>{effect.Name}</em> {description}
+          </p>
+        )}
+        {effect?.Option && (
+          <p className="add_effect">
+            <em>추가 효과</em> {effect.Option}
+          </p>
+        )}
       </div>
     </div>
   )

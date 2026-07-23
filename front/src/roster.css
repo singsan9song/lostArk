@@ -55,11 +55,11 @@
   font-size: var(--fs-13);
 }
 .roster-summary strong {
-  font: 700 var(--fs-13) 'Loark Gwangju';
+  font: 700 var(--fs-13) var(--app-font);
   margin-top: 3px;
 }
 .roster-summary small {
-  font: 500 var(--fs-13) 'Loark Gwangju';
+  font: 500 var(--fs-13) var(--app-font);
   color: var(--muted);
   margin-left: 2px;
 }

@@ -1,21 +1,63 @@
 @font-face {
-  font-family: 'Loark Gwangju';
-  src: url('/fonts/otf/빛고을광주_Light.otf') format('opentype');
-  font-weight: 100 300;
+  font-family: 'Noto Sans KR';
+  src: url('/fonts/static/NotoSansKR-Thin.ttf') format('truetype');
+  font-weight: 100;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Loark Gwangju';
-  src: url('/fonts/otf/빛고을광주_Medium.otf') format('opentype');
-  font-weight: 301 500;
+  font-family: 'Noto Sans KR';
+  src: url('/fonts/static/NotoSansKR-ExtraLight.ttf') format('truetype');
+  font-weight: 200;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Loark Gwangju';
-  src: url('/fonts/otf/빛고을광주_Bold.otf') format('opentype');
-  font-weight: 501 900;
+  font-family: 'Noto Sans KR';
+  src: url('/fonts/static/NotoSansKR-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Noto Sans KR';
+  src: url('/fonts/static/NotoSansKR-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Noto Sans KR';
+  src: url('/fonts/static/NotoSansKR-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Noto Sans KR';
+  src: url('/fonts/static/NotoSansKR-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Noto Sans KR';
+  src: url('/fonts/static/NotoSansKR-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Noto Sans KR';
+  src: url('/fonts/static/NotoSansKR-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Noto Sans KR';
+  src: url('/fonts/static/NotoSansKR-Black.ttf') format('truetype');
+  font-weight: 900;
   font-style: normal;
   font-display: swap;
 }
@@ -31,9 +73,13 @@
   --gold: #e4bd70;
   --nav: rgba(10, 12, 19, 0.82);
   --shadow: 0 22px 60px rgba(0, 0, 0, 0.25);
-  --app-font: 'Loark Gwangju', sans-serif;
+  --app-font: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
+  --leading-tight: 1.28;
+  --leading-normal: 1.55;
+  --tracking-tight: -0.025em;
+  --tracking-normal: -0.01em;
 
-  --fs-11: 11px;
+  --fs-11: 12px;
   --fs-13: 13px;
   --fs-14: 14px;
   --fs-15: 15px;
@@ -72,24 +118,59 @@ textarea {
 html {
   scroll-behavior: smooth;
   font-size: var(--fs-15);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: 'Loark Gwangju', sans-serif;
+  font-family: var(--app-font);
   font-size: var(--fs-15);
+  font-weight: 400;
+  line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-normal);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 a {
   color: inherit;
   text-decoration: none;
 }
 button,
-input {
+input,
+select,
+textarea {
   font: inherit;
+  letter-spacing: inherit;
 }
 button {
   color: inherit;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  text-wrap: balance;
+}
+p {
+  line-height: var(--leading-normal);
+}
+small {
+  line-height: 1.45;
+}
+strong,
+b,
+th,
+input,
+.gold-amount {
+  font-variant-numeric: tabular-nums;
 }
 .topbar {
   height: 72px;
@@ -128,7 +209,7 @@ button {
   width: 19px;
 }
 .brand-name {
-  font: 700 var(--fs-20) 'Loark Gwangju';
+  font: 700 var(--fs-20) var(--app-font);
   letter-spacing: 1.4px;
 }
 .brand-name span {
@@ -273,7 +354,7 @@ main {
 .section-kicker {
   margin: 0 0 13px;
   color: var(--primary-2);
-  font: 700 var(--fs-13) 'Loark Gwangju';
+  font: 700 var(--fs-13) var(--app-font);
   letter-spacing: 1.7px;
 }
 .eyebrow {
@@ -745,7 +826,7 @@ main {
 }
 .banner span {
   color: #a990ff;
-  font: 700 var(--fs-13) 'Loark Gwangju';
+  font: 700 var(--fs-13) var(--app-font);
   letter-spacing: 1.5px;
 }
 .banner h2 {
@@ -785,7 +866,7 @@ footer {
   color: var(--muted);
 }
 .footer-brand {
-  font: 700 var(--fs-17) 'Loark Gwangju';
+  font: 700 var(--fs-17) var(--app-font);
   color: #aaa0cc;
 }
 .footer-inner p {

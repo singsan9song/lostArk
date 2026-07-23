@@ -4,6 +4,7 @@ export const ACCOUNT_STORAGE_KEYS = [
   'loark-favorite-characters',
   'loark-representative-character',
   'loark-expedition-raid-settings',
+  'loark-character-honing-materials',
   'loark-theme',
 ]
 
@@ -48,4 +49,28 @@ export function applyLocalData(data) {
 export function clearLocalData() {
   ACCOUNT_STORAGE_KEYS.forEach((key) => localStorage.removeItem(key))
   window.dispatchEvent(new CustomEvent(LOCAL_DATA_CHANGED_EVENT))
+}
+
+export function removeStoredCharacterData(characterNames) {
+  const names = new Set(
+    (Array.isArray(characterNames) ? characterNames : [characterNames]).filter(Boolean),
+  )
+  if (!names.size) return
+
+  const characterDataKeys = ['loark-expedition-raid-settings', 'loark-character-honing-materials']
+  characterDataKeys.forEach((key) => {
+    try {
+      const current = JSON.parse(localStorage.getItem(key) || '{}')
+      if (!current || typeof current !== 'object' || Array.isArray(current)) return
+      let changed = false
+      names.forEach((name) => {
+        if (!Object.hasOwn(current, name)) return
+        delete current[name]
+        changed = true
+      })
+      if (changed) localStorage.setItem(key, JSON.stringify(current))
+    } catch {
+      // Invalid old data is left untouched; the normal readers already fall back safely.
+    }
+  })
 }

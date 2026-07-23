@@ -108,7 +108,7 @@
   padding: 0;
   background: none;
   color: var(--primary-2);
-  font: 700 var(--fs-13) 'Loark Gwangju';
+  font: 700 var(--fs-13) var(--app-font);
   letter-spacing: 1.2px;
 }
 .hell-selection > header h2 {
@@ -378,7 +378,7 @@
   border-radius: 8px;
   background: var(--surface);
   color: var(--text);
-  font: 800 var(--fs-13) 'Loark Gwangju';
+  font: 800 var(--fs-13) var(--app-font);
   cursor: pointer;
 }
 .hell-level-grid button.active,
@@ -483,7 +483,7 @@
 .hell-ranking > header p {
   margin: 0 0 4px;
   color: var(--primary-2);
-  font: 700 var(--fs-13) 'Loark Gwangju';
+  font: 700 var(--fs-13) var(--app-font);
   letter-spacing: 1.2px;
 }
 .hell-ranking > header h2 {
@@ -532,7 +532,7 @@
   border-radius: 5px;
   background: var(--surface-2);
   color: var(--muted);
-  font: 800 var(--fs-13) 'Loark Gwangju';
+  font: 800 var(--fs-13) var(--app-font);
 }
 .hell-ranking-list article.top .hell-rank-number {
   background: #f3d91a;
@@ -588,7 +588,7 @@
 }
 .hell-reward-value {
   color: #5284f5;
-  font: 800 var(--fs-15) 'Loark Gwangju';
+  font: 800 var(--fs-15) var(--app-font);
   text-align: right;
 }
 .hell-reward-value small {

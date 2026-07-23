@@ -50,7 +50,7 @@
 .efficiency-hero p {
   margin: 0 0 5px;
   color: var(--primary-2);
-  font: 700 var(--fs-13) 'Loark Gwangju';
+  font: 700 var(--fs-13) var(--app-font);
   letter-spacing: 1.4px;
 }
 .efficiency-hero h1 {
@@ -126,7 +126,7 @@
   outline: 0;
   background: transparent;
   color: var(--text);
-  font: 700 var(--fs-14) 'Loark Gwangju';
+  font: 700 var(--fs-14) var(--app-font);
 }
 .efficiency-fields em {
   padding-right: 10px;
@@ -153,7 +153,7 @@
   display: block;
   margin: 8px 0 20px;
   color: #74d4a6;
-  font: 800 var(--fs-26) 'Loark Gwangju';
+  font: 800 var(--fs-26) var(--app-font);
 }
 .efficiency-result.negative > strong {
   color: #eb857f;

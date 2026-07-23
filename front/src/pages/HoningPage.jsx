@@ -1,6 +1,16 @@
-import { Anvil, Calculator, Coins, FlaskConical, PackagePlus, Route, TrendingUp } from 'lucide-react'
+import {
+  Anvil,
+  Calculator,
+  Coins,
+  FlaskConical,
+  PackagePlus,
+  Route,
+  TrendingUp,
+} from 'lucide-react'
 import FeatureLandingPage from '../components/FeatureLandingPage'
 import HoningOptimizerPage from './HoningOptimizerPage'
+import AdvancedHoningOptimizerPage from './AdvancedHoningOptimizerPage'
+import IntegratedHoningOptimizerPage from './IntegratedHoningOptimizerPage'
 import SpecialHoningPage from './SpecialHoningPage'
 
 const configs = {
@@ -36,6 +46,8 @@ const configs = {
 
 export default function HoningPage({ mode = 'optimizer' }) {
   if (mode === 'optimizer') return <HoningOptimizerPage />
+  if (mode === 'advanced') return <AdvancedHoningOptimizerPage />
+  if (mode === 'integrated') return <IntegratedHoningOptimizerPage />
   if (mode === 'special') return <SpecialHoningPage />
   const config = configs[mode] || configs.optimizer
   return (

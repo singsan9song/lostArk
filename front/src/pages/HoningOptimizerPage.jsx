@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import {
   Anvil,
   Award,
@@ -25,6 +26,9 @@ import {
 } from '../lib/honingCalculator'
 import { marketNameFor, unitPriceOf } from '../lib/honingPricing'
 import { HONING_TIMEOUT_MS, runHoningCalculation } from '../lib/honingWorkerClient'
+import { applyOwnedMaterialsToResults, getCharacterHoningInventories } from '../lib/honingInventory'
+import { useFavorites } from '../lib/favorites'
+import { representativeEquipmentFromArmory } from '../lib/representativeEquipment'
 import singleCoinData from '../data/single-coin.json'
 import paradiseData from '../data/paradise-season3.json'
 import '../honing-optimizer.css'
@@ -45,6 +49,21 @@ const initialSettings = Object.fromEntries(
     { grade: DEFAULT_GRADE, current: 10, target: 10, startProbability: '', startEnergy: '' },
   ]),
 )
+const routePresetFrom = (params) => {
+  const equipmentId = params.get('equipment')
+  const grade = params.get('grade')
+  const current = Number(params.get('current'))
+  const target = Number(params.get('target'))
+  if (
+    !equipment.some((item) => item.id === equipmentId) ||
+    !GRADE_OPTIONS.includes(grade) ||
+    !Number.isFinite(current) ||
+    !Number.isFinite(target) ||
+    target <= current
+  )
+    return null
+  return { equipmentId, grade, current, target }
+}
 
 const iconFor = (name) => {
   if (name === '골드') return Coins
@@ -119,6 +138,10 @@ function StageSelect({ value, onChange, options, allowEmpty = false, label }) {
 }
 
 export default function HoningOptimizerPage() {
+  const [searchParams] = useSearchParams()
+  const routeSearch = searchParams.toString()
+  const routePreset = useMemo(() => routePresetFrom(searchParams), [routeSearch])
+  const { representativeName } = useFavorites()
   const [strongholdResearch, setStrongholdResearch] = useState(false)
   const [growthSupport, setGrowthSupport] = useState(false)
   const [bulkGrade, setBulkGrade] = useState(DEFAULT_GRADE)
@@ -131,6 +154,9 @@ export default function HoningOptimizerPage() {
   const [overallOpen, setOverallOpen] = useState(true)
   const [marketPrices, setMarketPrices] = useState({})
   const [pricesReady, setPricesReady] = useState(false)
+  const [ownedInventories] = useState(getCharacterHoningInventories)
+  const ownedCharacter =
+    representativeName && ownedInventories[representativeName] ? representativeName : ''
 
   const supportState = { strongholdResearch, growthSupport }
   const getUnitPrice = (name) => unitPriceOf(name, marketPrices)
@@ -226,14 +252,28 @@ export default function HoningOptimizerPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [calculated, pricesReady, strongholdResearch, growthSupport, marketPrices])
 
+  const adjustedSimulations = useMemo(() => {
+    const availableResults = equipment
+      .filter((item) => simulations[item.id])
+      .map((item) => ({ id: item.id, ...simulations[item.id] }))
+    const adjusted = applyOwnedMaterialsToResults(
+      availableResults,
+      ownedInventories[ownedCharacter] || {},
+      getUnitPrice,
+    ).results
+    return Object.fromEntries(adjusted.map(({ id, ...result }) => [id, result]))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [simulations, ownedCharacter, ownedInventories, marketPrices])
+
   const isCalculating = calculatingIds.size > 0
-  const resultItems = equipment.filter((item) => simulations[item.id])
+  const resultItems = equipment.filter((item) => adjustedSimulations[item.id])
   const visibleItems = equipment.filter(
-    (item) => simulations[item.id] || calculatingIds.has(item.id) || timedOutIds.has(item.id),
+    (item) =>
+      adjustedSimulations[item.id] || calculatingIds.has(item.id) || timedOutIds.has(item.id),
   )
   const selectedItem =
     visibleItems.find((item) => item.id === activeEquipment) || visibleItems[0] || null
-  const selectedSimulation = selectedItem ? simulations[selectedItem.id] : null
+  const selectedSimulation = selectedItem ? adjustedSimulations[selectedItem.id] : null
   const selectedSetting = selectedItem ? calculated[selectedItem.id] : null
 
   useEffect(() => {
@@ -244,7 +284,102 @@ export default function HoningOptimizerPage() {
   }, [selectedSimulation])
 
   const clampToOptions = (value, options) =>
-    !options.length || value === '' ? value : Math.min(options[options.length - 1], Math.max(options[0], value))
+    !options.length || value === ''
+      ? value
+      : Math.min(options[options.length - 1], Math.max(options[0], value))
+
+  useEffect(() => {
+    if (!representativeName || routePreset) return undefined
+    let active = true
+    lostArkApi
+      .getCharacter(representativeName)
+      .then((data) => {
+        if (!active) return
+        const detected = representativeEquipmentFromArmory(data?.armory)
+        const detectedItems = equipment.filter((item) => detected[item.id])
+        if (!detectedItems.length) return
+
+        setDraft((previous) =>
+          Object.fromEntries(
+            equipment.map((item) => {
+              const current = detected[item.id]
+              if (!current || !GRADE_OPTIONS.includes(current.regularGrade))
+                return [item.id, previous[item.id]]
+              const currentStage = clampToOptions(
+                current.enhancement,
+                currentStagesForGrade(item.type, current.regularGrade),
+              )
+              const targetStage = clampToOptions(
+                currentStage,
+                stagesForGrade(item.type, current.regularGrade),
+              )
+              return [
+                item.id,
+                {
+                  ...previous[item.id],
+                  grade: current.regularGrade,
+                  current: currentStage,
+                  target: targetStage,
+                  startProbability: '',
+                  startEnergy: '',
+                },
+              ]
+            }),
+          ),
+        )
+        const first = detected[detectedItems[0].id]
+        setBulkGrade(first.regularGrade)
+        setBulkCurrent(first.enhancement)
+        setBulkTarget('')
+        setCalculated(null)
+      })
+      .catch(() => {})
+    return () => {
+      active = false
+    }
+    // The inventory snapshot is intentionally read once with the representative equipment.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [representativeName, routePreset])
+
+  useEffect(() => {
+    if (!routePreset || !pricesReady) return
+    const selectedItem = equipment.find((item) => item.id === routePreset.equipmentId)
+    const current = clampToOptions(
+      routePreset.current,
+      currentStagesForGrade(selectedItem.type, routePreset.grade),
+    )
+    const target = clampToOptions(
+      Math.max(current, routePreset.target),
+      stagesForGrade(selectedItem.type, routePreset.grade),
+    )
+    const next = Object.fromEntries(
+      equipment.map((item) => {
+        const previous = draft[item.id]
+        if (item.id !== routePreset.equipmentId)
+          return [item.id, { ...previous, target: previous.current }]
+        return [
+          item.id,
+          {
+            ...previous,
+            grade: routePreset.grade,
+            current,
+            target,
+            startProbability: '',
+            startEnergy: '',
+          },
+        ]
+      }),
+    )
+    setDraft(next)
+    setBulkGrade(routePreset.grade)
+    setBulkCurrent(current)
+    setBulkTarget(target)
+    setCalculated(next)
+    setActiveEquipment(routePreset.equipmentId)
+    setActiveSegment(current)
+    // The route preset is intentionally applied once after market prices become available.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [routePreset, pricesReady])
 
   const updateSetting = (id, key, value) => {
     setDraft((previous) => {
@@ -338,7 +473,6 @@ export default function HoningOptimizerPage() {
               <h2>장비 목표 설정</h2>
             </div>
           </header>
-
           <div className="honing-material-options">
             <label>
               <input
@@ -584,33 +718,48 @@ export default function HoningOptimizerPage() {
                     <p>
                       골드 비용은 시세 조회가 가능한 재료만 반영한 참고값입니다. 보조 재료는
                       시도마다 가장 저렴하게 목표에 도달하는 조합을 자동으로 계산합니다.
+                      {selectedSimulation.ownedDiscount > 0 && (
+                        <strong className="honing-owned-saving">
+                          귀속 재료 적용으로{' '}
+                          <GoldAmount>{number(selectedSimulation.ownedDiscount)}</GoldAmount>을
+                          절약할 수 있습니다. 최적 조합과 표시 비용은 기존 시세 기준입니다.
+                        </strong>
+                      )}
                     </p>
                   </div>
 
                   <div className="honing-material-grid">
-                    {selectedSimulation.materials.map(({ name, expectedCount }) => {
-                      const Icon = iconFor(name)
-                      const meta = getMeta(name)
-                      const price = getUnitPrice(name)
-                      return (
-                        <div key={name}>
-                          <i className={gradeClass(meta.grade)}>
-                            {meta.image ? <img src={meta.image} alt="" /> : <Icon />}
-                          </i>
-                          <span>
-                            <small>{name}</small>
-                            <b>{number(expectedCount)}개</b>
-                          </span>
-                          <strong>
-                            {price !== null ? (
-                              <GoldAmount>{number(price * expectedCount)}</GoldAmount>
-                            ) : (
-                              '시세 없음'
-                            )}
-                          </strong>
-                        </div>
-                      )
-                    })}
+                    {selectedSimulation.materials.map(
+                      ({ name, expectedCount, ownedUsed, ownedSaving, cost }) => {
+                        const Icon = iconFor(name)
+                        const meta = getMeta(name)
+                        const price = getUnitPrice(name)
+                        return (
+                          <div key={name}>
+                            <i className={gradeClass(meta.grade)}>
+                              {meta.image ? <img src={meta.image} alt="" /> : <Icon />}
+                            </i>
+                            <span>
+                              <small>{name}</small>
+                              <b>{number(expectedCount)}개</b>
+                              {ownedUsed > 0 && (
+                                <em>
+                                  귀속 {number(ownedUsed)}개 사용 시{' '}
+                                  <GoldAmount>{number(ownedSaving)}</GoldAmount> 절약
+                                </em>
+                              )}
+                            </span>
+                            <strong>
+                              {price !== null ? (
+                                <GoldAmount>{number(cost)}</GoldAmount>
+                              ) : (
+                                '시세 없음'
+                              )}
+                            </strong>
+                          </div>
+                        )
+                      },
+                    )}
                   </div>
 
                   <div className="honing-segments" role="tablist" aria-label="재련 구간">

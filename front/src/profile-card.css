@@ -28,7 +28,7 @@
   color: #697084;
 }
 .header-search kbd {
-  font: 500 var(--fs-13) 'Loark Gwangju';
+  font: 500 var(--fs-13) var(--app-font);
   color: #6e7587;
   border: 1px solid var(--line);
   border-radius: 4px;
@@ -141,7 +141,7 @@
 }
 .profile-scores strong {
   display: block;
-  font: 700 var(--fs-27) 'Loark Gwangju';
+  font: 700 var(--fs-27) var(--app-font);
   letter-spacing: 0.3px;
   margin-top: 3px;
 }

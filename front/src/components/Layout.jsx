@@ -147,48 +147,14 @@ function AccountControl({
   remove,
   removeGroup,
 }) {
-  const { user, loginUrl, logout, saveToCloud, clearLocalData, clearCloudData } = useAuth()
-  const [busy, setBusy] = useState(false)
-  const [status, setStatus] = useState('')
+  const { user, loginUrl, logout, syncStatus, clearLocalData } = useAuth()
   const dialogRef = useRef(null)
   const close = () => setOpen(false)
 
-  const flash = (message) => {
-    setStatus(message)
-    window.setTimeout(() => setStatus(''), 2500)
-  }
-  const handleSave = async () => {
-    setBusy(true)
-    try {
-      await saveToCloud()
-      flash('저장했습니다.')
-    } catch (error) {
-      flash(error.message || '저장에 실패했습니다.')
-    } finally {
-      setBusy(false)
-    }
-  }
-  const handleClearLocal = () => {
-    if (!window.confirm('이 기기에 저장된 로컬 캐시 데이터를 모두 지울까요?')) return
+  const handleClearCache = () => {
+    if (!window.confirm('이 기기에 저장된 캐릭터 캐시를 모두 삭제할까요?')) return
     clearLocalData()
     window.location.reload()
-  }
-  const handleClearCloud = async () => {
-    if (
-      !window.confirm(
-        '서버에 저장된 즐겨찾기·원정대 레이드 설정 등 동기화 데이터를 모두 삭제할까요? 이 작업은 되돌릴 수 없습니다.',
-      )
-    )
-      return
-    setBusy(true)
-    try {
-      await clearCloudData()
-      flash('서버 데이터를 삭제했습니다.')
-    } catch (error) {
-      flash(error.message || '삭제에 실패했습니다.')
-    } finally {
-      setBusy(false)
-    }
   }
 
   return (
@@ -234,21 +200,31 @@ function AccountControl({
           {user && (
             <>
               <div className="account-data-actions">
-                <button onClick={handleSave} disabled={busy}>
-                  <Save /> 로컬 캐시 저장
-                </button>
-                <button onClick={handleClearLocal} disabled={busy}>
-                  <Eraser /> 로컬 캐시 삭제
-                </button>
-                <button className="danger" onClick={handleClearCloud} disabled={busy}>
-                  <Trash2 /> 서버 데이터 삭제
-                </button>
-                {status && <small className="account-data-status">{status}</small>}
+                <div className={`account-auto-save ${syncStatus}`}>
+                  <Save />
+                  <span>
+                    <b>캐릭터 자동 저장</b>
+                    <small>
+                      {syncStatus === 'saving' || syncStatus === 'pending'
+                        ? '변경 사항 저장 중...'
+                        : syncStatus === 'error'
+                          ? '저장 실패 · 자동으로 다시 시도합니다'
+                          : '레이드와 귀속 재료 설정도 자동 저장됩니다'}
+                    </small>
+                  </span>
+                </div>
               </div>
               <button onClick={logout}>
                 <LogOut /> 로그아웃
               </button>
             </>
+          )}
+          {!user && (
+            <div className="account-data-actions">
+              <button className="danger" onClick={handleClearCache}>
+                <Eraser /> 캐시 전체 삭제
+              </button>
+            </div>
           )}
         </div>
       )}
@@ -421,9 +397,7 @@ function Header({ light, setLight }) {
             </div>
             <div className="tool-nav-menu">
               <button
-                className={
-                  honingLinks.some(([path]) => path === location.pathname) ? 'active' : ''
-                }
+                className={honingLinks.some(([path]) => path === location.pathname) ? 'active' : ''}
                 onClick={toggleHoning}
               >
                 재련 <ChevronDown />

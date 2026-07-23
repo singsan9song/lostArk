@@ -162,7 +162,7 @@
   border-radius: 6px;
   background: var(--surface-2);
   color: var(--muted);
-  font: 800 var(--fs-13) 'Loark Gwangju';
+  font: 800 var(--fs-13) var(--app-font);
   font-style: normal;
 }
 .single-coin-row:nth-child(2) .single-value-rank {
@@ -206,7 +206,7 @@
   border-radius: 10px;
   background: var(--surface);
   color: var(--muted);
-  font: 800 var(--fs-13) 'Loark Gwangju';
+  font: 800 var(--fs-13) var(--app-font);
 }
 .single-category-tabs button.active {
   border-color: rgba(226, 161, 70, 0.42);
@@ -396,7 +396,7 @@
 }
 .single-coin-row .coin-gold-value {
   color: #5284f5;
-  font: 800 var(--fs-15) 'Loark Gwangju';
+  font: 800 var(--fs-15) var(--app-font);
 }
 .single-coin-row.placeholder {
   opacity: 0.58;
@@ -514,7 +514,7 @@
 }
 .single-chance-card-main > strong {
   color: #5284f5;
-  font: 800 var(--fs-13) 'Loark Gwangju';
+  font: 800 var(--fs-13) var(--app-font);
   text-align: right;
   white-space: nowrap;
 }
@@ -602,7 +602,7 @@
   justify-content: flex-end;
   gap: 3px;
   color: #5284f5;
-  font: 800 var(--fs-13) 'Loark Gwangju';
+  font: 800 var(--fs-13) var(--app-font);
   text-align: right;
   white-space: nowrap;
 }
@@ -788,7 +788,7 @@
 }
 .single-selection-bom > header > strong {
   color: #5284f5;
-  font: 800 var(--fs-13) 'Loark Gwangju';
+  font: 800 var(--fs-13) var(--app-font);
   white-space: nowrap;
 }
 .single-selection-title {
@@ -884,7 +884,7 @@
 }
 .single-selection-grid > button > strong {
   color: #5284f5;
-  font: 800 var(--fs-13) 'Loark Gwangju';
+  font: 800 var(--fs-13) var(--app-font);
   text-align: right;
   white-space: nowrap;
 }
@@ -1167,7 +1167,7 @@
 }
 .single-chance-card > strong {
   color: #5284f5;
-  font: 800 var(--fs-13) 'Loark Gwangju';
+  font: 800 var(--fs-13) var(--app-font);
   text-align: right;
   white-space: nowrap;
 }

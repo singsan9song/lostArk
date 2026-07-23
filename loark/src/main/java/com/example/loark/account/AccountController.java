@@ -93,6 +93,7 @@ public class AccountController {
 
         UserPreference preference = preferences.findById(account.getDiscordId()).orElse(new UserPreference(account.getDiscordId()));
         result.put("loark-theme", preference.getTheme());
+        result.put("loark-character-honing-materials", preference.getHoningMaterials());
         return result;
     }
 
@@ -115,6 +116,7 @@ public class AccountController {
             if (favorite.getCharacter() != null) existingFavorites.put(favorite.getCharacter().getId(), favorite);
         });
         Set<Long> keptCharacterIds = new HashSet<>();
+        Set<String> keptCharacterNames = new HashSet<>();
         int order = 0;
         if (favoriteRows.isArray()) for (JsonNode row : favoriteRows) {
             String name = row.path("characterName").asText("").trim();
@@ -131,6 +133,7 @@ public class AccountController {
                 gameCharacters.save(character);
             }
             if (!keptCharacterIds.add(character.getId())) continue;
+            keptCharacterNames.add(character.getCharacterName());
             UserFavorite favorite = existingFavorites.get(character.getId());
             if (favorite != null) {
                 favorite.update(text(row, "rosterId"), text(row, "rosterName"), order++, instant(row.path("savedAt").asText()));
@@ -148,7 +151,7 @@ public class AccountController {
         raidTasks.deleteAll(raidTasks.findByDiscordIdOrderByCharacterNameAscIdAsc(discordId));
         JsonNode raidRows = parse(data.get("loark-expedition-raid-settings"), "{}");
         if (raidRows.isObject()) raidRows.properties().forEach(entry -> {
-            if (!entry.getValue().isArray()) return;
+            if (!keptCharacterNames.contains(entry.getKey()) || !entry.getValue().isArray()) return;
             for (JsonNode row : entry.getValue()) {
                 String raidId = text(row, "raidId"); String difficultyId = text(row, "difficultyId");
                 if (raidId.isBlank() || difficultyId.isBlank()) continue;
@@ -158,8 +161,14 @@ public class AccountController {
             }
         });
 
+        ObjectNode honingRows = objectMapper.createObjectNode();
+        JsonNode submittedHoningRows = parse(data.get("loark-character-honing-materials"), "{}");
+        if (submittedHoningRows.isObject()) submittedHoningRows.properties().forEach(entry -> {
+            if (keptCharacterNames.contains(entry.getKey()) && entry.getValue().isObject())
+                honingRows.set(entry.getKey(), entry.getValue());
+        });
         UserPreference preference = preferences.findById(discordId).orElse(new UserPreference(discordId));
-        preference.update(data.get("loark-theme"));
+        preference.update(data.get("loark-theme"), honingRows.toString());
         preferences.save(preference);
         account.markDataInitialized(); accounts.save(account);
         return data;

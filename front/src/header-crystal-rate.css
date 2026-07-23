@@ -28,7 +28,7 @@
   height: 20px !important;
 }
 .header-crystal-rate > b {
-  font: 800 var(--fs-15) 'Loark Gwangju';
+  font: 800 var(--fs-15) var(--app-font);
 }
 .header-crystal-rate > i {
   color: var(--muted);
@@ -43,7 +43,7 @@
   outline: 0;
   background: transparent;
   color: var(--text);
-  font: 800 var(--fs-15) 'Loark Gwangju';
+  font: 800 var(--fs-15) var(--app-font);
   text-align: right;
 }
 .header-crystal-rate span {
@@ -82,7 +82,7 @@
     height: 20px !important;
   }
   .mobile-crystal-rate > b {
-    font: 800 var(--fs-13) 'Loark Gwangju';
+    font: 800 var(--fs-13) var(--app-font);
   }
   .mobile-crystal-rate > i {
     color: var(--muted);

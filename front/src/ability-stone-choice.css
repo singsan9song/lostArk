@@ -80,7 +80,7 @@
   justify-content: flex-end;
   gap: 3px;
   color: #5284f5 !important;
-  font: 800 var(--fs-13) 'Loark Gwangju' !important;
+  font: 800 var(--fs-13) var(--app-font) !important;
   white-space: nowrap;
 }
 .ability-stone-choice-current > svg {

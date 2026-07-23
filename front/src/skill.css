@@ -73,7 +73,7 @@
   color: var(--muted);
 }
 .skill-point strong {
-  font: 700 var(--fs-23) 'Loark Gwangju';
+  font: 700 var(--fs-23) var(--app-font);
   line-height: 1;
 }
 .skill-point small {

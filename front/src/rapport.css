@@ -29,7 +29,7 @@
 .rapport-hero p {
   margin: 0;
   color: #ef849f;
-  font: 800 var(--fs-13) 'Loark Gwangju';
+  font: 800 var(--fs-13) var(--app-font);
   letter-spacing: 1.5px;
 }
 .rapport-hero h1 {
@@ -119,7 +119,7 @@
 }
 .rapport-required strong {
   color: #ef849f;
-  font: 800 var(--fs-21) 'Loark Gwangju';
+  font: 800 var(--fs-21) var(--app-font);
 }
 .rapport-gifts {
   display: grid;
@@ -169,7 +169,7 @@
 .rapport-result strong {
   display: block;
   margin-top: 5px;
-  font: 800 var(--fs-24) 'Loark Gwangju';
+  font: 800 var(--fs-24) var(--app-font);
 }
 .rapport-result p {
   grid-column: 1/-1;

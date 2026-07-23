@@ -405,6 +405,13 @@
   font-size: var(--fs-13);
   text-align: right;
 }
+.honing-owned-saving {
+  display: block;
+  margin: 7px 0 0;
+  color: var(--primary);
+  font-size: var(--fs-11);
+  font-weight: 700;
+}
 .silver-dot {
   width: 14px;
   height: 14px;
@@ -455,6 +462,16 @@
 .honing-material-grid b {
   display: block;
   overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.honing-material-grid span > em {
+  display: block;
+  margin-top: 3px;
+  overflow: hidden;
+  color: var(--primary);
+  font-size: var(--fs-11);
+  font-style: normal;
   text-overflow: ellipsis;
   white-space: nowrap;
 }

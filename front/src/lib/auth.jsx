@@ -1,12 +1,18 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { discordLoginUrl, lostArkApi } from './api'
-import { applyLocalData, clearLocalData, localDataSnapshot } from './localData'
+import {
+  applyLocalData,
+  clearLocalData,
+  LOCAL_DATA_CHANGED_EVENT,
+  localDataSnapshot,
+} from './localData'
 
 const AuthContext = createContext(null)
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [ready, setReady] = useState(false)
+  const [syncStatus, setSyncStatus] = useState('idle')
 
   useEffect(() => {
     let active = true
@@ -31,13 +37,62 @@ export function AuthProvider({ children }) {
     }
   }, [])
 
+  useEffect(() => {
+    if (!ready || !user) return undefined
+
+    let stopped = false
+    let saveTimer
+    let retryTimer
+    let saving = false
+    let pending = false
+
+    const persist = async () => {
+      if (stopped) return
+      if (saving) {
+        pending = true
+        return
+      }
+      saving = true
+      setSyncStatus('saving')
+      let failed = false
+      try {
+        await lostArkApi.saveUserData(localDataSnapshot())
+        if (!stopped) setSyncStatus('saved')
+      } catch {
+        failed = true
+        if (!stopped) setSyncStatus('error')
+      } finally {
+        saving = false
+        if (stopped) return
+        if (pending) {
+          pending = false
+          saveTimer = window.setTimeout(persist, 0)
+        } else if (failed) {
+          retryTimer = window.setTimeout(persist, 3000)
+        }
+      }
+    }
+    const scheduleSave = () => {
+      setSyncStatus('pending')
+      window.clearTimeout(saveTimer)
+      window.clearTimeout(retryTimer)
+      if (saving) pending = true
+      else saveTimer = window.setTimeout(persist, 300)
+    }
+
+    window.addEventListener(LOCAL_DATA_CHANGED_EVENT, scheduleSave)
+    setSyncStatus('saved')
+    return () => {
+      stopped = true
+      window.clearTimeout(saveTimer)
+      window.clearTimeout(retryTimer)
+      window.removeEventListener(LOCAL_DATA_CHANGED_EVENT, scheduleSave)
+    }
+  }, [ready, user])
+
   const logout = async () => {
     await lostArkApi.logout()
     setUser(null)
-  }
-  const saveToCloud = () => lostArkApi.saveUserData(localDataSnapshot())
-  const clearCloudData = async () => {
-    await lostArkApi.deleteUserData()
   }
   return (
     <AuthContext.Provider
@@ -46,9 +101,8 @@ export function AuthProvider({ children }) {
         ready,
         loginUrl: discordLoginUrl,
         logout,
-        saveToCloud,
+        syncStatus,
         clearLocalData,
-        clearCloudData,
       }}
     >
       {ready ? children : null}

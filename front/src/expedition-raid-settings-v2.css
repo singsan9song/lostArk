@@ -1,6 +1,228 @@
 .expedition-raid-modal {
   grid-template-rows: 74px minmax(0, 1fr) 66px;
 }
+.expedition-character-settings-body {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: 48px minmax(0, 1fr);
+  overflow: hidden;
+}
+.expedition-character-settings-tabs {
+  display: flex;
+  align-items: end;
+  gap: 4px;
+  padding: 7px 14px 0;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+.expedition-character-settings-tabs button {
+  height: 40px;
+  padding: 0 16px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  font-size: var(--fs-13);
+  font-weight: 700;
+  cursor: pointer;
+}
+.expedition-character-settings-tabs button.active {
+  border-bottom-color: var(--primary);
+  color: var(--primary);
+}
+.expedition-material-layout {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  overflow: hidden;
+}
+.expedition-material-characters {
+  min-height: 0;
+  overflow-y: auto;
+  padding: 10px;
+  border-right: 1px solid var(--line);
+}
+.expedition-material-characters > button {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  padding: 7px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+}
+.expedition-material-characters > button.active {
+  border-color: rgba(190, 213, 141, 0.45);
+  background: rgba(190, 213, 141, 0.09);
+}
+.expedition-material-characters > button > span {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--surface-2);
+}
+.expedition-material-characters img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.expedition-material-characters b,
+.expedition-material-characters small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.expedition-material-characters b {
+  font-size: var(--fs-13);
+}
+.expedition-material-characters small {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: var(--fs-11);
+}
+.expedition-material-editor {
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 16px;
+}
+.expedition-material-editor > header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.expedition-material-editor h3,
+.expedition-material-editor p {
+  margin: 0;
+}
+.expedition-material-editor h3 {
+  font-size: var(--fs-17);
+}
+.expedition-material-editor p {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: var(--fs-12, 12px);
+}
+.expedition-material-editor > header > button {
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface-2);
+  color: var(--muted);
+  cursor: pointer;
+}
+.expedition-material-groups {
+  display: grid;
+  gap: 14px;
+}
+.expedition-material-groups section {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.expedition-material-groups h4 {
+  margin: 0;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-2);
+  font-size: var(--fs-13);
+}
+.expedition-material-groups section > div {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.expedition-material-groups label {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 100px 18px;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--line);
+}
+.expedition-material-groups label:nth-child(odd) {
+  border-right: 1px solid var(--line);
+}
+.expedition-material-name {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.expedition-material-name > i {
+  width: 31px;
+  height: 31px;
+  flex: 0 0 31px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 8px;
+  background: rgba(190, 213, 141, 0.12);
+  color: var(--primary);
+}
+.expedition-material-name > i.ancient {
+  background: linear-gradient(135deg, #3d3325 0%, #dcc999 100%);
+}
+.expedition-material-name > i.relic {
+  background: linear-gradient(135deg, #341a09 0%, #a24006 100%);
+}
+.expedition-material-name > i.legendary {
+  background: linear-gradient(135deg, #362003 0%, #9e5f04 100%);
+}
+.expedition-material-name > i.epic {
+  background: linear-gradient(135deg, #261331 0%, #480d5d 100%);
+}
+.expedition-material-name > i.rare {
+  background: linear-gradient(135deg, #111f2c 0%, #113d5d 100%);
+}
+.expedition-material-name > i.uncommon {
+  background: linear-gradient(135deg, #18220b 0%, #304911 100%);
+}
+.expedition-material-name > i.common {
+  background: linear-gradient(135deg, #232323 0%, #575757 100%);
+}
+.expedition-material-name img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.expedition-material-name svg {
+  width: 16px;
+}
+.expedition-material-name > span {
+  overflow: hidden;
+  font-size: var(--fs-13);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.expedition-material-groups input {
+  width: 100%;
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  outline: 0;
+  background: var(--surface-2);
+  color: var(--text);
+  text-align: right;
+}
+.expedition-material-groups label > small {
+  color: var(--muted);
+}
 .expedition-raid-card-actions {
   display: flex;
   align-items: center;
@@ -62,7 +284,7 @@
   outline: 0;
   background: var(--surface-2);
   color: var(--text);
-  font: 800 var(--fs-11) 'Loark Gwangju';
+  font: 800 var(--fs-11) var(--app-font);
   text-align: right;
 }
 .expedition-gate-reward-rows {
@@ -190,9 +412,11 @@
 .expedition-card-raid > span > em {
   display: block;
   margin-top: 3px;
+  overflow: hidden;
   color: var(--muted);
   font-size: var(--fs-11);
   font-style: normal;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 .expedition-card-raid > span > em .gold-amount {
@@ -236,5 +460,27 @@
   }
   .expedition-raid-modal-actions button {
     flex: 1;
+  }
+  .expedition-material-layout {
+    display: block;
+    overflow-y: auto;
+  }
+  .expedition-material-characters {
+    display: flex;
+    overflow-x: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .expedition-material-characters > button {
+    min-width: 150px;
+  }
+  .expedition-material-editor {
+    overflow: visible;
+  }
+  .expedition-material-groups section > div {
+    grid-template-columns: 1fr;
+  }
+  .expedition-material-groups label:nth-child(odd) {
+    border-right: 0;
   }
 }

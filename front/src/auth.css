@@ -190,6 +190,44 @@
   padding-top: 6px;
   border-top: 1px solid var(--line);
 }
+.account-auto-save {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  padding: 9px 8px;
+  color: var(--text);
+}
+.account-auto-save > svg {
+  width: 16px;
+  color: var(--primary);
+}
+.account-auto-save.saving > svg,
+.account-auto-save.pending > svg {
+  animation: account-save-pulse 0.9s ease-in-out infinite alternate;
+}
+.account-auto-save.error > svg,
+.account-auto-save.error small {
+  color: #e27a74;
+}
+.account-auto-save span,
+.account-auto-save b,
+.account-auto-save small {
+  min-width: 0;
+  display: block;
+}
+.account-auto-save b {
+  font-size: var(--fs-13);
+}
+.account-auto-save small {
+  margin-top: 2px;
+  font-size: var(--fs-11);
+}
+@keyframes account-save-pulse {
+  to {
+    opacity: 0.4;
+  }
+}
 .account-data-actions button.danger {
   color: #e27a74;
 }

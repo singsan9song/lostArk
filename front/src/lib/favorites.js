@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { lostArkApi } from './api'
-import { removeLocalData, setLocalData } from './localData'
+import { removeLocalData, removeStoredCharacterData, setLocalData } from './localData'
 
 const STORAGE_KEY = 'loark-favorite-characters'
 const CHANGE_EVENT = 'loark-favorites-changed'
@@ -69,6 +69,7 @@ export function addFavorites(profiles, group = {}) {
 
 export function removeFavorite(characterName) {
   const next = getFavorites().filter((item) => item.characterName !== characterName)
+  removeStoredCharacterData(characterName)
   saveFavorites(next)
   return next
 }
@@ -76,6 +77,7 @@ export function removeFavorite(characterName) {
 export function removeFavorites(characterNames) {
   const names = new Set(characterNames)
   const next = getFavorites().filter((item) => !names.has(item.characterName))
+  removeStoredCharacterData(characterNames)
   saveFavorites(next)
   return next
 }
@@ -138,6 +140,7 @@ export function toggleFavorite(profile) {
   if (!characterName) return getFavorites()
   const current = getFavorites()
   const exists = current.some((item) => item.characterName === characterName)
+  if (exists) removeStoredCharacterData(characterName)
   const next = exists
     ? current.filter((item) => item.characterName !== characterName)
     : [favoriteRecord(profile), ...current].slice(0, 50)

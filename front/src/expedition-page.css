@@ -1,4 +1,6 @@
 .expedition-page {
+  width: 100%;
+  min-width: 0;
   display: grid;
   gap: 14px;
   padding: 16px 0 50px;
@@ -49,17 +51,21 @@
 }
 .expedition-page-header aside b {
   color: var(--primary);
-  font: 800 var(--fs-27) 'Loark Gwangju';
+  font: 800 var(--fs-27) var(--app-font);
 }
 .expedition-page-header aside span {
   color: var(--muted);
   font-size: var(--fs-13);
 }
 .expedition-groups {
+  width: 100%;
+  min-width: 0;
   display: grid;
   gap: 12px;
 }
 .expedition-group {
+  width: 100%;
+  min-width: 0;
   overflow: hidden;
 }
 .expedition-group-header {
@@ -143,7 +149,7 @@
 }
 .expedition-group-summary span b {
   color: var(--text);
-  font: 800 var(--fs-13) 'Loark Gwangju';
+  font: 800 var(--fs-13) var(--app-font);
 }
 .expedition-group-summary button {
   cursor: pointer;
@@ -164,6 +170,8 @@
   transform: rotate(-90deg);
 }
 .expedition-character-grid {
+  width: 100%;
+  min-width: 0;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 8px;
@@ -266,7 +274,7 @@
 .expedition-character-level strong {
   margin-top: 5px;
   color: var(--primary);
-  font: 800 var(--fs-19) 'Loark Gwangju';
+  font: 800 var(--fs-19) var(--app-font);
 }
 .expedition-character-card > footer {
   display: flex;

@@ -91,7 +91,7 @@
 }
 .level-score strong {
   display: block;
-  font: 700 var(--fs-27) 'Loark Gwangju';
+  font: 700 var(--fs-27) var(--app-font);
   color: #bca8ff;
   margin: 4px 0;
 }
@@ -185,7 +185,7 @@
 }
 .combat-power strong {
   display: block;
-  font: 700 var(--fs-20) 'Loark Gwangju';
+  font: 700 var(--fs-20) var(--app-font);
   margin-top: 2px;
 }
 .stat-grid {

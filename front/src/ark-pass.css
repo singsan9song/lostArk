@@ -58,7 +58,7 @@
 .ark-pass-panel > header > div:last-child b {
   margin-top: 4px;
   color: #e0bd67;
-  font: 800 var(--fs-17) 'Loark Gwangju';
+  font: 800 var(--fs-17) var(--app-font);
 }
 .ark-pass-table {
   overflow: hidden;
@@ -102,7 +102,7 @@
   display: grid;
   place-items: center;
   color: var(--text);
-  font: 800 var(--fs-17) 'Loark Gwangju';
+  font: 800 var(--fs-17) var(--app-font);
   background: var(--surface);
 }
 .ark-pass-reward-cell {
@@ -293,7 +293,7 @@
 .ark-pass-totals span b {
   margin-top: 6px;
   color: #79a8ff;
-  font: 800 var(--fs-19) 'Loark Gwangju';
+  font: 800 var(--fs-19) var(--app-font);
 }
 .ark-pass-totals em {
   color: var(--muted);
@@ -584,7 +584,7 @@
 .ark-pass-level-heading {
   border-left: 1px solid var(--line);
   color: var(--text);
-  font: 800 var(--fs-16) 'Loark Gwangju';
+  font: 800 var(--fs-16) var(--app-font);
 }
 .ark-pass-track-row {
   display: grid;

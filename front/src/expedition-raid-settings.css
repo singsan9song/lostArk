@@ -3,17 +3,22 @@
   grid-template-rows: auto auto 1fr auto;
 }
 .expedition-character-card > header {
-  grid-template-columns: minmax(0, 1fr) 18px 30px;
-}
-.expedition-character-card > header > a {
-  min-width: 0;
+  position: relative;
   display: grid;
-  grid-template-columns: 42px minmax(0, 1fr);
-  align-items: center;
-  gap: 9px;
-  color: var(--text);
+  grid-template-columns: 42px minmax(0, 1fr) 18px;
 }
-.expedition-character-card > header > a > span {
+.expedition-character-avatar-link {
+  width: 42px;
+  height: 42px;
+  min-width: 0;
+  display: block;
+  overflow: hidden;
+}
+.expedition-character-copy {
+  min-width: 0;
+  overflow: hidden;
+}
+.expedition-character-avatar-link > span {
   width: 42px;
   height: 42px;
   display: grid;
@@ -25,44 +30,57 @@
   font-size: var(--fs-14);
   font-weight: 800;
 }
-.expedition-character-card > header > a img {
+.expedition-character-avatar-link img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.expedition-character-card > header > a strong,
-.expedition-character-card > header > a small {
+.expedition-character-copy strong,
+.expedition-character-copy small {
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.expedition-character-card > header > a strong {
+.expedition-character-copy strong {
   font-size: var(--fs-14);
 }
-.expedition-character-card > header > a small {
+.expedition-character-copy > small {
   margin-top: 4px;
   color: var(--muted);
   font-size: var(--fs-11);
 }
-.expedition-character-card > header > button {
-  width: 29px;
+.expedition-character-name-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.expedition-character-name-row > a {
+  min-width: 0;
+  overflow: hidden;
+}
+.expedition-character-name-row > button {
+  width: 30px;
   height: 29px;
   display: grid;
   place-items: center;
+  flex: 0 0 auto;
   padding: 0;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--surface-2);
   color: var(--muted);
+  font-size: var(--fs-11);
+  font-weight: 700;
   cursor: pointer;
 }
-.expedition-character-card > header > button:hover {
+.expedition-character-name-row > button:hover {
   border-color: rgba(190, 213, 141, 0.45);
   color: var(--primary);
 }
-.expedition-character-card > header > button svg {
+.expedition-character-name-row > button svg {
   width: 14px;
+  flex: 0 0 auto;
 }
 .expedition-character-metrics {
   display: grid;
@@ -78,6 +96,8 @@
 }
 .expedition-character-metrics small,
 .expedition-character-metrics strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
   display: block;
 }
 .expedition-character-metrics small {
@@ -87,7 +107,7 @@
 .expedition-character-metrics strong {
   margin-top: 4px;
   color: var(--primary);
-  font: 800 var(--fs-14) 'Loark Gwangju';
+  font: 800 var(--fs-14) var(--app-font);
   white-space: nowrap;
 }
 .expedition-character-metrics strong.combat {
@@ -133,6 +153,8 @@
 }
 .expedition-card-raid > span {
   min-width: 0;
+  flex: 1;
+  overflow: hidden;
 }
 .expedition-card-raid b,
 .expedition-card-raid small {
@@ -151,6 +173,7 @@
 }
 .expedition-card-raid > div {
   display: flex;
+  flex: 0 0 auto;
   gap: 4px;
 }
 .expedition-card-raid button,
@@ -164,7 +187,7 @@
   border-radius: 50%;
   background: var(--surface-2);
   color: #7ba9ff;
-  font: 800 var(--fs-11) 'Loark Gwangju';
+  font: 800 var(--fs-11) var(--app-font);
   cursor: pointer;
 }
 .expedition-card-raid button.complete,

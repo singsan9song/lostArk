@@ -1,0 +1,317 @@
+.advanced-additional-material {
+  border-color: rgba(233, 183, 91, 0.3) !important;
+  background: rgba(233, 183, 91, 0.045) !important;
+}
+
+.advanced-optimal-summary {
+  display: grid;
+  grid-template-columns: minmax(140px, 1fr) repeat(2, minmax(135px, 180px));
+  gap: 12px;
+  align-items: stretch;
+  margin: 18px 0;
+  padding: 15px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.advanced-optimal-summary > strong {
+  align-self: start;
+  color: var(--text);
+  font-size: 15px;
+}
+
+.advanced-optimal-summary > div {
+  display: grid;
+  gap: 6px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.advanced-optimal-summary small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.advanced-optimal-summary b {
+  font-size: 16px;
+}
+
+.advanced-honing-segments {
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.advanced-honing-segments > header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.advanced-honing-segments > header h3 {
+  margin: 0;
+  font-size: 17px;
+}
+
+.advanced-honing-segments > header small {
+  color: var(--muted);
+}
+
+.advanced-segment-result {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.018);
+}
+
+.advanced-segment-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.advanced-segment-heading h3 {
+  margin: 0;
+  font-size: 14px;
+}
+
+.advanced-segment-heading button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 9px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.advanced-segment-heading button:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.advanced-segment-heading svg {
+  width: 14px;
+  height: 14px;
+}
+
+.advanced-segment-scroll {
+  overflow-x: auto;
+}
+
+.advanced-segment-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(112px, 1fr));
+  min-width: 720px;
+}
+
+.advanced-segment-grid.enhanced {
+  grid-template-columns: repeat(8, minmax(112px, 1fr));
+  min-width: 920px;
+}
+
+.advanced-segment-grid > b,
+.advanced-segment-grid > strong,
+.advanced-segment-grid > span,
+.advanced-segment-grid > div {
+  display: flex;
+  min-height: 62px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 8px;
+  border-right: 1px solid var(--line);
+  text-align: center;
+}
+
+.advanced-segment-grid > b {
+  min-height: 48px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.advanced-segment-grid > :last-child,
+.advanced-segment-grid.enhanced > :nth-child(8),
+.advanced-segment-grid.enhanced > :nth-child(16),
+.advanced-segment-grid:not(.enhanced) > :nth-child(6),
+.advanced-segment-grid:not(.enhanced) > :nth-child(12) {
+  border-right: 0;
+}
+
+.advanced-segment-grid > strong {
+  font-size: 13px;
+}
+
+.advanced-choice-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.advanced-choice-list > span {
+  position: relative;
+  display: inline-flex;
+}
+
+.advanced-choice-list em {
+  position: absolute;
+  right: -3px;
+  bottom: -3px;
+  padding: 1px 3px;
+  border-radius: 4px;
+  background: rgba(8, 11, 20, 0.92);
+  color: #fff;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.advanced-choice-list i {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.advanced-choice-list img,
+.advanced-choice-list svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.advanced-choice-list small {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.advanced-choice-empty {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.advanced-cost-cell {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.advanced-strategy-comparison {
+  padding: 16px;
+  border-top: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.advanced-strategy-comparison > header {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.advanced-strategy-comparison > header strong {
+  font-size: 14px;
+}
+
+.advanced-strategy-comparison > header small,
+.advanced-strategy-limit {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.advanced-strategy-scroll {
+  overflow-x: auto;
+}
+
+.advanced-strategy-scroll table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 12px;
+}
+
+.advanced-strategy-scroll th,
+.advanced-strategy-scroll td {
+  height: 49px;
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.advanced-strategy-scroll th {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.advanced-strategy-scroll td .advanced-choice-list {
+  min-width: 76px;
+  justify-content: center;
+}
+
+.advanced-strategy-scroll tr.selected td {
+  border-top: 1px solid var(--accent);
+  border-bottom-color: var(--accent);
+  background: rgba(233, 183, 91, 0.045);
+}
+
+.advanced-strategy-scroll tr.selected td:first-child {
+  border-left: 1px solid var(--accent);
+  border-radius: 8px 0 0 8px;
+}
+
+.advanced-strategy-scroll tr.selected td:last-child {
+  border-right: 1px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+}
+
+.advanced-strategy-selection {
+  color: var(--accent);
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.advanced-strategy-difference {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.advanced-strategy-limit {
+  display: block;
+  margin-top: 10px;
+  text-align: right;
+}
+
+@media (max-width: 760px) {
+  .advanced-optimal-summary {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .advanced-optimal-summary > strong {
+    grid-column: 1 / -1;
+  }
+
+  .advanced-honing-segments > header {
+    align-items: start;
+    flex-direction: column;
+    gap: 4px;
+  }
+}

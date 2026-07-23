@@ -16,7 +16,7 @@ public class UserPreference {
     @Column(length = 10, nullable = false)
     private String theme = "dark";
     @Lob
-    @Column(name = "honing_materials")
+    @Column(name = "honing_materials", columnDefinition = "LONGTEXT", nullable = false)
     private String honingMaterials = "{}";
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt = Instant.now();

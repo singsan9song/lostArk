@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import {
   Award,
   BarChart3,
@@ -16,6 +16,7 @@ import {
   Sparkles,
   Swords,
   Users,
+  RefreshCw,
 } from 'lucide-react'
 import { useSearchParams } from 'react-router-dom'
 import ProfileHero from './ProfileHero'
@@ -24,7 +25,6 @@ import AvatarOverview from './AvatarOverview'
 import RosterAchievementPanel from './RosterAchievementPanel'
 import { cleanApiText } from '../lib/text'
 import { getEngravingIcon } from '../lib/engravingIcons'
-import { lostArkApi } from '../lib/api'
 
 // 스킬 tab folded into 전투정보's own 스킬 category (see BattleOverview).
 const tabs = [
@@ -46,7 +46,18 @@ const gradeClass = (grade) =>
   })[grade] || 'normal'
 const numberLevel = (value) => Number(String(value || 0).replace(/,/g, ''))
 
-export default function CharacterResult({ data, onSiblingSearch }) {
+export default function CharacterResult({
+  data,
+  onSiblingSearch,
+  onCharacterRefresh,
+  characterRefreshing,
+  characterRefreshError,
+  characterRefreshCooldown,
+  onRosterRefresh,
+  rosterRefreshing,
+  rosterError,
+  rosterRefreshCooldown,
+}) {
   const [params, setParams] = useSearchParams()
   const requestedTab = params.get('tab') || 'overview'
   const tab = tabs.some(([id]) => id === requestedTab) ? requestedTab : 'overview'
@@ -75,9 +86,19 @@ export default function CharacterResult({ data, onSiblingSearch }) {
   return (
     <section className="character-result character-v2">
       <div className="character-summary-grid">
-        <ProfileHero profile={profile} siblings={siblings} />
-        <RosterAchievementPanel discoveries={data.discoveries} stats={stats} />
+        <ProfileHero
+          profile={profile}
+          armory={armory}
+          siblings={siblings}
+          onRefresh={onCharacterRefresh}
+          refreshing={characterRefreshing}
+          refreshCooldown={characterRefreshCooldown}
+        />
+        <RosterAchievementPanel discoveries={data.discoveries} stats={stats} armory={armory} />
       </div>
+      {characterRefreshError && (
+        <p className="character-refresh-error">{characterRefreshError}</p>
+      )}
 
       <nav className="result-tabs">
         {tabs.map(([id, label, Icon]) => (
@@ -89,10 +110,16 @@ export default function CharacterResult({ data, onSiblingSearch }) {
       </nav>
 
       {tab === 'overview' && (
-        <BattleOverview armory={armory} profile={profile} stats={stats} skills={skills} />
+        <BattleOverview armory={armory} profile={profile} stats={stats} skills={skills} siblings={siblings} />
       )}
       {tab === 'avatar' && <AvatarOverview profile={profile} avatars={avatars} />}
-      {tab === 'history' && <HistoryTab profile={profile} fetchedAt={data.fetchedAt} />}
+      {tab === 'history' && (
+        <HistoryTab
+          profile={profile}
+          fetchedAt={data.fetchedAt}
+          growthHistory={data.growthHistory}
+        />
+      )}
       {tab === 'collectible' && <CollectibleTab collectibles={collectibles} />}
       {tab === 'expedition' && (
         <ExpeditionTab
@@ -101,6 +128,10 @@ export default function CharacterResult({ data, onSiblingSearch }) {
           server={server}
           setServer={setServer}
           onSearch={onSiblingSearch}
+          onRefresh={onRosterRefresh}
+          refreshing={rosterRefreshing}
+          refreshCooldown={rosterRefreshCooldown}
+          error={rosterError}
         />
       )}
     </section>
@@ -316,35 +347,226 @@ function SkillTab({ skills }) {
   )
 }
 
-function HistoryTab({ profile, fetchedAt }) {
+function HistoryTab({ profile, fetchedAt, growthHistory }) {
+  const [historyScale, setHistoryScale] = useState('week')
+  const [historyMetric, setHistoryMetric] = useState('itemLevel')
+  const [historyChartType, setHistoryChartType] = useState('bar')
+  const fallback = profile.ItemAvgLevel
+    ? [{ itemLevel: profile.ItemAvgLevel, combatPower: profile.CombatPower, fetchedAt }]
+    : []
+  const records = growthHistory?.length ? growthHistory : fallback
+  const metricKey = historyMetric === 'combatPower' ? 'combatPower' : 'itemLevel'
+  const metricLabel = historyMetric === 'combatPower' ? '전투력' : '아이템 레벨'
+  const allPoints = records
+    .map((record) => ({
+      ...record,
+      value: numberLevel(record[metricKey]),
+    }))
+    .filter((record) => Number.isFinite(record.value) && record.value > 0)
+    .sort((left, right) => new Date(left.fetchedAt || 0) - new Date(right.fetchedAt || 0))
+  const points = compactGrowthPoints(allPoints, historyScale)
+  const values = points.map((record) => record.value)
+  const min = values.length ? Math.min(...values) : 0
+  const max = values.length ? Math.max(...values) : 0
+  const range = Math.max(max - min, 1)
+  const growth = points.length ? points.at(-1).value - points[0].value : 0
+
   return (
     <section className="result-panel tab-page history-page">
-      <PanelTitle title="성장 기록" sub="캐릭터의 아이템 레벨 변화" />
-      <div className="history-placeholder">
-        <div className="chart-fake">
-          <span style={{ height: '28%' }} />
-          <span style={{ height: '35%' }} />
-          <span style={{ height: '42%' }} />
-          <span style={{ height: '55%' }} />
-          <span style={{ height: '63%' }} />
-          <span style={{ height: '82%' }} />
-          <span style={{ height: '92%' }} />
+      <PanelTitle title="성장 기록" sub={`캐릭터의 ${metricLabel} 변화`} />
+      <div className="growth-history">
+        <div className="growth-chart-toolbar">
+          <span>
+            {metricLabel} 변화는 항상 표시 · 변화가 없으면{' '}
+            {historyScale === 'day' ? '하루' : historyScale === 'week' ? '일주일' : '한 달'}에 한 번 표시
+          </span>
+          <div className="growth-chart-controls">
+            <GrowthSelector
+              value={historyMetric}
+              setValue={setHistoryMetric}
+              options={[
+                ['itemLevel', '아이템 레벨'],
+                ['combatPower', '전투력'],
+              ]}
+            />
+            <GrowthSelector
+              value={historyChartType}
+              setValue={setHistoryChartType}
+              options={[
+                ['bar', '막대'],
+                ['line', '선'],
+              ]}
+            />
+            <GrowthSelector
+              value={historyScale}
+              setValue={setHistoryScale}
+              options={[
+                ['day', '하루'],
+                ['week', '일주일'],
+                ['month', '한 달'],
+              ]}
+            />
+          </div>
         </div>
-        <Clock3 />
-        <h3>오늘부터 성장 기록을 수집합니다</h3>
-        <p>
-          공식 API는 과거 이력을 제공하지 않습니다. 검색 시점의 아이템 레벨을 저장하면
-          <br />
-          추후 이곳에서 {profile.CharacterName}님의 성장 그래프를 확인할 수 있습니다.
-        </p>
-        <div>
-          <span>현재 아이템 레벨</span>
-          <strong>{profile.ItemAvgLevel}</strong>
-          <small>{fetchedAt ? new Date(fetchedAt).toLocaleString('ko-KR') : '방금 전'} 기준</small>
+        {historyChartType === 'bar' ? (
+          <div className="growth-chart" aria-label={`${metricLabel} 막대 성장 그래프`}>
+            {points.map((record, index) => {
+              const height = points.length === 1 ? 65 : 18 + ((record.value - min) / range) * 78
+              const observedAt = record.fetchedAt
+                ? new Date(record.fetchedAt).toLocaleString('ko-KR')
+                : ''
+              return (
+                <div
+                  className="growth-bar"
+                  title={`${formatGrowthValue(record.value, historyMetric)} · ${observedAt}`}
+                  key={`${record.fetchedAt || 'current'}-${index}`}
+                >
+                  <strong>{formatGrowthValue(record.value, historyMetric)}</strong>
+                  <i style={{ height: `${height}%` }} />
+                  <small>{growthDate(record.fetchedAt)}</small>
+                </div>
+              )
+            })}
+          </div>
+        ) : (
+          <GrowthLineChart
+            points={points}
+            min={min}
+            range={range}
+            metric={historyMetric}
+            label={metricLabel}
+          />
+        )}
+        <div className="growth-summary">
+          <Clock3 />
+          <div>
+            <span>수집된 기록</span>
+            <strong>{allPoints.length}회</strong>
+          </div>
+          <div>
+            <span>최초 기록</span>
+            <strong>{points.length ? formatGrowthValue(points[0].value, historyMetric) : '-'}</strong>
+          </div>
+          <div>
+            <span>현재 {metricLabel}</span>
+            <strong>
+              {points.length
+                ? formatGrowthValue(points.at(-1).value, historyMetric)
+                : formatGrowthValue(
+                    numberLevel(historyMetric === 'combatPower' ? profile.CombatPower : profile.ItemAvgLevel),
+                    historyMetric,
+                  )}
+            </strong>
+          </div>
+          <div>
+            <span>누적 성장</span>
+            <strong>
+              {points.length
+                ? `${growth >= 0 ? '+' : ''}${formatGrowthValue(growth, historyMetric)}`
+                : '-'}
+            </strong>
+          </div>
         </div>
+        {points.length <= 1 && (
+          <p className="growth-guide">
+            현재부터 성장 기록을 수집합니다. 캐릭터를 다시 조회했을 때 아이템 레벨이
+            변경되면 그래프에 자동으로 추가됩니다.
+          </p>
+        )}
       </div>
     </section>
   )
+}
+
+function GrowthSelector({ value, setValue, options }) {
+  return (
+    <div className="growth-segmented">
+      {options.map(([optionValue, label]) => (
+        <button
+          type="button"
+          className={value === optionValue ? 'selected' : ''}
+          onClick={() => setValue(optionValue)}
+          key={optionValue}
+        >
+          {label}
+        </button>
+      ))}
+    </div>
+  )
+}
+
+function GrowthLineChart({ points, min, range, metric, label }) {
+  const width = Math.max(680, points.length * 108)
+  const x = (index) => (points.length <= 1 ? width / 2 : 58 + (index * (width - 116)) / (points.length - 1))
+  const y = (value) => (points.length <= 1 ? 148 : 214 - ((value - min) / range) * 142)
+  const path = points.map((point, index) => `${x(index)},${y(point.value)}`).join(' ')
+  return (
+    <div className="growth-line-chart" aria-label={`${label} 선 성장 그래프`}>
+      <svg viewBox={`0 0 ${width} 285`} style={{ width: `${width}px` }} role="img">
+        <polyline points={path} />
+        {points.map((point, index) => (
+          <g key={`${point.fetchedAt || 'current'}-${index}`}>
+            <circle cx={x(index)} cy={y(point.value)} r="6">
+              <title>
+                {formatGrowthValue(point.value, metric)} ·{' '}
+                {point.fetchedAt ? new Date(point.fetchedAt).toLocaleString('ko-KR') : '현재'}
+              </title>
+            </circle>
+            <text className="growth-line-value" x={x(index)} y={Math.max(20, y(point.value) - 13)}>
+              {formatGrowthValue(point.value, metric)}
+            </text>
+            <text className="growth-line-date" x={x(index)} y="267">
+              {growthDate(point.fetchedAt)}
+            </text>
+          </g>
+        ))}
+      </svg>
+    </div>
+  )
+}
+
+function growthDate(value) {
+  return value
+    ? new Date(value).toLocaleDateString('ko-KR', { month: 'numeric', day: 'numeric' })
+    : '현재'
+}
+
+function formatGrowthValue(value, metric) {
+  if (!Number.isFinite(value)) return '-'
+  return value.toLocaleString('ko-KR', {
+    minimumFractionDigits: metric === 'itemLevel' ? 2 : 0,
+    maximumFractionDigits: 2,
+  })
+}
+
+function compactGrowthPoints(points, scale) {
+  if (points.length <= 1) return points
+  const compacted = [points[0]]
+  let previousValue = points[0].value
+  let stableBucket = growthBucket(points[0].fetchedAt, scale)
+
+  points.slice(1).forEach((point) => {
+    const changed = point.value !== previousValue
+    const bucket = growthBucket(point.fetchedAt, scale)
+    if (changed || bucket !== stableBucket) {
+      compacted.push(point)
+      stableBucket = bucket
+    }
+    previousValue = point.value
+  })
+  return compacted
+}
+
+function growthBucket(value, scale) {
+  const date = new Date(value || 0)
+  if (Number.isNaN(date.getTime())) return String(value || '')
+  date.setHours(0, 0, 0, 0)
+  if (scale === 'week') {
+    const mondayOffset = (date.getDay() + 6) % 7
+    date.setDate(date.getDate() - mondayOffset)
+  }
+  if (scale === 'month') return `${date.getFullYear()}-${date.getMonth()}`
+  return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
 }
 
 function CollectibleTab({ collectibles }) {
@@ -385,22 +607,17 @@ function CollectibleTab({ collectibles }) {
   )
 }
 
-function ExpeditionTab({ siblings, servers, server, setServer, onSearch }) {
-  const [images, setImages] = useState({})
-  useEffect(() => {
-    siblings
-      .filter((item) => item.CharacterName && !(item.CharacterName in images))
-      .forEach((item) => {
-        lostArkApi
-          .getCharacter(item.CharacterName)
-          .then((data) => {
-            const image = data?.armory?.ArmoryProfile?.CharacterImage || ''
-            setImages((current) => ({ ...current, [item.CharacterName]: image }))
-          })
-          .catch(() => setImages((current) => ({ ...current, [item.CharacterName]: '' })))
-      })
-  }, [siblings])
-
+function ExpeditionTab({
+  siblings,
+  servers,
+  server,
+  setServer,
+  onSearch,
+  onRefresh,
+  refreshing,
+  refreshCooldown,
+  error,
+}) {
   return (
     <section className="result-panel tab-page">
       <div className="result-title">
@@ -408,15 +625,26 @@ function ExpeditionTab({ siblings, servers, server, setServer, onSearch }) {
           <h3>원정대 캐릭터</h3>
           <span>같은 원정대에 소속된 캐릭터</span>
         </div>
-        <div className="server-select">
-          <select value={server} onChange={(e) => setServer(e.target.value)}>
-            {servers.map((item) => (
-              <option key={item}>{item}</option>
-            ))}
-          </select>
-          <ChevronDown />
+        <div className="expedition-tab-actions">
+          <button type="button" onClick={onRefresh} disabled={refreshing || refreshCooldown > 0}>
+            <RefreshCw className={refreshing ? 'spin' : ''} />
+            {refreshing
+              ? '원정대 갱신 중'
+              : refreshCooldown > 0
+                ? `${refreshCooldown}초 후 갱신`
+                : '원정대 전체 갱신'}
+          </button>
+          <div className="server-select">
+            <select value={server} onChange={(e) => setServer(e.target.value)}>
+              {servers.map((item) => (
+                <option key={item}>{item}</option>
+              ))}
+            </select>
+            <ChevronDown />
+          </div>
         </div>
       </div>
+      {error && <p className="expedition-refresh-error">{error}</p>}
       <div className="sibling-grid expedition-grid">
         {[...siblings]
           .sort((a, b) => numberLevel(b.ItemAvgLevel) - numberLevel(a.ItemAvgLevel))
@@ -426,8 +654,8 @@ function ExpeditionTab({ siblings, servers, server, setServer, onSearch }) {
               key={`${item.ServerName}-${item.CharacterName}-${i}`}
             >
               <span className="sibling-avatar">
-                {images[item.CharacterName] ? (
-                  <img src={images[item.CharacterName]} alt="" />
+                {item.CharacterImage ? (
+                  <img src={item.CharacterImage} alt="" />
                 ) : (
                   item.CharacterClassName?.[0]
                 )}

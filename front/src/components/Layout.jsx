@@ -14,8 +14,6 @@ import {
   Moon,
   Save,
   Search,
-  ShoppingBag,
-  Skull,
   Sparkles,
   Star,
   Sun,
@@ -33,7 +31,10 @@ import { useAuth } from '../lib/auth'
 import '../header-crystal-rate.css'
 import '../auth.css'
 
-const links = [['/community', '커뮤니티']]
+const links = [
+  ['/community', '커뮤니티'],
+  ['/rankings', '랭킹'],
+]
 const honingLinks = [
   ['/honing-optimizer', '재련 최적화', Anvil],
   ['/advanced-honing-optimizer', '상급 재련 최적화', Crown],
@@ -41,11 +42,15 @@ const honingLinks = [
   ['/special-honing', '특수 재련 효율', Sparkles],
 ]
 const toolLinks = [
-  ['/hell-reward', '낙원 보상 효율', Skull],
+  [
+    '/hell-reward',
+    '낙원 보상 효율',
+    '/images/rewards/311b8974b04c4aa98aeab4d180ba205c.png',
+  ],
   ['/single-coin', '클리어 코인 효율', '/images/etc/icon_asset2.png'],
   ['/raid-extra', '레이드 더보기 효율', '/images/etc/icon_asset1.png'],
   ['/ark-pass', '아크 패스 효율', '/images/etc/icon_asset3.png'],
-  ['/mari-shop', '마리의 비밀 상점 효율', ShoppingBag],
+  ['/mari-shop', '마리의 비밀 상점 효율', '/images/rewards/sprite_shop.PNG'],
   ['/event-shop', '이벤트 상점 효율', CalendarHeart],
   ['/other-efficiency', '기타 효율', Boxes],
 ]
@@ -264,34 +269,11 @@ function Header({ light, setLight }) {
   const [honingOpen, setHoningOpen] = useState(false)
   const [contentOpen, setContentOpen] = useState(false)
   const [query, setQuery] = useState('')
-  const [cacheStatus, setCacheStatus] = useState(null)
   const crystalGoldPrice = useCrystalGoldPrice()
+  const { user } = useAuth()
   const headerRef = useRef(null)
   const { favorites, representativeName, setRepresentative, remove, removeMany } = useFavorites()
   const favoriteGroups = groupFavorites(favorites)
-  useEffect(() => {
-    let active = true
-    const load = () =>
-      lostArkApi
-        .getCacheStatus()
-        .then((status) => {
-          if (active) setCacheStatus(status)
-        })
-        .catch(() => {})
-    load()
-    const timer = window.setInterval(load, 5000)
-    return () => {
-      active = false
-      window.clearInterval(timer)
-    }
-  }, [])
-  const cacheTime = cacheStatus?.lastUpdatedAt
-    ? new Date(cacheStatus.lastUpdatedAt).toLocaleTimeString('ko-KR', {
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-      })
-    : '업데이트 전'
   const removeGroup = (group) => {
     if (window.confirm(`${group.name} 즐겨찾기 ${group.characters.length}명을 모두 삭제할까요?`))
       removeMany(group.characters.map((item) => item.characterName))
@@ -446,11 +428,6 @@ function Header({ light, setLight }) {
             />
             <kbd>Enter</kbd>
           </form>
-          <div className="api-cache-status" title="서버 공용 가격 데이터의 마지막 갱신 시각">
-            <span>
-              가격 기준{cacheStatus?.ttlSeconds === 0 ? ' · DEV' : ''} <b>{cacheTime}</b>
-            </span>
-          </div>
           <label className="header-crystal-rate" title="블루 크리스탈 100개당 골드 환율">
             <b>100</b>
             <CrystalIcon />

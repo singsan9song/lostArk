@@ -7,6 +7,8 @@ const emoticonGlyphs = {
   emoticon_tooltip_bracelet_locked: '🔒 ',
   emoticon_tooltip_bracelet_changeable: '◆ ',
   emoticon_tooltip_ability_stone_symbol: '● ',
+  emoticon_arkgrid_willpower: '◈ ',
+  emoticon_arkgrid_corepoint: '◆ ',
 }
 
 function parseAttrs(attrString = '') {

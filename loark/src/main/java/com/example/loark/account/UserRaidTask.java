@@ -39,8 +39,18 @@ public class UserRaidTask {
     public UserRaidTask(String discordId, String characterName, String raidId, String difficultyId,
                         boolean goldEarning, int busFare, Set<Integer> extraRewardGates, Set<Integer> completedGates) {
         this.discordId = discordId; this.characterName = characterName; this.raidId = raidId;
-        this.difficultyId = difficultyId; this.goldEarning = goldEarning; this.busFare = Math.max(0, busFare);
-        this.extraRewardGates.addAll(extraRewardGates); this.completedGates.addAll(completedGates);
+        update(difficultyId, goldEarning, busFare, extraRewardGates, completedGates);
+    }
+    public void update(String difficultyId, boolean goldEarning, int busFare,
+                       Set<Integer> extraRewardGates, Set<Integer> completedGates) {
+        this.difficultyId = difficultyId;
+        this.goldEarning = goldEarning;
+        this.busFare = Math.max(0, busFare);
+        this.extraRewardGates.clear();
+        this.extraRewardGates.addAll(extraRewardGates);
+        this.completedGates.clear();
+        this.completedGates.addAll(completedGates);
+        this.updatedAt = Instant.now();
     }
     public String getCharacterName() { return characterName; }
     public String getRaidId() { return raidId; }

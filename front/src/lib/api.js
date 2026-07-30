@@ -1,10 +1,12 @@
 const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || '/api').replace(/\/$/, '')
 
 async function request(path, options = {}) {
+  const headers = { ...options.headers }
+  if (options.body != null && !headers['Content-Type']) headers['Content-Type'] = 'application/json'
   const response = await fetch(`${API_BASE_URL}${path}`, {
     ...options,
     credentials: 'include',
-    headers: { 'Content-Type': 'application/json', ...options.headers },
+    headers,
   })
 
   if (!response.ok) {
@@ -16,18 +18,59 @@ async function request(path, options = {}) {
 }
 
 export const discordLoginUrl = `${API_BASE_URL.replace(/\/api$/, '')}/oauth2/authorization/discord`
+export const adminApiRequestStreamUrl = `${API_BASE_URL}/admin/api-requests/stream`
 
 export const lostArkApi = {
   getCharacter: (characterName) => request(`/characters/${encodeURIComponent(characterName)}`),
-  getMarketPrices: (names) =>
-    request('/markets/prices', { method: 'POST', body: JSON.stringify({ names }) }),
+  refreshCharacter: (characterName) =>
+    request(`/characters/${encodeURIComponent(characterName)}/refresh`, { method: 'POST' }),
+  refreshCharacterRoster: (characterName) =>
+    request(`/characters/${encodeURIComponent(characterName)}/roster/refresh`, { method: 'POST' }),
+  getMarketPrices: (names, refresh = false) =>
+    request(`/markets/prices?${new URLSearchParams({ refresh })}`, {
+      method: 'POST',
+      body: JSON.stringify({ names }),
+    }),
+  searchMarketItems: (query, refresh = true) =>
+    request(`/markets/search?${new URLSearchParams({ query, refresh })}`),
+  searchAuctionItems: (name, refresh = true) =>
+    request(`/auctions/search?${new URLSearchParams({ name, refresh })}`),
   getBraceletAuctionValue: () => request('/auctions/bracelets/value'),
   getRelicBraceletAuctionValue: () => request('/auctions/bracelets/relic/value'),
+  searchAccessoryAuctions: (filters) =>
+    request('/auctions/accessories/search', {
+      method: 'POST',
+      body: JSON.stringify(filters),
+    }),
   getAbilityStoneAuctionValue: () => request('/auctions/ability-stones/value'),
   getGameContentsCalendar: () => request('/gamecontents/calendar'),
   getMariShop: () => request('/mari-shop'),
-  getCacheStatus: () => request('/cache/status'),
+  getCharacterRankings: ({
+    metric = 'combatPower',
+    server = '',
+    role = '',
+    className = '',
+    engraving = '',
+    page = 0,
+    size = 50,
+  } = {}) =>
+    request(
+      `/rankings/characters?${new URLSearchParams({
+        metric,
+        server,
+        role,
+        className,
+        engraving,
+        page,
+        size,
+      })}`,
+    ),
   getCurrentUser: () => request('/auth/me'),
+  getAdminApiRequestHistory: () => request('/admin/api-requests/history'),
+  getAdminApiRequestHistoryDetails: (resetAt) =>
+    request(`/admin/api-requests/history/details?${new URLSearchParams({ resetAt })}`),
+  searchAdminApiRequestHistory: (query, page = 0, size = 200) =>
+    request(`/admin/api-requests/history/search?${new URLSearchParams({ query, page, size })}`),
   logout: () => request('/auth/logout', { method: 'POST' }),
   getUserData: () => request('/user-data'),
   saveUserData: (data) => request('/user-data', { method: 'PUT', body: JSON.stringify(data) }),

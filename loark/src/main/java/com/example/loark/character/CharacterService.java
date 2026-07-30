@@ -15,7 +15,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.time.Instant;
 import java.util.HexFormat;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CharacterService {
@@ -24,43 +26,109 @@ public class CharacterService {
     private final CharacterRosterMemberRepository rosterMembers;
     private final CharacterCardSetObservationRepository cardSets;
     private final GameCharacterRepository gameCharacters;
+    private final CharacterRankingClassifier rankingClassifier;
     private final ObjectMapper objectMapper;
 
     public CharacterService(RestClient lostArkRestClient, CharacterSnapshotRepository snapshots,
                             CharacterRosterMemberRepository rosterMembers,
                             CharacterCardSetObservationRepository cardSets,
                             GameCharacterRepository gameCharacters,
+                            CharacterRankingClassifier rankingClassifier,
                             ObjectMapper objectMapper) {
         this.client = lostArkRestClient;
         this.snapshots = snapshots;
         this.rosterMembers = rosterMembers;
         this.cardSets = cardSets;
         this.gameCharacters = gameCharacters;
+        this.rankingClassifier = rankingClassifier;
         this.objectMapper = objectMapper;
     }
 
     /**
-     * A page load is an explicit refresh for this character. Changed responses
-     * are appended to MySQL so equipment, cards, titles and growth can be
-     * compared later without storing duplicate snapshots. The latest DB snapshot
-     * is only used as a fallback.
+     * The requested character is always refreshed. Roster data is read from the
+     * latest DB snapshot so opening the roster tab never fans out into one API
+     * call per member. Only a character that has never been observed needs the
+     * siblings endpoint during its first lookup.
      */
     public CharacterResponse find(String characterName) {
         try {
-            JsonNode armory = get("/armories/characters/{name}", characterName);
-            JsonNode siblings = get("/characters/{name}/siblings", characterName);
-            if (armory == null || armory.path("ArmoryProfile").isMissingNode()
-                    || armory.path("ArmoryProfile").isNull()) {
-                throw new LostArkApiException(HttpStatus.NOT_FOUND, "캐릭터를 찾을 수 없습니다.");
-            }
-
-            JsonNode roster = siblings == null ? JsonNodeFactory.instance.arrayNode() : siblings;
-            Instant fetchedAt = Instant.now();
-            String rosterKey = saveSnapshot(characterName, armory, roster, fetchedAt);
-            return new CharacterResponse(armory, roster, false, fetchedAt, discoveries(rosterKey));
+            return refreshCharacter(characterName);
         } catch (LostArkApiException error) {
             return latestSnapshot(characterName).orElseThrow(() -> error);
         }
+    }
+
+    /**
+     * Explicitly refreshes only the requested character. The roster itself stays
+     * DB-first and is refreshed separately through refreshRoster.
+     */
+    public CharacterResponse refreshCharacter(String characterName) {
+        JsonNode armory = get("/armories/characters/{name}", characterName);
+        if (armory == null || armory.path("ArmoryProfile").isMissingNode()
+                || armory.path("ArmoryProfile").isNull()) {
+            throw new LostArkApiException(HttpStatus.NOT_FOUND, "캐릭터를 찾을 수 없습니다.");
+        }
+
+        CharacterSnapshot rosterSnapshot = latestRosterSnapshot(characterName).orElse(null);
+        JsonNode roster = rosterSnapshot == null
+                ? get("/characters/{name}/siblings", characterName)
+                : rosterFromSnapshot(rosterSnapshot);
+        if (roster == null) roster = JsonNodeFactory.instance.arrayNode();
+        Instant fetchedAt = Instant.now();
+        String rosterKey = saveSnapshot(characterName, armory, roster, fetchedAt);
+        return new CharacterResponse(armory, withStoredImages(roster), false, fetchedAt, discoveries(rosterKey),
+                growthHistory(armory.path("ArmoryProfile").path("CharacterName").asText(characterName)));
+    }
+
+    /**
+     * Explicitly refreshes the roster in one user action. The siblings list is
+     * fetched once and member armories are fetched concurrently. Successful
+     * members are persisted as one coherent roster snapshot; a failed member
+     * keeps its previous DB information.
+     */
+    public CharacterResponse refreshRoster(String characterName) {
+        JsonNode siblings = get("/characters/{name}/siblings", characterName);
+        JsonNode roster = siblings == null ? JsonNodeFactory.instance.arrayNode() : siblings;
+        Map<String, JsonNode> refreshedArmories = java.util.Collections.synchronizedMap(new LinkedHashMap<>());
+        java.util.stream.StreamSupport.stream(roster.spliterator(), true).forEach(member -> {
+            String memberName = member.path("CharacterName").asText("").trim();
+            if (memberName.isBlank()) return;
+            try {
+                JsonNode memberArmory = get("/armories/characters/{name}", memberName);
+                if (memberArmory != null && !memberArmory.path("ArmoryProfile").isMissingNode()
+                        && !memberArmory.path("ArmoryProfile").isNull()) {
+                    refreshedArmories.put(memberName, memberArmory);
+                }
+            } catch (LostArkApiException error) {
+                com.example.loark.config.ApplicationLog.infof("[CHARACTER ROSTER] Refresh skipped: %s / %s%n",
+                        memberName, error.getMessage());
+            }
+        });
+
+        Instant fetchedAt = Instant.now();
+        String rosterKey = null;
+        for (Map.Entry<String, JsonNode> refreshed : refreshedArmories.entrySet()) {
+            String savedRosterKey = saveSnapshot(refreshed.getKey(), refreshed.getValue(), roster, fetchedAt);
+            if (refreshed.getKey().equalsIgnoreCase(characterName)) rosterKey = savedRosterKey;
+        }
+        if (refreshedArmories.isEmpty()) {
+            throw new LostArkApiException(HttpStatus.SERVICE_UNAVAILABLE,
+                    "원정대 캐릭터 정보를 갱신하지 못했습니다.");
+        }
+
+        JsonNode requestedArmory = refreshedArmories.entrySet().stream()
+                .filter(entry -> entry.getKey().equalsIgnoreCase(characterName))
+                .map(Map.Entry::getValue)
+                .findFirst()
+                .orElseGet(() -> latestSnapshot(characterName).map(CharacterResponse::armory).orElse(null));
+        if (requestedArmory == null) {
+            throw new LostArkApiException(HttpStatus.SERVICE_UNAVAILABLE,
+                    "현재 캐릭터 정보를 갱신하지 못했습니다.");
+        }
+        if (rosterKey == null) rosterKey = rosterKey(characterName, roster);
+        return new CharacterResponse(requestedArmory, withStoredImages(roster), false, fetchedAt,
+                discoveries(rosterKey), growthHistory(
+                        requestedArmory.path("ArmoryProfile").path("CharacterName").asText(characterName)));
     }
 
     private String saveSnapshot(String requestedName, JsonNode armory, JsonNode siblings, Instant fetchedAt) {
@@ -73,6 +141,9 @@ public class CharacterService {
         character.observe(profile.path("ServerName").asText(""), profile.path("CharacterClassName").asText(""),
                 profile.path("CharacterLevel").asInt(0), profile.path("ItemAvgLevel").asText(""),
                 profile.path("CombatPower").asText(""), profile.path("CharacterImage").asText(""), rosterKey, fetchedAt);
+        CharacterRankingClassifier.Classification classification =
+                rankingClassifier.classify(armory, profile.path("CharacterClassName").asText(""));
+        character.updateRanking(classification.engraving(), classification.role(), fetchedAt);
         gameCharacters.save(character);
         siblings.forEach(member -> {
             String memberName = member.path("CharacterName").asText("");
@@ -117,25 +188,62 @@ public class CharacterService {
         return snapshots.findTopByCharacterNameIgnoreCaseOrderByFetchedAtDesc(characterName)
                 .flatMap(snapshot -> {
                     try {
-                        ArrayNode siblings = objectMapper.createArrayNode();
-                        rosterMembers.findBySnapshotIdOrderByCharacterNameAsc(snapshot.getId()).forEach(member -> {
-                            ObjectNode row = siblings.addObject();
-                            row.put("CharacterName", member.getCharacterName()); row.put("ServerName", member.getServerName());
-                            row.put("CharacterClassName", member.getClassName()); row.put("CharacterLevel", member.getCharacterLevel());
-                            row.put("ItemAvgLevel", member.getItemLevel()); row.put("ItemMaxLevel", member.getMaxItemLevel());
-                        });
+                        ArrayNode siblings = rosterFromSnapshot(snapshot);
                         return java.util.Optional.of(new CharacterResponse(
-                                objectMapper.readTree(snapshot.getArmoryPayload()), siblings,
+                                objectMapper.readTree(snapshot.getArmoryPayload()), withStoredImages(siblings),
                                 true,
                                 snapshot.getFetchedAt(),
-                                discoveries(snapshot.getRosterKey())
+                                discoveries(snapshot.getRosterKey()),
+                                growthHistory(snapshot.getCharacterName())
                         ));
                     } catch (Exception parseError) {
-                        System.out.printf("[CHARACTER DB] Invalid snapshot ignored: %s / %d%n",
+                        com.example.loark.config.ApplicationLog.infof(
+                                "[CHARACTER DB] Invalid snapshot ignored: %s / %d%n",
                                 characterName, snapshot.getId());
                         return java.util.Optional.empty();
                     }
                 });
+    }
+
+    private java.util.Optional<CharacterSnapshot> latestRosterSnapshot(String characterName) {
+        java.util.Optional<CharacterSnapshot> direct =
+                snapshots.findTopByCharacterNameIgnoreCaseOrderByFetchedAtDesc(characterName);
+        if (direct.isPresent()) return direct;
+        return gameCharacters.findByCharacterNameIgnoreCase(characterName)
+                .map(GameCharacter::getRosterKey)
+                .filter(key -> key != null && !key.isBlank())
+                .flatMap(snapshots::findTopByRosterKeyOrderByFetchedAtDesc);
+    }
+
+    private ArrayNode rosterFromSnapshot(CharacterSnapshot snapshot) {
+        ArrayNode siblings = objectMapper.createArrayNode();
+        rosterMembers.findBySnapshotIdOrderByCharacterNameAsc(snapshot.getId()).forEach(member -> {
+            ObjectNode row = siblings.addObject();
+            row.put("CharacterName", member.getCharacterName());
+            row.put("ServerName", member.getServerName());
+            row.put("CharacterClassName", member.getClassName());
+            row.put("CharacterLevel", member.getCharacterLevel());
+            row.put("ItemAvgLevel", member.getItemLevel());
+            row.put("ItemMaxLevel", member.getMaxItemLevel());
+        });
+        return siblings;
+    }
+
+    private JsonNode withStoredImages(JsonNode siblings) {
+        ArrayNode result = objectMapper.createArrayNode();
+        if (siblings == null) return result;
+        siblings.forEach(member -> {
+            ObjectNode row = member.isObject()
+                    ? (ObjectNode) member.deepCopy()
+                    : objectMapper.createObjectNode();
+            String name = member.path("CharacterName").asText("");
+            gameCharacters.findByCharacterNameIgnoreCase(name)
+                    .map(GameCharacter::getCharacterImage)
+                    .filter(image -> !image.isBlank())
+                    .ifPresent(image -> row.put("CharacterImage", image));
+            result.add(row);
+        });
+        return result;
     }
 
     private CharacterDiscoveries discoveries(String rosterKey) {
@@ -143,6 +251,22 @@ public class CharacterService {
                 snapshots.findDistinctTitlesByRosterKey(rosterKey),
                 cardSets.findDistinctCardSetNamesByRosterKey(rosterKey)
         );
+    }
+
+    private List<CharacterGrowthRecord> growthHistory(String characterName) {
+        return snapshots.findByCharacterNameIgnoreCaseOrderByFetchedAtAsc(characterName).stream()
+                .map(snapshot -> new CharacterGrowthRecord(
+                        snapshot.getItemLevel(), snapshotCombatPower(snapshot), snapshot.getFetchedAt()))
+                .toList();
+    }
+
+    private String snapshotCombatPower(CharacterSnapshot snapshot) {
+        try {
+            return objectMapper.readTree(snapshot.getArmoryPayload())
+                    .path("ArmoryProfile").path("CombatPower").asText("");
+        } catch (Exception ignored) {
+            return "";
+        }
     }
 
     private String rosterKey(String characterName, JsonNode siblings) {

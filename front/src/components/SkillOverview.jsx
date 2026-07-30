@@ -1,5 +1,6 @@
 import { BookOpen, CircleGauge, ShieldAlert, Sparkles, Swords, Target } from 'lucide-react'
 import { cleanApiText } from '../lib/text'
+import { representativeEngraving } from '../lib/representativeEngraving'
 
 const gradeClass = (grade) =>
   ({
@@ -73,22 +74,10 @@ function engravingSummary(armory) {
   return { short: names.map((name) => name[0]).join(''), full: names.join(' · ') }
 }
 
-function enlightenmentBuild(armory) {
-  const effects = armory.ArkPassive?.Effects || []
-  const enlightenment = effects.find((effect) => String(effect.Name || '').includes('깨달음'))
-  if (!enlightenment) return '깨달음 미활성'
-  const text = plainTooltip(enlightenment.Description || '')
-    .replace(/\s+/g, ' ')
-    .trim()
-  const levelName = text.match(/([가-힣][가-힣\s]{1,20}?)\s*Lv\.?\s*\d+/i)?.[1]?.trim()
-  if (levelName) return levelName
-  return enlightenment.Name === '깨달음' ? '깨달음 활성' : enlightenment.Name
-}
-
 export default function SkillOverview({ profile, skills, armory, onHover }) {
   const stats = Object.fromEntries((profile.Stats || []).map((item) => [item.Type, item.Value]))
   const engraving = engravingSummary(armory)
-  const buildName = enlightenmentBuild(armory)
+  const classEngraving = representativeEngraving(armory, profile.CharacterClassName)
   const counters = skills.filter((skill) => hasKeyword(skill, '카운터'))
   const staggers = skills.filter((skill) => hasKeyword(skill, '무력화'))
   const destructions = skills.filter((skill) => hasKeyword(skill, '부위 파괴'))
@@ -109,9 +98,11 @@ export default function SkillOverview({ profile, skills, armory, onHover }) {
             <BookOpen />
             <span>{engraving.short || '각인 없음'}</span>
           </div>
-          <div>
-            <Sparkles />
-            <span>{buildName}</span>
+          <div className="skill-representative-engraving">
+            <img src="/images/etc/ico_arkpassive.png" alt="" aria-hidden="true" />
+            <span>
+              각인 <strong>{classEngraving}</strong>
+            </span>
           </div>
         </section>
         <section className="skill-point">
@@ -177,8 +168,17 @@ function ArkPassive({ passive, onHover }) {
       <div className="passive-columns">
         {groups.map(([name, className]) => {
           const effects = (passive.Effects || []).filter((effect) => effect.Name?.includes(name))
+          const point = (passive.Points || []).find((item) => item.Name === name)
           return (
             <article className={className} key={name}>
+              <header>
+                <strong>{name}</strong>
+                {point && (
+                  <span>
+                    {point.Value}P · {point.Description}
+                  </span>
+                )}
+              </header>
               {effects.length ? (
                 effects.map((effect, index) => (
                   <PassiveNode

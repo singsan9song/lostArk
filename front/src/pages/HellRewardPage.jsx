@@ -125,7 +125,7 @@ export default function HellRewardPage() {
   const rewardNodes = useRef(new Map())
   const previousRewardLayout = useRef(new Map())
   useEffect(() => {
-    const timer = window.setInterval(() => setPriceRefreshTick((value) => value + 1), 60000)
+    const timer = window.setInterval(() => setPriceRefreshTick((value) => value + 1), 300000)
     return () => window.clearInterval(timer)
   }, [])
   const selectedAbilityStoneConfiguration = useMemo(() => {

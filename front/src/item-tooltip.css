@@ -2,7 +2,7 @@
    captured live from the site (ex/css2.css / ex/html.html). */
 .game-tooltip-item {
   position: fixed;
-  z-index: 9999;
+  z-index: 2147483647;
   box-sizing: border-box;
   width: 100%;
   max-width: 342px;
@@ -13,6 +13,8 @@
   background-color: #2a2c35;
   border: 1px solid #1c1f2a;
   pointer-events: none;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .game-tooltip-item font[size='11'] {
@@ -283,7 +285,7 @@
    (ex/css2.css) — the tooltip shown when hovering a skill icon. */
 .game-tooltip-skill {
   position: fixed;
-  z-index: 9999;
+  z-index: 2147483647;
   box-sizing: border-box;
   width: 100%;
   max-width: 342px;
@@ -294,6 +296,8 @@
   background-color: #2a2c35;
   border: 1px solid #1c1f2a;
   pointer-events: none;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .game-tooltip-skill font[size='11'] {

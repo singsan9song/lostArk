@@ -674,7 +674,7 @@ export default function SingleCoinPage() {
   const rowElements = useRef(new Map())
   const previousRowPositions = useRef(new Map())
   useEffect(() => {
-    const timer = window.setInterval(() => setPriceRefreshTick((value) => value + 1), 60000)
+    const timer = window.setInterval(() => setPriceRefreshTick((value) => value + 1), 300000)
     return () => window.clearInterval(timer)
   }, [])
   useEffect(() => {

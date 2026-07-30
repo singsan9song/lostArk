@@ -1,16 +1,24 @@
-// Calculator settings and home-widget layout/hidden state are local-cache-only —
+// Most calculator settings and home-widget layout/hidden state are local-cache-only —
 // intentionally excluded so they never round-trip through cloud save/restore.
+// loark-damage-analysis-settings is the deliberate exception (explicitly requested
+// to follow the character across devices when logged in).
 export const ACCOUNT_STORAGE_KEYS = [
   'loark-favorite-characters',
   'loark-representative-character',
   'loark-expedition-raid-settings',
   'loark-character-honing-materials',
+  'loark-other-efficiency-catalog',
+  'loark-damage-analysis-settings',
   'loark-theme',
 ]
 
 export const LOCAL_DATA_CHANGED_EVENT = 'loark-local-data-changed'
 const DATA_VERSION_KEY = 'loark-data-schema-version'
-const DATA_VERSION = '2'
+// v3: loark-damage-analysis-settings switched from a flat {characterName: {...}}
+// map to {characters: {...}, expeditions: {...}} (아제나의 축복 stays per-character,
+// pet trait/potion/card book values became shared per-원정대) — old-shape data is
+// incompatible, so bump the version to wipe it via the reset below.
+const DATA_VERSION = '3'
 
 if (typeof window !== 'undefined') localStorage.removeItem('loark-roster-discoveries')
 
@@ -73,4 +81,23 @@ export function removeStoredCharacterData(characterNames) {
       // Invalid old data is left untouched; the normal readers already fall back safely.
     }
   })
+
+  // loark-damage-analysis-settings는 {characters, expeditions} 구조라 캐릭터별
+  // 항목(아제나의 축복)만 지운다 — expeditions 쪽(펫 특기 등)은 같은 원정대의
+  // 다른 캐릭터가 계속 쓸 수 있으므로 남겨둔다.
+  try {
+    const key = 'loark-damage-analysis-settings'
+    const current = JSON.parse(localStorage.getItem(key) || '{}')
+    if (current && typeof current === 'object' && !Array.isArray(current) && current.characters) {
+      let changed = false
+      names.forEach((name) => {
+        if (!Object.hasOwn(current.characters, name)) return
+        delete current.characters[name]
+        changed = true
+      })
+      if (changed) localStorage.setItem(key, JSON.stringify(current))
+    }
+  } catch {
+    // Invalid old data is left untouched; the normal readers already fall back safely.
+  }
 }

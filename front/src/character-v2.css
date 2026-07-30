@@ -263,66 +263,199 @@
 .rune span {
   font-size: var(--fs-13);
 }
-.history-placeholder {
+.growth-history {
   min-height: 450px;
+  display: grid;
+  gap: 18px;
+  padding-top: 18px;
+}
+.growth-chart-toolbar {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+  justify-content: space-between;
+  gap: 12px;
 }
-.chart-fake {
-  position: absolute;
-  left: 8%;
-  right: 8%;
-  top: 35px;
-  height: 180px;
+.growth-chart-toolbar > span {
+  color: var(--muted);
+  font-size: var(--fs-13);
+}
+.growth-chart-controls {
   display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 7px;
+}
+.growth-segmented {
+  display: inline-flex;
+  flex: 0 0 auto;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--surface-2);
+}
+.growth-segmented button {
+  min-width: 58px;
+  padding: 6px 9px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  font-size: var(--fs-13);
+  cursor: pointer;
+}
+.growth-segmented button.selected {
+  background: var(--primary);
+  color: #1b2410;
+  font-weight: 800;
+}
+.growth-line-chart {
+  min-height: 285px;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--line);
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 64px,
+      color-mix(in srgb, var(--line) 55%, transparent) 65px
+    );
+}
+.growth-line-chart svg {
+  height: 285px;
+  display: block;
+  overflow: visible;
+}
+.growth-line-chart polyline {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 7px color-mix(in srgb, var(--primary) 55%, transparent));
+}
+.growth-line-chart circle {
+  fill: var(--primary-2);
+  stroke: var(--surface);
+  stroke-width: 3;
+}
+.growth-line-chart text {
+  font-family: var(--app-font);
+  text-anchor: middle;
+}
+.growth-line-value {
+  fill: var(--primary-2);
+  font-size: var(--fs-13);
+  font-weight: 700;
+}
+.growth-line-date {
+  fill: var(--muted);
+  font-size: var(--fs-13);
+}
+.growth-chart {
+  min-height: 285px;
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  padding: 24px 14px 0;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--line);
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 64px,
+      color-mix(in srgb, var(--line) 55%, transparent) 65px
+    );
+}
+.growth-bar {
+  min-width: 58px;
+  flex: 1 0 58px;
+  display: grid;
+  grid-template-rows: 24px 1fr 28px;
   align-items: end;
-  gap: 4%;
-  opacity: 0.12;
-  border-bottom: 1px solid var(--primary);
+  text-align: center;
 }
-.chart-fake span {
-  flex: 1;
-  background: linear-gradient(var(--primary), transparent);
-  border-radius: 5px 5px 0 0;
-}
-.history-placeholder > svg {
-  width: 38px;
+.growth-bar strong {
+  align-self: start;
   color: var(--primary-2);
-  z-index: 1;
+  font: 700 var(--fs-13) var(--app-font);
 }
-.history-placeholder h3 {
-  margin: 13px 0 7px;
-  z-index: 1;
+.growth-bar i {
+  width: min(34px, 72%);
+  min-height: 10px;
+  justify-self: center;
+  border-radius: 7px 7px 0 0;
+  background: linear-gradient(180deg, var(--primary-2), var(--primary));
+  box-shadow: 0 0 16px color-mix(in srgb, var(--primary) 35%, transparent);
 }
-.history-placeholder p {
+.growth-bar small {
+  align-self: center;
+  color: var(--muted);
+  font-size: var(--fs-13);
+}
+.growth-summary {
+  display: grid;
+  grid-template-columns: 34px repeat(4, minmax(0, 1fr));
+  align-items: center;
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface-2);
+}
+.growth-summary > svg {
+  width: 22px;
+  color: var(--primary-2);
+}
+.growth-summary > div {
+  padding: 0 12px;
+  border-left: 1px solid var(--line);
+}
+.growth-summary span,
+.growth-summary strong {
+  display: block;
+}
+.growth-summary span {
+  color: var(--muted);
+  font-size: var(--fs-13);
+}
+.growth-summary strong {
+  margin-top: 3px;
+  color: var(--text);
+  font: 700 var(--fs-15) var(--app-font);
+}
+.growth-guide {
+  margin: 0;
+  color: var(--muted);
+  text-align: center;
   font-size: var(--fs-13);
   line-height: 1.7;
-  color: var(--muted);
-  z-index: 1;
 }
-.history-placeholder > div:last-child {
-  margin-top: 16px;
-  padding: 13px 24px;
-  background: var(--surface-2);
-  border-radius: 10px;
-  z-index: 1;
-}
-.history-placeholder > div:last-child span,
-.history-placeholder > div:last-child small {
-  display: block;
-  color: var(--muted);
-  font-size: var(--fs-13);
-}
-.history-placeholder > div:last-child strong {
-  display: block;
-  color: var(--primary-2);
-  font: 700 var(--fs-19) var(--app-font);
-  margin: 3px;
+@media (max-width: 650px) {
+  .growth-chart-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .growth-chart-controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .growth-segmented {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .growth-segmented:has(button:nth-child(2):last-child) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .growth-summary {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px 0;
+  }
+  .growth-summary > svg {
+    display: none;
+  }
+  .growth-summary > div:nth-of-type(odd) {
+    border-left: 0;
+  }
 }
 .collectible-grid {
   display: grid;
@@ -436,5 +569,56 @@
   .skill-icon > img {
     width: 46px;
     height: 46px;
+  }
+}
+.expedition-tab-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.expedition-tab-actions > button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 38px;
+  padding: 0 13px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--surface-2);
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.expedition-tab-actions > button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.expedition-tab-actions > button svg {
+  width: 15px;
+  height: 15px;
+}
+
+.expedition-refresh-error {
+  margin: 0 0 14px;
+  color: #f87171;
+  font-size: 13px;
+}
+
+.character-refresh-error {
+  width: min(100%, 1044px);
+  margin: 10px auto 0;
+  color: #f87171;
+  font-size: 13px;
+}
+
+@media (max-width: 640px) {
+  .expedition-tab-actions {
+    width: 100%;
+    align-items: stretch;
+    flex-direction: column;
   }
 }

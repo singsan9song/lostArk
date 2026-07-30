@@ -11,9 +11,7 @@ import {
   Palmtree,
   RotateCcw,
   Send,
-  ShoppingBag,
   SlidersHorizontal,
-  Skull,
   Sparkles,
   Star,
   Trash2,
@@ -25,7 +23,13 @@ import { groupFavorites, useFavorites } from '../lib/favorites'
 import { setLocalData } from '../lib/localData'
 
 const tools = [
-  ['violet', Skull, '낙원 보상 효율', '획득 보상과 소모 비용의 효율 계산', '/hell-reward'],
+  [
+    'violet',
+    '/images/rewards/311b8974b04c4aa98aeab4d180ba205c.png',
+    '낙원 보상 효율',
+    '획득 보상과 소모 비용의 효율 계산',
+    '/hell-reward',
+  ],
   [
     'amber',
     '/images/etc/icon_asset2.png',
@@ -49,7 +53,7 @@ const tools = [
   ],
   [
     'amber',
-    ShoppingBag,
+    '/images/rewards/sprite_shop.PNG',
     '마리의 비밀 상점 효율',
     '마리 상점 구매가 대비 상품 가치 비교',
     '/mari-shop',

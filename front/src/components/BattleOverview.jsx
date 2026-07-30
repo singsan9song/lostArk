@@ -1,14 +1,31 @@
 import { useState } from 'react'
-import { BookOpen, Gem, Layers3, Shield, Sparkles, Swords } from 'lucide-react'
+import {
+  BarChart3,
+  BookOpen,
+  Gem,
+  Grid3X3,
+  Layers3,
+  Scale,
+  Shield,
+  Sparkles,
+  Swords,
+} from 'lucide-react'
 import { cleanApiText } from '../lib/text'
 import { getEngravingIcon } from '../lib/engravingIcons'
+import { toSafeHtml } from '../lib/lostArkHtml'
 import ItemTooltip from './ItemTooltip'
 import SkillOverview from './SkillOverview'
+import DamageAnalysis from './DamageAnalysis'
+import ArkGridOverview from './ArkGridOverview'
+import AccessoryComparison from './AccessoryComparison'
 
 const categories = [
   ['equipment', '장비', Shield],
   ['gem', '보석', Gem],
   ['skill', '스킬', Sparkles],
+  ['arkGrid', '아크그리드', Grid3X3],
+  ['damage', '데미지 분석', BarChart3],
+  ['accessoryCompare', '악세 비교', Scale],
 ]
 
 const gradeClass = (grade) =>
@@ -158,9 +175,10 @@ function parseAccessoryEffects(raw = '') {
     .slice(0, 3)
 }
 
-export default function BattleOverview({ armory, profile, stats, skills }) {
+export default function BattleOverview({ armory, profile, stats, skills, siblings }) {
   const [category, setCategory] = useState('equipment')
   const [hover, setHover] = useState(null)
+  const [openEngraving, setOpenEngraving] = useState(null)
   // Separate from `hover` (which drives the item tooltip): the gem list only
   // needs to indicate which gem a row belongs to (syncing the diagram
   // highlight), not pop up the full tooltip — that's reserved for hovering
@@ -197,7 +215,18 @@ export default function BattleOverview({ armory, profile, stats, skills }) {
           {engravings.length ? (
             <div className="battle-engravings">
               {engravings.map((item, index) => (
-                <EngravingRow item={item} index={index} key={item.Name || index} />
+                <EngravingRow
+                  item={item}
+                  index={index}
+                  open={openEngraving === (item.Name || index)}
+                  onToggle={() =>
+                    setOpenEngraving((current) =>
+                      current === (item.Name || index) ? null : (item.Name || index),
+                    )
+                  }
+                  onClose={() => setOpenEngraving(null)}
+                  key={item.Name || index}
+                />
               ))}
             </div>
           ) : (
@@ -258,7 +287,11 @@ export default function BattleOverview({ armory, profile, stats, skills }) {
 
       <nav className="battle-category-tabs">
         {categories.map(([id, label, Icon]) => (
-          <button className={category === id ? 'active' : ''} onClick={() => setCategory(id)} key={id}>
+          <button
+            className={category === id ? 'active' : ''}
+            onClick={() => setCategory(id)}
+            key={id}
+          >
             <Icon />
             {label}
           </button>
@@ -347,16 +380,58 @@ export default function BattleOverview({ armory, profile, stats, skills }) {
         <SkillOverview profile={profile} skills={skills} armory={armory} onHover={setHover} />
       )}
 
+      {category === 'arkGrid' && (
+        <ArkGridOverview arkGrid={armory.ArkGrid} onHover={setHover} />
+      )}
+
+      {category === 'damage' && (
+        <DamageAnalysis
+          profile={profile}
+          skills={skills}
+          armory={armory}
+          siblings={siblings}
+          onHover={setHover}
+        />
+      )}
+
+      {category === 'accessoryCompare' && (
+        <AccessoryComparison
+          armory={armory}
+          profile={profile}
+          skills={skills}
+          siblings={siblings}
+          onHover={setHover}
+        />
+      )}
+
       <ItemTooltip item={hover?.item} left={hover?.left} right={hover?.right} top={hover?.top} />
     </div>
   )
 }
 
+function BattleFeaturePlaceholder({ title, description, icon: Icon }) {
+  return (
+    <section className="battle-panel battle-feature-placeholder">
+      <span>
+        <Icon />
+      </span>
+      <div>
+        <h2>{title}</h2>
+        <p>{description}</p>
+      </div>
+      <b>준비 중</b>
+    </section>
+  )
+}
+
 function EquipmentRow({ item, onHover }) {
   const details = tooltipData(item)
-  if (accessoryTypes.includes(item.Type)) return <AccessoryRow item={item} details={details} onHover={onHover} />
-  if (honingTypes.includes(item.Type)) return <HoningRow item={item} details={details} onHover={onHover} />
-  if (item.Type === '어빌리티 스톤') return <StoneRow item={item} details={details} onHover={onHover} />
+  if (accessoryTypes.includes(item.Type))
+    return <AccessoryRow item={item} details={details} onHover={onHover} />
+  if (honingTypes.includes(item.Type))
+    return <HoningRow item={item} details={details} onHover={onHover} />
+  if (item.Type === '어빌리티 스톤')
+    return <StoneRow item={item} details={details} onHover={onHover} />
   if (item.Type === '보주') return <OrbRow item={item} details={details} onHover={onHover} />
   return (
     <article
@@ -435,7 +510,13 @@ function AccessoryRow({ item, details, onHover }) {
                 aria-label={effect.tier === 'high' ? '상' : effect.tier === 'middle' ? '중' : '하'}
               />
               <span>{effect.name}</span>
-              <b style={effect.color !== 'FFD200' && effect.color !== 'CE43FC' ? { color: `#${effect.color}` } : undefined}>
+              <b
+                style={
+                  effect.color !== 'FFD200' && effect.color !== 'CE43FC'
+                    ? { color: `#${effect.color}` }
+                    : undefined
+                }
+              >
                 {effect.value}
               </b>
             </div>
@@ -517,12 +598,31 @@ const engravingGradePosition = {
   유물: '-116px',
 }
 
-function EngravingRow({ item, index }) {
+function EngravingRow({ item, index, open, onToggle, onClose }) {
   const baseLevel = Number(item.Level ?? 0)
   const stoneLevel = Number(item.AbilityStoneLevel ?? 0)
   const icon = getEngravingIcon(item.Name, item.Icon)
+  const description = typeof item.Description === 'string' ? item.Description.trim() : ''
   return (
-    <div className="engraving-row" title={cleanApiText(item.Description)}>
+    <div
+      className={`engraving-row engraving-with-tooltip ${index % 2 ? 'is-right' : 'is-left'} ${open ? 'is-open' : ''}`}
+      tabIndex={description ? 0 : undefined}
+      aria-expanded={description ? open : undefined}
+      aria-label={
+        description
+          ? `${item.Name} 각인. ${cleanApiText(description)}`
+          : `${item.Name} 각인`
+      }
+      onClick={() => {
+        if (description && window.matchMedia('(max-width: 600px)').matches) onToggle()
+      }}
+      onBlur={() => {
+        if (window.matchMedia('(max-width: 600px)').matches) onClose()
+      }}
+      onKeyDown={(event) => {
+        if (event.key === 'Escape') onClose()
+      }}
+    >
       <div className={`engraving-symbol symbol-${index % 5}`}>
         {icon ? <img src={icon} alt={`${item.Name} 각인`} /> : <span>{item.Name?.[0] || '?'}</span>}
       </div>
@@ -545,6 +645,11 @@ function EngravingRow({ item, index }) {
             Lv.{stoneLevel}
           </span>
         </>
+      )}
+      {description && (
+        <div className="profile-ability-tooltip engraving-ability-tooltip" role="tooltip">
+          <p dangerouslySetInnerHTML={{ __html: toSafeHtml(description) }} />
+        </div>
       )}
     </div>
   )

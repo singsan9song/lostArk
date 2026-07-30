@@ -151,6 +151,20 @@
   color: var(--text);
   font: 800 var(--fs-13) var(--app-font);
 }
+.expedition-group-summary > .expedition-group-raid-rewards {
+  gap: 9px;
+  border-color: rgba(190, 213, 141, 0.3);
+}
+.expedition-group-raid-rewards > span {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  white-space: nowrap;
+}
+.expedition-group-raid-rewards .currency-gold-amount {
+  color: var(--text);
+  font-weight: 800;
+}
 .expedition-group-summary button {
   cursor: pointer;
 }
@@ -217,7 +231,7 @@
 }
 .expedition-character-card > header {
   display: grid;
-  grid-template-columns: 42px minmax(0, 1fr) 18px;
+  grid-template-columns: 42px minmax(0, 1fr) 26px;
   align-items: center;
   gap: 9px;
   padding: 12px;
@@ -255,11 +269,35 @@
   color: var(--muted);
   font-size: var(--fs-11);
 }
-.expedition-character-card > header i {
+.expedition-representative-button {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition:
+    color 0.2s,
+    border-color 0.2s,
+    background 0.2s;
+}
+.expedition-representative-button:hover {
+  border-color: rgba(190, 213, 141, 0.38);
+  background: rgba(190, 213, 141, 0.08);
   color: var(--primary);
 }
-.expedition-character-card > header i svg {
+.expedition-representative-button.active {
+  border-color: rgba(190, 213, 141, 0.45);
+  background: rgba(190, 213, 141, 0.12);
+  color: var(--primary);
+}
+.expedition-representative-button svg {
   width: 15px;
+  height: 15px;
 }
 .expedition-character-level {
   display: flex;
@@ -344,7 +382,13 @@
   }
   .expedition-group-summary {
     width: 100%;
+    flex-wrap: wrap;
     margin-left: 58px;
+  }
+  .expedition-group-summary > .expedition-group-raid-rewards {
+    order: 5;
+    width: 100%;
+    justify-content: space-between;
   }
   .expedition-group-summary > span {
     padding: 0 7px;

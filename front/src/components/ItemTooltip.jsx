@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { toSafeHtml } from '../lib/lostArkHtml'
 import { parseTooltip } from '../lib/lostArkTooltip'
@@ -28,27 +28,75 @@ function qualityBucket(quality) {
 
 const TOOLTIP_MARGIN = 16
 const TOOLTIP_GAP = 10
+const CDN_BASE = 'https://cdn-lostark.game.onstove.com/'
+
+// Most slotData.iconPath values are already full CDN URLs, but some (e.g. a
+// skill rune's own ItemTitle) come back as a bare relative path like
+// 'efui_iconatlas/use/use_7_204.png' — resolve those against the same CDN.
+function iconSrc(path) {
+  if (!path) return path
+  return /^https?:\/\//i.test(path) ? path : CDN_BASE + path.replace(/^\/+/, '')
+}
 
 export default function ItemTooltip({ item, left: itemLeft, right: itemRight, top: itemTop }) {
+  const tooltipRef = useRef(null)
+  const [layout, setLayout] = useState(() => ({
+    height: 0,
+    viewportWidth: window.innerWidth,
+    viewportHeight: window.innerHeight,
+  }))
+
+  useLayoutEffect(() => {
+    const measure = () => {
+      const height = tooltipRef.current?.getBoundingClientRect().height || 0
+      const next = {
+        height,
+        viewportWidth: window.innerWidth,
+        viewportHeight: window.innerHeight,
+      }
+      setLayout((current) =>
+        current.height === next.height &&
+        current.viewportWidth === next.viewportWidth &&
+        current.viewportHeight === next.viewportHeight
+          ? current
+          : next,
+      )
+    }
+    measure()
+    window.addEventListener('resize', measure)
+    return () => window.removeEventListener('resize', measure)
+  }, [item])
+
   if (!item?.Tooltip) return null
   const nodes = parseTooltip(item.Tooltip)
   if (!nodes.length) return null
   const isSkill = nodes.some((node) => node.type === 'CommonSkillTitle')
 
-  const width = 342
+  const width = Math.max(0, Math.min(342, layout.viewportWidth - TOOLTIP_MARGIN * 2))
   // Anchored to the icon (not the cursor) and fixed once shown, floating just
   // to its right — flips to the left side when there isn't room.
-  const fitsOnRight = itemRight + TOOLTIP_GAP + width <= window.innerWidth - TOOLTIP_MARGIN
+  const fitsOnRight =
+    itemRight + TOOLTIP_GAP + width <= layout.viewportWidth - TOOLTIP_MARGIN
   const left = fitsOnRight
     ? itemRight + TOOLTIP_GAP
     : Math.max(TOOLTIP_MARGIN, itemLeft - TOOLTIP_GAP - width)
-  const top = Math.min(Math.max(TOOLTIP_MARGIN, itemTop), window.innerHeight - TOOLTIP_MARGIN)
+  const maxTop = Math.max(
+    TOOLTIP_MARGIN,
+    layout.viewportHeight - TOOLTIP_MARGIN - layout.height,
+  )
+  const top = Math.min(Math.max(TOOLTIP_MARGIN, itemTop), maxTop)
 
   return createPortal(
     <div
+      ref={tooltipRef}
       className={`game-tooltip ${isSkill ? 'game-tooltip-skill' : 'game-tooltip-item'}`}
       data-grade={isSkill ? undefined : (gradeDataNumber[item.Grade] ?? '')}
-      style={{ left, top, width }}
+      style={{
+        left,
+        top,
+        width,
+        maxHeight: Math.max(0, layout.viewportHeight - TOOLTIP_MARGIN * 2),
+      }}
     >
       {nodes.map((node) => (
         <TooltipNode node={node} key={node.key} />
@@ -118,7 +166,7 @@ function ItemTitleNode({ value }) {
           data-grade={value.slotData.iconGrade}
           data-pet-border={value.slotData.petBorder ?? 0}
         >
-          <img src={value.slotData.iconPath} alt="" />
+          <img src={iconSrc(value.slotData.iconPath)} alt="" />
         </span>
       )}
       {html(value.leftStr0) && (
@@ -151,7 +199,7 @@ function CommonSkillTitleNode({ value }) {
     <div className="CommonSkillTitle">
       {value.slotData?.iconPath && (
         <span className="slotData" data-grade={value.slotData.iconGrade}>
-          <img src={value.slotData.iconPath} alt="" />
+          <img src={iconSrc(value.slotData.iconPath)} alt="" />
         </span>
       )}
       <span className="name" dangerouslySetInnerHTML={{ __html: toSafeHtml(value.name) }} />
@@ -172,7 +220,7 @@ function TripodSkillCustomNode({ value }) {
         <div key={index}>
           {tripod.slotData?.iconPath && (
             <span className="slotData" data-grade={tripod.slotData.iconGrade}>
-              <img src={tripod.slotData.iconPath} alt="" />
+              <img src={iconSrc(tripod.slotData.iconPath)} alt="" />
             </span>
           )}
           <span className="name" dangerouslySetInnerHTML={{ __html: toSafeHtml(tripod.name) }} />

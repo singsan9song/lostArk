@@ -2,15 +2,20 @@ package com.example.loark.account;
 
 import com.example.loark.character.GameCharacter;
 import com.example.loark.character.GameCharacterRepository;
+import com.example.loark.config.LostArkApiRequestCounter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.node.ArrayNode;
@@ -30,15 +35,18 @@ public class AccountController {
     private final ObjectMapper objectMapper;
     private final String discordAvatarBaseUrl;
     private final Set<String> adminDiscordIds;
+    private final LostArkApiRequestCounter apiRequestCounter;
 
     public AccountController(UserAccountRepository accounts, UserPreferenceRepository preferences,
                              UserFavoriteRepository favorites, UserRaidTaskRepository raidTasks,
                              GameCharacterRepository gameCharacters,
                              ObjectMapper objectMapper,
+                             LostArkApiRequestCounter apiRequestCounter,
                              @Value("${discord.cdn.avatar-base-url}") String discordAvatarBaseUrl,
                              @Value("${app.community.admin-discord-ids:}") String adminDiscordIds) {
         this.accounts = accounts; this.preferences = preferences; this.favorites = favorites;
         this.raidTasks = raidTasks; this.gameCharacters = gameCharacters; this.objectMapper = objectMapper;
+        this.apiRequestCounter = apiRequestCounter;
         this.discordAvatarBaseUrl = discordAvatarBaseUrl;
         this.adminDiscordIds = new LinkedHashSet<>(Arrays.asList(adminDiscordIds.split(",")));
         this.adminDiscordIds.removeIf(String::isBlank);
@@ -51,6 +59,44 @@ public class AccountController {
         return Map.of("authenticated", true, "id", account.getDiscordId(), "username", account.getUsername(),
                 "avatarUrl", account.getAvatarUrl() == null ? "" : account.getAvatarUrl(),
                 "isAdmin", adminDiscordIds.contains(account.getDiscordId()));
+    }
+
+    @GetMapping(value = "/admin/api-requests/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public SseEmitter apiRequestStream(@AuthenticationPrincipal OAuth2User principal) {
+        requireAdmin(principal);
+        return apiRequestCounter.subscribe();
+    }
+
+    @GetMapping("/admin/api-requests/history")
+    public List<LostArkApiRequestCounter.MinuteHistory> apiRequestHistory(
+            @AuthenticationPrincipal OAuth2User principal) {
+        requireAdmin(principal);
+        return apiRequestCounter.history();
+    }
+
+    @GetMapping("/admin/api-requests/history/details")
+    public List<LostArkApiRequestCounter.RequestRecord> apiRequestHistoryDetails(
+            @AuthenticationPrincipal OAuth2User principal,
+            @RequestParam Instant resetAt) {
+        requireAdmin(principal);
+        return apiRequestCounter.historyDetails(resetAt);
+    }
+
+    @GetMapping("/admin/api-requests/history/search")
+    public LostArkApiRequestCounter.SearchHistoryResult searchApiRequestHistory(
+            @AuthenticationPrincipal OAuth2User principal,
+            @RequestParam(defaultValue = "") String query,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "200") int size) {
+        requireAdmin(principal);
+        return apiRequestCounter.searchHistory(query, page, size);
+    }
+
+    private void requireAdmin(OAuth2User principal) {
+        String discordId = principal == null ? null : principal.getAttribute("id");
+        if (discordId == null || !adminDiscordIds.contains(discordId)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "관리자만 확인할 수 있습니다.");
+        }
     }
 
     @PostMapping("/auth/logout")
@@ -94,6 +140,8 @@ public class AccountController {
         UserPreference preference = preferences.findById(account.getDiscordId()).orElse(new UserPreference(account.getDiscordId()));
         result.put("loark-theme", preference.getTheme());
         result.put("loark-character-honing-materials", preference.getHoningMaterials());
+        result.put("loark-other-efficiency-catalog", preference.getOtherEfficiencyCatalog());
+        result.put("loark-damage-analysis-settings", preference.getDamageAnalysisSettings());
         return result;
     }
 
@@ -148,17 +196,34 @@ public class AccountController {
         });
         account.setRepresentativeCharacterName(data.get("loark-representative-character"));
 
-        raidTasks.deleteAll(raidTasks.findByDiscordIdOrderByCharacterNameAscIdAsc(discordId));
+        List<UserRaidTask> existingRaidTasks = raidTasks.findByDiscordIdOrderByCharacterNameAscIdAsc(discordId);
+        Map<RaidTaskKey, UserRaidTask> raidTasksByKey = new HashMap<>();
+        existingRaidTasks.forEach(task ->
+                raidTasksByKey.put(raidTaskKey(task.getCharacterName(), task.getRaidId()), task));
+        Set<UserRaidTask> keptRaidTasks = Collections.newSetFromMap(new IdentityHashMap<>());
         JsonNode raidRows = parse(data.get("loark-expedition-raid-settings"), "{}");
         if (raidRows.isObject()) raidRows.properties().forEach(entry -> {
             if (!keptCharacterNames.contains(entry.getKey()) || !entry.getValue().isArray()) return;
             for (JsonNode row : entry.getValue()) {
                 String raidId = text(row, "raidId"); String difficultyId = text(row, "difficultyId");
                 if (raidId.isBlank() || difficultyId.isBlank()) continue;
-                raidTasks.save(new UserRaidTask(discordId, entry.getKey(), raidId, difficultyId,
-                        row.path("goldEarning").asBoolean(true), row.path("busFare").asInt(0),
-                        integers(row.path("extraRewardGates")), integers(row.path("completedGates"))));
+                RaidTaskKey key = raidTaskKey(entry.getKey(), raidId);
+                UserRaidTask task = raidTasksByKey.get(key);
+                if (task == null) {
+                    task = raidTasks.save(new UserRaidTask(discordId, entry.getKey(), raidId, difficultyId,
+                            row.path("goldEarning").asBoolean(true), row.path("busFare").asInt(0),
+                            integers(row.path("extraRewardGates")), integers(row.path("completedGates"))));
+                    raidTasksByKey.put(key, task);
+                } else {
+                    task.update(difficultyId, row.path("goldEarning").asBoolean(true),
+                            row.path("busFare").asInt(0), integers(row.path("extraRewardGates")),
+                            integers(row.path("completedGates")));
+                }
+                keptRaidTasks.add(task);
             }
+        });
+        existingRaidTasks.forEach(task -> {
+            if (!keptRaidTasks.contains(task)) raidTasks.delete(task);
         });
 
         ObjectNode honingRows = objectMapper.createObjectNode();
@@ -168,7 +233,16 @@ public class AccountController {
                 honingRows.set(entry.getKey(), entry.getValue());
         });
         UserPreference preference = preferences.findById(discordId).orElse(new UserPreference(discordId));
-        preference.update(data.get("loark-theme"), honingRows.toString());
+        JsonNode submittedCatalog = parse(data.get("loark-other-efficiency-catalog"), "[]");
+        String catalog = submittedCatalog.isArray() ? submittedCatalog.toString() : "[]";
+        if (catalog.length() > 1_000_000)
+            throw new IllegalArgumentException("기타 효율 보관함 용량을 초과했습니다.");
+        JsonNode submittedDamageAnalysisSettings = parse(data.get("loark-damage-analysis-settings"), "{}");
+        String damageAnalysisSettings = submittedDamageAnalysisSettings.isObject()
+                ? submittedDamageAnalysisSettings.toString() : "{}";
+        if (damageAnalysisSettings.length() > 200_000)
+            throw new IllegalArgumentException("데미지 분석 설정 용량을 초과했습니다.");
+        preference.update(data.get("loark-theme"), honingRows.toString(), catalog, damageAnalysisSettings);
         preferences.save(preference);
         account.markDataInitialized(); accounts.save(account);
         return data;
@@ -208,4 +282,8 @@ public class AccountController {
     private Set<Integer> integers(JsonNode values) {
         Set<Integer> result = new LinkedHashSet<>(); if (values.isArray()) values.forEach(value -> result.add(value.asInt())); return result;
     }
+    private RaidTaskKey raidTaskKey(String characterName, String raidId) {
+        return new RaidTaskKey(characterName.toLowerCase(Locale.ROOT), raidId.toLowerCase(Locale.ROOT));
+    }
+    private record RaidTaskKey(String characterName, String raidId) {}
 }

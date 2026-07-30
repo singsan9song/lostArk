@@ -1,5 +1,5 @@
 import { Clock3, RefreshCw, ShoppingBag } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import CrystalIcon from '../components/CrystalIcon'
 import AbilityStoneConfigurationSelect from '../components/AbilityStoneConfigurationSelect'
@@ -70,29 +70,48 @@ export default function MariShopPage() {
   )
   const crystalGoldPrice = useCrystalGoldPrice()
 
-  useEffect(() => {
-    let active = true
-    const load = () =>
-      lostArkApi
-        .getMariShop()
-        .then((result) => {
-          if (active) {
-            setData(result)
-            setError('')
-          }
-        })
-        .catch((fetchError) => {
-          if (active) setError(fetchError.message)
-        })
-    load()
-    const refreshTimer = window.setInterval(load, 30000)
-    const clockTimer = window.setInterval(() => setNow(Date.now()), 1000)
-    return () => {
-      active = false
-      window.clearInterval(refreshTimer)
-      window.clearInterval(clockTimer)
+  const loadMariShop = useCallback(async () => {
+    try {
+      const result = await lostArkApi.getMariShop()
+      setData(result)
+      setError('')
+      return result
+    } catch (fetchError) {
+      setError(fetchError.message)
+      return null
     }
   }, [])
+
+  useEffect(() => {
+    loadMariShop()
+    const clockTimer = window.setInterval(() => setNow(Date.now()), 1000)
+    return () => {
+      window.clearInterval(clockTimer)
+    }
+  }, [loadMariShop])
+
+  useEffect(() => {
+    if (!data?.nextRefreshAt) return undefined
+    const refreshAt = new Date(data.nextRefreshAt).getTime() - 10000
+    if (!Number.isFinite(refreshAt)) return undefined
+
+    let stopped = false
+    let retryCount = 0
+    let timer
+    const previousVersion = data.goodsVersion
+    const refresh = async () => {
+      const result = await loadMariShop()
+      if (!stopped && result?.goodsVersion === previousVersion && retryCount < 6) {
+        retryCount += 1
+        timer = window.setTimeout(refresh, 5000)
+      }
+    }
+    timer = window.setTimeout(refresh, Math.max(0, refreshAt - Date.now()))
+    return () => {
+      stopped = true
+      window.clearTimeout(timer)
+    }
+  }, [data?.goodsVersion, data?.nextRefreshAt, loadMariShop])
 
   useEffect(() => {
     const sourceRotations = data?.rotations?.length

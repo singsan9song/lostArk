@@ -26,6 +26,7 @@ const tracks = [
   ['premium', '프리미엄 보상'],
   ['superPremium', '슈퍼 프리미엄 보상'],
 ]
+const MARI_FALLBACK_VALUE_RATE = 0.1
 const formatGold = (value) =>
   Number(value || 0).toLocaleString('ko-KR', { maximumFractionDigits: 1 })
 const gradeClass = (grade) =>
@@ -115,7 +116,10 @@ const rewardImageFor = (reward) => {
 const mariFallbackGoldValue = (reward, mariLowestUnitPrices, crystalGoldPrice) => {
   const lowestUnitCrystalPrice = mariLowestUnitPrices[reward.name]
   if (!(lowestUnitCrystalPrice > 0)) return null
-  return (lowestUnitCrystalPrice * Number(reward.quantity || 1) * crystalGoldPrice) / 100
+  return (
+    ((lowestUnitCrystalPrice * Number(reward.quantity || 1) * crystalGoldPrice) / 100) *
+    MARI_FALLBACK_VALUE_RATE
+  )
 }
 
 const rewardGoldValue = (
@@ -426,7 +430,7 @@ function RewardCell({
               selected={choice ? resolvedSelectedId === reward.id : false}
               recommended={recommended?.id === reward.id}
               goldValue={regularGoldValue ?? mariGoldValue}
-              valuePrefix={mariGoldValue != null ? '마리 최저 ' : ''}
+              valuePrefix={mariGoldValue != null ? '마리 최저 10% ' : ''}
               loading={loading}
               onSelect={selectThisReward}
               embeddedControl={embeddedControl}
@@ -461,6 +465,36 @@ export default function ArkPassPage() {
     (count, level) => count + tracks.filter(([track]) => level[track]?.type === 'choice').length,
     0,
   )
+
+  useEffect(() => {
+    const element = levelScrollRef.current
+    if (!element) return undefined
+
+    const scrollHorizontally = (event) => {
+      const maxScrollLeft = element.scrollWidth - element.clientWidth
+      if (maxScrollLeft <= 0) return
+
+      const wheelDelta =
+        Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY
+      const distance =
+        event.deltaMode === WheelEvent.DOM_DELTA_LINE
+          ? wheelDelta * 32
+          : event.deltaMode === WheelEvent.DOM_DELTA_PAGE
+            ? wheelDelta * element.clientWidth
+            : wheelDelta
+      const nextScrollLeft = Math.min(
+        maxScrollLeft,
+        Math.max(0, element.scrollLeft + distance),
+      )
+      if (nextScrollLeft === element.scrollLeft) return
+
+      event.preventDefault()
+      element.scrollLeft = nextScrollLeft
+    }
+
+    element.addEventListener('wheel', scrollHorizontally, { passive: false })
+    return () => element.removeEventListener('wheel', scrollHorizontally)
+  }, [])
 
   useEffect(() => {
     const names = [

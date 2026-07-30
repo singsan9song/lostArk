@@ -70,8 +70,10 @@ public class CharacterSnapshot {
     }
 
     public Long getId() { return id; }
+    public String getCharacterName() { return characterName; }
     public String getArmoryPayload() { return armoryPayload; }
     public String getContentHash() { return contentHash; }
     public String getRosterKey() { return rosterKey; }
+    public String getItemLevel() { return itemLevel; }
     public Instant getFetchedAt() { return fetchedAt; }
 }

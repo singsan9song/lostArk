@@ -50,10 +50,11 @@ public class GameContentsService {
         String successKey = now.isBefore(refreshStartsAt) ? null : todaySuccessKey();
         try {
             if (refresh(successKey)) {
-                System.out.printf("[LOSTARK CALENDAR] Missing calendar restored on startup: %s%n",
+                com.example.loark.config.ApplicationLog.infof("[LOSTARK CALENDAR] Missing calendar restored on startup: %s%n",
                         now.toLocalDate());
             } else {
-                System.out.println("[LOSTARK CALENDAR] Startup response was empty or invalid; retrying next minute");
+                com.example.loark.config.ApplicationLog.info(
+                        "[LOSTARK CALENDAR] Startup response was empty or invalid; retrying next minute");
             }
         } catch (Exception error) {
             logRefreshFailure("Startup refresh failed", error);
@@ -73,9 +74,11 @@ public class GameContentsService {
         if (persistentCache.findLastSuccess(successKey).isPresent()) return;
         try {
             if (refresh(successKey)) {
-                System.out.printf("[LOSTARK CALENDAR] Daily calendar refreshed: %s%n", now.toLocalDate());
+                com.example.loark.config.ApplicationLog.infof(
+                        "[LOSTARK CALENDAR] Daily calendar refreshed: %s%n", now.toLocalDate());
             } else {
-                System.out.printf("[LOSTARK CALENDAR] Empty or invalid response; retrying next minute: %s%n",
+                com.example.loark.config.ApplicationLog.infof(
+                        "[LOSTARK CALENDAR] Empty or invalid response; retrying next minute: %s%n",
                         now.toLocalDate());
             }
         } catch (Exception error) {
@@ -100,10 +103,12 @@ public class GameContentsService {
 
     private void logRefreshFailure(String prefix, Exception error) {
         if (error instanceof RestClientResponseException responseError) {
-            System.out.printf("[LOSTARK CALENDAR] %s: HTTP %d; retrying next minute%n",
+            com.example.loark.config.ApplicationLog.infof(
+                    "[LOSTARK CALENDAR] %s: HTTP %d; retrying next minute%n",
                     prefix, responseError.getStatusCode().value());
         } else {
-            System.out.printf("[LOSTARK CALENDAR] %s: %s; retrying next minute%n",
+            com.example.loark.config.ApplicationLog.infof(
+                    "[LOSTARK CALENDAR] %s: %s; retrying next minute%n",
                     prefix, error.getMessage());
         }
     }

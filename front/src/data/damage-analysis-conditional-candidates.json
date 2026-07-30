@@ -1,0 +1,308 @@
+{
+  "version": 1,
+  "generatedFrom": "56개 캐릭터 armory 데이터 스캔 (2026-07-26 기준, RE트레이커 포함)",
+  "description": "damage-analysis-conditional-stacks.json에 아직 등록 안 된 \"(최대 N중첩)\" 스택형 조건부 후보 목록입니다. 각 항목의 pattern은 실제 게임 문구 그대로이고(N 치환 안 됨), appliedStacks는 아직 정해지지 않았습니다(null). 검토 후 적당한 pattern(변하는 수치는 N으로 치환)과 appliedStacks 값을 정해서 damage-analysis-conditional-stacks.json의 entries에 옮기면 됩니다.",
+  "candidates": [
+    {
+      "rawLine": "입식 타격 II : 진화형 피해 +1.5% / 낙인력 +2.0% , 최대 6중첩",
+      "maxStacks": 6,
+      "appliedStacks": null,
+      "exampleCharacters": [
+        {
+          "character": "TheDry",
+          "itemType": "아크 패시브 진화",
+          "itemName": "입식 타격가"
+        },
+        {
+          "character": "겐시유",
+          "itemType": "아크 패시브 진화",
+          "itemName": "입식 타격가"
+        },
+        {
+          "character": "김희구",
+          "itemType": "아크 패시브 진화",
+          "itemName": "입식 타격가"
+        },
+        {
+          "character": "꼬리",
+          "itemType": "아크 패시브 진화",
+          "itemName": "입식 타격가"
+        },
+        {
+          "character": "로스트망고",
+          "itemType": "아크 패시브 진화",
+          "itemName": "입식 타격가"
+        },
+        {
+          "character": "RE트레이커",
+          "itemType": "아크 패시브 진화",
+          "itemName": "입식 타격가"
+        }
+      ]
+    },
+    {
+      "rawLine": "[17P] '운명: 퀘이사 캐넌 슈트' 효과를 보유 중일 때 제로 싱크 스킬 사용 시 60.0초 동안 '운명: 안티매터 빔' 효과를 1중첩 획득한다. (최대3중첩)",
+      "maxStacks": 3,
+      "appliedStacks": null,
+      "exampleCharacters": [
+        {
+          "character": "TheDry",
+          "itemType": "아크그리드(코어 옵션)",
+          "itemName": "질서의 해 코어 : 퀘이사 캐넌 슈트"
+        }
+      ]
+    },
+    {
+      "rawLine": "[14P] '운명' 발동 시 8.0초 동안 '운명: 무상기' 효과를 획득한다. (최대 3 중첩)",
+      "maxStacks": 3,
+      "appliedStacks": null,
+      "exampleCharacters": [
+        {
+          "character": "게임할시간없음",
+          "itemType": "아크그리드(코어 옵션)",
+          "itemName": "질서의 해 코어 : 무상기연"
+        }
+      ]
+    },
+    {
+      "rawLine": "'운명: 무법지대' : 레인 오브 불릿 제외 핸드건 스킬 사용 시 30.0초 동안 '운명: 절망의 노을' 효과를 1중첩 획득한다. (최대 20중첩)",
+      "maxStacks": 20,
+      "appliedStacks": null,
+      "exampleCharacters": [
+        {
+          "character": "꼬리",
+          "itemType": "아크그리드(코어 옵션)",
+          "itemName": "질서의 해 코어 : 무법지대"
+        }
+      ]
+    },
+    {
+      "rawLine": "광기 상태에서 공격 적중 시 1.0초에 한 번 '어둠 강화' 효과가 부여된다. '어둠 강화'는 광기 상태 동안 유지되며, 중첩 당 적에게 주는 피해가 2.1% 증가되고, 최대 10중첩까지 적용된다.",
+      "maxStacks": 10,
+      "appliedStacks": null,
+      "exampleCharacters": [
+        {
+          "character": "노우이루",
+          "itemType": "아크 패시브 깨달음",
+          "itemName": "어둠 강화"
+        }
+      ]
+    },
+    {
+      "rawLine": "'운명: 전격충전' : 리프 어택 적중 시마다 0.5초에 한 번 최대 10중첩이 가능한 '운명: 천둥' 효과를 2중첩 획득한다.",
+      "maxStacks": 10,
+      "appliedStacks": null,
+      "exampleCharacters": [
+        {
+          "character": "로스트망고",
+          "itemType": "아크그리드(코어 옵션)",
+          "itemName": "질서의 해 코어 : 천둥"
+        }
+      ]
+    },
+    {
+      "rawLine": "폭주 중 X키를 이용해 일반 상태로 돌아갈 수 있으며, '피로'효과가 20중첩 이하인 경우 탈진 시간이 10.0초로 적용된다. 혈기를 흡수할 때 회복하는 마나가 5.0%로 증가하며, 폭주 상태에서 혈기를 흡수할 경우 '폭주 강화' 상태가 된다. '폭주 강화' 상태는 중첩당 적에게 주는 피해가 3.0% 증가하며 최대 10중첩되지만 폭주 상태가 해제되면 '폭주 강화' 상태도 해제된다.",
+      "maxStacks": 10,
+      "appliedStacks": null,
+      "exampleCharacters": [
+        {
+          "character": "만배",
+          "itemType": "아크 패시브 깨달음",
+          "itemName": "깊어지는 분노"
+        }
+      ]
+    },
+    {
+      "rawLine": "'운명: 기력 응축' : 투지발산 상태에서 대지 가르기를 제외한 기력 스킬 사용 시 15.0초 동안 '운명: 대지 붕괴' 효과를 획득한다. (최대 3중첩)",
+      "maxStacks": 3,
+      "appliedStacks": null,
+      "exampleCharacters": [
+        {
+          "character": "말랑말랑해요",
+          "itemType": "아크그리드(코어 옵션)",
+          "itemName": "질서의 해 코어 : 대지 붕괴"
+        }
+      ]
+    },
+    {
+      "rawLine": "마력 방출을 사용할 수 없지만, 점멸 사용 시 추가로 45초간 '마력 가속' 효과를 생성하여 적에게 주는 피해가 0.6% 증가한다. 해당 효과는 최대 2중첩되며, 최대 중첩 시 공격속도가 3.0% 증가한다.",
+      "maxStacks": 2,
+      "appliedStacks": null,
+      "exampleCharacters": [
+        {
+          "character": "미호밍",
+          "itemType": "아크 패시브 깨달음",
+          "itemName": "응집되는 마력"
+        }
+      ]
+    },
+    {
+      "rawLine": "[17P] '운명: 찌르기의 대가' 효과를 보유 중일 때 전방 찌르기, 역공 사용 시 60.0초 동안 '운명: 차원 진공' 효과를 획득한다. (최대 3중첩)",
+      "maxStacks": 3,
+      "appliedStacks": null,
+      "exampleCharacters": [
+        {
+          "character": "발표시간",
+          "itemType": "아크그리드(코어 옵션)",
+          "itemName": "질서의 해 코어 : 찌르기의 대가"
+        }
+      ]
+    },
+    {
+      "rawLine": "차원 시계와의 시간 동기화가 비활성화되어 하나의 시간선 상에 고정되며, Z키를 입력하여 간섭을 사용할 수 있다. (최대 2중첩)",
+      "maxStacks": 2,
+      "appliedStacks": null,
+      "exampleCharacters": [
+        {
+          "character": "발표시간",
+          "itemType": "아크 패시브 깨달음",
+          "itemName": "공간 검사"
+        }
+      ]
+    },
+    {
+      "rawLine": "음양 스킬 사용 시 60.0초간 적에게 주는 피해량이 1.2% 증가한다. 해당 효과는 최대 2중첩까지 가능하다.",
+      "maxStacks": 2,
+      "appliedStacks": null,
+      "exampleCharacters": [
+        {
+          "character": "붓딩딩",
+          "itemType": "아크 패시브 깨달음",
+          "itemName": "달의 그림자"
+        }
+      ]
+    },
+    {
+      "rawLine": "[17P] '운명: 에이전트 SMG' 효과를 보유 중일 때 전술 사격, 아발란체 사용 시 '운명: 오토 슈레더' 효과를 1중첩 획득하며(최대 5중첩) 불릿 해일 사용 시 일반 스킬의 재사용 대기시간을 0.5초 감소시킨다.",
+      "maxStacks": 5,
+      "appliedStacks": null,
+      "exampleCharacters": [
+        {
+          "character": "야리크",
+          "itemType": "아크그리드(코어 옵션)",
+          "itemName": "질서의 해 코어 : 에이전트 SMG"
+        }
+      ]
+    },
+    {
+      "rawLine": "'운명: 레이지 래피드' : 공격속도가 30.0% 증가하고, 래피드 샷 사용 시 1중첩을 소모하여 래피드 샷의 재사용 대기시간이 초기화된다. 래피드 샷의 피해량이 10.0% 증가한다. ('운명: 레이지 래피드' 효과는 최대 3중첩을 초과할 수 없다.)",
+      "maxStacks": 3,
+      "appliedStacks": null,
+      "exampleCharacters": [
+        {
+          "character": "이승건",
+          "itemType": "아크그리드(코어 옵션)",
+          "itemName": "질서의 해 코어 : ATB-19 스톰리피터"
+        }
+      ]
+    },
+    {
+      "rawLine": "[17P] '운명: 레이지 래피드' 효과가 강화되어 1중첩을 더 획득하고, 래피드 샷 피해량 증가가 30.0%로 변경된다. ('운명: 레이지 래피드' 효과는 최대 4중첩을 초과할 수 없다.)",
+      "maxStacks": 4,
+      "appliedStacks": null,
+      "exampleCharacters": [
+        {
+          "character": "이승건",
+          "itemType": "아크그리드(코어 옵션)",
+          "itemName": "질서의 해 코어 : ATB-19 스톰리피터"
+        }
+      ]
+    },
+    {
+      "rawLine": "금술 : 찢 곰, 금술 : 여우 별 소나기를 제외한 둔갑 스킬을 사용하면 야성 효과를 획득하며, 둔갑 스킬의 마나 소모량이 50.0% 감소한다. 야성 효과는 최대 3중첩까지 획득할 수 있으며, 중첩에 따라 효과가 추가된다. 둔갑 스킬이 아닌 스킬을 사용하면 야성 효과는 사라진다.",
+      "maxStacks": 3,
+      "appliedStacks": null,
+      "exampleCharacters": [
+        {
+          "character": "이주",
+          "itemType": "아크 패시브 깨달음",
+          "itemName": "야성"
+        }
+      ]
+    },
+    {
+      "rawLine": "화신 상태에서 공격 속도, 이동 속도 증가 효과가 15.0%로 증가하고, 엠버레스의 기운을 1개 소모할 때마다 '반격의 불씨' 효과를 1중첩 획득한다. (최대 20중첩)",
+      "maxStacks": 20,
+      "appliedStacks": null,
+      "exampleCharacters": [
+        {
+          "character": "저는가성비에스더입니다",
+          "itemType": "아크 패시브 깨달음",
+          "itemName": "업화의 계승자"
+        }
+      ]
+    },
+    {
+      "rawLine": "반격의 불씨는 최대 20중첩까지 획득 가능하다.",
+      "maxStacks": 20,
+      "appliedStacks": null,
+      "exampleCharacters": [
+        {
+          "character": "저는가성비에스더입니다",
+          "itemType": "아크 패시브 깨달음",
+          "itemName": "업화의 계승자"
+        }
+      ]
+    },
+    {
+      "rawLine": "[14P] 잠식 게이지 획득량이 50.0% 감소한다. '운명' 발동 시 잠식 게이지를 100.0% 회복하고 '운명: 시니스터'를 1중첩 획득한다. (최대 3중첩)",
+      "maxStacks": 3,
+      "appliedStacks": null,
+      "exampleCharacters": [
+        {
+          "character": "탄지로",
+          "itemType": "아크그리드(코어 옵션)",
+          "itemName": "질서의 해 코어 : 이터널 블러드"
+        }
+      ]
+    },
+    {
+      "rawLine": "이동기 및 기본공격을 제외한 스킬 사용 시 10초 동안 마나 회복 속도가 2.00% 증가하며 (최대 10중첩) 해당 효과가 최대 중첩 도달 시 스킬 재사용 대기시간이 추가로 10.00% 감소한다. 해당 효과는 스킬 취소에 따른 재사용 대기시간 감소가 적용되는 경우, 스킬 종료 후 적용된다.",
+      "maxStacks": 10,
+      "appliedStacks": null,
+      "exampleCharacters": [
+        {
+          "character": "하프프하",
+          "itemType": "각인",
+          "itemName": "마나의 흐름"
+        }
+      ]
+    },
+    {
+      "rawLine": "블레이드 아츠 진입 시 기본 공격을 제외한 스킬 적중 시마다 버스트 강화 효과가 최대 60중첩까지 쌓인다.",
+      "maxStacks": 60,
+      "appliedStacks": null,
+      "exampleCharacters": [
+        {
+          "character": "해리소나",
+          "itemType": "아크 패시브 깨달음",
+          "itemName": "오브 압축"
+        }
+      ]
+    },
+    {
+      "rawLine": "버스트 강화 효과가 최대 80회까지 중첩된다. 블레이드 아츠 종료 시 버스트 강화 효과는 최대 60중첩 소모되며, 오브 게이지 회복 효과와 버스트 피해량 증가 효과는 기존과 같이 유지된다.",
+      "maxStacks": 60,
+      "appliedStacks": null,
+      "exampleCharacters": [
+        {
+          "character": "해리소나",
+          "itemType": "아크 패시브 깨달음",
+          "itemName": "혼돈의 힘"
+        }
+      ]
+    },
+    {
+      "rawLine": "'운명: 왜곡' : 중력 해방 상태에서 해방 스킬의 피해량이 6.0% 증가하며 중력 해방 종료 시 최대 2중첩이 가능한 '운명: 불안정한 차원' 효과를 획득한다.",
+      "maxStacks": 2,
+      "appliedStacks": null,
+      "exampleCharacters": [
+        {
+          "character": "흑인파워",
+          "itemType": "아크그리드(코어 옵션)",
+          "itemName": "질서의 해 코어 : 차원 붕괴"
+        }
+      ]
+    }
+  ]
+}

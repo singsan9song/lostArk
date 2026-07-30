@@ -17,6 +17,8 @@ public class MarketPriceObservation {
     private String itemName;
     @Column(length = 20)
     private String grade;
+    @Column(length = 500)
+    private String icon;
     @Column(name = "current_min_price", nullable = false)
     private long currentMinPrice;
     @Column(name = "recent_price", nullable = false)
@@ -30,9 +32,19 @@ public class MarketPriceObservation {
 
     protected MarketPriceObservation() {}
     public MarketPriceObservation(MarketPrice price) {
-        this.itemId = price.id(); this.itemName = price.name(); this.grade = price.grade();
+        this.itemId = price.id(); this.itemName = price.name(); this.grade = price.grade(); this.icon = price.icon();
         this.currentMinPrice = price.currentMinPrice(); this.recentPrice = price.recentPrice();
         this.yesterdayAveragePrice = price.yDayAvgPrice(); this.bundleCount = price.bundleCount();
         this.observedAt = Instant.now();
     }
+
+    public long getItemId() { return itemId; }
+    public String getItemName() { return itemName; }
+    public String getGrade() { return grade; }
+    public String getIcon() { return icon; }
+    public long getCurrentMinPrice() { return currentMinPrice; }
+    public long getRecentPrice() { return recentPrice; }
+    public double getYesterdayAveragePrice() { return yesterdayAveragePrice; }
+    public int getBundleCount() { return bundleCount; }
+    public Instant getObservedAt() { return observedAt; }
 }

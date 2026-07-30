@@ -11,6 +11,7 @@ import java.time.Instant;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.HexFormat;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -48,11 +49,21 @@ public class PersistentApiCache {
 
     @Transactional
     public void save(String key, JsonNode payload) {
+        save(key, payload, ttlSeconds);
+    }
+
+    @Transactional
+    public void save(String key, JsonNode payload, long customTtlSeconds) {
         Instant now = Instant.now();
         String serialized = payload.toString();
         repository.save(new ApiCacheEntry(key, serialized, now, source(key), 1, hash(serialized),
-                ttlSeconds == 0 ? null : now.plusSeconds(ttlSeconds)));
+                customTtlSeconds == 0 ? null : now.plusSeconds(Math.max(0, customTtlSeconds))));
         state.restoreUpdatedAt(now);
+    }
+
+    @Transactional(readOnly = true)
+    public List<String> keysBySource(String source) {
+        return repository.findCacheKeysBySource(source);
     }
 
     private boolean isFresh(ApiCacheEntry entry) {
@@ -63,7 +74,8 @@ public class PersistentApiCache {
         try {
             return Optional.of(objectMapper.readTree(entry.getPayload()));
         } catch (Exception error) {
-            System.out.printf("[LOSTARK CACHE] Invalid DB cache ignored: %s%n", entry.getCacheKey());
+            com.example.loark.config.ApplicationLog.infof(
+                    "[LOSTARK CACHE] Invalid DB cache ignored: %s%n", entry.getCacheKey());
             return Optional.empty();
         }
     }

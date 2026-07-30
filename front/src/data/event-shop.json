@@ -1,0 +1,405 @@
+{
+  "name": "마하라카 이벤트 상점",
+  "defaultCategoryId": "maharaka-summer-camp",
+  "categories": [
+    {
+      "id": "maharaka-summer-camp",
+      "name": "마하라카 썸머 캠프",
+      "description": "마하라카 엽서 교환 상품",
+      "currency": {
+        "name": "마하라카 엽서",
+        "unit": "개",
+        "image": "/images/rewards/tokenitem_133.png",
+        "grade": "전설"
+      }
+    },
+    {
+      "id": "growth-support",
+      "name": "베이스 캠프",
+      "description": "점프 업 토큰 교환 상품",
+      "currency": {
+        "name": "점프 업 토큰",
+        "unit": "개",
+        "image": "/images/rewards/tokenitem_134.png",
+        "grade": "전설"
+      }
+    }
+  ],
+  "currency": {
+    "name": "마하라카 엽서",
+    "unit": "개",
+    "image": "/images/rewards/tokenitem_133.png",
+    "grade": "전설"
+  },
+  "products": [
+    {
+      "id": "hero-gem-box",
+      "name": "영웅 젬 상자",
+      "rewardQuantity": 1,
+      "cost": 200,
+      "exchangeLimit": 10,
+      "image": "/images/rewards/shop_icon_9963.png",
+      "grade": "영웅",
+      "valuation": { "type": "heroGemBox" }
+    },
+    {
+      "id": "bracelet-effect-reroll-box",
+      "name": "팔찌 효과 재변환권 상자",
+      "rewardQuantity": 3,
+      "cost": 200,
+      "exchangeLimit": 3,
+      "image": "/images/rewards/use_10_249.png",
+      "grade": "고대",
+      "valuation": { "type": "fixedGold", "goldPerItem": 1000 }
+    },
+    {
+      "id": "destiny-guardian-stone-pouch-3",
+      "name": "운명의 수호석 주머니 III",
+      "rewardQuantity": 3,
+      "cost": 30,
+      "exchangeLimit": 100,
+      "image": "/images/rewards/use_12_178.png",
+      "grade": "희귀",
+      "rewardDescription": "주머니 1개당 수호석 150개 또는 수호석 결정 75개 선택",
+      "valuation": {
+        "type": "selection",
+        "options": [
+          {
+            "name": "운명의 수호석",
+            "marketName": "운명의 수호석",
+            "quantity": 150
+          },
+          {
+            "name": "운명의 수호석 결정",
+            "marketName": "운명의 수호석 결정",
+            "quantity": 75
+          }
+        ]
+      }
+    },
+    {
+      "id": "honing-leapstone-selection-box-9",
+      "name": "재련 돌파석 선택 상자 IX",
+      "rewardQuantity": 1,
+      "cost": 10,
+      "exchangeLimit": 100,
+      "image": "/images/rewards/use_14_10.png",
+      "grade": "영웅",
+      "rewardDescription": "운명의 돌파석 10개 또는 위대한 운명의 돌파석 5개 선택",
+      "valuation": {
+        "type": "selection",
+        "options": [
+          {
+            "name": "운명의 돌파석",
+            "marketName": "운명의 돌파석",
+            "quantity": 10
+          },
+          {
+            "name": "위대한 운명의 돌파석",
+            "marketName": "위대한 운명의 돌파석",
+            "quantity": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "ocean-coin",
+      "name": "대양의 주화",
+      "rewardQuantity": 100,
+      "cost": 15,
+      "exchangeLimit": 100,
+      "image": "/images/rewards/tokenitem_89.png",
+      "grade": "영웅"
+    },
+    {
+      "id": "adventure-seal",
+      "name": "모험의 인장",
+      "rewardQuantity": 100,
+      "cost": 5,
+      "exchangeLimit": 300,
+      "image": "/images/rewards/tokenitem_29.png",
+      "grade": "희귀"
+    },
+    {
+      "id": "creamsnail-coin",
+      "name": "크림슨네일 동전",
+      "rewardQuantity": 1,
+      "cost": 1,
+      "exchangeLimit": 100,
+      "image": "/images/rewards/use_1_40.png",
+      "grade": "영웅"
+    },
+    {
+      "id": "relic-rapport-selection-box",
+      "name": "유물 호감도 선택 상자",
+      "rewardQuantity": 1,
+      "cost": 20,
+      "exchangeLimit": 5,
+      "image": "/images/rewards/use_5_167.png",
+      "grade": "유물"
+    },
+    {
+      "id": "legendary-rapport-selection-box",
+      "name": "전설 호감도 선택 상자",
+      "rewardQuantity": 1,
+      "cost": 10,
+      "exchangeLimit": 10,
+      "image": "/images/rewards/use_5_167.png",
+      "grade": "전설"
+    },
+    {
+      "id": "phoenix-plume",
+      "name": "부활의 깃털",
+      "rewardQuantity": 1,
+      "cost": 20,
+      "exchangeLimit": 50,
+      "image": "/images/rewards/shop_icon_12.png",
+      "grade": "일반"
+    },
+    {
+      "id": "ancient-platinum-coin",
+      "name": "고대의 백금화",
+      "rewardQuantity": 1,
+      "cost": 20,
+      "exchangeLimit": 250,
+      "image": "/images/rewards/all_quest_03_20.png",
+      "grade": "영웅"
+    },
+    {
+      "id": "event-10000-gold-bar",
+      "name": "[이벤트] 10000 골드 금괴",
+      "rewardQuantity": 1,
+      "cost": 100,
+      "exchangeLimit": 10,
+      "image": "/images/rewards/use_13_34.png",
+      "grade": "전설",
+      "valuation": { "type": "fixedGold", "goldPerItem": 10000 }
+    },
+    {
+      "id": "maharaka-engraving-gem-selection-box",
+      "name": "마하라카 각인서/젬 선택 상자",
+      "rewardQuantity": 1,
+      "cost": 2000,
+      "exchangeLimit": 1,
+      "image": "/images/rewards/use_2_220.png",
+      "grade": "유물"
+    },
+    {
+      "id": "destiny-shard-pouch-medium",
+      "name": "운명의 파편 주머니(중)",
+      "rewardQuantity": 1,
+      "cost": 5,
+      "exchangeLimit": 100,
+      "grade": "영웅",
+      "valuation": { "type": "market", "marketName": "운명의 파편 주머니(중)" }
+    },
+    {
+      "id": "destiny-destruction-stone-pouch-3",
+      "name": "운명의 파괴석 주머니 III",
+      "rewardQuantity": 1,
+      "cost": 30,
+      "exchangeLimit": 100,
+      "image": "/images/rewards/use_12_179.png",
+      "grade": "희귀",
+      "rewardDescription": "주머니 1개당 파괴석 50개 또는 파괴석 결정 25개 선택",
+      "valuation": {
+        "type": "selection",
+        "options": [
+          {
+            "name": "운명의 파괴석",
+            "marketName": "운명의 파괴석",
+            "quantity": 50
+          },
+          {
+            "name": "운명의 파괴석 결정",
+            "marketName": "운명의 파괴석 결정",
+            "quantity": 25
+          }
+        ]
+      }
+    },
+    {
+      "id": "honing-fusion-material-selection-box-3",
+      "name": "재련 융화 재료 선택 상자 III",
+      "rewardQuantity": 1,
+      "cost": 20,
+      "exchangeLimit": 100,
+      "image": "/images/rewards/use_14_13.png",
+      "grade": "영웅",
+      "rewardDescription": "아비도스 융화 재료 10개 또는 상급 아비도스 융화 재료 5개 선택",
+      "valuation": {
+        "type": "selection",
+        "options": [
+          {
+            "name": "아비도스 융화 재료",
+            "marketName": "아비도스 융화 재료",
+            "quantity": 10
+          },
+          {
+            "name": "상급 아비도스 융화 재료",
+            "marketName": "상급 아비도스 융화 재료",
+            "quantity": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "event-pet-growth-support-box",
+      "name": "[이벤트] 펫 성장 지원 상자",
+      "rewardQuantity": 10,
+      "cost": 100,
+      "exchangeLimit": 1,
+      "image": "/images/rewards/use_4_222.png",
+      "grade": "영웅"
+    },
+    {
+      "id": "growth-processed-chaos-gem-box-1",
+      "categoryId": "growth-support",
+      "name": "가공 완료 혼돈의 젬 상자 I",
+      "rewardQuantity": 1,
+      "cost": 200,
+      "exchangeLimit": 6,
+      "image": "/images/rewards/shop_icon_784.png",
+      "grade": "전설"
+    },
+    {
+      "id": "growth-hero-gem-selection-box",
+      "categoryId": "growth-support",
+      "name": "영웅 젬 선택 상자",
+      "rewardQuantity": 1,
+      "cost": 300,
+      "exchangeLimit": 10,
+      "image": "/images/rewards/shop_icon_9963.png",
+      "grade": "영웅",
+      "rewardDescription": "영웅 젬 6종 중 1개 선택",
+      "valuation": {
+        "type": "selection",
+        "options": [
+          {
+            "name": "질서의 젬 : 안정",
+            "marketName": "질서의 젬 : 안정|영웅",
+            "quantity": 1
+          },
+          {
+            "name": "질서의 젬 : 견고",
+            "marketName": "질서의 젬 : 견고|영웅",
+            "quantity": 1
+          },
+          {
+            "name": "질서의 젬 : 불변",
+            "marketName": "질서의 젬 : 불변|영웅",
+            "quantity": 1
+          },
+          {
+            "name": "혼돈의 젬 : 침식",
+            "marketName": "혼돈의 젬 : 침식|영웅",
+            "quantity": 1
+          },
+          {
+            "name": "혼돈의 젬 : 왜곡",
+            "marketName": "혼돈의 젬 : 왜곡|영웅",
+            "quantity": 1
+          },
+          {
+            "name": "혼돈의 젬 : 붕괴",
+            "marketName": "혼돈의 젬 : 붕괴|영웅",
+            "quantity": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "growth-refined-chaos-stone-weapon",
+      "categoryId": "growth-support",
+      "name": "정련된 혼돈의 돌 (무기)",
+      "rewardQuantity": 1,
+      "cost": 8,
+      "exchangeLimit": 40,
+      "image": "/images/rewards/use_11_240.png",
+      "grade": "유물",
+      "valuation": { "type": "fixedGold", "goldPerItem": 800 }
+    },
+    {
+      "id": "growth-refined-chaos-stone-armor",
+      "categoryId": "growth-support",
+      "name": "정련된 혼돈의 돌 (방어구)",
+      "rewardQuantity": 1,
+      "cost": 3,
+      "exchangeLimit": 120,
+      "image": "/images/rewards/use_11_241.png",
+      "grade": "유물",
+      "valuation": { "type": "fixedGold", "goldPerItem": 300 }
+    },
+    {
+      "id": "growth-legendary-core-selection-box",
+      "categoryId": "growth-support",
+      "name": "전설 코어 선택 상자",
+      "rewardQuantity": 1,
+      "cost": 100,
+      "exchangeLimit": 3,
+      "image": "/images/rewards/use_13_135.png",
+      "grade": "전설"
+    },
+    {
+      "id": "growth-ancient-platinum-coin",
+      "categoryId": "growth-support",
+      "name": "고대의 백금화",
+      "rewardQuantity": 5,
+      "cost": 10,
+      "exchangeLimit": 10,
+      "image": "/images/rewards/all_quest_03_20.png",
+      "grade": "영웅"
+    },
+    {
+      "id": "growth-event-10000-gold-bar",
+      "categoryId": "growth-support",
+      "name": "[이벤트] 10000 골드 금괴",
+      "rewardQuantity": 1,
+      "cost": 100,
+      "exchangeLimit": 20,
+      "image": "/images/rewards/use_13_34.png",
+      "grade": "전설",
+      "valuation": { "type": "fixedGold", "goldPerItem": 10000 }
+    },
+    {
+      "id": "growth-processed-order-gem-box-2",
+      "categoryId": "growth-support",
+      "name": "가공 완료 질서의 젬 상자 II",
+      "rewardQuantity": 1,
+      "cost": 200,
+      "exchangeLimit": 2,
+      "image": "/images/rewards/shop_icon_784.png",
+      "grade": "전설"
+    },
+    {
+      "id": "growth-processed-order-gem-box-1",
+      "categoryId": "growth-support",
+      "name": "가공 완료 질서의 젬 상자 I",
+      "rewardQuantity": 1,
+      "cost": 200,
+      "exchangeLimit": 2,
+      "image": "/images/rewards/shop_icon_784.png",
+      "grade": "전설"
+    },
+    {
+      "id": "growth-processed-chaos-gem-box-2",
+      "categoryId": "growth-support",
+      "name": "가공 완료 혼돈의 젬 상자 II",
+      "rewardQuantity": 1,
+      "cost": 200,
+      "exchangeLimit": 6,
+      "image": "/images/rewards/shop_icon_784.png",
+      "grade": "전설"
+    },
+    {
+      "id": "growth-legendary-life-tool-set-box",
+      "categoryId": "growth-support",
+      "name": "전설 생활 도구 세트 상자",
+      "rewardQuantity": 1,
+      "cost": 100,
+      "exchangeLimit": 1,
+      "image": "/images/rewards/use_2_9.png",
+      "grade": "전설"
+    }
+  ]
+}

@@ -6,11 +6,32 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.sql.DataSource;
 
 @Configuration
 public class DatabaseMaintenanceConfig {
+    @Bean
+    ApplicationRunner widenAccessoryAuctionOptionsJson(DataSource dataSource) {
+        return args -> {
+            try (var connection = dataSource.getConnection()) {
+                String database = connection.getMetaData().getDatabaseProductName().toLowerCase();
+                if (!database.contains("mysql") && !database.contains("mariadb")) return;
+                String typeName = columnType(
+                        connection, "accessory_auction_listings", "options_json");
+                if (typeName == null || "longtext".equalsIgnoreCase(typeName)) return;
+                try (var statement = connection.createStatement()) {
+                    statement.executeUpdate(
+                            "ALTER TABLE accessory_auction_listings "
+                                    + "MODIFY COLUMN options_json LONGTEXT NOT NULL");
+                }
+                ApplicationLog.info(
+                        "[DATABASE] accessory_auction_listings.options_json expanded to LONGTEXT.");
+            }
+        };
+    }
+
     @Bean
     ApplicationRunner dropLegacyTables(DataSource dataSource,
                                        @Value("${app.drop-legacy-tables:false}") boolean enabled) {
@@ -34,7 +55,7 @@ public class DatabaseMaintenanceConfig {
                     }
                 }
             }
-            System.out.println("[DATABASE] Legacy payload tables removed.");
+            ApplicationLog.info("[DATABASE] Legacy payload tables removed.");
         };
     }
 
@@ -47,5 +68,19 @@ public class DatabaseMaintenanceConfig {
                 }
             }
         }
+    }
+
+    private String columnType(Connection connection, String table, String column)
+            throws java.sql.SQLException {
+        try (ResultSet columns = connection.getMetaData().getColumns(
+                connection.getCatalog(), null, "%", "%")) {
+            while (columns.next()) {
+                if (table.equalsIgnoreCase(columns.getString("TABLE_NAME"))
+                        && column.equalsIgnoreCase(columns.getString("COLUMN_NAME"))) {
+                    return columns.getString("TYPE_NAME");
+                }
+            }
+        }
+        return null;
     }
 }

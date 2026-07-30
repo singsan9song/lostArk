@@ -58,6 +58,12 @@
   width: 17px;
   color: #9fa7bb;
 }
+.skill-summary .skill-representative-engraving img {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 17px;
+  object-fit: contain;
+}
 .skill-summary strong {
   color: var(--text);
 }

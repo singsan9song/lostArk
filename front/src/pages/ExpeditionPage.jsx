@@ -34,6 +34,14 @@ import {
   normalizeHoningInventory,
   saveCharacterHoningInventories,
 } from '../lib/honingInventory'
+import {
+  PET_TRAIT_OPTIONS,
+  expeditionKeyFromSiblings,
+  getDamageAnalysisSettingsFor,
+  normalizePetTraitValue,
+  petTraitGradeClass,
+  saveExpeditionDamageAnalysisSettings,
+} from '../lib/damageAnalysisSettings'
 import '../expedition-page.css'
 import '../expedition-page-edit.css'
 import '../expedition-raid-settings.css'
@@ -228,6 +236,23 @@ const taskDefaults = (task) => ({
   completedGates: [],
   ...task,
 })
+const raidRewardsForTasks = (tasks) =>
+  (tasks || []).reduce(
+    (total, task) => {
+      const difficulty = difficultyOf(task)
+      if (!difficulty) return total
+      const normalized = taskDefaults(task)
+      difficulty.gates.forEach((gate) => {
+        if (normalized.goldEarning) {
+          total.tradeGold += Number(gate.rewardGold || 0)
+          total.boundGold += Number(gate.boundGold || 0)
+        }
+        total.medals += gateMedals(gate)
+      })
+      return total
+    },
+    { tradeGold: 0, boundGold: 0, medals: 0 },
+  )
 
 function expeditionGroups(favorites) {
   return groupFavorites(favorites).flatMap((group) =>
@@ -350,6 +375,173 @@ function HoningMaterialsEditor({
   )
 }
 
+const damageSettingItems = [
+  {
+    key: 'petTraitSpeciesDamage',
+    name: '자연 선택 (악마)',
+    description: '악마 계열 피해량',
+    image: '/images/etc/pet01.png',
+  },
+  {
+    key: 'petTraitAdditional',
+    name: '끓어오르는 힘',
+    description: '추가 피해',
+    image: '/images/etc/pet02.png',
+  },
+  {
+    key: 'petTraitMainStat',
+    name: '우월한 유전자',
+    description: '주 스탯',
+    image: '/images/etc/pet03.png',
+  },
+]
+
+function DamageSettingsEditor({
+  group,
+  character,
+  setCharacterName,
+  sharedSettings,
+  setSharedSettings,
+  azenaSettings,
+  setAzenaSettings,
+  onShowGuide,
+}) {
+  const azenaEnabled = Boolean(azenaSettings[character.characterName])
+  const updateShared = (key, value) =>
+    setSharedSettings((current) => ({ ...current, [key]: value }))
+
+  return (
+    <div className="expedition-damage-layout">
+      <aside className="expedition-damage-characters">
+        {[...group.characters]
+          .sort((a, b) => levelNumber(b.itemLevel) - levelNumber(a.itemLevel))
+          .map((item) => (
+            <button
+              className={item.characterName === character.characterName ? 'active' : ''}
+              type="button"
+              onClick={() => setCharacterName(item.characterName)}
+              key={item.characterName}
+            >
+              <span>
+                {item.characterImage ? (
+                  <img src={item.characterImage} alt="" />
+                ) : (
+                  item.className?.[0]
+                )}
+              </span>
+              <div>
+                <b>{item.characterName}</b>
+                <small>Lv. {item.itemLevel || '-'}</small>
+              </div>
+            </button>
+          ))}
+      </aside>
+      <main className="expedition-damage-editor">
+        <header>
+          <h3>데미지 분석 계산 설정</h3>
+          <p>아제나는 선택한 캐릭터에만, 나머지 설정은 이 원정대 전체에 적용됩니다.</p>
+        </header>
+
+        <section className="expedition-damage-section character-only">
+          <div className="expedition-damage-setting-info">
+            <i>
+              <img src="/images/etc/shop_icon_9888.png" alt="" />
+            </i>
+            <span>
+              <b>아제나의 축복</b>
+              <small>{character.characterName} 캐릭터 전용 · 주 스탯 +6,000</small>
+            </span>
+          </div>
+          <button
+            type="button"
+            className={`expedition-damage-toggle${azenaEnabled ? ' active' : ''}`}
+            aria-pressed={azenaEnabled}
+            onClick={() =>
+              setAzenaSettings((current) => ({
+                ...current,
+                [character.characterName]: !azenaEnabled,
+              }))
+            }
+          >
+            {azenaEnabled ? 'ON' : 'OFF'}
+          </button>
+        </section>
+
+        <div className="expedition-damage-shared-heading">
+          <b>원정대 공용 설정</b>
+          <small>어느 캐릭터에서 수정해도 같은 원정대 캐릭터 모두에게 적용됩니다.</small>
+        </div>
+        <div className="expedition-damage-shared-grid">
+          {damageSettingItems.map((item) => (
+            <div className="expedition-damage-section" key={item.key}>
+              <span className="expedition-damage-setting-info">
+                <i className={petTraitGradeClass(item.key, sharedSettings[item.key])}>
+                  <img src={item.image} alt="" />
+                </i>
+                <span>
+                  <b>{item.name}</b>
+                  <small>{item.description} % · 기본값 0</small>
+                </span>
+              </span>
+              <div
+                className="expedition-pet-trait-options"
+                role="group"
+                aria-label={`${item.name} 등급`}
+              >
+                {PET_TRAIT_OPTIONS[item.key].map((option) => (
+                  <button
+                    type="button"
+                    className={`${option.gradeClass}${
+                      normalizePetTraitValue(item.key, sharedSettings[item.key]) === option.value
+                        ? ' active'
+                        : ''
+                    }`}
+                    aria-pressed={
+                      normalizePetTraitValue(item.key, sharedSettings[item.key]) === option.value
+                    }
+                    onClick={() => updateShared(item.key, String(option.value))}
+                    key={option.value}
+                  >
+                    {option.value}%
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
+          <div className="expedition-damage-section text-setting">
+            <span>
+              <b>물약 + 원정대 레벨 효과</b>
+              <small>오른 주 스탯 수치 · 미입력 시 물약 850 고정</small>
+              <button type="button" onClick={onShowGuide}>확인 방법</button>
+            </span>
+            <input
+              type="text"
+              inputMode="numeric"
+              value={sharedSettings.potionSource ?? ''}
+              onChange={(event) => updateShared('potionSource', event.target.value)}
+              placeholder="예: 1,250"
+            />
+          </div>
+          <div className="expedition-damage-section text-setting">
+            <span>
+              <b>카드 도감 주 스탯 효과</b>
+              <small>미입력 시 242 고정</small>
+              <button type="button" onClick={onShowGuide}>확인 방법</button>
+            </span>
+            <input
+              type="text"
+              inputMode="numeric"
+              value={sharedSettings.cardBook ?? ''}
+              onChange={(event) => updateShared('cardBook', event.target.value)}
+              placeholder="예: 242"
+            />
+          </div>
+        </div>
+      </main>
+    </div>
+  )
+}
+
 function RaidSettingsModal({
   group,
   initialCharacter,
@@ -364,6 +556,38 @@ function RaidSettingsModal({
   const [materialDraft, setMaterialDraft] = useState(() =>
     JSON.parse(JSON.stringify(materialSettings)),
   )
+  const expeditionKey = useMemo(
+    () => expeditionKeyFromSiblings(group.characters, initialCharacter.characterName),
+    [group.characters, initialCharacter.characterName],
+  )
+  const [damageSharedDraft, setDamageSharedDraft] = useState(() => {
+    const saved =
+      getDamageAnalysisSettingsFor(initialCharacter.characterName, expeditionKey) || {}
+    const { azenaBlessing: _characterOnly, ...shared } = saved
+    return {
+      ...shared,
+      petTraitMainStat: normalizePetTraitValue('petTraitMainStat', shared.petTraitMainStat),
+      petTraitSpeciesDamage: normalizePetTraitValue(
+        'petTraitSpeciesDamage',
+        shared.petTraitSpeciesDamage,
+      ),
+      petTraitAdditional: normalizePetTraitValue(
+        'petTraitAdditional',
+        shared.petTraitAdditional,
+      ),
+    }
+  })
+  const [damageAzenaDraft, setDamageAzenaDraft] = useState(() =>
+    Object.fromEntries(
+      group.characters.map((item) => [
+        item.characterName,
+        Boolean(
+          getDamageAnalysisSettingsFor(item.characterName, expeditionKey)?.azenaBlessing,
+        ),
+      ]),
+    ),
+  )
+  const [showBuffSettingGuide, setShowBuffSettingGuide] = useState(false)
   const [activeTab, setActiveTab] = useState('raids')
   const character =
     group.characters.find((item) => item.characterName === characterName) || group.characters[0]
@@ -436,6 +660,13 @@ function RaidSettingsModal({
               onClick={() => setActiveTab('materials')}
             >
               귀속 재련 재료
+            </button>
+            <button
+              className={activeTab === 'damage' ? 'active' : ''}
+              type="button"
+              onClick={() => setActiveTab('damage')}
+            >
+              계산 설정
             </button>
           </nav>
           {activeTab === 'raids' ? (
@@ -649,7 +880,7 @@ function RaidSettingsModal({
                 ))}
               </aside>
             </div>
-          ) : (
+          ) : activeTab === 'materials' ? (
             <HoningMaterialsEditor
               group={group}
               characterName={characterName}
@@ -657,6 +888,17 @@ function RaidSettingsModal({
               inventories={materialDraft}
               setInventories={setMaterialDraft}
               materialPrices={materialPrices}
+            />
+          ) : (
+            <DamageSettingsEditor
+              group={group}
+              character={character}
+              setCharacterName={setCharacterName}
+              sharedSettings={damageSharedDraft}
+              setSharedSettings={setDamageSharedDraft}
+              azenaSettings={damageAzenaDraft}
+              setAzenaSettings={setDamageAzenaDraft}
+              onShowGuide={() => setShowBuffSettingGuide(true)}
             />
           )}
         </div>
@@ -667,7 +909,12 @@ function RaidSettingsModal({
           <button
             type="button"
             className="primary"
-            onClick={() =>
+            onClick={() => {
+              saveExpeditionDamageAnalysisSettings(
+                expeditionKey,
+                damageAzenaDraft,
+                damageSharedDraft,
+              )
               save(
                 draft,
                 Object.fromEntries(
@@ -676,11 +923,42 @@ function RaidSettingsModal({
                     .filter(([, inventory]) => Object.keys(inventory).length),
                 ),
               )
-            }
+            }}
           >
             <Check /> 설정 저장
           </button>
         </footer>
+        {showBuffSettingGuide && (
+          <div
+            className="expedition-setting-guide-backdrop"
+            onClick={() => setShowBuffSettingGuide(false)}
+          >
+            <section
+              className="expedition-setting-guide-modal"
+              role="dialog"
+              aria-modal="true"
+              aria-label="주 스탯 효과 확인 방법"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <header>
+                <div>
+                  <h3>주 스탯 효과 확인 방법</h3>
+                  <p>인게임에서 표시된 위치의 수치를 확인해 입력하세요.</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowBuffSettingGuide(false)}
+                  aria-label="닫기"
+                >
+                  <X />
+                </button>
+              </header>
+              <div>
+                <img src="/images/etc/buff_setting.png" alt="주 스탯 효과 확인 위치 안내" />
+              </div>
+            </section>
+          </div>
+        )}
       </section>
     </div>
   )
@@ -770,6 +1048,7 @@ function CharacterRaidList({ character, tasks, toggleGate, openSettings }) {
 function ExpeditionGroup({
   group,
   representativeName,
+  setRepresentative,
   raidSettings,
   updateCharacterRaids,
   openRaidSettings,
@@ -787,6 +1066,16 @@ function ExpeditionGroup({
     ? characters.reduce((sum, item) => sum + levelNumber(item.itemLevel), 0) / characters.length
     : 0
   const servers = [...new Set(characters.map((item) => item.serverName).filter(Boolean))]
+  const raidRewards = characters.reduce(
+    (total, character) => {
+      const rewards = raidRewardsForTasks(raidSettings[character.characterName] || [])
+      total.tradeGold += rewards.tradeGold
+      total.boundGold += rewards.boundGold
+      total.medals += rewards.medals
+      return total
+    },
+    { tradeGold: 0, boundGold: 0, medals: 0 },
+  )
   const refresh = async (event) => {
     event.stopPropagation()
     if (refreshing) return
@@ -888,6 +1177,20 @@ function ExpeditionGroup({
           <span>
             캐릭터 <b>{characters.length}명</b>
           </span>
+          <span
+            className="expedition-group-raid-rewards"
+            title="설정된 모든 레이드의 주간 보상 합계"
+          >
+            <span>
+              거래 <GoldAmount>{raidRewards.tradeGold.toLocaleString('ko-KR')}</GoldAmount>
+            </span>
+            <span>
+              귀속 <GoldAmount>{raidRewards.boundGold.toLocaleString('ko-KR')}</GoldAmount>
+            </span>
+            <span>
+              메달 <b>{raidRewards.medals.toLocaleString('ko-KR')}개</b>
+            </span>
+          </span>
           <button type="button" onClick={refresh} disabled={refreshing}>
             <RefreshCw className={refreshing ? 'spin' : ''} />
             {refreshing ? '업데이트 중' : '업데이트'}
@@ -948,11 +1251,22 @@ function ExpeditionGroup({
                     {character.serverName} · {character.className || '클래스 정보 없음'}
                   </small>
                 </div>
-                {representativeName === character.characterName && (
-                  <i title="대표 캐릭터">
-                    <Crown />
-                  </i>
-                )}
+                <button
+                  className={`expedition-representative-button ${
+                    representativeName === character.characterName ? 'active' : ''
+                  }`}
+                  type="button"
+                  onClick={() => setRepresentative(character.characterName)}
+                  title={
+                    representativeName === character.characterName
+                      ? '현재 대표 캐릭터'
+                      : `${character.characterName} 대표 캐릭터로 설정`
+                  }
+                  aria-label={`${character.characterName} 대표 캐릭터로 설정`}
+                  aria-pressed={representativeName === character.characterName}
+                >
+                  <Crown />
+                </button>
               </header>
               <div className="expedition-character-metrics">
                 <span>
@@ -986,7 +1300,7 @@ function ExpeditionGroup({
 }
 
 export default function ExpeditionPage() {
-  const { favorites, representativeName } = useFavorites()
+  const { favorites, representativeName, setRepresentative } = useFavorites()
   const groups = useMemo(() => expeditionGroups(favorites), [favorites])
   const [raidSettings, setRaidSettings] = useState(getExpeditionRaidSettings)
   const [materialSettings, setMaterialSettings] = useState(getCharacterHoningInventories)
@@ -1040,6 +1354,7 @@ export default function ExpeditionPage() {
             <ExpeditionGroup
               group={group}
               representativeName={representativeName}
+              setRepresentative={setRepresentative}
               raidSettings={raidSettings}
               updateCharacterRaids={updateCharacterRaids}
               openRaidSettings={(selectedGroup, character) =>

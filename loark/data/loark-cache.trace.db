@@ -467,3 +467,615 @@ Caused by: java.lang.AssertionError: 29
 	at org.h2.mvstore.FileStore.executeFileStoreOperation(FileStore.java:1894)
 	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1044)
 	... 13 more
+2026-07-24 14:18:45.424560+09:00 database: close
+org.h2.message.DbException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.mvstore.db.Store.close(Store.java:352)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1314)
+	at org.h2.engine.Database.closeImpl(Database.java:1276)
+	at org.h2.engine.Database.close(Database.java:1195)
+	at org.h2.engine.Database.onShutdown(Database.java:1180)
+	at org.h2.engine.OnExitDatabaseCloser.onShutdown(OnExitDatabaseCloser.java:85)
+	at org.h2.engine.OnExitDatabaseCloser.run(OnExitDatabaseCloser.java:114)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 8 more
+Caused by: org.h2.mvstore.MVStoreException: java.lang.AssertionError: 28 [2.4.240/3]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1048)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:463)
+	at org.h2.mvstore.RandomAccessStore.compactStore(RandomAccessStore.java:443)
+	at org.h2.mvstore.FileStore.compactStore(FileStore.java:891)
+	at org.h2.mvstore.FileStore.stop(FileStore.java:275)
+	at org.h2.mvstore.MVStore.closeStore(MVStore.java:803)
+	at org.h2.mvstore.MVStore.close(MVStore.java:763)
+	at org.h2.mvstore.db.Store.close(Store.java:348)
+	... 6 more
+Caused by: java.lang.AssertionError: 28
+	at org.h2.mvstore.FreeSpaceBitSet.allocate(FreeSpaceBitSet.java:153)
+	at org.h2.mvstore.FreeSpaceBitSet.predictAllocation(FreeSpaceBitSet.java:133)
+	at org.h2.mvstore.RandomAccessStore.predictAllocation(RandomAccessStore.java:101)
+	at org.h2.mvstore.RandomAccessStore.moveChunkInside(RandomAccessStore.java:628)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:569)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:481)
+	at org.h2.mvstore.RandomAccessStore.lambda$compactMoveChunks$1(RandomAccessStore.java:468)
+	at org.h2.mvstore.FileStore.executeFileStoreOperation(FileStore.java:1894)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1044)
+	... 13 more
+2026-07-24 14:26:13.862663+09:00 database: close
+org.h2.message.DbException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.mvstore.db.Store.close(Store.java:352)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1314)
+	at org.h2.engine.Database.closeImpl(Database.java:1276)
+	at org.h2.engine.Database.close(Database.java:1195)
+	at org.h2.engine.Database.onShutdown(Database.java:1180)
+	at org.h2.engine.OnExitDatabaseCloser.onShutdown(OnExitDatabaseCloser.java:85)
+	at org.h2.engine.OnExitDatabaseCloser.run(OnExitDatabaseCloser.java:114)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 8 more
+Caused by: org.h2.mvstore.MVStoreException: java.lang.AssertionError: 28 [2.4.240/3]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1048)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:463)
+	at org.h2.mvstore.RandomAccessStore.compactStore(RandomAccessStore.java:443)
+	at org.h2.mvstore.FileStore.compactStore(FileStore.java:891)
+	at org.h2.mvstore.FileStore.stop(FileStore.java:275)
+	at org.h2.mvstore.MVStore.closeStore(MVStore.java:803)
+	at org.h2.mvstore.MVStore.close(MVStore.java:763)
+	at org.h2.mvstore.db.Store.close(Store.java:348)
+	... 6 more
+Caused by: java.lang.AssertionError: 28
+	at org.h2.mvstore.FreeSpaceBitSet.allocate(FreeSpaceBitSet.java:153)
+	at org.h2.mvstore.FreeSpaceBitSet.predictAllocation(FreeSpaceBitSet.java:133)
+	at org.h2.mvstore.RandomAccessStore.predictAllocation(RandomAccessStore.java:101)
+	at org.h2.mvstore.RandomAccessStore.moveChunkInside(RandomAccessStore.java:628)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:569)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:481)
+	at org.h2.mvstore.RandomAccessStore.lambda$compactMoveChunks$1(RandomAccessStore.java:468)
+	at org.h2.mvstore.FileStore.executeFileStoreOperation(FileStore.java:1894)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1044)
+	... 13 more
+2026-07-24 14:32:05.691749+09:00 database: close
+org.h2.message.DbException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.mvstore.db.Store.close(Store.java:352)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1314)
+	at org.h2.engine.Database.closeImpl(Database.java:1276)
+	at org.h2.engine.Database.close(Database.java:1195)
+	at org.h2.engine.Database.onShutdown(Database.java:1180)
+	at org.h2.engine.OnExitDatabaseCloser.onShutdown(OnExitDatabaseCloser.java:85)
+	at org.h2.engine.OnExitDatabaseCloser.run(OnExitDatabaseCloser.java:114)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 8 more
+Caused by: org.h2.mvstore.MVStoreException: java.lang.AssertionError: 29 [2.4.240/3]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1048)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:463)
+	at org.h2.mvstore.RandomAccessStore.compactStore(RandomAccessStore.java:443)
+	at org.h2.mvstore.FileStore.compactStore(FileStore.java:891)
+	at org.h2.mvstore.FileStore.stop(FileStore.java:275)
+	at org.h2.mvstore.MVStore.closeStore(MVStore.java:803)
+	at org.h2.mvstore.MVStore.close(MVStore.java:763)
+	at org.h2.mvstore.db.Store.close(Store.java:348)
+	... 6 more
+Caused by: java.lang.AssertionError: 29
+	at org.h2.mvstore.FreeSpaceBitSet.allocate(FreeSpaceBitSet.java:153)
+	at org.h2.mvstore.FreeSpaceBitSet.predictAllocation(FreeSpaceBitSet.java:133)
+	at org.h2.mvstore.RandomAccessStore.predictAllocation(RandomAccessStore.java:101)
+	at org.h2.mvstore.RandomAccessStore.moveChunkInside(RandomAccessStore.java:628)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:569)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:481)
+	at org.h2.mvstore.RandomAccessStore.lambda$compactMoveChunks$1(RandomAccessStore.java:468)
+	at org.h2.mvstore.FileStore.executeFileStoreOperation(FileStore.java:1894)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1044)
+	... 13 more
+2026-07-24 15:03:57.879640+09:00 database: close
+org.h2.message.DbException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.mvstore.db.Store.close(Store.java:352)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1314)
+	at org.h2.engine.Database.closeImpl(Database.java:1276)
+	at org.h2.engine.Database.close(Database.java:1195)
+	at org.h2.engine.Database.onShutdown(Database.java:1180)
+	at org.h2.engine.OnExitDatabaseCloser.onShutdown(OnExitDatabaseCloser.java:85)
+	at org.h2.engine.OnExitDatabaseCloser.run(OnExitDatabaseCloser.java:114)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 8 more
+Caused by: org.h2.mvstore.MVStoreException: java.lang.AssertionError: 28 [2.4.240/3]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1048)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:463)
+	at org.h2.mvstore.RandomAccessStore.compactStore(RandomAccessStore.java:443)
+	at org.h2.mvstore.FileStore.compactStore(FileStore.java:891)
+	at org.h2.mvstore.FileStore.stop(FileStore.java:275)
+	at org.h2.mvstore.MVStore.closeStore(MVStore.java:803)
+	at org.h2.mvstore.MVStore.close(MVStore.java:763)
+	at org.h2.mvstore.db.Store.close(Store.java:348)
+	... 6 more
+Caused by: java.lang.AssertionError: 28
+	at org.h2.mvstore.FreeSpaceBitSet.allocate(FreeSpaceBitSet.java:153)
+	at org.h2.mvstore.FreeSpaceBitSet.predictAllocation(FreeSpaceBitSet.java:133)
+	at org.h2.mvstore.RandomAccessStore.predictAllocation(RandomAccessStore.java:101)
+	at org.h2.mvstore.RandomAccessStore.moveChunkInside(RandomAccessStore.java:628)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:569)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:481)
+	at org.h2.mvstore.RandomAccessStore.lambda$compactMoveChunks$1(RandomAccessStore.java:468)
+	at org.h2.mvstore.FileStore.executeFileStoreOperation(FileStore.java:1894)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1044)
+	... 13 more
+2026-07-27 16:46:04.658511+09:00 database: close
+org.h2.message.DbException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.mvstore.db.Store.close(Store.java:352)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1314)
+	at org.h2.engine.Database.closeImpl(Database.java:1276)
+	at org.h2.engine.Database.close(Database.java:1195)
+	at org.h2.engine.Database.onShutdown(Database.java:1180)
+	at org.h2.engine.OnExitDatabaseCloser.onShutdown(OnExitDatabaseCloser.java:85)
+	at org.h2.engine.OnExitDatabaseCloser.run(OnExitDatabaseCloser.java:114)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 8 more
+Caused by: org.h2.mvstore.MVStoreException: java.lang.AssertionError: 28 [2.4.240/3]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1048)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:463)
+	at org.h2.mvstore.RandomAccessStore.compactStore(RandomAccessStore.java:443)
+	at org.h2.mvstore.FileStore.compactStore(FileStore.java:891)
+	at org.h2.mvstore.FileStore.stop(FileStore.java:275)
+	at org.h2.mvstore.MVStore.closeStore(MVStore.java:803)
+	at org.h2.mvstore.MVStore.close(MVStore.java:763)
+	at org.h2.mvstore.db.Store.close(Store.java:348)
+	... 6 more
+Caused by: java.lang.AssertionError: 28
+	at org.h2.mvstore.FreeSpaceBitSet.allocate(FreeSpaceBitSet.java:153)
+	at org.h2.mvstore.FreeSpaceBitSet.predictAllocation(FreeSpaceBitSet.java:133)
+	at org.h2.mvstore.RandomAccessStore.predictAllocation(RandomAccessStore.java:101)
+	at org.h2.mvstore.RandomAccessStore.moveChunkInside(RandomAccessStore.java:628)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:569)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:481)
+	at org.h2.mvstore.RandomAccessStore.lambda$compactMoveChunks$1(RandomAccessStore.java:468)
+	at org.h2.mvstore.FileStore.executeFileStoreOperation(FileStore.java:1894)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1044)
+	... 13 more
+2026-07-27 16:47:27.632666+09:00 database: close
+org.h2.message.DbException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.mvstore.db.Store.close(Store.java:352)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1314)
+	at org.h2.engine.Database.closeImpl(Database.java:1276)
+	at org.h2.engine.Database.close(Database.java:1195)
+	at org.h2.engine.Database.onShutdown(Database.java:1180)
+	at org.h2.engine.OnExitDatabaseCloser.onShutdown(OnExitDatabaseCloser.java:85)
+	at org.h2.engine.OnExitDatabaseCloser.run(OnExitDatabaseCloser.java:114)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 8 more
+Caused by: org.h2.mvstore.MVStoreException: java.lang.AssertionError: 32 [2.4.240/3]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1048)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:463)
+	at org.h2.mvstore.RandomAccessStore.compactStore(RandomAccessStore.java:443)
+	at org.h2.mvstore.FileStore.compactStore(FileStore.java:891)
+	at org.h2.mvstore.FileStore.stop(FileStore.java:275)
+	at org.h2.mvstore.MVStore.closeStore(MVStore.java:803)
+	at org.h2.mvstore.MVStore.close(MVStore.java:763)
+	at org.h2.mvstore.db.Store.close(Store.java:348)
+	... 6 more
+Caused by: java.lang.AssertionError: 32
+	at org.h2.mvstore.FreeSpaceBitSet.allocate(FreeSpaceBitSet.java:153)
+	at org.h2.mvstore.FreeSpaceBitSet.predictAllocation(FreeSpaceBitSet.java:133)
+	at org.h2.mvstore.RandomAccessStore.predictAllocation(RandomAccessStore.java:101)
+	at org.h2.mvstore.RandomAccessStore.moveChunkInside(RandomAccessStore.java:628)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:569)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:481)
+	at org.h2.mvstore.RandomAccessStore.lambda$compactMoveChunks$1(RandomAccessStore.java:468)
+	at org.h2.mvstore.FileStore.executeFileStoreOperation(FileStore.java:1894)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1044)
+	... 13 more
+2026-07-27 18:49:22.110745+09:00 database: close
+org.h2.message.DbException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.mvstore.db.Store.close(Store.java:352)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1314)
+	at org.h2.engine.Database.closeImpl(Database.java:1276)
+	at org.h2.engine.Database.close(Database.java:1195)
+	at org.h2.engine.Database.onShutdown(Database.java:1180)
+	at org.h2.engine.OnExitDatabaseCloser.onShutdown(OnExitDatabaseCloser.java:85)
+	at org.h2.engine.OnExitDatabaseCloser.run(OnExitDatabaseCloser.java:114)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 8 more
+Caused by: org.h2.mvstore.MVStoreException: java.lang.AssertionError: 28 [2.4.240/3]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1048)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:463)
+	at org.h2.mvstore.RandomAccessStore.compactStore(RandomAccessStore.java:443)
+	at org.h2.mvstore.FileStore.compactStore(FileStore.java:891)
+	at org.h2.mvstore.FileStore.stop(FileStore.java:275)
+	at org.h2.mvstore.MVStore.closeStore(MVStore.java:803)
+	at org.h2.mvstore.MVStore.close(MVStore.java:763)
+	at org.h2.mvstore.db.Store.close(Store.java:348)
+	... 6 more
+Caused by: java.lang.AssertionError: 28
+	at org.h2.mvstore.FreeSpaceBitSet.allocate(FreeSpaceBitSet.java:153)
+	at org.h2.mvstore.FreeSpaceBitSet.predictAllocation(FreeSpaceBitSet.java:133)
+	at org.h2.mvstore.RandomAccessStore.predictAllocation(RandomAccessStore.java:101)
+	at org.h2.mvstore.RandomAccessStore.moveChunkInside(RandomAccessStore.java:628)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:569)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:481)
+	at org.h2.mvstore.RandomAccessStore.lambda$compactMoveChunks$1(RandomAccessStore.java:468)
+	at org.h2.mvstore.FileStore.executeFileStoreOperation(FileStore.java:1894)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1044)
+	... 13 more
+2026-07-27 18:55:44.021643+09:00 database: close
+org.h2.message.DbException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.mvstore.db.Store.close(Store.java:352)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1314)
+	at org.h2.engine.Database.closeImpl(Database.java:1276)
+	at org.h2.engine.Database.close(Database.java:1195)
+	at org.h2.engine.Database.onShutdown(Database.java:1180)
+	at org.h2.engine.OnExitDatabaseCloser.onShutdown(OnExitDatabaseCloser.java:85)
+	at org.h2.engine.OnExitDatabaseCloser.run(OnExitDatabaseCloser.java:114)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 8 more
+Caused by: org.h2.mvstore.MVStoreException: java.lang.AssertionError: 32 [2.4.240/3]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1048)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:463)
+	at org.h2.mvstore.RandomAccessStore.compactStore(RandomAccessStore.java:443)
+	at org.h2.mvstore.FileStore.compactStore(FileStore.java:891)
+	at org.h2.mvstore.FileStore.stop(FileStore.java:275)
+	at org.h2.mvstore.MVStore.closeStore(MVStore.java:803)
+	at org.h2.mvstore.MVStore.close(MVStore.java:763)
+	at org.h2.mvstore.db.Store.close(Store.java:348)
+	... 6 more
+Caused by: java.lang.AssertionError: 32
+	at org.h2.mvstore.FreeSpaceBitSet.allocate(FreeSpaceBitSet.java:153)
+	at org.h2.mvstore.FreeSpaceBitSet.predictAllocation(FreeSpaceBitSet.java:133)
+	at org.h2.mvstore.RandomAccessStore.predictAllocation(RandomAccessStore.java:101)
+	at org.h2.mvstore.RandomAccessStore.moveChunkInside(RandomAccessStore.java:628)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:569)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:481)
+	at org.h2.mvstore.RandomAccessStore.lambda$compactMoveChunks$1(RandomAccessStore.java:468)
+	at org.h2.mvstore.FileStore.executeFileStoreOperation(FileStore.java:1894)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1044)
+	... 13 more
+2026-07-27 19:03:58.233369+09:00 database: close
+org.h2.message.DbException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.mvstore.db.Store.close(Store.java:352)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1314)
+	at org.h2.engine.Database.closeImpl(Database.java:1276)
+	at org.h2.engine.Database.close(Database.java:1195)
+	at org.h2.engine.Database.onShutdown(Database.java:1180)
+	at org.h2.engine.OnExitDatabaseCloser.onShutdown(OnExitDatabaseCloser.java:85)
+	at org.h2.engine.OnExitDatabaseCloser.run(OnExitDatabaseCloser.java:114)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 8 more
+Caused by: org.h2.mvstore.MVStoreException: java.lang.AssertionError: 33 [2.4.240/3]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1048)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:463)
+	at org.h2.mvstore.RandomAccessStore.compactStore(RandomAccessStore.java:443)
+	at org.h2.mvstore.FileStore.compactStore(FileStore.java:891)
+	at org.h2.mvstore.FileStore.stop(FileStore.java:275)
+	at org.h2.mvstore.MVStore.closeStore(MVStore.java:803)
+	at org.h2.mvstore.MVStore.close(MVStore.java:763)
+	at org.h2.mvstore.db.Store.close(Store.java:348)
+	... 6 more
+Caused by: java.lang.AssertionError: 33
+	at org.h2.mvstore.FreeSpaceBitSet.allocate(FreeSpaceBitSet.java:153)
+	at org.h2.mvstore.FreeSpaceBitSet.predictAllocation(FreeSpaceBitSet.java:133)
+	at org.h2.mvstore.RandomAccessStore.predictAllocation(RandomAccessStore.java:101)
+	at org.h2.mvstore.RandomAccessStore.moveChunkInside(RandomAccessStore.java:628)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:569)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:481)
+	at org.h2.mvstore.RandomAccessStore.lambda$compactMoveChunks$1(RandomAccessStore.java:468)
+	at org.h2.mvstore.FileStore.executeFileStoreOperation(FileStore.java:1894)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1044)
+	... 13 more
+2026-07-27 19:23:21.933267+09:00 database: close
+org.h2.message.DbException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.mvstore.db.Store.close(Store.java:352)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1314)
+	at org.h2.engine.Database.closeImpl(Database.java:1276)
+	at org.h2.engine.Database.close(Database.java:1195)
+	at org.h2.engine.Database.onShutdown(Database.java:1180)
+	at org.h2.engine.OnExitDatabaseCloser.onShutdown(OnExitDatabaseCloser.java:85)
+	at org.h2.engine.OnExitDatabaseCloser.run(OnExitDatabaseCloser.java:114)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 8 more
+Caused by: org.h2.mvstore.MVStoreException: java.lang.AssertionError: 34 [2.4.240/3]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1048)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:463)
+	at org.h2.mvstore.RandomAccessStore.compactStore(RandomAccessStore.java:443)
+	at org.h2.mvstore.FileStore.compactStore(FileStore.java:891)
+	at org.h2.mvstore.FileStore.stop(FileStore.java:275)
+	at org.h2.mvstore.MVStore.closeStore(MVStore.java:803)
+	at org.h2.mvstore.MVStore.close(MVStore.java:763)
+	at org.h2.mvstore.db.Store.close(Store.java:348)
+	... 6 more
+Caused by: java.lang.AssertionError: 34
+	at org.h2.mvstore.FreeSpaceBitSet.allocate(FreeSpaceBitSet.java:153)
+	at org.h2.mvstore.FreeSpaceBitSet.predictAllocation(FreeSpaceBitSet.java:133)
+	at org.h2.mvstore.RandomAccessStore.predictAllocation(RandomAccessStore.java:101)
+	at org.h2.mvstore.RandomAccessStore.moveChunkInside(RandomAccessStore.java:628)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:569)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:481)
+	at org.h2.mvstore.RandomAccessStore.lambda$compactMoveChunks$1(RandomAccessStore.java:468)
+	at org.h2.mvstore.FileStore.executeFileStoreOperation(FileStore.java:1894)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1044)
+	... 13 more
+2026-07-27 19:28:00.710301+09:00 database: close
+org.h2.message.DbException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.mvstore.db.Store.close(Store.java:352)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1314)
+	at org.h2.engine.Database.closeImpl(Database.java:1276)
+	at org.h2.engine.Database.close(Database.java:1195)
+	at org.h2.engine.Database.onShutdown(Database.java:1180)
+	at org.h2.engine.OnExitDatabaseCloser.onShutdown(OnExitDatabaseCloser.java:85)
+	at org.h2.engine.OnExitDatabaseCloser.run(OnExitDatabaseCloser.java:114)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 8 more
+Caused by: org.h2.mvstore.MVStoreException: java.lang.AssertionError: 33 [2.4.240/3]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1048)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:463)
+	at org.h2.mvstore.RandomAccessStore.compactStore(RandomAccessStore.java:443)
+	at org.h2.mvstore.FileStore.compactStore(FileStore.java:891)
+	at org.h2.mvstore.FileStore.stop(FileStore.java:275)
+	at org.h2.mvstore.MVStore.closeStore(MVStore.java:803)
+	at org.h2.mvstore.MVStore.close(MVStore.java:763)
+	at org.h2.mvstore.db.Store.close(Store.java:348)
+	... 6 more
+Caused by: java.lang.AssertionError: 33
+	at org.h2.mvstore.FreeSpaceBitSet.allocate(FreeSpaceBitSet.java:153)
+	at org.h2.mvstore.FreeSpaceBitSet.predictAllocation(FreeSpaceBitSet.java:133)
+	at org.h2.mvstore.RandomAccessStore.predictAllocation(RandomAccessStore.java:101)
+	at org.h2.mvstore.RandomAccessStore.moveChunkInside(RandomAccessStore.java:628)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:569)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:481)
+	at org.h2.mvstore.RandomAccessStore.lambda$compactMoveChunks$1(RandomAccessStore.java:468)
+	at org.h2.mvstore.FileStore.executeFileStoreOperation(FileStore.java:1894)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1044)
+	... 13 more
+2026-07-27 19:41:56.362376+09:00 database: close
+org.h2.message.DbException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.mvstore.db.Store.close(Store.java:352)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1314)
+	at org.h2.engine.Database.closeImpl(Database.java:1276)
+	at org.h2.engine.Database.close(Database.java:1195)
+	at org.h2.engine.Database.onShutdown(Database.java:1180)
+	at org.h2.engine.OnExitDatabaseCloser.onShutdown(OnExitDatabaseCloser.java:85)
+	at org.h2.engine.OnExitDatabaseCloser.run(OnExitDatabaseCloser.java:114)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 8 more
+Caused by: org.h2.mvstore.MVStoreException: java.lang.AssertionError: 33 [2.4.240/3]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1048)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:463)
+	at org.h2.mvstore.RandomAccessStore.compactStore(RandomAccessStore.java:443)
+	at org.h2.mvstore.FileStore.compactStore(FileStore.java:891)
+	at org.h2.mvstore.FileStore.stop(FileStore.java:275)
+	at org.h2.mvstore.MVStore.closeStore(MVStore.java:803)
+	at org.h2.mvstore.MVStore.close(MVStore.java:763)
+	at org.h2.mvstore.db.Store.close(Store.java:348)
+	... 6 more
+Caused by: java.lang.AssertionError: 33
+	at org.h2.mvstore.FreeSpaceBitSet.allocate(FreeSpaceBitSet.java:153)
+	at org.h2.mvstore.FreeSpaceBitSet.predictAllocation(FreeSpaceBitSet.java:133)
+	at org.h2.mvstore.RandomAccessStore.predictAllocation(RandomAccessStore.java:101)
+	at org.h2.mvstore.RandomAccessStore.moveChunkInside(RandomAccessStore.java:628)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:569)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:481)
+	at org.h2.mvstore.RandomAccessStore.lambda$compactMoveChunks$1(RandomAccessStore.java:468)
+	at org.h2.mvstore.FileStore.executeFileStoreOperation(FileStore.java:1894)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1044)
+	... 13 more
+2026-07-27 19:45:40.927730+09:00 database: close
+org.h2.message.DbException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.mvstore.db.Store.close(Store.java:352)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1314)
+	at org.h2.engine.Database.closeImpl(Database.java:1276)
+	at org.h2.engine.Database.close(Database.java:1195)
+	at org.h2.engine.Database.onShutdown(Database.java:1180)
+	at org.h2.engine.OnExitDatabaseCloser.onShutdown(OnExitDatabaseCloser.java:85)
+	at org.h2.engine.OnExitDatabaseCloser.run(OnExitDatabaseCloser.java:114)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 8 more
+Caused by: org.h2.mvstore.MVStoreException: java.lang.AssertionError: 34 [2.4.240/3]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1048)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:463)
+	at org.h2.mvstore.RandomAccessStore.compactStore(RandomAccessStore.java:443)
+	at org.h2.mvstore.FileStore.compactStore(FileStore.java:891)
+	at org.h2.mvstore.FileStore.stop(FileStore.java:275)
+	at org.h2.mvstore.MVStore.closeStore(MVStore.java:803)
+	at org.h2.mvstore.MVStore.close(MVStore.java:763)
+	at org.h2.mvstore.db.Store.close(Store.java:348)
+	... 6 more
+Caused by: java.lang.AssertionError: 34
+	at org.h2.mvstore.FreeSpaceBitSet.allocate(FreeSpaceBitSet.java:153)
+	at org.h2.mvstore.FreeSpaceBitSet.predictAllocation(FreeSpaceBitSet.java:133)
+	at org.h2.mvstore.RandomAccessStore.predictAllocation(RandomAccessStore.java:101)
+	at org.h2.mvstore.RandomAccessStore.moveChunkInside(RandomAccessStore.java:628)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:569)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:481)
+	at org.h2.mvstore.RandomAccessStore.lambda$compactMoveChunks$1(RandomAccessStore.java:468)
+	at org.h2.mvstore.FileStore.executeFileStoreOperation(FileStore.java:1894)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1044)
+	... 13 more
+2026-07-27 19:50:04.768459+09:00 database: close
+org.h2.message.DbException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.mvstore.db.Store.close(Store.java:352)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1314)
+	at org.h2.engine.Database.closeImpl(Database.java:1276)
+	at org.h2.engine.Database.close(Database.java:1195)
+	at org.h2.engine.Database.onShutdown(Database.java:1180)
+	at org.h2.engine.OnExitDatabaseCloser.onShutdown(OnExitDatabaseCloser.java:85)
+	at org.h2.engine.OnExitDatabaseCloser.run(OnExitDatabaseCloser.java:114)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 8 more
+Caused by: org.h2.mvstore.MVStoreException: java.lang.AssertionError: 32 [2.4.240/3]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1048)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:463)
+	at org.h2.mvstore.RandomAccessStore.compactStore(RandomAccessStore.java:443)
+	at org.h2.mvstore.FileStore.compactStore(FileStore.java:891)
+	at org.h2.mvstore.FileStore.stop(FileStore.java:275)
+	at org.h2.mvstore.MVStore.closeStore(MVStore.java:803)
+	at org.h2.mvstore.MVStore.close(MVStore.java:763)
+	at org.h2.mvstore.db.Store.close(Store.java:348)
+	... 6 more
+Caused by: java.lang.AssertionError: 32
+	at org.h2.mvstore.FreeSpaceBitSet.allocate(FreeSpaceBitSet.java:153)
+	at org.h2.mvstore.FreeSpaceBitSet.predictAllocation(FreeSpaceBitSet.java:133)
+	at org.h2.mvstore.RandomAccessStore.predictAllocation(RandomAccessStore.java:101)
+	at org.h2.mvstore.RandomAccessStore.moveChunkInside(RandomAccessStore.java:628)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:569)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:481)
+	at org.h2.mvstore.RandomAccessStore.lambda$compactMoveChunks$1(RandomAccessStore.java:468)
+	at org.h2.mvstore.FileStore.executeFileStoreOperation(FileStore.java:1894)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1044)
+	... 13 more
+2026-07-27 19:59:46.165871+09:00 database: close
+org.h2.message.DbException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.mvstore.db.Store.close(Store.java:352)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1314)
+	at org.h2.engine.Database.closeImpl(Database.java:1276)
+	at org.h2.engine.Database.close(Database.java:1195)
+	at org.h2.engine.Database.onShutdown(Database.java:1180)
+	at org.h2.engine.OnExitDatabaseCloser.onShutdown(OnExitDatabaseCloser.java:85)
+	at org.h2.engine.OnExitDatabaseCloser.run(OnExitDatabaseCloser.java:114)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 8 more
+Caused by: org.h2.mvstore.MVStoreException: java.lang.AssertionError: 34 [2.4.240/3]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1048)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:463)
+	at org.h2.mvstore.RandomAccessStore.compactStore(RandomAccessStore.java:443)
+	at org.h2.mvstore.FileStore.compactStore(FileStore.java:891)
+	at org.h2.mvstore.FileStore.stop(FileStore.java:275)
+	at org.h2.mvstore.MVStore.closeStore(MVStore.java:803)
+	at org.h2.mvstore.MVStore.close(MVStore.java:763)
+	at org.h2.mvstore.db.Store.close(Store.java:348)
+	... 6 more
+Caused by: java.lang.AssertionError: 34
+	at org.h2.mvstore.FreeSpaceBitSet.allocate(FreeSpaceBitSet.java:153)
+	at org.h2.mvstore.FreeSpaceBitSet.predictAllocation(FreeSpaceBitSet.java:133)
+	at org.h2.mvstore.RandomAccessStore.predictAllocation(RandomAccessStore.java:101)
+	at org.h2.mvstore.RandomAccessStore.moveChunkInside(RandomAccessStore.java:628)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:569)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:481)
+	at org.h2.mvstore.RandomAccessStore.lambda$compactMoveChunks$1(RandomAccessStore.java:468)
+	at org.h2.mvstore.FileStore.executeFileStoreOperation(FileStore.java:1894)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1044)
+	... 13 more
+2026-07-28 01:17:16.825450+09:00 database: close
+org.h2.message.DbException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.mvstore.db.Store.close(Store.java:352)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1314)
+	at org.h2.engine.Database.closeImpl(Database.java:1276)
+	at org.h2.engine.Database.close(Database.java:1195)
+	at org.h2.engine.Database.onShutdown(Database.java:1180)
+	at org.h2.engine.OnExitDatabaseCloser.onShutdown(OnExitDatabaseCloser.java:85)
+	at org.h2.engine.OnExitDatabaseCloser.run(OnExitDatabaseCloser.java:114)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 8 more
+Caused by: org.h2.mvstore.MVStoreException: java.lang.AssertionError: 32 [2.4.240/3]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1048)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:463)
+	at org.h2.mvstore.RandomAccessStore.compactStore(RandomAccessStore.java:443)
+	at org.h2.mvstore.FileStore.compactStore(FileStore.java:891)
+	at org.h2.mvstore.FileStore.stop(FileStore.java:275)
+	at org.h2.mvstore.MVStore.closeStore(MVStore.java:803)
+	at org.h2.mvstore.MVStore.close(MVStore.java:763)
+	at org.h2.mvstore.db.Store.close(Store.java:348)
+	... 6 more
+Caused by: java.lang.AssertionError: 32
+	at org.h2.mvstore.FreeSpaceBitSet.allocate(FreeSpaceBitSet.java:153)
+	at org.h2.mvstore.FreeSpaceBitSet.predictAllocation(FreeSpaceBitSet.java:133)
+	at org.h2.mvstore.RandomAccessStore.predictAllocation(RandomAccessStore.java:101)
+	at org.h2.mvstore.RandomAccessStore.moveChunkInside(RandomAccessStore.java:628)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:569)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:481)
+	at org.h2.mvstore.RandomAccessStore.lambda$compactMoveChunks$1(RandomAccessStore.java:468)
+	at org.h2.mvstore.FileStore.executeFileStoreOperation(FileStore.java:1894)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1044)
+	... 13 more
+2026-07-30 00:20:14.330098+09:00 database: close
+org.h2.message.DbException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.mvstore.db.Store.close(Store.java:352)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1314)
+	at org.h2.engine.Database.closeImpl(Database.java:1276)
+	at org.h2.engine.Database.close(Database.java:1195)
+	at org.h2.engine.Database.onShutdown(Database.java:1180)
+	at org.h2.engine.OnExitDatabaseCloser.onShutdown(OnExitDatabaseCloser.java:85)
+	at org.h2.engine.OnExitDatabaseCloser.run(OnExitDatabaseCloser.java:114)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: IO Exception: "Closing" [90028-240]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 8 more
+Caused by: org.h2.mvstore.MVStoreException: java.lang.AssertionError: 35 [2.4.240/3]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1048)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:463)
+	at org.h2.mvstore.RandomAccessStore.compactStore(RandomAccessStore.java:443)
+	at org.h2.mvstore.FileStore.compactStore(FileStore.java:891)
+	at org.h2.mvstore.FileStore.stop(FileStore.java:275)
+	at org.h2.mvstore.MVStore.closeStore(MVStore.java:803)
+	at org.h2.mvstore.MVStore.close(MVStore.java:763)
+	at org.h2.mvstore.db.Store.close(Store.java:348)
+	... 6 more
+Caused by: java.lang.AssertionError: 35
+	at org.h2.mvstore.FreeSpaceBitSet.allocate(FreeSpaceBitSet.java:153)
+	at org.h2.mvstore.FreeSpaceBitSet.predictAllocation(FreeSpaceBitSet.java:133)
+	at org.h2.mvstore.RandomAccessStore.predictAllocation(RandomAccessStore.java:101)
+	at org.h2.mvstore.RandomAccessStore.moveChunkInside(RandomAccessStore.java:628)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:569)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:481)
+	at org.h2.mvstore.RandomAccessStore.lambda$compactMoveChunks$1(RandomAccessStore.java:468)
+	at org.h2.mvstore.FileStore.executeFileStoreOperation(FileStore.java:1894)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:1044)
+	... 13 more

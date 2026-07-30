@@ -15,11 +15,141 @@
   gap: 10px;
 }
 .roster-achievements .stat-board {
+  position: relative;
   min-height: 0;
-  padding: 12px 14px;
+  padding: 8px 12px;
 }
 .roster-achievements .stat-board .battle-heading {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+}
+.roster-achievements .stat-board .battle-heading > div {
+  gap: 5px;
+}
+.roster-achievements .stat-board .battle-heading svg {
+  width: 14px;
+  height: 14px;
+}
+.roster-achievements .stat-board .battle-heading h2 {
+  padding: 4px 10px;
+  border-radius: 12px;
+  background: rgba(139, 108, 255, 0.15);
+  color: #bca8ff;
+  font-size: var(--fs-13);
+  font-weight: 500;
+  line-height: normal;
+}
+.roster-achievements .stat-board .basic-stats {
+  gap: 5px;
+  padding-bottom: 7px;
+}
+.roster-achievements .stat-board .basic-stats > div {
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 4px 2px;
+  border-radius: 0;
+  background: transparent;
+}
+.roster-achievements .stat-board .basic-stats span,
+.roster-achievements .stat-board .basic-stats strong,
+.roster-achievements .stat-board .combat-stats span {
+  font-size: var(--fs-12);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.roster-achievements .stat-board .combat-stats {
+  gap: 4px 6px;
+  margin-top: 6px;
+}
+.roster-achievements .stat-board .combat-stats > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.roster-achievements .stat-board .stat-value {
+  position: relative;
+}
+.roster-achievements .stat-board .stat-with-tooltip {
+  z-index: 1;
+}
+.roster-achievements .stat-board .stat-with-tooltip:hover,
+.roster-achievements .stat-board .stat-with-tooltip.is-open {
+  z-index: 2147483646;
+}
+.roster-achievements .stat-board .stat-with-tooltip > button {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: help;
+}
+.roster-achievements .stat-board .stat-with-tooltip > button span {
+  color: #e4ba27;
+}
+.roster-achievements .stat-board .stat-with-tooltip > button:focus-visible {
+  outline: 1px solid rgba(188, 168, 255, 0.8);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+.profile-ability-tooltip {
+  z-index: 2147483647;
+  box-sizing: border-box;
+  background-color: #2a2c35;
+  border: 1px solid #181b26;
+  width: 415px;
+  max-width: calc(100vw - 32px);
+  padding: 20px;
+  font-size: 13px;
+  display: none;
+  position: fixed;
+  top: 50%;
+  right: auto;
+  left: 16px;
+  color: #fff;
+  max-height: calc(100vh - 32px);
+  overflow: auto;
+  transform: translateY(-50%);
+}
+.profile-ability-tooltip ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.profile-ability-tooltip li {
+  position: relative;
+  padding: 2px 0 2px 15px;
+  color: #fff;
+  font-size: 13px;
+  line-height: normal;
+  white-space: normal;
+}
+.profile-ability-tooltip li::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  position: absolute;
+  top: 8px;
+  left: 0;
+  display: inline-block;
+  border-radius: 3px;
+  background-color: #63d661;
+}
+.roster-achievements .stat-board .basic-stats strong {
+  color: var(--primary-2);
+}
+.roster-achievements .stat-board .combat-stats strong {
+  display: inline;
+  margin-top: 0;
+  font-size: var(--fs-13);
+  line-height: 1.15;
 }
 .roster-summary,
 .collection-box {
@@ -93,32 +223,58 @@
 .collection-chips > div {
   text-align: center;
   min-width: 0;
+  transition:
+    opacity 160ms ease,
+    filter 160ms ease;
 }
 .card-symbol {
-  width: 30px;
-  height: 30px;
-  display: grid;
-  place-items: center;
+  width: 42px;
+  height: 42px;
+  position: relative;
+  display: block;
   margin: auto;
   border-radius: 50%;
-  background: linear-gradient(145deg, #30364a, #1c202d);
-  border: 1px solid #555f7d;
-  color: #d3bc5d;
+  overflow: visible;
+  border: 0;
+  background: #171a22;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.34);
 }
-.card-symbol svg {
-  width: 14px;
+.card-symbol img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
-.symbol-1 {
-  color: #b8bcc8;
+.card-set-badge {
+  position: absolute;
+  right: -9px;
+  bottom: -2px;
+  z-index: 2;
+  min-width: max-content;
+  height: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3px;
+  border-radius: 5px;
+  background: rgba(10, 12, 17, 0.9);
+  color: #fff1bd;
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.4px;
+  white-space: nowrap;
 }
-.symbol-2 {
-  color: #d1a4e6;
+.collection-chips > .is-unconfirmed {
+  opacity: 0.42;
+  filter: grayscale(1) saturate(0) brightness(0.72);
 }
-.symbol-3 {
-  color: #69abc6;
-}
-.symbol-4 {
-  color: #b48063;
+.collection-chips > .is-confirmed .card-symbol {
+  box-shadow:
+    0 3px 10px rgba(0, 0, 0, 0.34),
+    0 0 10px rgba(218, 194, 113, 0.14);
 }
 .collection-chips span {
   display: block;
@@ -128,6 +284,9 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.collection-chips > .is-confirmed span {
+  color: var(--text);
 }
 .title-history {
   display: flex;
@@ -183,7 +342,15 @@
     min-height: 110px;
   }
 }
-@media (max-width: 600px) {
+@media (hover: hover) and (min-width: 601px) {
+  .roster-achievements .stat-board .stat-with-tooltip:hover > button {
+    background-color: #17191e;
+  }
+  .stat-with-tooltip:hover .profile-ability-tooltip {
+    display: block;
+  }
+}
+@media (max-width: 900px) {
   .roster-achievements {
     grid-template-columns: 1fr;
   }
@@ -192,6 +359,23 @@
   }
   .collection-box {
     min-height: 105px;
+  }
+  .profile-ability-tooltip {
+    right: 16px;
+    bottom: 18px;
+    left: 16px;
+    width: auto;
+    max-width: none;
+    top: auto;
+    transform: none;
+  }
+}
+@media (max-width: 600px) {
+  .stat-with-tooltip.is-open > button {
+    background-color: #17191e;
+  }
+  .stat-with-tooltip.is-open .profile-ability-tooltip {
+    display: block;
   }
 }
 .ranking-summary {

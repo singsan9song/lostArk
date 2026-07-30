@@ -50,17 +50,101 @@
       { "name": "비상의 돌 각인 지정 키트", "quantity": 1 }
     ]
   },
+  "희귀~영웅 젬 상자": {
+    "image": "/images/rewards/shop_icon_9965.png",
+    "grade": "영웅"
+  },
+  "영웅 젬 상자": {
+    "image": "/images/rewards/shop_icon_9963.png",
+    "grade": "영웅"
+  },
+  "영웅 젬 선택 상자": {
+    "image": "/images/rewards/shop_icon_9963.png",
+    "grade": "영웅"
+  },
+  "고정형 영웅 젬 선택 상자": {
+    "image": "/images/rewards/use_14_44.png",
+    "grade": "영웅"
+  },
+  "가공 완료 젬 선택 상자 II": {
+    "image": "/images/rewards/shop_icon_784.png",
+    "grade": "전설"
+  },
+  "마법학회 시약 선택 상자": {
+    "image": "/images/rewards/shop_icon_784.png",
+    "grade": "전설"
+  },
+  "메넬리크의 서": {
+    "image": "/images/rewards/shop_icon_5781.png",
+    "grade": "전설"
+  },
+  "환희의 전체 카드 팩": {
+    "image": "/images/rewards/shop_icon_5782.png",
+    "grade": "전설"
+  },
+  "환희의 전설~희귀 카드 팩": {
+    "image": "/images/rewards/shop_icon_5784.png",
+    "grade": "전설"
+  },
+  "환희의 전설~영웅 카드 팩": {
+    "image": "/images/rewards/shop_icon_5783.png",
+    "grade": "전설"
+  },
+  "환희의 전설 카드 팩": {
+    "image": "/images/rewards/shop_icon_6001.png",
+    "grade": "전설"
+  },
+  "도약의 전설 카드 선택 팩 III": {
+    "image": "/images/rewards/shop_icon_6001.png",
+    "grade": "전설"
+  },
   "젬 가공 초기화권": {
     "valuation": {
       "type": "fixedCrystal",
       "crystalsPerItem": 100
-    }
+    },
+    "image": "/images/rewards/use_13_201.png",
+    "grade": "전설"
   },
   "팔찌 효과 재변환권 상자": {
     "valuation": {
       "type": "fixedGold",
       "goldPerItem": 1000
-    }
+    },
+    "image": "/images/rewards/use_10_249.png",
+    "grade": "고대"
+  },
+  "창공의 배틀 아이템 선택 상자": {
+    "image": "/images/rewards/shop_icon_16.png",
+    "grade": "영웅"
+  },
+  "중급 생명의 기운 회복물약": {
+    "image": "/images/rewards/shop_icon_2843.png",
+    "grade": "희귀"
+  },
+  "영지의 기운 (중)": {
+    "image": "/images/rewards/shop_icon_2859.png",
+    "grade": "희귀"
+  },
+  "반짝이는 영웅 카드 선택 팩": {
+    "image": "/images/rewards/shop_icon_6002.png",
+    "grade": "영웅"
+  },
+  "반짝이는 희귀 카드 선택 팩": {
+    "image": "/images/rewards/shop_icon_6003.png",
+    "grade": "희귀"
+  },
+  "반짝이는 고급 카드 선택 팩": {
+    "image": "/images/rewards/shop_icon_6004.png",
+    "grade": "고급"
+  },
+  "고대의 백금화": {
+    "image": "/images/rewards/all_quest_03_20.png",
+    "grade": "영웅"
+  },
+  "구르미 탈것 선택 상자 (패스)": {
+    "image": "/images/rewards/shop_icon_419.png",
+    "grade": "전설"
   },
   "펫 기능&효과 이용권": {
     "valuation": {

@@ -217,14 +217,14 @@
         {
           "id": "abidos-fusion-material-bound",
           "name": "아비도스 융화 재료 (귀속)",
-          "exchangeQuantity": 1,
+          "exchangeQuantity": 10,
           "description": "캐릭터당 주간 교환",
           "exchangeOptions": [
             {
               "id": "abidos-fusion-material-tradable",
               "name": "아비도스 융화 재료 (귀속)",
               "marketName": "아비도스 융화 재료",
-              "quantity": 1,
+              "quantity": 10,
               "unit": "개"
             }
           ],

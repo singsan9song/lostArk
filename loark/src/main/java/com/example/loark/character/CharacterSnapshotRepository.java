@@ -9,6 +9,8 @@ import org.springframework.data.repository.query.Param;
 
 public interface CharacterSnapshotRepository extends JpaRepository<CharacterSnapshot, Long> {
     Optional<CharacterSnapshot> findTopByCharacterNameIgnoreCaseOrderByFetchedAtDesc(String characterName);
+    Optional<CharacterSnapshot> findTopByRosterKeyOrderByFetchedAtDesc(String rosterKey);
+    List<CharacterSnapshot> findByCharacterNameIgnoreCaseOrderByFetchedAtAsc(String characterName);
     @Query("select distinct snapshot.title from CharacterSnapshot snapshot where snapshot.rosterKey = :rosterKey and snapshot.title <> ''")
     List<String> findDistinctTitlesByRosterKey(@Param("rosterKey") String rosterKey);
 }

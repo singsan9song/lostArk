@@ -6,9 +6,11 @@ import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientResponseException;
 import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -28,15 +30,18 @@ public class AbilityStoneAuctionService {
 
     private final RestClient client;
     private final PersistentApiCache persistentCache;
+    private final ObjectMapper objectMapper;
     private final Cache<String, AbilityStoneAuctionValue> cache;
     private final Cache<String, Long> configurationPriceCache;
     private final AbilityStonePriceObservationRepository observations;
 
     public AbilityStoneAuctionService(RestClient lostArkRestClient, PersistentApiCache persistentCache,
                                       AbilityStonePriceObservationRepository observations,
-                                      @Value("${app.price-cache-ttl-seconds:60}") long ttlSeconds) {
+                                      ObjectMapper objectMapper,
+                                      @Value("${app.auction-cache-ttl-seconds:900}") long ttlSeconds) {
         this.client = lostArkRestClient;
         this.persistentCache = persistentCache;
+        this.objectMapper = objectMapper;
         this.observations = observations;
         Caffeine<Object, Object> builder = Caffeine.newBuilder().maximumSize(2);
         if (ttlSeconds > 0) builder.expireAfterWrite(Duration.ofSeconds(ttlSeconds));
@@ -49,18 +54,48 @@ public class AbilityStoneAuctionService {
     public AbilityStoneAuctionValue getValue() {
         AbilityStoneAuctionValue cached = cache.getIfPresent(ITEM_NAME);
         if (cached != null) return cached;
-        synchronized (cache) {
-            cached = cache.getIfPresent(ITEM_NAME);
-            if (cached != null) return cached;
-            AbilityStoneAuctionValue value = load();
-            cache.put(ITEM_NAME, value);
-            return value;
+        AbilityStoneAuctionValue stored = storedValue();
+        if (stored == null) {
+            throw new IllegalStateException("어빌리티 스톤 시세 초기 수집이 진행 중입니다. 잠시 후 다시 시도해 주세요.");
         }
+        cache.put(ITEM_NAME, stored);
+        return stored;
     }
 
     public void clearCache() {
         cache.invalidateAll();
         configurationPriceCache.invalidateAll();
+    }
+
+    @Scheduled(
+            fixedRateString = "${app.ability-stone-refresh-interval-ms:60000}",
+            initialDelayString = "${app.ability-stone-refresh-initial-delay-ms:5000}"
+    )
+    synchronized void refreshValue() {
+        try {
+            configurationPriceCache.invalidateAll();
+            AbilityStoneAuctionValue value = load();
+            persistentCache.save("auction-summary|ability-stone", objectMapper.valueToTree(value), 0);
+            cache.put(ITEM_NAME, value);
+            com.example.loark.config.ApplicationLog.infof(
+                    "[LOSTARK AUCTION] Ability-stone summary refreshed: configurations=%d%n",
+                    value.configurations().size());
+        } catch (RuntimeException error) {
+            com.example.loark.config.ApplicationLog.infof(
+                    "[LOSTARK AUCTION] Ability-stone summary refresh failed: %s%n",
+                    error.getMessage());
+        }
+    }
+
+    private AbilityStoneAuctionValue storedValue() {
+        return persistentCache.findLastSuccess("auction-summary|ability-stone").flatMap(node -> {
+            try {
+                return java.util.Optional.of(
+                        objectMapper.readValue(node.toString(), AbilityStoneAuctionValue.class));
+            } catch (Exception error) {
+                return java.util.Optional.empty();
+            }
+        }).orElse(null);
     }
 
     private AbilityStoneAuctionValue load() {
@@ -110,16 +145,14 @@ public class AbilityStoneAuctionService {
         body.put("SortCondition", "ASC");
         body.put("EtcOptions", options);
 
-        JsonNode response = persistentCache.findFresh(persistentKey).orElse(null);
-        if (response == null) {
-            String description = "경매장 어빌리티 스톤: " + ITEM_NAME + " / " + configuration.name();
-            try {
-                response = LostArkRequestContext.call(description,
-                        () -> client.post().uri("/auctions/items").body(body).retrieve().body(JsonNode.class));
-                if (response != null) persistentCache.save(persistentKey, response);
-            } catch (RestClientResponseException error) {
-                response = persistentCache.findLastSuccess(persistentKey).orElseThrow(() -> error);
-            }
+        JsonNode response;
+        String description = "경매장 어빌리티 스톤: " + ITEM_NAME + " / " + configuration.name();
+        try {
+            response = LostArkRequestContext.call(description,
+                    () -> client.post().uri("/auctions/items").body(body).retrieve().body(JsonNode.class));
+            if (response != null) persistentCache.save(persistentKey, response);
+        } catch (RestClientResponseException error) {
+            throw error;
         }
         if (response == null) throw new IllegalStateException("어빌리티 스톤 경매장 응답이 비어 있습니다: " + configuration.id());
         long minimum = Long.MAX_VALUE;

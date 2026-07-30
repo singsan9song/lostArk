@@ -93,12 +93,14 @@ public class MariShopService {
             ObjectNode payload = fetch(now);
             save(payload);
             ZonedDateTime next = nextRefreshAfter(now);
-            System.out.printf("[MARI SHOP] %d products fetched | version=%s | next=%s%n",
+            com.example.loark.config.ApplicationLog.infof(
+                    "[MARI SHOP] %d products fetched | version=%s | next=%s%n",
                     payload.path("products").size(), payload.path("goodsVersion").asText("-"), next);
             schedule(next);
         } catch (Exception error) {
             ZonedDateTime retry = ZonedDateTime.now(KOREA).plusMinutes(1);
-            System.out.printf("[MARI SHOP] fetch failed: %s | retry=%s%n", error.getMessage(), retry);
+            com.example.loark.config.ApplicationLog.infof(
+                    "[MARI SHOP] fetch failed: %s | retry=%s%n", error.getMessage(), retry);
             schedule(retry);
         }
     }

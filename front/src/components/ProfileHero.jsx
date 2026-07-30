@@ -1,9 +1,17 @@
-import { Shield, Star, Swords } from 'lucide-react'
+import { RefreshCw, Shield, Star, Swords } from 'lucide-react'
 import { useState } from 'react'
 import { useFavorites } from '../lib/favorites'
 import { lostArkApi } from '../lib/api'
+import { representativeEngraving } from '../lib/representativeEngraving'
 
-export default function ProfileHero({ profile, siblings = [] }) {
+export default function ProfileHero({
+  profile,
+  armory,
+  siblings = [],
+  onRefresh,
+  refreshing,
+  refreshCooldown = 0,
+}) {
   const { favorites, toggle, add } = useFavorites()
   const [confirmRoster, setConfirmRoster] = useState(false)
   const [selectedRoster, setSelectedRoster] = useState([])
@@ -68,7 +76,7 @@ export default function ProfileHero({ profile, siblings = [] }) {
         ? current.filter((name) => name !== characterName)
         : [...current, characterName],
     )
-  const engraving = profile.CharacterClassName || '각인 정보 없음'
+  const engraving = representativeEngraving(armory, profile.CharacterClassName)
   const details = [
     ['서버', profile.ServerName || '-'],
     ['원정대', `Lv.${profile.ExpeditionLevel || '-'}`],
@@ -84,7 +92,11 @@ export default function ProfileHero({ profile, siblings = [] }) {
       <div className="profile-card-glow" />
       <div className="profile-copy">
         <p className="profile-class">
-          Lv. {profile.CharacterLevel} {profile.CharacterClassName} <span>#{engraving}</span>
+          Lv. {profile.CharacterLevel} {profile.CharacterClassName}
+          <span className="profile-representative-engraving">
+            <img src="/images/etc/ico_arkpassive.png" alt="" aria-hidden="true" />
+            {engraving}
+          </span>
         </p>
         <h1>{profile.CharacterName}</h1>
         <div className="profile-scores">
@@ -113,7 +125,28 @@ export default function ProfileHero({ profile, siblings = [] }) {
         </dl>
       </div>
       <button
+        className="profile-refresh"
+        type="button"
+        onClick={onRefresh}
+        disabled={refreshing || refreshCooldown > 0}
+        title={
+          refreshCooldown > 0
+            ? `${refreshCooldown}초 후 다시 갱신할 수 있습니다.`
+            : '현재 캐릭터 정보 갱신'
+        }
+      >
+        <RefreshCw className={refreshing ? 'spin' : ''} />
+        <span>
+          {refreshing
+            ? '갱신 중'
+            : refreshCooldown > 0
+              ? `${refreshCooldown}초`
+              : '정보 갱신'}
+        </span>
+      </button>
+      <button
         className={`profile-favorite ${favorite ? 'active' : ''}`}
+        type="button"
         onClick={addFavorite}
         aria-label={favorite ? '캐릭터 즐겨찾기 해제' : '캐릭터 즐겨찾기 추가'}
         aria-pressed={favorite}

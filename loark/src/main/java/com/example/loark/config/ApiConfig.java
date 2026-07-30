@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -21,9 +22,17 @@ public class ApiConfig {
     RestClient lostArkRestClient(
             @Value("${lostark.api.base-url}") String baseUrl,
             @Value("${lostark.api.key}") String apiKey,
+            @Value("${lostark.api.connect-timeout-ms:5000}") int connectTimeoutMs,
+            @Value("${lostark.api.read-timeout-ms:15000}") int readTimeoutMs,
             LostArkApiRequestCounter requestCounter
     ) {
+        // Without an explicit timeout, a stalled Lost Ark API response leaves the calling
+        // request thread (and, for character lookups, the user's request) waiting forever.
+        SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+        requestFactory.setConnectTimeout(connectTimeoutMs);
+        requestFactory.setReadTimeout(readTimeoutMs);
         return RestClient.builder().baseUrl(baseUrl)
+                .requestFactory(requestFactory)
                 .defaultHeader("Accept", "application/json")
                 .defaultHeader("Authorization", "bearer " + apiKey)
                 .requestInterceptor((request, body, execution) -> {

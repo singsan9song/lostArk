@@ -6,6 +6,12 @@ import java.time.Instant;
 @Entity
 @Table(name = "accessory_auction_listings", indexes = {
         @Index(name = "idx_accessory_listing_search", columnList = "part,grade,end_date"),
+        // Covers the search() query now that trade count / refinement level are filtered in
+        // SQL instead of loaded wholesale and filtered in Java. New index (rather than
+        // redefining idx_accessory_listing_search) because ddl-auto=update does not alter an
+        // existing index's column list when the name is unchanged.
+        @Index(name = "idx_accessory_listing_filter",
+                columnList = "part,grade,end_date,trade_allow_count,upgrade_level"),
         @Index(name = "idx_accessory_listing_observed", columnList = "observed_at")
 }, uniqueConstraints = {
         @UniqueConstraint(name = "uk_accessory_listing_key", columnNames = "listing_key")

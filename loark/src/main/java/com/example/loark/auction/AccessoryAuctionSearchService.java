@@ -19,7 +19,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 
 @Service
 public class AccessoryAuctionSearchService {
@@ -55,6 +57,7 @@ public class AccessoryAuctionSearchService {
     private final boolean backgroundRefreshEnabled;
     private final int backgroundPagesPerRun;
     private final int rateLimitReserve;
+    private final ExecutorService backgroundJobExecutor;
     private final AtomicBoolean refreshRunning = new AtomicBoolean();
 
     public AccessoryAuctionSearchService(RestClient lostArkRestClient,
@@ -62,6 +65,7 @@ public class AccessoryAuctionSearchService {
                                          LostArkApiRequestCounter requestCounter,
                                          ObjectMapper objectMapper,
                                          PersistentApiCache persistentCache,
+                                         ExecutorService backgroundJobExecutor,
                                          @Value("${app.accessory-auction-refresh.enabled:true}")
                                          boolean backgroundRefreshEnabled,
                                          @Value("${app.accessory-auction-refresh-pages-per-run:1000}")
@@ -73,6 +77,7 @@ public class AccessoryAuctionSearchService {
         this.requestCounter = requestCounter;
         this.objectMapper = objectMapper;
         this.persistentCache = persistentCache;
+        this.backgroundJobExecutor = backgroundJobExecutor;
         this.backgroundRefreshEnabled = backgroundRefreshEnabled;
         this.backgroundPagesPerRun = Math.max(1, backgroundPagesPerRun);
         this.rateLimitReserve = Math.max(0, rateLimitReserve);
@@ -129,7 +134,7 @@ public class AccessoryAuctionSearchService {
                     return;
                 }
                 if (response == null || response.path("Items").isEmpty()) break;
-                response.path("Items").forEach(item -> store(request.part(), item));
+                storeAll(request.part(), response.path("Items"));
                 if (stored(request).size() >= 50) return;
             }
         }
@@ -141,6 +146,10 @@ public class AccessoryAuctionSearchService {
     )
     void refreshInBackground() {
         if (!backgroundRefreshEnabled || !refreshRunning.compareAndSet(false, true)) return;
+        backgroundJobExecutor.execute(this::runBackgroundRefresh);
+    }
+
+    private void runBackgroundRefresh() {
         AccessoryRefreshProgress progress = loadProgress();
         int calls = 0;
         try {
@@ -164,7 +173,7 @@ public class AccessoryAuctionSearchService {
                     int totalCount = Math.max(0, response.path("TotalCount").asInt());
                     totalPages = Math.max(1, (int) Math.ceil(totalCount / (double) PAGE_SIZE));
                 }
-                response.path("Items").forEach(item -> store(target.part(), item));
+                storeAll(target.part(), response.path("Items"));
 
                 if (response.path("Items").isEmpty() || page >= totalPages) {
                     progress = new AccessoryRefreshProgress(
@@ -245,48 +254,68 @@ public class AccessoryAuctionSearchService {
                         .retrieve().body(JsonNode.class));
     }
 
-    private void store(String part, JsonNode item) {
-        long buyPrice = item.path("AuctionInfo").path("BuyPrice").asLong();
-        if (buyPrice <= 0 || item.path("Tier").asInt() != ITEM_TIER) return;
-        Instant endDate = parseEndDate(item.path("AuctionInfo").path("EndDate").asText());
-        if (!endDate.isAfter(Instant.now())) return;
-        List<AuctionOption> options = parseOptions(item);
-        String optionsJson;
-        try {
-            optionsJson = objectMapper.writeValueAsString(options);
-        } catch (Exception error) {
-            return;
-        }
-        double mainStat = options.stream()
-                .filter(option -> Set.of("힘", "민첩", "지능").contains(option.name()))
-                .mapToDouble(AuctionOption::value).max().orElse(0);
-        String keySource = part + "|" + item.path("Name").asText() + "|"
-                + item.path("Grade").asText() + "|" + item.path("GradeQuality").asInt() + "|"
-                + buyPrice + "|" + endDate + "|" + optionsJson;
-        String listingKey = sha256(keySource);
+    // Persists a whole page of auction results in one batch (one SELECT ... IN + one
+    // saveAll) instead of one findByListingKey + save per item. A background run can
+    // process up to backgroundPagesPerRun pages, so at 10 items/page this turns what used
+    // to be up to ~20,000 individual DB round trips per run into roughly 2 per page.
+    private void storeAll(String part, JsonNode items) {
+        List<PreparedListing> prepared = new ArrayList<>();
+        items.forEach(item -> {
+            long buyPrice = item.path("AuctionInfo").path("BuyPrice").asLong();
+            if (buyPrice <= 0 || item.path("Tier").asInt() != ITEM_TIER) return;
+            Instant endDate = parseEndDate(item.path("AuctionInfo").path("EndDate").asText());
+            if (!endDate.isAfter(Instant.now())) return;
+            List<AuctionOption> options = parseOptions(item);
+            String optionsJson;
+            try {
+                optionsJson = objectMapper.writeValueAsString(options);
+            } catch (Exception error) {
+                return;
+            }
+            double mainStat = options.stream()
+                    .filter(option -> Set.of("힘", "민첩", "지능").contains(option.name()))
+                    .mapToDouble(AuctionOption::value).max().orElse(0);
+            String keySource = part + "|" + item.path("Name").asText() + "|"
+                    + item.path("Grade").asText() + "|" + item.path("GradeQuality").asInt() + "|"
+                    + buyPrice + "|" + endDate + "|" + optionsJson;
+            prepared.add(new PreparedListing(
+                    sha256(keySource), item, buyPrice, endDate, optionsJson, mainStat));
+        });
+        if (prepared.isEmpty()) return;
+
+        Map<String, AccessoryAuctionListing> existing = repository
+                .findByListingKeyIn(prepared.stream().map(PreparedListing::listingKey).distinct().toList())
+                .stream()
+                .collect(Collectors.toMap(AccessoryAuctionListing::getListingKey, listing -> listing, (a, b) -> a));
+
         Instant observedAt = Instant.now();
-        AccessoryAuctionListing listing = repository.findByListingKey(listingKey)
-                .orElseGet(() -> new AccessoryAuctionListing(
-                        listingKey, part, item.path("Name").asText(), item.path("Grade").asText(),
-                        item.path("Icon").asText(), item.path("GradeQuality").asInt(), buyPrice,
-                        item.path("AuctionInfo").path("TradeAllowCount").asInt(),
-                        item.path("AuctionInfo").path("UpgradeLevel").asInt(), mainStat,
-                        optionsJson, endDate, observedAt));
-        listing.update(part, item.path("Name").asText(), item.path("Grade").asText(),
-                item.path("Icon").asText(), item.path("GradeQuality").asInt(), buyPrice,
-                item.path("AuctionInfo").path("TradeAllowCount").asInt(),
-                item.path("AuctionInfo").path("UpgradeLevel").asInt(), mainStat,
-                optionsJson, endDate, observedAt);
-        repository.save(listing);
+        List<AccessoryAuctionListing> toSave = new ArrayList<>();
+        for (PreparedListing entry : prepared) {
+            JsonNode item = entry.item();
+            AccessoryAuctionListing listing = existing.getOrDefault(entry.listingKey(),
+                    new AccessoryAuctionListing(
+                            entry.listingKey(), part, item.path("Name").asText(), item.path("Grade").asText(),
+                            item.path("Icon").asText(), item.path("GradeQuality").asInt(), entry.buyPrice(),
+                            item.path("AuctionInfo").path("TradeAllowCount").asInt(),
+                            item.path("AuctionInfo").path("UpgradeLevel").asInt(), entry.mainStat(),
+                            entry.optionsJson(), entry.endDate(), observedAt));
+            listing.update(part, item.path("Name").asText(), item.path("Grade").asText(),
+                    item.path("Icon").asText(), item.path("GradeQuality").asInt(), entry.buyPrice(),
+                    item.path("AuctionInfo").path("TradeAllowCount").asInt(),
+                    item.path("AuctionInfo").path("UpgradeLevel").asInt(), entry.mainStat(),
+                    entry.optionsJson(), entry.endDate(), observedAt);
+            toSave.add(listing);
+        }
+        repository.saveAll(toSave);
     }
 
+    private record PreparedListing(
+            String listingKey, JsonNode item, long buyPrice, Instant endDate,
+            String optionsJson, double mainStat) {}
+
     private List<SearchItem> stored(SearchRequest request) {
-        return repository.findByPartAndGradeAndEndDateAfter(
-                        request.part(), request.grade(), Instant.now())
-                .stream()
+        return queryStoredListings(request).stream()
                 .map(this::toSearchItem)
-                .filter(item -> tradeMatches(item.tradeAllowCount(), request.tradeCount()))
-                .filter(item -> request.refineLevels().contains(item.upgradeLevel()))
                 .filter(item -> optionCombinationMatches(item.options(), request))
                 .sorted(Comparator.comparingLong(SearchItem::buyPrice)
                         .thenComparing(Comparator.comparingInt(SearchItem::quality).reversed()))
@@ -294,11 +323,22 @@ public class AccessoryAuctionSearchService {
                 .toList();
     }
 
-    private boolean tradeMatches(int count, String condition) {
-        return switch (condition) {
-            case "TWO_PLUS" -> count >= 2;
-            case "ONE_PLUS" -> count >= 1;
-            default -> count == 0;
+    // request.tradeCount()/refineLevels() are already normalized (see normalize()), so trade
+    // count and refinement level can be pushed straight into the SQL WHERE clause instead of
+    // loading every non-expired part/grade row and filtering in Java. Only the option-grade
+    // combination (parsed out of the options_json LOB) still needs app-level logic.
+    private List<AccessoryAuctionListing> queryStoredListings(SearchRequest request) {
+        Instant now = Instant.now();
+        return switch (request.tradeCount()) {
+            case "TWO_PLUS" -> repository
+                    .findByPartAndGradeAndEndDateAfterAndTradeAllowCountGreaterThanEqualAndUpgradeLevelIn(
+                            request.part(), request.grade(), now, 2, request.refineLevels());
+            case "ONE_PLUS" -> repository
+                    .findByPartAndGradeAndEndDateAfterAndTradeAllowCountGreaterThanEqualAndUpgradeLevelIn(
+                            request.part(), request.grade(), now, 1, request.refineLevels());
+            default -> repository
+                    .findByPartAndGradeAndEndDateAfterAndTradeAllowCountAndUpgradeLevelIn(
+                            request.part(), request.grade(), now, 0, request.refineLevels());
         };
     }
 

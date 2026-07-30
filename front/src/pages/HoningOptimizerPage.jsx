@@ -15,12 +15,13 @@ import {
 } from 'lucide-react'
 import { GoldAmount } from '../components/GoldIcon'
 import { lostArkApi } from '../lib/api'
+import { fetchRepresentativeEquipment } from '../lib/representativeEquipmentCache'
 import {
-  ALL_MATERIAL_NAMES,
   GRADE_OPTIONS,
   currentStagesForGrade,
   currentStagesForGradeAnyType,
   findRecord,
+  materialNamesForGrades,
   stagesForGrade,
   stagesForGradeAnyType,
 } from '../lib/honingCalculator'
@@ -163,30 +164,36 @@ export default function HoningOptimizerPage() {
   const getMeta = (name) => metaFor(name, marketPrices)
 
   // Prices have to be loaded *before* simulating, not after — the optimizer needs catalyst
-  // prices to decide what to use, not just to total up a bill afterward. Fetches every
-  // material name that could ever appear, once, regardless of what's currently selected.
+  // prices to decide what to use, not just to total up a bill afterward. Scoped to the grade(s)
+  // currently selected across the 6 equipment rows (each grade only needs ~8-15 of the ~48
+  // possible material names) and re-fetched whenever a grade selection changes, so a manual
+  // grade change or a newly-detected character's equipment always has prices available before
+  // 계산 runs.
+  const draftGrades = useMemo(
+    () => [...new Set(equipment.map((item) => draft[item.id]?.grade).filter(Boolean))],
+    [draft],
+  )
   useEffect(() => {
     let active = true
-    const uniqueNames = [...new Set(ALL_MATERIAL_NAMES.map(marketNameFor))].filter(
+    const uniqueNames = [...new Set(materialNamesForGrades(draftGrades).map(marketNameFor))].filter(
       (name) => name !== '골드',
     )
     const batches = Array.from({ length: Math.ceil(uniqueNames.length / 30) }, (_, index) =>
       uniqueNames.slice(index * 30, index * 30 + 30),
     )
+    setPricesReady(false)
     Promise.all(batches.map((batch) => lostArkApi.getMarketPrices(batch)))
       .then((results) => {
-        if (active) setMarketPrices(Object.assign({}, ...results))
+        if (active) setMarketPrices((previous) => ({ ...previous, ...Object.assign({}, ...results) }))
       })
-      .catch(() => {
-        if (active) setMarketPrices({})
-      })
+      .catch(() => {})
       .finally(() => {
         if (active) setPricesReady(true)
       })
     return () => {
       active = false
     }
-  }, [])
+  }, [draftGrades])
 
   const [simulations, setSimulations] = useState({})
   const [calculatingIds, setCalculatingIds] = useState(() => new Set())
@@ -291,8 +298,7 @@ export default function HoningOptimizerPage() {
   useEffect(() => {
     if (!representativeName || routePreset) return undefined
     let active = true
-    lostArkApi
-      .getCharacter(representativeName)
+    fetchRepresentativeEquipment(representativeName)
       .then((data) => {
         if (!active) return
         const detected = representativeEquipmentFromArmory(data?.armory)

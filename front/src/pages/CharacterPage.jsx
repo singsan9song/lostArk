@@ -34,12 +34,6 @@ export default function CharacterPage() {
   const [rosterCooldownUntil, setRosterCooldownUntil] = useState(() =>
     readCooldown('roster', name),
   )
-  const [now, setNow] = useState(Date.now())
-
-  useEffect(() => {
-    const timer = window.setInterval(() => setNow(Date.now()), 1000)
-    return () => window.clearInterval(timer)
-  }, [])
 
   useEffect(() => {
     let active = true
@@ -121,14 +115,11 @@ export default function CharacterPage() {
           onCharacterRefresh={refreshCharacter}
           characterRefreshing={characterRefreshing}
           characterRefreshError={characterRefreshError}
-          characterRefreshCooldown={Math.max(
-            0,
-            Math.ceil((characterCooldownUntil - now) / 1000),
-          )}
+          characterRefreshCooldownUntil={characterCooldownUntil}
           onRosterRefresh={refreshRoster}
           rosterRefreshing={rosterRefreshing}
           rosterError={rosterError}
-          rosterRefreshCooldown={Math.max(0, Math.ceil((rosterCooldownUntil - now) / 1000))}
+          rosterRefreshCooldownUntil={rosterCooldownUntil}
         />
       )}
     </div>

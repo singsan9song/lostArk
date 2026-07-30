@@ -105,7 +105,7 @@ export function AuthProvider({ children }) {
         clearLocalData,
       }}
     >
-      {ready ? children : null}
+      {children}
     </AuthContext.Provider>
   )
 }

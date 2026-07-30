@@ -43,7 +43,13 @@ public class MarketService {
     private final Cache<String, Optional<MarketPrice>> cache;
     private final long ttlSeconds;
     private final long requestSpacingNanos;
-    private final ExecutorService refreshExecutor;
+    // Background sweep (refreshKnownPrices) and lazily-queued stale-cache refreshes run here.
+    // Kept separate from userRequestExecutor so a busy background sweep never makes a
+    // user-triggered price request wait behind it for a free thread.
+    private final ExecutorService backgroundExecutor;
+    // User-facing price lookups (prices()) run here so they are dispatched immediately
+    // regardless of how much background refresh work is queued.
+    private final ExecutorService userRequestExecutor;
     private final Set<String> queuedRefreshes = ConcurrentHashMap.newKeySet();
     private final Object requestPermitLock = new Object();
     private long nextRequestPermitNanos;
@@ -53,7 +59,8 @@ public class MarketService {
                          ObjectMapper objectMapper,
                          @Value("${app.market-cache-ttl-seconds:5}") long ttlSeconds,
                          @Value("${app.market-refresh-min-interval-ms:10}") long refreshMinIntervalMs,
-                         @Value("${app.market-refresh-concurrency:20}") int refreshConcurrency) {
+                         @Value("${app.market-refresh-concurrency:20}") int refreshConcurrency,
+                         @Value("${app.market-user-request-concurrency:30}") int userRequestConcurrency) {
         this.client = lostArkRestClient;
         this.persistentCache = persistentCache;
         this.observations = observations;
@@ -64,10 +71,18 @@ public class MarketService {
         if (ttlSeconds > 0) builder.expireAfterWrite(Duration.ofSeconds(ttlSeconds));
         this.cache = builder.build();
         int concurrency = Math.max(1, Math.min(64, refreshConcurrency));
-        AtomicInteger threadNumber = new AtomicInteger();
-        this.refreshExecutor = Executors.newFixedThreadPool(concurrency, runnable -> {
+        AtomicInteger backgroundThreadNumber = new AtomicInteger();
+        this.backgroundExecutor = Executors.newFixedThreadPool(concurrency, runnable -> {
             Thread thread = new Thread(runnable,
-                    "market-price-refresh-" + threadNumber.incrementAndGet());
+                    "market-background-refresh-" + backgroundThreadNumber.incrementAndGet());
+            thread.setDaemon(true);
+            return thread;
+        });
+        int userConcurrency = Math.max(1, Math.min(64, userRequestConcurrency));
+        AtomicInteger userThreadNumber = new AtomicInteger();
+        this.userRequestExecutor = Executors.newFixedThreadPool(userConcurrency, runnable -> {
+            Thread thread = new Thread(runnable,
+                    "market-user-request-" + userThreadNumber.incrementAndGet());
             thread.setDaemon(true);
             return thread;
         });
@@ -87,7 +102,7 @@ public class MarketService {
         List<CompletableFuture<Optional<MarketPrice>>> futures = requestedNames.stream()
                 .map(name -> CompletableFuture.supplyAsync(
                         () -> refresh ? request(name, true) : find(name),
-                        refreshExecutor))
+                        userRequestExecutor))
                 .toList();
         Map<String, MarketPrice> result = new LinkedHashMap<>();
         for (int index = 0; index < requestedNames.size(); index++) {
@@ -224,7 +239,7 @@ public class MarketService {
 
     private void queueRefresh(String lookupKey) {
         if (!queuedRefreshes.add(lookupKey)) return;
-        refreshExecutor.execute(() -> {
+        backgroundExecutor.execute(() -> {
             try {
                 Optional<MarketPrice> refreshed = request(lookupKey);
                 refreshed.ifPresent(price -> cache.put(lookupKey, Optional.of(price)));
@@ -250,7 +265,8 @@ public class MarketService {
 
     @PreDestroy
     void stopRefreshExecutor() {
-        refreshExecutor.shutdownNow();
+        backgroundExecutor.shutdownNow();
+        userRequestExecutor.shutdownNow();
     }
 
     public void clearCache() {

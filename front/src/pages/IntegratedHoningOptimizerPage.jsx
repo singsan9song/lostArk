@@ -3,6 +3,7 @@ import { Boxes, ChevronRight, Loader2, LockKeyhole, PackageOpen, Route, Target }
 import { Link } from 'react-router-dom'
 import { GoldAmount } from '../components/GoldIcon'
 import { lostArkApi } from '../lib/api'
+import { fetchRepresentativeEquipment } from '../lib/representativeEquipmentCache'
 import { useFavorites } from '../lib/favorites'
 import { ALL_MATERIAL_NAMES, stagesForGrade } from '../lib/honingCalculator'
 import { applyOwnedMaterialsToResults, getCharacterHoningInventories } from '../lib/honingInventory'
@@ -86,39 +87,9 @@ export default function IntegratedHoningOptimizerPage() {
 
   const getUnitPrice = (name) => unitPriceOf(name, marketPrices)
 
-  useEffect(() => {
-    if (!representativeName) {
-      setPricesReady(false)
-      setMarketPrices({})
-      return undefined
-    }
-    let active = true
-    setPricesReady(false)
-    const names = [
-      ...new Set(
-        [...ALL_MATERIAL_NAMES, ...INTEGRATED_ADVANCED_MATERIAL_NAMES]
-          .map(marketNameFor)
-          .filter((name) => name !== '골드'),
-      ),
-    ]
-    const batches = Array.from({ length: Math.ceil(names.length / 30) }, (_, index) =>
-      names.slice(index * 30, index * 30 + 30),
-    )
-    Promise.all(batches.map((batch) => lostArkApi.getMarketPrices(batch)))
-      .then((responses) => {
-        if (active) setMarketPrices(Object.assign({}, ...responses))
-      })
-      .catch(() => {
-        if (active) setMarketPrices({})
-      })
-      .finally(() => {
-        if (active) setPricesReady(true)
-      })
-    return () => {
-      active = false
-    }
-  }, [representativeName])
-
+  // Equipment cache is checked first (fast, and usually already warm from the other honing
+  // pages); the material price batch only fires once that settles, instead of both firing
+  // at once and competing for the network/API at page entry.
   useEffect(() => {
     cancelRef.current.forEach((cancel) => cancel())
     cancelRef.current = []
@@ -129,30 +100,56 @@ export default function IntegratedHoningOptimizerPage() {
       setCurrentLevel(0)
       setTargetLevel('')
       setCharacterState('idle')
+      setPricesReady(false)
+      setMarketPrices({})
       return undefined
     }
 
     let active = true
     setCharacterState('loading')
-    lostArkApi
-      .getCharacter(representativeName)
-      .then((data) => {
+    setPricesReady(false)
+
+    async function loadEquipmentThenPrices() {
+      try {
+        const data = await fetchRepresentativeEquipment(representativeName)
         if (!active) return
         const detected = representativeEquipmentFromArmory(data?.armory)
         if (!equipment.every((item) => detected[item.id])) {
           setCharacterState('error')
-          return
+        } else {
+          const average =
+            equipment.reduce((sum, item) => sum + detected[item.id].itemLevel, 0) / equipment.length
+          setCharacterEquipment(detected)
+          setCurrentLevel(average)
+          setTargetLevel(Math.ceil((average + 0.01) / 5) * 5)
+          setCharacterState('ready')
         }
-        const average =
-          equipment.reduce((sum, item) => sum + detected[item.id].itemLevel, 0) / equipment.length
-        setCharacterEquipment(detected)
-        setCurrentLevel(average)
-        setTargetLevel(Math.ceil((average + 0.01) / 5) * 5)
-        setCharacterState('ready')
-      })
-      .catch(() => {
+      } catch {
         if (active) setCharacterState('error')
-      })
+      }
+      if (!active) return
+
+      const names = [
+        ...new Set(
+          [...ALL_MATERIAL_NAMES, ...INTEGRATED_ADVANCED_MATERIAL_NAMES]
+            .map(marketNameFor)
+            .filter((name) => name !== '골드'),
+        ),
+      ]
+      const batches = Array.from({ length: Math.ceil(names.length / 30) }, (_, index) =>
+        names.slice(index * 30, index * 30 + 30),
+      )
+      try {
+        const responses = await Promise.all(batches.map((batch) => lostArkApi.getMarketPrices(batch)))
+        if (active) setMarketPrices(Object.assign({}, ...responses))
+      } catch {
+        if (active) setMarketPrices({})
+      } finally {
+        if (active) setPricesReady(true)
+      }
+    }
+
+    loadEquipmentThenPrices()
     return () => {
       active = false
     }

@@ -14,6 +14,7 @@ import {
 } from 'lucide-react'
 import { GoldAmount } from '../components/GoldIcon'
 import { lostArkApi } from '../lib/api'
+import { fetchRepresentativeEquipment } from '../lib/representativeEquipmentCache'
 import { optimizeAdvancedSegment } from '../lib/advancedHoningCalculator'
 import { applyOwnedMaterialsToResults, getCharacterHoningInventories } from '../lib/honingInventory'
 import { marketNameFor, unitPriceOf } from '../lib/honingPricing'
@@ -359,8 +360,7 @@ export default function AdvancedHoningOptimizerPage() {
   useEffect(() => {
     if (!representativeName || routePreset) return undefined
     let active = true
-    lostArkApi
-      .getCharacter(representativeName)
+    fetchRepresentativeEquipment(representativeName)
       .then((data) => {
         if (!active) return
         const detected = representativeEquipmentFromArmory(data?.armory)

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import {
   BarChart3,
   BookOpen,
@@ -184,18 +184,27 @@ export default function BattleOverview({ armory, profile, stats, skills, sibling
   // highlight), not pop up the full tooltip — that's reserved for hovering
   // the diagram icon itself.
   const [hoverGemSlot, setHoverGemSlot] = useState(null)
-  const equipment = (armory.ArmoryEquipment || []).filter(
-    (item) => !['나침반', '부적'].includes(item.Type),
+  // Memoized on `armory` alone: this component re-renders every second from the
+  // character page's cooldown timer, and re-deriving these arrays on every tick
+  // is wasted filter/sort work when the underlying armory data hasn't changed.
+  const equipment = useMemo(
+    () => (armory.ArmoryEquipment || []).filter((item) => !['나침반', '부적'].includes(item.Type)),
+    [armory],
   )
-  const knownTypes = new Set([...leftEquipmentTypes, ...rightEquipmentTypes])
-  const leftEquipment = [
-    ...equipmentByOrder(equipment, leftEquipmentTypes),
-    ...equipment.filter((item) => !knownTypes.has(item.Type)),
-  ]
-  const rightEquipment = equipmentByOrder(equipment, rightEquipmentTypes)
+  const leftEquipment = useMemo(() => {
+    const knownTypes = new Set([...leftEquipmentTypes, ...rightEquipmentTypes])
+    return [
+      ...equipmentByOrder(equipment, leftEquipmentTypes),
+      ...equipment.filter((item) => !knownTypes.has(item.Type)),
+    ]
+  }, [equipment])
+  const rightEquipment = useMemo(
+    () => equipmentByOrder(equipment, rightEquipmentTypes),
+    [equipment],
+  )
   const gems = armory.ArmoryGem?.Gems || []
   const gemEffects = armory.ArmoryGem?.Effects?.Skills || []
-  const orderedGems = orderGems(gems, gemEffects)
+  const orderedGems = useMemo(() => orderGems(gems, gemEffects), [gems, gemEffects])
   const engravings =
     armory.ArmoryEngraving?.ArkPassiveEffects || armory.ArmoryEngraving?.Effects || []
   const cards = armory.ArmoryCard?.Cards || []

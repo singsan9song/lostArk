@@ -54,12 +54,20 @@ const gold = (value) => Number(value || 0).toLocaleString('ko-KR', { maximumFrac
 const ABILITY_STONE_BOX = '비상의 돌 각인 지정 키트 상자'
 const ABILITY_STONE_PHEON_COST = 9
 
+// Owns its own 1s timer so only this small label re-renders each second, instead of the
+// whole product grid re-rendering every second just to update a countdown string.
+function MariShopCountdown({ stockAt }) {
+  const [now, setNow] = useState(() => Date.now())
+  useEffect(() => {
+    const timer = window.setInterval(() => setNow(Date.now()), 1000)
+    return () => window.clearInterval(timer)
+  }, [])
+  return <strong>{stockAt ? countdown(stockAt - now) : '--'}</strong>
+}
+
 export default function MariShopPage() {
   const [data, setData] = useState(null)
   const [error, setError] = useState('')
-  const [now, setNow] = useState(Date.now())
-  const [marketPrices, setMarketPrices] = useState({})
-  const [marketLoading, setMarketLoading] = useState(false)
   const [abilityStoneValue, setAbilityStoneValue] = useState(null)
   const [abilityStoneLoading, setAbilityStoneLoading] = useState(true)
   const [abilityStoneConfigurationId, setAbilityStoneConfigurationId] = useState(
@@ -84,10 +92,6 @@ export default function MariShopPage() {
 
   useEffect(() => {
     loadMariShop()
-    const clockTimer = window.setInterval(() => setNow(Date.now()), 1000)
-    return () => {
-      window.clearInterval(clockTimer)
-    }
   }, [loadMariShop])
 
   useEffect(() => {
@@ -112,42 +116,6 @@ export default function MariShopPage() {
       window.clearTimeout(timer)
     }
   }, [data?.goodsVersion, data?.nextRefreshAt, loadMariShop])
-
-  useEffect(() => {
-    const sourceRotations = data?.rotations?.length
-      ? data.rotations
-      : data?.products?.length
-        ? [{ products: data.products }]
-        : []
-    const products = sourceRotations.flatMap((rotation) => rotation.products || [])
-    const names = [
-      ...new Set(
-        products
-          .filter((product) => product.name !== ABILITY_STONE_BOX)
-          .map((product) => marketNameFor(product.name))
-          .filter(Boolean),
-      ),
-    ]
-    if (!names.length) return
-    let active = true
-    setMarketLoading(true)
-    const batches = Array.from({ length: Math.ceil(names.length / 30) }, (_, index) =>
-      names.slice(index * 30, index * 30 + 30),
-    )
-    Promise.all(batches.map((batch) => lostArkApi.getMarketPrices(batch)))
-      .then((results) => {
-        if (active) setMarketPrices(Object.assign({}, ...results))
-      })
-      .catch(() => {
-        if (active) setMarketPrices({})
-      })
-      .finally(() => {
-        if (active) setMarketLoading(false)
-      })
-    return () => {
-      active = false
-    }
-  }, [data?.goodsVersion])
 
   useEffect(() => {
     let active = true
@@ -184,6 +152,10 @@ export default function MariShopPage() {
         ]
       : [])
   const stockAt = data?.nextRefreshAt ? new Date(data.nextRefreshAt).getTime() - 10000 : 0
+  // Bundled into the /mari-shop response itself now (server combines products + stored market
+  // prices), so no separate /markets/prices round trip is needed here.
+  const marketPrices = data?.marketPrices || {}
+  const marketLoading = !data
   const selectedAbilityStoneConfiguration = resolveAbilityStoneConfiguration(
     abilityStoneValue,
     abilityStoneConfigurationId,
@@ -214,7 +186,7 @@ export default function MariShopPage() {
         <aside>
           <Clock3 />
           <span>새 상품 입고까지</span>
-          <strong>{stockAt ? countdown(stockAt - now) : '--'}</strong>
+          <MariShopCountdown stockAt={stockAt} />
           <small>매일 오전 6시 · 오후 6시</small>
           <label className={includePheonCost ? 'mari-pheon-toggle active' : 'mari-pheon-toggle'}>
             <span className="legendary">

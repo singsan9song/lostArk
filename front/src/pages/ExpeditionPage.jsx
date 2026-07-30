@@ -1080,16 +1080,14 @@ function ExpeditionGroup({
     event.stopPropagation()
     if (refreshing) return
     setRefreshing(true)
-    const profiles = []
-    for (const character of characters) {
-      try {
-        const data = await lostArkApi.getCharacter(character.characterName)
-        const profile = data?.armory?.ArmoryProfile
-        if (profile) profiles.push(profile)
-      } catch {
-        /* 성공한 캐릭터만 갱신 */
-      }
-    }
+    const results = await Promise.allSettled(
+      characters.map((character) => lostArkApi.getCharacter(character.characterName)),
+    )
+    const profiles = results
+      .filter((result) => result.status === 'fulfilled')
+      .map((result) => result.value?.armory?.ArmoryProfile)
+      .filter(Boolean)
+    /* 실패한 캐릭터는 제외하고 성공한 캐릭터만 갱신 */
     if (profiles.length)
       addFavorites(profiles, {
         rosterId: group.id.startsWith('single-') ? '' : group.id,

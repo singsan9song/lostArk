@@ -22,6 +22,10 @@ export const adminApiRequestStreamUrl = `${API_BASE_URL}/admin/api-requests/stre
 
 export const lostArkApi = {
   getCharacter: (characterName) => request(`/characters/${encodeURIComponent(characterName)}`),
+  // Lightweight equipment-only read used by the honing pages (일반/상급/통합 재련) — avoids
+  // pulling the full armory+roster+discoveries+growth-history bundle just to read 6 items.
+  getCharacterEquipment: (characterName) =>
+    request(`/characters/${encodeURIComponent(characterName)}/equipment`),
   refreshCharacter: (characterName) =>
     request(`/characters/${encodeURIComponent(characterName)}/refresh`, { method: 'POST' }),
   refreshCharacterRoster: (characterName) =>

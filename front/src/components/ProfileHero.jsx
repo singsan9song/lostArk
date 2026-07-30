@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useFavorites } from '../lib/favorites'
 import { lostArkApi } from '../lib/api'
 import { representativeEngraving } from '../lib/representativeEngraving'
+import { useCooldownSeconds } from '../lib/useCooldownSeconds'
 
 export default function ProfileHero({
   profile,
@@ -10,7 +11,7 @@ export default function ProfileHero({
   siblings = [],
   onRefresh,
   refreshing,
-  refreshCooldown = 0,
+  refreshCooldownUntil = 0,
 }) {
   const { favorites, toggle, add } = useFavorites()
   const [confirmRoster, setConfirmRoster] = useState(false)
@@ -124,26 +125,11 @@ export default function ProfileHero({
           ))}
         </dl>
       </div>
-      <button
-        className="profile-refresh"
-        type="button"
-        onClick={onRefresh}
-        disabled={refreshing || refreshCooldown > 0}
-        title={
-          refreshCooldown > 0
-            ? `${refreshCooldown}초 후 다시 갱신할 수 있습니다.`
-            : '현재 캐릭터 정보 갱신'
-        }
-      >
-        <RefreshCw className={refreshing ? 'spin' : ''} />
-        <span>
-          {refreshing
-            ? '갱신 중'
-            : refreshCooldown > 0
-              ? `${refreshCooldown}초`
-              : '정보 갱신'}
-        </span>
-      </button>
+      <ProfileRefreshButton
+        onRefresh={onRefresh}
+        refreshing={refreshing}
+        refreshCooldownUntil={refreshCooldownUntil}
+      />
       <button
         className={`profile-favorite ${favorite ? 'active' : ''}`}
         type="button"
@@ -221,5 +207,30 @@ export default function ProfileHero({
         </div>
       )}
     </header>
+  )
+}
+
+// Owns its own 1s cooldown timer (via useCooldownSeconds) so only this button re-renders
+// each second, instead of the whole ProfileHero (and everything above it in the tree)
+// re-rendering every second just to update a countdown string.
+function ProfileRefreshButton({ onRefresh, refreshing, refreshCooldownUntil }) {
+  const refreshCooldown = useCooldownSeconds(refreshCooldownUntil)
+  return (
+    <button
+      className="profile-refresh"
+      type="button"
+      onClick={onRefresh}
+      disabled={refreshing || refreshCooldown > 0}
+      title={
+        refreshCooldown > 0
+          ? `${refreshCooldown}초 후 다시 갱신할 수 있습니다.`
+          : '현재 캐릭터 정보 갱신'
+      }
+    >
+      <RefreshCw className={refreshing ? 'spin' : ''} />
+      <span>
+        {refreshing ? '갱신 중' : refreshCooldown > 0 ? `${refreshCooldown}초` : '정보 갱신'}
+      </span>
+    </button>
   )
 }

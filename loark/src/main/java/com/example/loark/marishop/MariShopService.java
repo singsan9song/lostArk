@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClient;
+import com.example.loark.market.MarketService;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.node.ArrayNode;
@@ -23,7 +24,9 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -38,24 +41,30 @@ public class MariShopService {
     private static final Pattern ICON_GRADE = Pattern.compile("\\\"iconGrade\\\":(-?\\d+)");
     private static final Pattern QUANTITY = Pattern.compile("\\[([\\d,]+)개]");
     private static final Pattern GOODS_VERSION = Pattern.compile("^(\\d{8})_([12])$");
+    // Ability stone box has no real market listing - its value comes from a separate
+    // auction-based calculation on the frontend (getSharedAbilityStoneValue), not /markets/prices.
+    private static final String ABILITY_STONE_BOX = "비상의 돌 각인 지정 키트 상자";
+    private static final Pattern BOUND_SUFFIX = Pattern.compile("\\s*\\(귀속\\)\\s*");
 
     private final MariShopRotationRepository rotationRepository;
     private final MariShopProductHistoryRepository historyRepository;
     private final ObjectMapper objectMapper;
     private final RestClient shopClient;
+    private final MarketService marketService;
     private final ScheduledExecutorService scheduler;
     private final boolean enabled;
     private final String shopBaseUrl;
     private final String cdnBaseUrl;
 
     public MariShopService(MariShopRotationRepository rotationRepository, MariShopProductHistoryRepository historyRepository,
-                           ObjectMapper objectMapper,
+                           ObjectMapper objectMapper, MarketService marketService,
                            @Value("${app.mari-shop.enabled:true}") boolean enabled,
                            @Value("${lostark.mari-shop.base-url}") String shopBaseUrl,
                            @Value("${lostark.mari-shop.cdn-base-url}") String cdnBaseUrl) {
         this.rotationRepository = rotationRepository;
         this.historyRepository = historyRepository;
         this.objectMapper = objectMapper;
+        this.marketService = marketService;
         this.enabled = enabled;
         this.shopBaseUrl = shopBaseUrl;
         this.cdnBaseUrl = cdnBaseUrl;
@@ -188,8 +197,10 @@ public class MariShopService {
     }
 
     private ObjectNode withRecentRotations(ObjectNode payload) {
+        Set<String> marketNames = new LinkedHashSet<>();
         payload.path("products").forEach(product -> {
             if (product instanceof ObjectNode object) addHistoricalLowestPrice(object);
+            collectMarketName(product, marketNames);
         });
         ArrayNode rotations = objectMapper.createArrayNode();
         List<String> versions = historyRepository.findRecentGoodsVersions(PageRequest.of(0, 3));
@@ -212,6 +223,7 @@ public class MariShopService {
                 product.put("icon", history.getIcon());
                 product.put("grade", history.getGrade());
                 addHistoricalLowestPrice(product);
+                collectMarketName(product, marketNames);
             });
             rotation.set("products", products);
         }
@@ -222,7 +234,25 @@ public class MariShopService {
             historicalLowestUnitPrices.put(String.valueOf(row[0]), ((Number) row[1]).doubleValue());
         });
         payload.set("historicalLowestUnitCrystalPrices", historicalLowestUnitPrices);
+        // DB-first (refresh=false): shows whatever price is already cached instead of forcing
+        // a live lookup for every one of this response's product names on every page view.
+        // Bundled here so the frontend doesn't need a second /markets/prices round trip just to
+        // price out the products this same response already lists. Chunked at 30 because
+        // MarketService.prices() itself caps a single call's requested names at 30.
+        List<String> nameList = new java.util.ArrayList<>(marketNames);
+        java.util.Map<String, com.example.loark.market.MarketPrice> prices = new java.util.LinkedHashMap<>();
+        for (int start = 0; start < nameList.size(); start += 30) {
+            prices.putAll(marketService.prices(nameList.subList(start, Math.min(start + 30, nameList.size())), false));
+        }
+        payload.set("marketPrices", objectMapper.valueToTree(prices));
         return payload;
+    }
+
+    private void collectMarketName(JsonNode product, Set<String> marketNames) {
+        String name = product.path("name").asText("");
+        if (name.isBlank() || ABILITY_STONE_BOX.equals(name)) return;
+        String marketName = BOUND_SUFFIX.matcher(name).replaceAll(" ").trim();
+        if (!marketName.isBlank()) marketNames.add(marketName);
     }
 
     private void addHistoricalLowestPrice(ObjectNode product) {

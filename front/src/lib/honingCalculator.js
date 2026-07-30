@@ -29,9 +29,11 @@ export const GRADE_OPTIONS = [
   ...new Set(refiningData.records.map((record) => record.equipment_grade)),
 ]
 
-// The full universe of material names (required + catalyst) across the whole dataset, so the
-// page can fetch every price it might ever need once up front, before the optimizer (which
-// needs prices to make its decisions, not just to display a total) runs.
+// The full universe of material names (required + catalyst) across the whole dataset. Kept as
+// a fallback for callers that don't yet know which grade(s) are in play (e.g. before equipment
+// detection resolves) - once a grade selection is known, prefer materialNamesForGrades so the
+// price request only covers what that grade can actually need (each grade only uses ~8-15 of
+// the ~48 total names).
 export const ALL_MATERIAL_NAMES = [
   ...new Set(
     refiningData.records.flatMap((record) => [
@@ -40,6 +42,20 @@ export const ALL_MATERIAL_NAMES = [
     ]),
   ),
 ]
+
+export function materialNamesForGrades(grades) {
+  const gradeSet = new Set(grades)
+  return [
+    ...new Set(
+      refiningData.records
+        .filter((record) => gradeSet.has(record.equipment_grade))
+        .flatMap((record) => [
+          ...record.required_materials.map((item) => item.name),
+          ...record.additional_materials.map((item) => item.name),
+        ]),
+    ),
+  ]
+}
 
 export function stagesForGrade(equipmentType, grade) {
   const stages = stageIndex.get(stageKey(equipmentType, grade))

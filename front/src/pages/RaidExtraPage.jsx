@@ -493,8 +493,15 @@ export default function RaidExtraPage() {
     })
     .filter(Boolean)
 
+  // Scoped to the selected category (categoryId === null means "전체", matching
+  // visibleRaidEntries' own filter) instead of always pulling reward materials from every
+  // category regardless of what's actually shown. Upgrade materials stay unscoped since the
+  // upgrade button works on any reward item, not just ones in the selected category.
   useEffect(() => {
-    const names = raidExtraData.categories
+    const relevantCategories = categoryId
+      ? raidExtraData.categories.filter((item) => item.id === categoryId)
+      : raidExtraData.categories
+    const names = relevantCategories
       .flatMap((item) => item.raids)
       .flatMap((item) => item.difficulties)
       .flatMap((item) => item.gates)
@@ -510,18 +517,17 @@ export default function RaidExtraPage() {
     )
     Promise.all(batches.map((batch) => lostArkApi.getMarketPrices(batch)))
       .then((results) => {
-        if (active) setMarketPrices(Object.assign({}, ...results))
+        if (active)
+          setMarketPrices((previous) => ({ ...previous, ...Object.assign({}, ...results) }))
       })
-      .catch(() => {
-        if (active) setMarketPrices({})
-      })
+      .catch(() => {})
       .finally(() => {
         if (active) setMarketLoading(false)
       })
     return () => {
       active = false
     }
-  }, [])
+  }, [categoryId])
 
   const selectCategory = (nextCategory) => {
     if (categoryId === nextCategory.id) {

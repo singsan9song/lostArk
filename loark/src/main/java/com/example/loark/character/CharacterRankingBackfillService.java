@@ -38,11 +38,8 @@ public class CharacterRankingBackfillService {
     )
     @Transactional
     void backfill() {
-        List<Long> ids = characters.findIdsNeedingRanking(PageRequest.of(0, batchSize));
-        for (Long id : ids) {
-            GameCharacter character = characters.findById(id).orElse(null);
-            if (character == null) continue;
-
+        List<GameCharacter> pending = characters.findCharactersNeedingRanking(PageRequest.of(0, batchSize));
+        for (GameCharacter character : pending) {
             CharacterSnapshot snapshot = snapshots
                     .findTopByCharacterNameIgnoreCaseOrderByFetchedAtDesc(character.getCharacterName())
                     .orElse(null);
@@ -61,7 +58,7 @@ public class CharacterRankingBackfillService {
                     classification.role(),
                     snapshot == null ? character.getLastObservedAt() : snapshot.getFetchedAt()
             );
-            characters.save(character);
         }
+        characters.saveAll(pending);
     }
 }

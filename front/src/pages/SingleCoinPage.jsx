@@ -677,8 +677,15 @@ export default function SingleCoinPage() {
     const timer = window.setInterval(() => setPriceRefreshTick((value) => value + 1), 300000)
     return () => window.clearInterval(timer)
   }, [])
+  // Scoped to the selected category (activeCategory === 'all' keeps the original
+  // every-category behavior) instead of always requesting every category's exchange options
+  // regardless of what's currently shown.
   useEffect(() => {
-    const names = singleCoinData.categories
+    const relevantCategories =
+      activeCategory === 'all'
+        ? singleCoinData.categories
+        : singleCoinData.categories.filter((category) => category.id === activeCategory)
+    const names = relevantCategories
       .flatMap((category) => category.items)
       .flatMap((item) => item.exchangeOptions || [])
       .flatMap((option) => [
@@ -696,18 +703,17 @@ export default function SingleCoinPage() {
     )
     Promise.all(batches.map((batch) => lostArkApi.getMarketPrices(batch)))
       .then((results) => {
-        if (active) setMarketPrices(Object.assign({}, ...results))
+        if (active)
+          setMarketPrices((previous) => ({ ...previous, ...Object.assign({}, ...results) }))
       })
-      .catch(() => {
-        if (active) setMarketPrices({})
-      })
+      .catch(() => {})
       .finally(() => {
         if (active) setMarketLoading(false)
       })
     return () => {
       active = false
     }
-  }, [priceRefreshTick])
+  }, [priceRefreshTick, activeCategory])
 
   const categoryFilters = [
     { id: 'all', name: '전체' },

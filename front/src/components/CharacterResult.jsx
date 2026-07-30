@@ -25,6 +25,7 @@ import AvatarOverview from './AvatarOverview'
 import RosterAchievementPanel from './RosterAchievementPanel'
 import { cleanApiText } from '../lib/text'
 import { getEngravingIcon } from '../lib/engravingIcons'
+import { useCooldownSeconds } from '../lib/useCooldownSeconds'
 
 // 스킬 tab folded into 전투정보's own 스킬 category (see BattleOverview).
 const tabs = [
@@ -52,11 +53,11 @@ export default function CharacterResult({
   onCharacterRefresh,
   characterRefreshing,
   characterRefreshError,
-  characterRefreshCooldown,
+  characterRefreshCooldownUntil,
   onRosterRefresh,
   rosterRefreshing,
   rosterError,
-  rosterRefreshCooldown,
+  rosterRefreshCooldownUntil,
 }) {
   const [params, setParams] = useSearchParams()
   const requestedTab = params.get('tab') || 'overview'
@@ -71,7 +72,13 @@ export default function CharacterResult({
   const cards = armory.ArmoryCard?.Cards || []
   const cardEffects = armory.ArmoryCard?.Effects || []
   const avatars = armory.ArmoryAvatars || []
-  const skills = (armory.ArmorySkills || []).filter((skill) => skill.Level > 1 || skill.Rune)
+  // Memoized so a stable reference survives the 1s cooldown-timer re-render below —
+  // otherwise every downstream useMemo keyed on `skills` (accessory damage calc, etc.)
+  // would recompute every second even though the underlying armory data hasn't changed.
+  const skills = useMemo(
+    () => (armory.ArmorySkills || []).filter((skill) => skill.Level > 1 || skill.Rune),
+    [armory],
+  )
   const collectibles = armory.Collectibles || []
   const siblings = data.siblings || []
   const stats = Object.fromEntries((profile.Stats || []).map((item) => [item.Type, item.Value]))
@@ -92,7 +99,7 @@ export default function CharacterResult({
           siblings={siblings}
           onRefresh={onCharacterRefresh}
           refreshing={characterRefreshing}
-          refreshCooldown={characterRefreshCooldown}
+          refreshCooldownUntil={characterRefreshCooldownUntil}
         />
         <RosterAchievementPanel discoveries={data.discoveries} stats={stats} armory={armory} />
       </div>
@@ -130,7 +137,7 @@ export default function CharacterResult({
           onSearch={onSiblingSearch}
           onRefresh={onRosterRefresh}
           refreshing={rosterRefreshing}
-          refreshCooldown={rosterRefreshCooldown}
+          refreshCooldownUntil={rosterRefreshCooldownUntil}
           error={rosterError}
         />
       )}
@@ -615,7 +622,7 @@ function ExpeditionTab({
   onSearch,
   onRefresh,
   refreshing,
-  refreshCooldown,
+  refreshCooldownUntil,
   error,
 }) {
   return (
@@ -626,14 +633,11 @@ function ExpeditionTab({
           <span>같은 원정대에 소속된 캐릭터</span>
         </div>
         <div className="expedition-tab-actions">
-          <button type="button" onClick={onRefresh} disabled={refreshing || refreshCooldown > 0}>
-            <RefreshCw className={refreshing ? 'spin' : ''} />
-            {refreshing
-              ? '원정대 갱신 중'
-              : refreshCooldown > 0
-                ? `${refreshCooldown}초 후 갱신`
-                : '원정대 전체 갱신'}
-          </button>
+          <RosterRefreshButton
+            onRefresh={onRefresh}
+            refreshing={refreshing}
+            refreshCooldownUntil={refreshCooldownUntil}
+          />
           <div className="server-select">
             <select value={server} onChange={(e) => setServer(e.target.value)}>
               {servers.map((item) => (
@@ -671,6 +675,23 @@ function ExpeditionTab({
           ))}
       </div>
     </section>
+  )
+}
+
+// Owns its own 1s cooldown timer (via useCooldownSeconds) so only this button re-renders
+// each second, instead of the roster refresh cooldown driving a re-render of the whole
+// character page.
+function RosterRefreshButton({ onRefresh, refreshing, refreshCooldownUntil }) {
+  const refreshCooldown = useCooldownSeconds(refreshCooldownUntil)
+  return (
+    <button type="button" onClick={onRefresh} disabled={refreshing || refreshCooldown > 0}>
+      <RefreshCw className={refreshing ? 'spin' : ''} />
+      {refreshing
+        ? '원정대 갱신 중'
+        : refreshCooldown > 0
+          ? `${refreshCooldown}초 후 갱신`
+          : '원정대 전체 갱신'}
+    </button>
   )
 }
 

@@ -22,6 +22,7 @@ import java.util.HexFormat;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
@@ -38,6 +39,7 @@ public class CharacterDailyRefreshService {
     private final int rateLimitReserve;
     private final int batchSize;
     private final int maxRetries;
+    private final ExecutorService backgroundJobExecutor;
     private final AtomicBoolean running = new AtomicBoolean();
 
     private volatile CharacterList characterList;
@@ -47,6 +49,7 @@ public class CharacterDailyRefreshService {
             PersistentApiCache persistentCache,
             LostArkApiRequestCounter requestCounter,
             ObjectMapper objectMapper,
+            ExecutorService backgroundJobExecutor,
             @Value("${app.character-daily-refresh.enabled:false}") boolean enabled,
             @Value("${app.character-daily-refresh.rate-limit-reserve:10}") int rateLimitReserve,
             @Value("${app.character-daily-refresh.batch-size:100}") int batchSize,
@@ -56,6 +59,7 @@ public class CharacterDailyRefreshService {
         this.persistentCache = persistentCache;
         this.requestCounter = requestCounter;
         this.objectMapper = objectMapper;
+        this.backgroundJobExecutor = backgroundJobExecutor;
         this.enabled = enabled;
         this.rateLimitReserve = Math.max(0, rateLimitReserve);
         this.batchSize = Math.max(1, batchSize);
@@ -68,6 +72,10 @@ public class CharacterDailyRefreshService {
     )
     void refreshNextBatch() {
         if (!enabled || !running.compareAndSet(false, true)) return;
+        backgroundJobExecutor.execute(this::runNextBatch);
+    }
+
+    private void runNextBatch() {
         try {
             CharacterList source = characterList();
             if (source.names().isEmpty()) {

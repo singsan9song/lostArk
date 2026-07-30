@@ -16,6 +16,31 @@ import conditionalStackData from '../data/damage-analysis-conditional-stacks.jso
 import invenSkillConstants from '../data/lostark_inven_skill_constants.json'
 import '../damage-analysis.css'
 
+// Small reference-equality LRU cache for the heaviest tooltip-parsing breakdown functions
+// below. The component re-renders on every UI toggle (show/hide detail panels, etc.) with the
+// same armory/profile/skill references, so most calls to these functions are pure repeats of
+// the last few argument combinations - caching them here (at the function definition, not the
+// call site) speeds that up without touching any call site, hook, or the function bodies
+// themselves. A cache miss (genuinely new arguments) just falls back to a normal call.
+function memoizeN(fn, size = 6) {
+  const entries = []
+  return (...args) => {
+    const index = entries.findIndex(
+      (entry) =>
+        entry.args.length === args.length && entry.args.every((value, i) => value === args[i]),
+    )
+    if (index !== -1) {
+      const [hit] = entries.splice(index, 1)
+      entries.unshift(hit)
+      return hit.result
+    }
+    const result = fn(...args)
+    entries.unshift({ args, result })
+    if (entries.length > size) entries.pop()
+    return result
+  }
+}
+
 // "최대 N중첩" 조건부 중 항상 적용된다고 데이터화해둔 것들 — 아이템 이름이
 // 아니라 문장 패턴으로 구분한다(같은 문장 구조가 다른 캐릭터의 다른 아이템에도
 // 나올 수 있어서). front/src/data/damage-analysis-conditional-stacks.json의
@@ -3581,6 +3606,22 @@ const variableGroups = [
     ],
   },
 ]
+
+// Cached wrappers for the heaviest tooltip-scanning breakdown functions, used only inside the
+// component below - see memoizeN's comment above. Call sites just swap the plain function name
+// for the "Cached" one; arguments and return values are unchanged.
+const attackPowerBreakdownCached = memoizeN(attackPowerBreakdown)
+const weaponAttackBreakdownCached = memoizeN(weaponAttackBreakdown)
+const additionalDamageBreakdownCached = memoizeN(additionalDamageBreakdown)
+const outgoingDamageBreakdownCached = memoizeN(outgoingDamageBreakdown)
+// mainStatBreakdown is NOT wrapped here: its third argument is a fresh object literal built at
+// every call site, so reference-equality caching would never hit anyway.
+const arkPassiveTierDamageBreakdownCached = memoizeN(arkPassiveTierDamageBreakdown)
+const baseAttackRateBreakdownCached = memoizeN(baseAttackRateBreakdown)
+const critRateFactsCached = memoizeN(critRateFacts)
+const critDamageBreakdownCached = memoizeN(critDamageBreakdown)
+const gemFactsCached = memoizeN(gemFacts)
+
 export default function DamageAnalysis({ armory, profile, skills, siblings, onHover }) {
   const { user } = useAuth()
   const [selectedName, setSelectedName] = useState(skills[0]?.Name || '')
@@ -3869,9 +3910,9 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
       )
     : null
   const tripods = selectedTripods(skill)
-  const gems = gemFacts(armory, skill.Name)
+  const gems = gemFactsCached(armory, skill.Name)
   const arkGridEffects = armory?.ArkGrid?.Effects || []
-  const weaponAttackBase = weaponAttackBreakdown(armory)
+  const weaponAttackBase = weaponAttackBreakdownCached(armory)
   const weaponAttackFeastSource = weaponAttackFeastEnabled
     ? {
         kind: 'flat',
@@ -3906,8 +3947,8 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
   const mainStat = { name: mainStatData.mainStatName, value: mainStatData.mainStatFinal }
   const attack = stats['공격력']
 
-  const baseAttackRate = baseAttackRateBreakdown(armory)
-  const attackPower = attackPowerBreakdown(armory)
+  const baseAttackRate = baseAttackRateBreakdownCached(armory)
+  const attackPower = attackPowerBreakdownCached(armory)
   const adrenalineAttackSources = attackPower.conditional
     .map((source, index) => ({ source, key: conditionalSourceKey('attack', source, index) }))
     .filter(({ source, key }) => source.itemName === '아드레날린' && enabledConditionalKeys.has(key))
@@ -3948,7 +3989,7 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
     EMPTY_CONDITIONAL_KEYS,
   )
 
-  const additionalDamage = additionalDamageBreakdown(armory)
+  const additionalDamage = additionalDamageBreakdownCached(armory)
   // deal.html의 ADDITIONAL_DAMAGE는 무기/장신구/팔찌/펫 추가 피해를 전부 더한
   // 값이라, 섹션별 소계 대신 모든 출처를 한 목록에 그대로 나열해 하나의
   // 합계로 보여준다 (무기 아이템·아크그리드 젬처럼 서로 다른 출처를 한 줄로
@@ -3966,28 +4007,28 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
   const engravingDamage = engravingDamageFacts(armory)
   const massIncreaseDamage = massIncreaseDamageFacts(armory)
   const raidCaptainDamage = raidCaptainDamageFacts(armory, moveSpeed.total)
-  const evolutionDamage = arkPassiveTierDamageBreakdown(
+  const evolutionDamage = arkPassiveTierDamageBreakdownCached(
     armory,
     '진화',
     skill.Name,
     selectedSkillCategory,
     skill,
   )
-  const enlightenmentDamage = arkPassiveTierDamageBreakdown(
+  const enlightenmentDamage = arkPassiveTierDamageBreakdownCached(
     armory,
     '깨달음',
     skill.Name,
     selectedSkillCategory,
     skill,
   )
-  const leapDamage = arkPassiveTierDamageBreakdown(
+  const leapDamage = arkPassiveTierDamageBreakdownCached(
     armory,
     '도약',
     skill.Name,
     selectedSkillCategory,
     skill,
   )
-  const outgoingDamage = outgoingDamageBreakdown(
+  const outgoingDamage = outgoingDamageBreakdownCached(
     armory,
     skill.Name,
     selectedSkillCategory,
@@ -4079,9 +4120,9 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
   const receivedDamageMultiplier = 1 + receivedDamage.total / 100
   const characterSkillSynergies = skillSynergyEffects(skills)
 
-  const critDamage = critDamageBreakdown(armory)
+  const critDamage = critDamageBreakdownCached(armory)
   const critHitBracelet = critHitBraceletFacts(armory)
-  const critRate = critRateFacts(armory, combatStats.critical, selectedSkillCategory)
+  const critRate = critRateFactsCached(armory, combatStats.critical, selectedSkillCategory)
   // 6번 치명타 피해는 기본 200%에 치명타 피해 증가분을 합연산한다.
   // 7번 "치명타 시 주는 피해"는 치명타 피해와 다른 별도 곱연산 항이다.
   const critDamageItems = [

@@ -18,6 +18,7 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
 
 @Service
 public class AbilityStoneAuctionService {
@@ -34,15 +35,18 @@ public class AbilityStoneAuctionService {
     private final Cache<String, AbilityStoneAuctionValue> cache;
     private final Cache<String, Long> configurationPriceCache;
     private final AbilityStonePriceObservationRepository observations;
+    private final ExecutorService backgroundJobExecutor;
 
     public AbilityStoneAuctionService(RestClient lostArkRestClient, PersistentApiCache persistentCache,
                                       AbilityStonePriceObservationRepository observations,
                                       ObjectMapper objectMapper,
+                                      ExecutorService backgroundJobExecutor,
                                       @Value("${app.auction-cache-ttl-seconds:900}") long ttlSeconds) {
         this.client = lostArkRestClient;
         this.persistentCache = persistentCache;
         this.objectMapper = objectMapper;
         this.observations = observations;
+        this.backgroundJobExecutor = backgroundJobExecutor;
         Caffeine<Object, Object> builder = Caffeine.newBuilder().maximumSize(2);
         if (ttlSeconds > 0) builder.expireAfterWrite(Duration.ofSeconds(ttlSeconds));
         this.cache = builder.build();
@@ -71,7 +75,11 @@ public class AbilityStoneAuctionService {
             fixedRateString = "${app.ability-stone-refresh-interval-ms:60000}",
             initialDelayString = "${app.ability-stone-refresh-initial-delay-ms:5000}"
     )
-    synchronized void refreshValue() {
+    void refreshValue() {
+        backgroundJobExecutor.execute(this::doRefreshValue);
+    }
+
+    private synchronized void doRefreshValue() {
         try {
             configurationPriceCache.invalidateAll();
             AbilityStoneAuctionValue value = load();

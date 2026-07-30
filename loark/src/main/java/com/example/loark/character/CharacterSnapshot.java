@@ -36,6 +36,12 @@ public class CharacterSnapshot {
     @Column(name = "item_level", length = 20, nullable = false)
     private String itemLevel;
 
+    // Populated going forward so growth-history reads don't need to fetch and JSON-parse
+    // armory_payload (LONGTEXT) just to read combat power. Nullable because rows written
+    // before this column existed have no value here.
+    @Column(name = "combat_power", length = 30)
+    private String combatPower;
+
     @Column(name = "title", length = 100, nullable = false)
     private String title;
 
@@ -55,13 +61,14 @@ public class CharacterSnapshot {
     protected CharacterSnapshot() {}
 
     public CharacterSnapshot(String characterName, String serverName, String className, int characterLevel,
-                             String itemLevel, String title, String rosterKey, String contentHash,
-                             String armoryPayload, Instant fetchedAt) {
+                             String itemLevel, String combatPower, String title, String rosterKey,
+                             String contentHash, String armoryPayload, Instant fetchedAt) {
         this.characterName = characterName;
         this.serverName = serverName;
         this.className = className;
         this.characterLevel = characterLevel;
         this.itemLevel = itemLevel;
+        this.combatPower = combatPower;
         this.title = title;
         this.rosterKey = rosterKey;
         this.contentHash = contentHash;
@@ -75,5 +82,6 @@ public class CharacterSnapshot {
     public String getContentHash() { return contentHash; }
     public String getRosterKey() { return rosterKey; }
     public String getItemLevel() { return itemLevel; }
+    public String getCombatPower() { return combatPower; }
     public Instant getFetchedAt() { return fetchedAt; }
 }

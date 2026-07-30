@@ -81,6 +81,23 @@ public class CharacterService {
     }
 
     /**
+     * Equipment-only read for the honing pages (일반/상급/통합 재련), which only need the
+     * 6 honable slots. Unlike find()/refreshCharacter(), this never writes a DB snapshot
+     * or fetches roster/discoveries/growth history - it exists purely to avoid paying for
+     * the full character bundle when only ArmoryEquipment is needed.
+     */
+    public JsonNode equipmentSnapshot(String characterName) {
+        JsonNode armory = get("/armories/characters/{name}", characterName);
+        if (armory == null || armory.path("ArmoryProfile").isMissingNode()
+                || armory.path("ArmoryProfile").isNull()) {
+            throw new LostArkApiException(HttpStatus.NOT_FOUND, "캐릭터를 찾을 수 없습니다.");
+        }
+        ObjectNode result = objectMapper.createObjectNode();
+        result.putObject("armory").set("ArmoryEquipment", armory.path("ArmoryEquipment"));
+        return result;
+    }
+
+    /**
      * Explicitly refreshes the roster in one user action. The siblings list is
      * fetched once and member armories are fetched concurrently. Successful
      * members are persisted as one coherent roster snapshot; a failed member
@@ -144,17 +161,37 @@ public class CharacterService {
         CharacterRankingClassifier.Classification classification =
                 rankingClassifier.classify(armory, profile.path("CharacterClassName").asText(""));
         character.updateRanking(classification.engraving(), classification.role(), fetchedAt);
-        gameCharacters.save(character);
+
+        List<JsonNode> memberNodes = new java.util.ArrayList<>();
         siblings.forEach(member -> {
             String memberName = member.path("CharacterName").asText("");
-            if (memberName.isBlank()) return;
-            GameCharacter rosterCharacter = gameCharacters.findByCharacterNameIgnoreCase(memberName)
-                    .orElseGet(() -> new GameCharacter(memberName));
+            // The canonical character is already tracked via `character` above; re-processing
+            // it here as a "member" would load a second, detached copy of the same row and
+            // collide on the unique character_name constraint when both are saved.
+            if (!memberName.isBlank() && !memberName.equalsIgnoreCase(canonicalName)) memberNodes.add(member);
+        });
+        Map<String, GameCharacter> existingMembers = memberNodes.isEmpty()
+                ? Map.of()
+                : gameCharacters.findByCharacterNameLowerIn(memberNodes.stream()
+                        .map(member -> member.path("CharacterName").asText("").toLowerCase())
+                        .distinct()
+                        .toList()).stream()
+                    .collect(java.util.stream.Collectors.toMap(
+                            gc -> gc.getCharacterName().toLowerCase(), gc -> gc, (a, b) -> a));
+
+        List<GameCharacter> charactersToSave = new java.util.ArrayList<>();
+        charactersToSave.add(character);
+        for (JsonNode member : memberNodes) {
+            String memberName = member.path("CharacterName").asText("");
+            GameCharacter rosterCharacter = existingMembers.getOrDefault(memberName.toLowerCase(),
+                    new GameCharacter(memberName));
             rosterCharacter.observe(member.path("ServerName").asText(""), member.path("CharacterClassName").asText(""),
                     member.path("CharacterLevel").asInt(0), member.path("ItemAvgLevel").asText(""),
                     null, null, rosterKey, fetchedAt);
-            gameCharacters.save(rosterCharacter);
-        });
+            charactersToSave.add(rosterCharacter);
+        }
+        gameCharacters.saveAll(charactersToSave);
+
         if (snapshots.findTopByCharacterNameIgnoreCaseOrderByFetchedAtDesc(canonicalName)
                 .map(snapshot -> contentHash.equals(snapshot.getContentHash())).orElse(false)) return rosterKey;
         CharacterSnapshot snapshot = snapshots.save(new CharacterSnapshot(
@@ -163,24 +200,29 @@ public class CharacterService {
                 profile.path("CharacterClassName").asText(""),
                 profile.path("CharacterLevel").asInt(0),
                 profile.path("ItemAvgLevel").asText(""),
+                profile.path("CombatPower").asText(""),
                 profile.path("Title").asText(""),
                 rosterKey,
                 contentHash,
                 armory.toString(),
                 fetchedAt
         ));
-        siblings.forEach(member -> rosterMembers.save(new CharacterRosterMember(
+        List<CharacterRosterMember> rosterMemberRows = new java.util.ArrayList<>();
+        siblings.forEach(member -> rosterMemberRows.add(new CharacterRosterMember(
                 snapshot.getId(), rosterKey, member.path("CharacterName").asText(""),
                 member.path("ServerName").asText(""), member.path("CharacterClassName").asText(""),
                 member.path("CharacterLevel").asInt(0), member.path("ItemAvgLevel").asText(""),
                 member.path("ItemMaxLevel").asText(""), fetchedAt)));
+        rosterMembers.saveAll(rosterMemberRows);
         java.util.Set<String> observedCardSets = new java.util.LinkedHashSet<>();
         armory.path("ArmoryCard").path("Effects").forEach(effect -> effect.path("Items").forEach(item -> {
             String name = item.path("Name").asText("").trim();
             if (!name.isBlank()) observedCardSets.add(name);
         }));
-        observedCardSets.forEach(name -> cardSets.save(new CharacterCardSetObservation(
-                snapshot.getId(), rosterKey, canonicalName, name, fetchedAt)));
+        List<CharacterCardSetObservation> cardSetRows = observedCardSets.stream()
+                .map(name -> new CharacterCardSetObservation(snapshot.getId(), rosterKey, canonicalName, name, fetchedAt))
+                .toList();
+        cardSets.saveAll(cardSetRows);
         return rosterKey;
     }
 
@@ -254,19 +296,12 @@ public class CharacterService {
     }
 
     private List<CharacterGrowthRecord> growthHistory(String characterName) {
-        return snapshots.findByCharacterNameIgnoreCaseOrderByFetchedAtAsc(characterName).stream()
+        return snapshots.findGrowthByCharacterNameIgnoreCaseOrderByFetchedAtAsc(characterName).stream()
                 .map(snapshot -> new CharacterGrowthRecord(
-                        snapshot.getItemLevel(), snapshotCombatPower(snapshot), snapshot.getFetchedAt()))
+                        snapshot.getItemLevel(),
+                        snapshot.getCombatPower() == null ? "" : snapshot.getCombatPower(),
+                        snapshot.getFetchedAt()))
                 .toList();
-    }
-
-    private String snapshotCombatPower(CharacterSnapshot snapshot) {
-        try {
-            return objectMapper.readTree(snapshot.getArmoryPayload())
-                    .path("ArmoryProfile").path("CombatPower").asText("");
-        } catch (Exception ignored) {
-            return "";
-        }
     }
 
     private String rosterKey(String characterName, JsonNode siblings) {

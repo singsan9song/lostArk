@@ -340,10 +340,27 @@ export default function AccessoryComparison({
     (sum, option) => sum + (Number(option.share) || 0),
     0,
   )
-  const strongerAuctionResults = useMemo(
-    () =>
-      auctionResults
-        .map((item) => {
+  // All auctionResults (up to 100) must be scored to know which ones beat the current
+  // accessory - unlike other lists here, this can't be truncated to "the first N" without
+  // silently dropping valid matches. Instead, the same synchronous calculateAccessoryReplacement
+  // work is chunked across multiple macrotasks (via setTimeout yields) so the main thread
+  // gets control back between chunks instead of freezing the page for one long calculation.
+  const [strongerAuctionResults, setStrongerAuctionResults] = useState([])
+  const [strongerResultsComputing, setStrongerResultsComputing] = useState(false)
+  useEffect(() => {
+    let cancelled = false
+    const CHUNK_SIZE = 10
+
+    async function computeStrongerResults() {
+      if (!auctionResults.length) {
+        setStrongerAuctionResults([])
+        return
+      }
+      setStrongerResultsComputing(true)
+      const scored = []
+      for (let start = 0; start < auctionResults.length; start += CHUNK_SIZE) {
+        if (cancelled) return
+        auctionResults.slice(start, start + CHUNK_SIZE).forEach((item) => {
           const effects = candidateEffects({
             structured: true,
             auctionItem: item,
@@ -360,33 +377,46 @@ export default function AccessoryComparison({
             quality: item.quality,
             lines: effects.map((effect) => effect.line).filter(Boolean),
           })
-          return {
+          scored.push({
             ...item,
             optionShareTotal: result.options.reduce(
               (sum, option) => sum + (Number(option.share) || 0),
               0,
             ),
             replacementTotal: result.total,
-          }
+          })
         })
-        .filter(
+        if (start + CHUNK_SIZE < auctionResults.length) {
+          await new Promise((resolve) => setTimeout(resolve, 0))
+        }
+      }
+      if (cancelled) return
+      setStrongerAuctionResults(
+        scored.filter(
           (item) =>
             item.replacementTotal != null &&
             item.replacementTotal > 0 &&
             item.optionShareTotal > currentOptionShareTotal,
         ),
-    [
-      auctionResults,
-      currentMainStatName,
-      currentOptionShareTotal,
-      armory,
-      profile,
-      skills,
-      skillName,
-      siblings,
-      selectedEquipmentIndex,
-    ],
-  )
+      )
+      setStrongerResultsComputing(false)
+    }
+
+    computeStrongerResults()
+    return () => {
+      cancelled = true
+    }
+  }, [
+    auctionResults,
+    currentMainStatName,
+    currentOptionShareTotal,
+    armory,
+    profile,
+    skills,
+    skillName,
+    siblings,
+    selectedEquipmentIndex,
+  ])
 
   useEffect(() => {
     if (!currentCandidates.some((candidate) => candidate.id === selectedCandidateId)) {
@@ -891,8 +921,14 @@ export default function AccessoryComparison({
               {auctionError && <p className="accessory-auction-error">{auctionError}</p>}
               {!auctionLoading && !auctionError && auctionResults.length > 0 && (
                 <p className="accessory-auction-result-summary">
-                  검색 {auctionResults.length}개 중 현재 악세보다 딜 + 총합이 높은{' '}
-                  <b>{strongerAuctionResults.length}개</b>만 표시합니다.
+                  {strongerResultsComputing ? (
+                    '검색 결과와 현재 악세를 비교하는 중...'
+                  ) : (
+                    <>
+                      검색 {auctionResults.length}개 중 현재 악세보다 딜 + 총합이 높은{' '}
+                      <b>{strongerAuctionResults.length}개</b>만 표시합니다.
+                    </>
+                  )}
                 </p>
               )}
               <div className="accessory-auction-results">
@@ -937,6 +973,7 @@ export default function AccessoryComparison({
                 )}
                 {!auctionLoading &&
                   !auctionError &&
+                  !strongerResultsComputing &&
                   auctionResults.length > 0 &&
                   !strongerAuctionResults.length && (
                     <p>현재 악세보다 딜 + 총합이 높은 검색 결과가 없습니다.</p>

@@ -176,7 +176,7 @@ export default function MariShopPage() {
       </nav>
       <header className="efficiency-hero mari-shop-hero">
         <div className="efficiency-hero-icon mari-shop-heading-art">
-          <img src="/images/rewards/sprite_shop.PNG" alt="" />
+          <img loading="lazy" src="/images/rewards/sprite_shop.PNG" alt="" />
         </div>
         <div className="mari-shop-heading-copy">
           <p>MARI'S SECRET SHOP</p>
@@ -190,7 +190,7 @@ export default function MariShopPage() {
           <small>매일 오전 6시 · 오후 6시</small>
           <label className={includePheonCost ? 'mari-pheon-toggle active' : 'mari-pheon-toggle'}>
             <span className="legendary">
-              <img src={pheonData.image} alt="페온" />
+              <img loading="lazy" src={pheonData.image} alt="페온" />
             </span>
             <b>페온 가치 포함</b>
             <input
@@ -264,7 +264,7 @@ export default function MariShopPage() {
                     key={`${rotation.goodsVersion}-${product.itemCode}`}
                   >
                     <span className={`mari-product-icon ${gradeClass(product.grade)}`}>
-                      {product.icon ? <img src={product.icon} alt="" /> : <ShoppingBag />}
+                      {product.icon ? <img loading="lazy" src={product.icon} alt="" /> : <ShoppingBag />}
                     </span>
                     <div>
                       <small>{product.grade || '등급 정보 없음'}</small>

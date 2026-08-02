@@ -36,8 +36,10 @@ public class CharacterDailyRefreshService {
     private final LostArkApiRequestCounter requestCounter;
     private final ObjectMapper objectMapper;
     private final boolean enabled;
+    private final boolean continuous;
     private final int rateLimitReserve;
     private final int batchSize;
+    private final int maxRequestsPerMinute;
     private final int maxRetries;
     private final ExecutorService backgroundJobExecutor;
     private final AtomicBoolean running = new AtomicBoolean();
@@ -51,8 +53,10 @@ public class CharacterDailyRefreshService {
             ObjectMapper objectMapper,
             ExecutorService backgroundJobExecutor,
             @Value("${app.character-daily-refresh.enabled:false}") boolean enabled,
+            @Value("${app.character-daily-refresh.continuous:false}") boolean continuous,
             @Value("${app.character-daily-refresh.rate-limit-reserve:10}") int rateLimitReserve,
             @Value("${app.character-daily-refresh.batch-size:100}") int batchSize,
+            @Value("${app.character-daily-refresh.max-requests-per-minute:1000}") int maxRequestsPerMinute,
             @Value("${app.character-daily-refresh.max-retries:3}") int maxRetries
     ) {
         this.characterService = characterService;
@@ -61,8 +65,10 @@ public class CharacterDailyRefreshService {
         this.objectMapper = objectMapper;
         this.backgroundJobExecutor = backgroundJobExecutor;
         this.enabled = enabled;
+        this.continuous = continuous;
         this.rateLimitReserve = Math.max(0, rateLimitReserve);
         this.batchSize = Math.max(1, batchSize);
+        this.maxRequestsPerMinute = Math.max(1, maxRequestsPerMinute);
         this.maxRetries = Math.max(1, maxRetries);
     }
 
@@ -85,7 +91,8 @@ public class CharacterDailyRefreshService {
             }
 
             RefreshProgress progress = progressFor(source);
-            if (progress.completed() && LocalDate.now(KOREA).toString().equals(progress.runDate())) return;
+            if (progress.completed() && !continuous
+                    && LocalDate.now(KOREA).toString().equals(progress.runDate())) return;
             if (progress.completed()) {
                 progress = RefreshProgress.start(LocalDate.now(KOREA), source);
                 saveProgress(progress);
@@ -97,6 +104,7 @@ public class CharacterDailyRefreshService {
 
             int processed = 0;
             while (processed < batchSize && !progress.completed()) {
+                if (requestCounter.status().count() >= maxRequestsPerMinute) return;
                 if (!requestCounter.hasCapacity(rateLimitReserve)) return;
 
                 String characterName = source.names().get(progress.nextIndex());

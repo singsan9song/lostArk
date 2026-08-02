@@ -106,6 +106,25 @@ export default function ItemTooltip({ item, left: itemLeft, right: itemRight, to
   )
 }
 
+export function InlineItemTooltip({ item, className = '' }) {
+  if (!item?.Tooltip) return null
+  const nodes = parseTooltip(item.Tooltip)
+  if (!nodes.length) return null
+  const isSkill = nodes.some((node) => node.type === 'CommonSkillTitle')
+  return (
+    <div
+      className={`game-tooltip ${
+        isSkill ? 'game-tooltip-skill' : 'game-tooltip-item'
+      } game-tooltip-inline ${className}`.trim()}
+      data-grade={isSkill ? undefined : (gradeDataNumber[item.Grade] ?? '')}
+    >
+      {nodes.map((node) => (
+        <TooltipNode node={node} key={node.key} />
+      ))}
+    </div>
+  )
+}
+
 function TooltipNode({ node }) {
   switch (node.type) {
     case 'NameTagBox':
@@ -166,7 +185,7 @@ function ItemTitleNode({ value }) {
           data-grade={value.slotData.iconGrade}
           data-pet-border={value.slotData.petBorder ?? 0}
         >
-          <img src={iconSrc(value.slotData.iconPath)} alt="" />
+          <img loading="lazy" src={iconSrc(value.slotData.iconPath)} alt="" />
         </span>
       )}
       {html(value.leftStr0) && (
@@ -199,7 +218,7 @@ function CommonSkillTitleNode({ value }) {
     <div className="CommonSkillTitle">
       {value.slotData?.iconPath && (
         <span className="slotData" data-grade={value.slotData.iconGrade}>
-          <img src={iconSrc(value.slotData.iconPath)} alt="" />
+          <img loading="lazy" src={iconSrc(value.slotData.iconPath)} alt="" />
         </span>
       )}
       <span className="name" dangerouslySetInnerHTML={{ __html: toSafeHtml(value.name) }} />
@@ -220,7 +239,7 @@ function TripodSkillCustomNode({ value }) {
         <div key={index}>
           {tripod.slotData?.iconPath && (
             <span className="slotData" data-grade={tripod.slotData.iconGrade}>
-              <img src={iconSrc(tripod.slotData.iconPath)} alt="" />
+              <img loading="lazy" src={iconSrc(tripod.slotData.iconPath)} alt="" />
             </span>
           )}
           <span className="name" dangerouslySetInnerHTML={{ __html: toSafeHtml(tripod.name) }} />

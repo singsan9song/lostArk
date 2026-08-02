@@ -3,6 +3,8 @@ package com.example.loark.character;
 import com.example.loark.config.LostArkRequestContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientResponseException;
 import tools.jackson.databind.JsonNode;
@@ -28,13 +30,15 @@ public class CharacterService {
     private final GameCharacterRepository gameCharacters;
     private final CharacterRankingClassifier rankingClassifier;
     private final ObjectMapper objectMapper;
+    private final TransactionTemplate transactionTemplate;
 
     public CharacterService(RestClient lostArkRestClient, CharacterSnapshotRepository snapshots,
                             CharacterRosterMemberRepository rosterMembers,
                             CharacterCardSetObservationRepository cardSets,
                             GameCharacterRepository gameCharacters,
                             CharacterRankingClassifier rankingClassifier,
-                            ObjectMapper objectMapper) {
+                            ObjectMapper objectMapper,
+                            PlatformTransactionManager transactionManager) {
         this.client = lostArkRestClient;
         this.snapshots = snapshots;
         this.rosterMembers = rosterMembers;
@@ -42,17 +46,22 @@ public class CharacterService {
         this.gameCharacters = gameCharacters;
         this.rankingClassifier = rankingClassifier;
         this.objectMapper = objectMapper;
+        // A plain @Transactional on saveSnapshot() wouldn't apply (it's called via internal
+        // self-invocation, which bypasses Spring's proxy-based AOP), and putting @Transactional
+        // on the public callers instead would hold a DB connection open across their external
+        // Lost Ark API calls. TransactionTemplate scopes the transaction to just the DB writes.
+        this.transactionTemplate = new TransactionTemplate(transactionManager);
     }
 
     /**
      * The requested character is always refreshed. Roster data is read from the
      * latest DB snapshot so opening the roster tab never fans out into one API
-     * call per member. Only a character that has never been observed needs the
-     * siblings endpoint during its first lookup.
+     * call per member. A normal lookup discovers the roster once when no stored
+     * roster exists; later roster API calls happen only through refreshRoster().
      */
     public CharacterResponse find(String characterName) {
         try {
-            return refreshCharacter(characterName);
+            return refreshCharacter(characterName, true);
         } catch (LostArkApiException error) {
             return latestSnapshot(characterName).orElseThrow(() -> error);
         }
@@ -63,6 +72,20 @@ public class CharacterService {
      * DB-first and is refreshed separately through refreshRoster.
      */
     public CharacterResponse refreshCharacter(String characterName) {
+        return refreshCharacter(characterName, false);
+    }
+
+    /**
+     * DB-only read used by the character page's initial paint: returns instantly
+     * without ever calling the (slow) Lost Ark API. Callers that need a forced
+     * live refresh (e.g. the roster "업데이트" button) must keep using find()/
+     * refreshCharacter() instead of this.
+     */
+    public java.util.Optional<CharacterResponse> cached(String characterName) {
+        return latestSnapshot(characterName);
+    }
+
+    private CharacterResponse refreshCharacter(String characterName, boolean discoverRosterIfMissing) {
         JsonNode armory = get("/armories/characters/{name}", characterName);
         if (armory == null || armory.path("ArmoryProfile").isMissingNode()
                 || armory.path("ArmoryProfile").isNull()) {
@@ -71,12 +94,14 @@ public class CharacterService {
 
         CharacterSnapshot rosterSnapshot = latestRosterSnapshot(characterName).orElse(null);
         JsonNode roster = rosterSnapshot == null
-                ? get("/characters/{name}/siblings", characterName)
+                ? discoverRosterIfMissing
+                    ? get("/characters/{name}/siblings", characterName)
+                    : JsonNodeFactory.instance.arrayNode()
                 : rosterFromSnapshot(rosterSnapshot);
         if (roster == null) roster = JsonNodeFactory.instance.arrayNode();
         Instant fetchedAt = Instant.now();
         String rosterKey = saveSnapshot(characterName, armory, roster, fetchedAt);
-        return new CharacterResponse(armory, withStoredImages(roster), false, fetchedAt, discoveries(rosterKey),
+        return new CharacterResponse(armory, withLatestStoredProfiles(roster), false, fetchedAt, discoveries(rosterKey),
                 growthHistory(armory.path("ArmoryProfile").path("CharacterName").asText(characterName)));
     }
 
@@ -143,17 +168,22 @@ public class CharacterService {
                     "현재 캐릭터 정보를 갱신하지 못했습니다.");
         }
         if (rosterKey == null) rosterKey = rosterKey(characterName, roster);
-        return new CharacterResponse(requestedArmory, withStoredImages(roster), false, fetchedAt,
+        return new CharacterResponse(requestedArmory, withLatestStoredProfiles(roster), false, fetchedAt,
                 discoveries(rosterKey), growthHistory(
                         requestedArmory.path("ArmoryProfile").path("CharacterName").asText(characterName)));
     }
 
     private String saveSnapshot(String requestedName, JsonNode armory, JsonNode siblings, Instant fetchedAt) {
+        return transactionTemplate.execute(status ->
+                saveSnapshotInTransaction(requestedName, armory, siblings, fetchedAt));
+    }
+
+    private String saveSnapshotInTransaction(String requestedName, JsonNode armory, JsonNode siblings, Instant fetchedAt) {
         JsonNode profile = armory.path("ArmoryProfile");
         String canonicalName = profile.path("CharacterName").asText(requestedName);
         String rosterKey = rosterKey(canonicalName, siblings);
         String contentHash = hash(armory.toString() + "\n" + siblings.toString());
-        GameCharacter character = gameCharacters.findByCharacterNameIgnoreCase(canonicalName)
+        GameCharacter character = gameCharacters.findByCharacterName(canonicalName)
                 .orElseGet(() -> new GameCharacter(canonicalName));
         character.observe(profile.path("ServerName").asText(""), profile.path("CharacterClassName").asText(""),
                 profile.path("CharacterLevel").asInt(0), profile.path("ItemAvgLevel").asText(""),
@@ -192,7 +222,7 @@ public class CharacterService {
         }
         gameCharacters.saveAll(charactersToSave);
 
-        if (snapshots.findTopByCharacterNameIgnoreCaseOrderByFetchedAtDesc(canonicalName)
+        if (snapshots.findTopByCharacterNameOrderByFetchedAtDesc(canonicalName)
                 .map(snapshot -> contentHash.equals(snapshot.getContentHash())).orElse(false)) return rosterKey;
         CharacterSnapshot snapshot = snapshots.save(new CharacterSnapshot(
                 canonicalName,
@@ -227,12 +257,12 @@ public class CharacterService {
     }
 
     private java.util.Optional<CharacterResponse> latestSnapshot(String characterName) {
-        return snapshots.findTopByCharacterNameIgnoreCaseOrderByFetchedAtDesc(characterName)
+        return snapshots.findTopByCharacterNameOrderByFetchedAtDesc(characterName)
                 .flatMap(snapshot -> {
                     try {
                         ArrayNode siblings = rosterFromSnapshot(snapshot);
                         return java.util.Optional.of(new CharacterResponse(
-                                objectMapper.readTree(snapshot.getArmoryPayload()), withStoredImages(siblings),
+                                objectMapper.readTree(snapshot.getArmoryPayload()), withLatestStoredProfiles(siblings),
                                 true,
                                 snapshot.getFetchedAt(),
                                 discoveries(snapshot.getRosterKey()),
@@ -249,9 +279,9 @@ public class CharacterService {
 
     private java.util.Optional<CharacterSnapshot> latestRosterSnapshot(String characterName) {
         java.util.Optional<CharacterSnapshot> direct =
-                snapshots.findTopByCharacterNameIgnoreCaseOrderByFetchedAtDesc(characterName);
+                snapshots.findTopByCharacterNameOrderByFetchedAtDesc(characterName);
         if (direct.isPresent()) return direct;
-        return gameCharacters.findByCharacterNameIgnoreCase(characterName)
+        return gameCharacters.findByCharacterName(characterName)
                 .map(GameCharacter::getRosterKey)
                 .filter(key -> key != null && !key.isBlank())
                 .flatMap(snapshots::findTopByRosterKeyOrderByFetchedAtDesc);
@@ -271,18 +301,44 @@ public class CharacterService {
         return siblings;
     }
 
-    private JsonNode withStoredImages(JsonNode siblings) {
+    private JsonNode withLatestStoredProfiles(JsonNode siblings) {
         ArrayNode result = objectMapper.createArrayNode();
         if (siblings == null) return result;
+        List<String> lowerNames = new java.util.ArrayList<>();
+        siblings.forEach(member -> {
+            String name = member.path("CharacterName").asText("").trim();
+            if (!name.isBlank()) lowerNames.add(name.toLowerCase());
+        });
+        Map<String, GameCharacter> latestByName = lowerNames.isEmpty()
+                ? Map.of()
+                : gameCharacters.findByCharacterNameLowerIn(lowerNames.stream().distinct().toList()).stream()
+                    .collect(java.util.stream.Collectors.toMap(
+                            character -> character.getCharacterName().toLowerCase(),
+                            character -> character,
+                            (first, second) -> first));
         siblings.forEach(member -> {
             ObjectNode row = member.isObject()
                     ? (ObjectNode) member.deepCopy()
                     : objectMapper.createObjectNode();
-            String name = member.path("CharacterName").asText("");
-            gameCharacters.findByCharacterNameIgnoreCase(name)
-                    .map(GameCharacter::getCharacterImage)
-                    .filter(image -> !image.isBlank())
-                    .ifPresent(image -> row.put("CharacterImage", image));
+            String name = member.path("CharacterName").asText("").trim();
+            GameCharacter latest = latestByName.get(name.toLowerCase());
+            if (latest != null) {
+                if (latest.getServerName() != null && !latest.getServerName().isBlank()) {
+                    row.put("ServerName", latest.getServerName());
+                }
+                if (latest.getClassName() != null && !latest.getClassName().isBlank()) {
+                    row.put("CharacterClassName", latest.getClassName());
+                }
+                if (latest.getCharacterLevel() > 0) {
+                    row.put("CharacterLevel", latest.getCharacterLevel());
+                }
+                if (latest.getItemLevel() != null && !latest.getItemLevel().isBlank()) {
+                    row.put("ItemAvgLevel", latest.getItemLevel());
+                }
+                if (latest.getCharacterImage() != null && !latest.getCharacterImage().isBlank()) {
+                    row.put("CharacterImage", latest.getCharacterImage());
+                }
+            }
             result.add(row);
         });
         return result;
@@ -296,7 +352,7 @@ public class CharacterService {
     }
 
     private List<CharacterGrowthRecord> growthHistory(String characterName) {
-        return snapshots.findGrowthByCharacterNameIgnoreCaseOrderByFetchedAtAsc(characterName).stream()
+        return snapshots.findGrowthByCharacterNameOrderByFetchedAtAsc(characterName).stream()
                 .map(snapshot -> new CharacterGrowthRecord(
                         snapshot.getItemLevel(),
                         snapshot.getCombatPower() == null ? "" : snapshot.getCombatPower(),

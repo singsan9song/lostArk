@@ -259,7 +259,7 @@ function ItemSearch({ onAdd, compact = false }) {
             onClick={() => onAdd(itemFromMarket(item))}
             key={`${item.id}-${item.grade}-${item.source}`}
           >
-            {item.icon ? <img src={item.icon} alt="" /> : <PackageOpen />}
+            {item.icon ? <img loading="lazy" src={item.icon} alt="" /> : <PackageOpen />}
             <span>
               <b>{item.name}</b>
               <small>
@@ -283,7 +283,7 @@ function ImagePicker({ value, onChange }) {
   return (
     <div className="other-image-picker">
       <button type="button" onClick={() => setOpen((current) => !current)}>
-        {value ? <img src={value} alt="" /> : <ImageIcon />}
+        {value ? <img loading="lazy" src={value} alt="" /> : <ImageIcon />}
         <span>{value ? '이미지 변경' : '이미지 선택 (선택사항)'}</span>
         <ChevronDown />
       </button>
@@ -311,7 +311,7 @@ function ImagePicker({ value, onChange }) {
               }}
               key={image}
             >
-              <img src={image} alt="" />
+              <img loading="lazy" src={image} alt="" />
             </button>
           ))}
         </div>

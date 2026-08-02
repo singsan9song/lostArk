@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import {
   Castle,
   Check,
@@ -131,7 +131,7 @@ const raidEntries = raidExtraData.categories.flatMap((category) =>
   })),
 )
 
-function RewardItem({ reward, prices, loading, upgradeLevels, onUpgrade }) {
+const RewardItem = memo(function RewardItem({ reward, prices, loading, upgradeLevels, onUpgrade }) {
   const valuedReward = upgradedReward(reward, upgradeLevels)
   const value = rewardMarketValue(reward, prices, upgradeLevels)
   const meta = rewardMeta(valuedReward, prices)
@@ -141,7 +141,7 @@ function RewardItem({ reward, prices, loading, upgradeLevels, onUpgrade }) {
   return (
     <div className="raid-reward-item">
       <i className={`raid-reward-icon ${gradeClass(meta.grade)}`}>
-        {meta.image ? <img src={meta.image} alt="" /> : <PackageOpen />}
+        {meta.image ? <img loading="lazy" src={meta.image} alt="" /> : <PackageOpen />}
       </i>
       <span>
         <b>{upgraded ? valuedReward.item : reward.item}</b>
@@ -175,7 +175,7 @@ function RewardItem({ reward, prices, loading, upgradeLevels, onUpgrade }) {
       </strong>
     </div>
   )
-}
+})
 
 function RaidSelectionResult({
   entry,
@@ -250,7 +250,7 @@ function RaidSelectionResult({
       >
         <div className="raid-overview-name">
           <i className={raidImage ? 'has-image' : ''}>
-            {raidImage ? <img src={raidImage} alt="" /> : <Swords />}
+            {raidImage ? <img loading="lazy" src={raidImage} alt="" /> : <Swords />}
           </i>
           <span>
             <small>{entry.category.name}</small>
@@ -606,7 +606,7 @@ export default function RaidExtraPage() {
       </nav>
       <header className="efficiency-hero raid-extra-hero">
         <div className="efficiency-hero-icon tool-page-art">
-          <img src="/images/etc/icon_asset1.png" alt="레이드 더보기 효율" />
+          <img loading="lazy" src="/images/etc/icon_asset1.png" alt="레이드 더보기 효율" />
         </div>
         <div>
           <p>RAID EXTRA REWARD</p>

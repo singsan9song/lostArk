@@ -468,7 +468,7 @@ export default function IntegratedHoningOptimizerPage() {
                     return (
                       <article key={material.name}>
                         <i className={gradeClass(meta.grade)}>
-                          {meta.image ? <img src={meta.image} alt="" /> : <PackageOpen />}
+                          {meta.image ? <img loading="lazy" src={meta.image} alt="" /> : <PackageOpen />}
                         </i>
                         <span>
                           <small>{material.name}</small>

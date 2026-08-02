@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import {
   Activity,
@@ -8,8 +8,10 @@ import {
   ChevronsRight,
   Clock3,
   Gauge,
+  ListTree,
   MessageCircle,
   Pencil,
+  Save,
   Search,
   Server,
 } from 'lucide-react'
@@ -17,7 +19,10 @@ import { adminApiRequestStreamUrl, lostArkApi } from '../lib/api'
 import { useAuth } from '../lib/auth'
 import { COMMUNITY_CATEGORIES, formatCommunityDate } from '../lib/community'
 import CommunityWriteModal from '../components/CommunityWriteModal'
+import DamageOptionDataPage from './DamageOptionDataPage'
 import '../community.css'
+
+const number = (value) => value.toLocaleString('ko-KR')
 
 export default function CommunityPage() {
   const { user } = useAuth()
@@ -180,7 +185,7 @@ export default function CommunityPage() {
               </span>
               <span className="community-col-author">
                 {post.authorAvatarUrl ? (
-                  <img src={post.authorAvatarUrl} alt="" />
+                  <img loading="lazy" src={post.authorAvatarUrl} alt="" />
                 ) : (
                   <i>
                     <MessageCircle />
@@ -280,6 +285,17 @@ function AdminApiStatusPanel() {
   const [historySearch, setHistorySearch] = useState('')
   const [searchResult, setSearchResult] = useState({ totalElements: 0, requests: [] })
   const [searchLoading, setSearchLoading] = useState(false)
+  const [mappingOpen, setMappingOpen] = useState(false)
+  const [mappingView, setMappingView] = useState('unclassified')
+  const [mappingLoading, setMappingLoading] = useState(false)
+  const [mappingError, setMappingError] = useState('')
+  const [mappingArmories, setMappingArmories] = useState([])
+  const [mappingCorpusKey, setMappingCorpusKey] = useState('')
+  const [mappingPage, setMappingPage] = useState(0)
+  const [mappingOptions, setMappingOptions] = useState([])
+  const [mappingOptionsLoading, setMappingOptionsLoading] = useState(true)
+  const [mappingClass, setMappingClass] = useState('')
+  const [mappingEngraving, setMappingEngraving] = useState('')
 
   useEffect(() => {
     const source = new EventSource(adminApiRequestStreamUrl, { withCredentials: true })
@@ -304,6 +320,30 @@ function AdminApiStatusPanel() {
   useEffect(() => {
     const timer = window.setInterval(() => setNow(Date.now()), 1000)
     return () => window.clearInterval(timer)
+  }, [])
+
+  useEffect(() => {
+    let active = true
+    setMappingOptionsLoading(true)
+    lostArkApi
+      .getAdminDamageOptionCorpusOptions()
+      .then((result) => {
+        if (!active) return
+        const classes = Array.isArray(result?.classes) ? result.classes : []
+        setMappingOptions(classes)
+        const firstClass = classes[0]
+        setMappingClass(firstClass?.className || '')
+        setMappingEngraving(firstClass?.engravings?.[0]?.engraving || '')
+      })
+      .catch((error) => {
+        if (active) setMappingError(error.message || '직업·각인 목록을 불러오지 못했습니다.')
+      })
+      .finally(() => {
+        if (active) setMappingOptionsLoading(false)
+      })
+    return () => {
+      active = false
+    }
   }, [])
 
   useEffect(() => {
@@ -401,7 +441,65 @@ function AdminApiStatusPanel() {
   const remaining = expired ? status.limit : status.remaining
   const resetSeconds = resetAt ? Math.max(0, Math.ceil((resetAt.getTime() - now) / 1000)) : 0
   const usagePercent = status.limit ? Math.min(100, (count / status.limit) * 100) : 0
-  const number = (value) => value.toLocaleString('ko-KR')
+  const selectedMappingClass = mappingOptions.find(
+    (option) => option.className === mappingClass,
+  )
+  const mappingEngravingOptions = selectedMappingClass?.engravings || []
+  const selectedMappingEngraving = mappingEngravingOptions.find(
+    (option) => option.engraving === mappingEngraving,
+  )
+  const mappingTotalCount = Number(selectedMappingEngraving?.characterCount) || 0
+  const hasMoreMapping = mappingArmories.length < mappingTotalCount
+  const toggleMapping = async (view) => {
+    if (mappingOpen && mappingView === view) {
+      setMappingOpen(false)
+      return
+    }
+    setMappingView(view)
+    if (!mappingClass || !mappingEngraving) {
+      setMappingError('직업과 직업 각인을 먼저 선택하세요.')
+      return
+    }
+    const corpusKey = `${mappingClass}|${mappingEngraving}`
+    if (mappingCorpusKey === corpusKey) {
+      setMappingOpen(true)
+      return
+    }
+    setMappingLoading(true)
+    setMappingError('')
+    try {
+      // Best-geared characters first, one page at a time - fetching every character in a
+      // popular engraving at once is what used to freeze this view (see 저장 매핑 관리 history).
+      const corpus = await lostArkApi.getAdminDamageOptionCorpus(mappingClass, mappingEngraving, 0)
+      setMappingArmories(Array.isArray(corpus?.characters) ? corpus.characters : [])
+      setMappingCorpusKey(corpusKey)
+      setMappingPage(1)
+      setMappingOpen(true)
+    } catch (error) {
+      setMappingError(error.message || '매핑 원문 데이터를 불러오지 못했습니다.')
+    } finally {
+      setMappingLoading(false)
+    }
+  }
+  const loadMoreMapping = async () => {
+    if (mappingLoading || !hasMoreMapping) return
+    setMappingLoading(true)
+    setMappingError('')
+    try {
+      const corpus = await lostArkApi.getAdminDamageOptionCorpus(
+        mappingClass,
+        mappingEngraving,
+        mappingPage,
+      )
+      const nextCharacters = Array.isArray(corpus?.characters) ? corpus.characters : []
+      setMappingArmories((current) => [...current, ...nextCharacters])
+      setMappingPage((current) => current + 1)
+    } catch (error) {
+      setMappingError(error.message || '매핑 원문 데이터를 불러오지 못했습니다.')
+    } finally {
+      setMappingLoading(false)
+    }
+  }
 
   return (
     <section className="admin-api-status">
@@ -421,8 +519,92 @@ function AdminApiStatusPanel() {
             <Activity />
             {historyOpen ? '기록 닫기' : '기록 보기'}
           </button>
+          <button
+            type="button"
+            onClick={() => toggleMapping('unclassified')}
+            disabled={mappingLoading || mappingOptionsLoading || !mappingEngraving}
+          >
+            <ListTree />
+            {mappingLoading
+              ? '불러오는 중'
+              : mappingOpen && mappingView === 'unclassified'
+                ? '매핑 닫기'
+                : '매핑'}
+          </button>
+          <button
+            type="button"
+            onClick={() => toggleMapping('saved')}
+            disabled={mappingLoading || mappingOptionsLoading || !mappingEngraving}
+          >
+            <Save />
+            {mappingOpen && mappingView === 'saved' ? '저장 관리 닫기' : '저장 매핑 관리'}
+          </button>
         </div>
       </header>
+      <div className="admin-damage-option-scope">
+        <label>
+          <span>직업</span>
+          <select
+            value={mappingClass}
+            disabled={mappingOptionsLoading}
+            onChange={(event) => {
+              const className = event.target.value
+              const nextClass = mappingOptions.find((option) => option.className === className)
+              setMappingClass(className)
+              setMappingEngraving(nextClass?.engravings?.[0]?.engraving || '')
+              setMappingOpen(false)
+              setMappingArmories([])
+              setMappingCorpusKey('')
+              setMappingPage(0)
+            }}
+          >
+            {mappingOptions.map((option) => (
+              <option value={option.className} key={option.className}>
+                {option.className}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <span>직업 각인</span>
+          <select
+            value={mappingEngraving}
+            disabled={mappingOptionsLoading || !mappingClass}
+            onChange={(event) => {
+              setMappingEngraving(event.target.value)
+              setMappingOpen(false)
+              setMappingArmories([])
+              setMappingCorpusKey('')
+              setMappingPage(0)
+            }}
+          >
+            {mappingEngravingOptions.map((option) => (
+              <option value={option.engraving} key={option.engraving}>
+                {option.engraving} ({number(Number(option.characterCount) || 0)}명)
+              </option>
+            ))}
+          </select>
+        </label>
+        {mappingClass && mappingEngraving && (
+          <small>
+            {mappingClass} · {mappingEngraving} ·{' '}
+            {number(Number(selectedMappingEngraving?.characterCount) || 0)}명 기준
+          </small>
+        )}
+      </div>
+      {mappingError && <div className="admin-api-history-state error">{mappingError}</div>}
+      {mappingOpen && mappingArmories.length > 0 && (
+        <div className="admin-damage-option-load-more">
+          <span>
+            아이템 레벨 상위 {number(mappingArmories.length)} / {number(mappingTotalCount)}명 로드됨
+          </span>
+          {hasMoreMapping && (
+            <button type="button" onClick={loadMoreMapping} disabled={mappingLoading}>
+              {mappingLoading ? '불러오는 중' : '상위 5명 더 불러오기'}
+            </button>
+          )}
+        </div>
+      )}
 
       <div className="admin-api-usage">
         <div>
@@ -626,6 +808,16 @@ function AdminApiStatusPanel() {
           </div>
         </div>
       )}
+      {mappingOpen && (
+        <DamageOptionDataPage
+          key={mappingView}
+          sourceArmories={mappingArmories}
+          managementOnly
+          managementView={mappingView}
+          embedded
+          onClose={() => setMappingOpen(false)}
+        />
+      )}
     </section>
   )
 }
@@ -652,7 +844,7 @@ function auditApiSequence(requests) {
   }
 }
 
-function ApiRequestRow({ request, index, number }) {
+const ApiRequestRow = memo(function ApiRequestRow({ request, index, number }) {
   const limit = Number(request.limit) || 0
   const remaining = Number(request.remaining) || 0
   const requestNumber = limit ? Math.max(0, limit - remaining) : index + 1
@@ -693,4 +885,4 @@ function ApiRequestRow({ request, index, number }) {
       {request.error && <p>{request.error}</p>}
     </div>
   )
-}
+})

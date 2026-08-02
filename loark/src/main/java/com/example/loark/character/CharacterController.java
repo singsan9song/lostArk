@@ -1,6 +1,7 @@
 package com.example.loark.character;
 
 import jakarta.validation.constraints.Size;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,16 @@ public class CharacterController {
     @GetMapping("/characters/{characterName}")
     public CharacterResponse character(@PathVariable @Size(min = 1, max = 20) String characterName) {
         return service.find(characterName.trim());
+    }
+
+    // DB-only instant read for the character page's first paint (stale-while-revalidate).
+    // Never calls the live Lost Ark API — 404 simply means no snapshot exists yet.
+    @GetMapping("/characters/{characterName}/cached")
+    public ResponseEntity<CharacterResponse> cachedCharacter(
+            @PathVariable @Size(min = 1, max = 20) String characterName) {
+        return service.cached(characterName.trim())
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     // Lightweight endpoint for the honing pages (일반/상급/통합 재련), which only need the

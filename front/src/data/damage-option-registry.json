@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "records": [
+    {
+      "id": "weapon-attack-flat-example",
+      "source": "무기 공격력 +{n}",
+      "effects": [
+        {
+          "type": "WEAPON_ATTACK_FLAT",
+          "valueKey": "n",
+          "condition": "ALWAYS",
+          "label": "무기 공격력 고정 증가"
+        }
+      ]
+    },
+    {
+      "id": "weapon-attack-percent-example",
+      "source": "무기 공격력 +{n}%",
+      "effects": [
+        {
+          "type": "WEAPON_ATTACK_PERCENT",
+          "valueKey": "n",
+          "condition": "ALWAYS",
+          "label": "무기 공격력 퍼센트 증가"
+        }
+      ]
+    },
+    {
+      "id": "base-attack-percent-example",
+      "source": "[레벨 보너스] 기본 공격력 +{n}%",
+      "effects": [
+        {
+          "type": "BASE_ATTACK_PERCENT",
+          "valueKey": "n",
+          "condition": "ALWAYS",
+          "label": "기본 공격력 퍼센트 증가"
+        }
+      ]
+    },
+    {
+      "id": "outgoing-back-attack-example",
+      "source": "적에게 주는 피해가 {n}% 증가하며, 백어택 성공 시 피해량이 추가로 {m}% 증가한다.",
+      "effects": [
+        {
+          "type": "DAMAGE_INCREASE_PERCENT",
+          "valueKey": "n",
+          "condition": "ALWAYS",
+          "label": "적에게 주는 피해 증가"
+        },
+        {
+          "type": "DAMAGE_INCREASE_PERCENT",
+          "valueKey": "m",
+          "condition": "BACK_ATTACK",
+          "label": "백어택 성공 시 피해량 추가 증가"
+        }
+      ]
+    }
+  ]
+}

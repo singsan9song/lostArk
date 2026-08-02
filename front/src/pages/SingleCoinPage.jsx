@@ -296,7 +296,7 @@ function SingleCoinRow({
         </span>
       </span>
       <span className="single-coin-cost-cell">
-        <img className="epic" src="/images/rewards/tokenitem_88.png" alt="클리어 코인" />
+        <img loading="lazy" className="epic" src="/images/rewards/tokenitem_88.png" alt="클리어 코인" />
         <span className="single-coin-cost-copy">
           <span>
             <em>교환 비용</em>
@@ -325,9 +325,9 @@ function SingleCoinRow({
                 )
               : null
             const optionImage = option.image ? (
-              <img className={gradeClass(option.grade)} src={option.image} alt="" />
+              <img loading="lazy" className={gradeClass(option.grade)} src={option.image} alt="" />
             ) : option.market?.icon ? (
-              <img className={gradeClass(option.market.grade)} src={option.market.icon} alt="" />
+              <img loading="lazy" className={gradeClass(option.market.grade)} src={option.market.icon} alt="" />
             ) : (
               <i>
                 <PackageOpen />
@@ -533,7 +533,7 @@ function SingleCoinRow({
                         alt=""
                       />
                     ) : reward.image ? (
-                      <img className={gradeClass(reward.grade)} src={reward.image} alt="" />
+                      <img loading="lazy" className={gradeClass(reward.grade)} src={reward.image} alt="" />
                     ) : (
                       <i>
                         <PackageOpen />
@@ -627,9 +627,9 @@ function SingleCoinRow({
                 <div className="single-chance-row" key={reward.id}>
                   <div>
                     {reward.image ? (
-                      <img className={gradeClass(reward.grade)} src={reward.image} alt="" />
+                      <img loading="lazy" className={gradeClass(reward.grade)} src={reward.image} alt="" />
                     ) : market?.icon ? (
-                      <img className={gradeClass(market.grade)} src={market.icon} alt="" />
+                      <img loading="lazy" className={gradeClass(market.grade)} src={market.icon} alt="" />
                     ) : (
                       <i>
                         <PackageOpen />
@@ -822,7 +822,7 @@ export default function SingleCoinPage() {
       </nav>
       <header className="efficiency-hero">
         <div className="efficiency-hero-icon clear-coin-heading-icon tool-page-art">
-          <img src="/images/etc/icon_asset2.png" alt="클리어 코인 효율" />
+          <img loading="lazy" src="/images/etc/icon_asset2.png" alt="클리어 코인 효율" />
         </div>
         <div>
           <p>CLEAR COIN EXCHANGE</p>
@@ -835,7 +835,7 @@ export default function SingleCoinPage() {
         <section className="single-coin-section panel">
           <header>
             <div className="single-section-icon clear-coin-heading-icon tool-page-art">
-              <img src="/images/etc/icon_asset2.png" alt="클리어 코인 효율" />
+              <img loading="lazy" src="/images/etc/icon_asset2.png" alt="클리어 코인 효율" />
             </div>
             <div>
               <h2>클리어 코인 가치 순위</h2>

@@ -94,7 +94,7 @@ function FavoritePopover({
                   >
                     <span className="favorite-avatar">
                       {item.characterImage ? (
-                        <img src={item.characterImage} alt="" />
+                        <img loading="lazy" src={item.characterImage} alt="" />
                       ) : (
                         item.className?.[0]
                       )}
@@ -166,7 +166,7 @@ function AccountControl({
     <div className="account-menu">
       <button className={`account-button ${open ? 'active' : ''}`} onClick={toggleOpen}>
         {user?.avatarUrl ? (
-          <img src={user.avatarUrl} alt="" />
+          <img loading="lazy" src={user.avatarUrl} alt="" />
         ) : user ? (
           <MessageCircle />
         ) : (
@@ -179,7 +179,7 @@ function AccountControl({
         <div className="account-popover">
           {user ? (
             <header>
-              {user.avatarUrl && <img src={user.avatarUrl} alt="" />}
+              {user.avatarUrl && <img loading="lazy" src={user.avatarUrl} alt="" />}
               <span>
                 <b>{user.username}</b>
                 <small>Discord 연동됨</small>
@@ -370,7 +370,7 @@ function Header({ light, setLight }) {
                 <div className="tool-nav-dropdown">
                   {toolLinks.map(([to, label, Icon]) => (
                     <Link to={to} onClick={() => setToolsOpen(false)} key={to}>
-                      {typeof Icon === 'string' ? <img src={Icon} alt="" /> : <Icon />}
+                      {typeof Icon === 'string' ? <img loading="lazy" src={Icon} alt="" /> : <Icon />}
                       <span>{label}</span>
                     </Link>
                   ))}
@@ -493,7 +493,7 @@ function Header({ light, setLight }) {
         <div className="mobile-tool-links">
           {toolLinks.map(([to, label, Icon]) => (
             <Link to={to} onClick={() => setOpen(false)} key={to}>
-              {typeof Icon === 'string' ? <img src={Icon} alt="" /> : <Icon />}
+              {typeof Icon === 'string' ? <img loading="lazy" src={Icon} alt="" /> : <Icon />}
               {label}
             </Link>
           ))}

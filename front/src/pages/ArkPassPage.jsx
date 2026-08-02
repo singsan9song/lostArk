@@ -256,7 +256,7 @@ function RewardOption({
   const className = `ark-pass-reward ${selected ? 'selected' : ''} ${selectable ? 'selectable' : ''} ${embeddedControl ? 'with-control' : ''}`
   const contents = (
     <>
-      <i className={iconGrade}>{image ? <img src={image} alt="" /> : <PackageOpen />}</i>
+      <i className={iconGrade}>{image ? <img loading="lazy" src={image} alt="" /> : <PackageOpen />}</i>
       <span>
         <b>
           {reward.name.startsWith('크리스탈 ') ? (
@@ -694,7 +694,7 @@ export default function ArkPassPage() {
       </nav>
       <header className="efficiency-hero ark-pass-hero">
         <div className="efficiency-hero-icon tool-page-art">
-          <img src="/images/etc/icon_asset3.png" alt="아크 패스 효율" />
+          <img loading="lazy" src="/images/etc/icon_asset3.png" alt="아크 패스 효율" />
         </div>
         <div>
           <p>ARK PASS REWARD</p>

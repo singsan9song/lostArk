@@ -95,7 +95,7 @@ export default function ProfileHero({
         <p className="profile-class">
           Lv. {profile.CharacterLevel} {profile.CharacterClassName}
           <span className="profile-representative-engraving">
-            <img src="/images/etc/ico_arkpassive.png" alt="" aria-hidden="true" />
+            <img loading="lazy" src="/images/etc/ico_arkpassive.png" alt="" aria-hidden="true" />
             {engraving}
           </span>
         </p>
@@ -141,7 +141,7 @@ export default function ProfileHero({
       </button>
       <div className="profile-visual">
         {profile.CharacterImage ? (
-          <img src={profile.CharacterImage} alt={`${profile.CharacterName} 캐릭터`} />
+          <img loading="lazy" src={profile.CharacterImage} alt={`${profile.CharacterName} 캐릭터`} />
         ) : (
           <div className="profile-fallback">{profile.CharacterClassName?.[0]}</div>
         )}
@@ -178,7 +178,7 @@ export default function ProfileHero({
                     <i>{checked ? '✓' : ''}</i>
                     <span className="roster-choice-avatar">
                       {loaded?.CharacterImage ? (
-                        <img src={loaded.CharacterImage} alt="" />
+                        <img loading="lazy" src={loaded.CharacterImage} alt="" />
                       ) : (
                         item.CharacterClassName?.[0]
                       )}

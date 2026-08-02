@@ -307,7 +307,7 @@ function HoningMaterialsEditor({
             >
               <span>
                 {character.characterImage ? (
-                  <img src={character.characterImage} alt="" />
+                  <img loading="lazy" src={character.characterImage} alt="" />
                 ) : (
                   character.className?.[0]
                 )}
@@ -349,7 +349,7 @@ function HoningMaterialsEditor({
                     <label key={name}>
                       <span className="expedition-material-name">
                         <i className={materialGradeClass(meta.grade)}>
-                          {meta.image ? <img src={meta.image} alt="" /> : <PackageOpen />}
+                          {meta.image ? <img loading="lazy" src={meta.image} alt="" /> : <PackageOpen />}
                         </i>
                         <span>{name}</span>
                       </span>
@@ -424,7 +424,7 @@ function DamageSettingsEditor({
             >
               <span>
                 {item.characterImage ? (
-                  <img src={item.characterImage} alt="" />
+                  <img loading="lazy" src={item.characterImage} alt="" />
                 ) : (
                   item.className?.[0]
                 )}
@@ -445,7 +445,7 @@ function DamageSettingsEditor({
         <section className="expedition-damage-section character-only">
           <div className="expedition-damage-setting-info">
             <i>
-              <img src="/images/etc/shop_icon_9888.png" alt="" />
+              <img loading="lazy" src="/images/etc/shop_icon_9888.png" alt="" />
             </i>
             <span>
               <b>아제나의 축복</b>
@@ -476,7 +476,7 @@ function DamageSettingsEditor({
             <div className="expedition-damage-section" key={item.key}>
               <span className="expedition-damage-setting-info">
                 <i className={petTraitGradeClass(item.key, sharedSettings[item.key])}>
-                  <img src={item.image} alt="" />
+                  <img loading="lazy" src={item.image} alt="" />
                 </i>
                 <span>
                   <b>{item.name}</b>
@@ -683,7 +683,7 @@ function RaidSettingsModal({
                     >
                       <span>
                         {item.characterImage ? (
-                          <img src={item.characterImage} alt="" />
+                          <img loading="lazy" src={item.characterImage} alt="" />
                         ) : (
                           item.className?.[0]
                         )}
@@ -722,7 +722,7 @@ function RaidSettingsModal({
                       <article className="expedition-raid-config-card" key={raid.id}>
                         <header>
                           <span className="expedition-raid-config-name">
-                            {raidImage && <img src={raidImage} alt="" />}
+                            {raidImage && <img loading="lazy" src={raidImage} alt="" />}
                             <span>
                               <small>{raid.categoryName}</small>
                               <strong>{raid.name}</strong>
@@ -870,7 +870,7 @@ function RaidSettingsModal({
                           key={raid.id}
                         >
                           <i>{selected && <Check />}</i>
-                          {raidImage && <img src={raidImage} alt="" />}
+                          {raidImage && <img loading="lazy" src={raidImage} alt="" />}
                           <span>{raid.name}</span>
                           <ChevronRight />
                         </button>
@@ -954,7 +954,7 @@ function RaidSettingsModal({
                 </button>
               </header>
               <div>
-                <img src="/images/etc/buff_setting.png" alt="주 스탯 효과 확인 위치 안내" />
+                <img loading="lazy" src="/images/etc/buff_setting.png" alt="주 스탯 효과 확인 위치 안내" />
               </div>
             </section>
           </div>
@@ -995,7 +995,7 @@ function CharacterRaidList({ character, tasks, toggleGate, openSettings }) {
         const raidImage = getRaidImage(raid.id)
         return (
           <div className="expedition-card-raid" key={raid.id}>
-            {raidImage && <img src={raidImage} alt="" />}
+            {raidImage && <img loading="lazy" src={raidImage} alt="" />}
             <span>
               <b>{raid.name}</b>
               <small>
@@ -1117,7 +1117,7 @@ function ExpeditionGroup({
       <header className="expedition-group-header" onClick={() => setCollapsed((value) => !value)}>
         <span className="expedition-group-avatar">
           {representative?.characterImage ? (
-            <img src={representative.characterImage} alt="" />
+            <img loading="lazy" src={representative.characterImage} alt="" />
           ) : (
             <UsersRound />
           )}
@@ -1225,7 +1225,7 @@ function ExpeditionGroup({
                 >
                   <span>
                     {character.characterImage ? (
-                      <img src={character.characterImage} alt="" />
+                      <img loading="lazy" src={character.characterImage} alt="" />
                     ) : (
                       character.className?.[0]
                     )}

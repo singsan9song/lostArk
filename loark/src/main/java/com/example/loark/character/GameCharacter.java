@@ -83,6 +83,7 @@ public class GameCharacter {
     public Long getId() { return id; }
     public String getServerName() { return serverName; }
     public String getClassName() { return className; }
+    public int getCharacterLevel() { return characterLevel; }
     public String getItemLevel() { return itemLevel; }
     public String getCombatPower() { return combatPower; }
     public String getCharacterImage() { return characterImage; }

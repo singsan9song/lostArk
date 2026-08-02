@@ -315,6 +315,67 @@
 .admin-api-status-actions > button svg {
   width: 14px;
 }
+.admin-damage-option-scope {
+  display: flex;
+  align-items: end;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 13px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--surface-2);
+}
+.admin-damage-option-scope label {
+  display: grid;
+  gap: 6px;
+  min-width: 180px;
+}
+.admin-damage-option-scope label span,
+.admin-damage-option-scope > small {
+  color: var(--muted);
+  font-size: var(--fs-11);
+}
+.admin-damage-option-scope select {
+  height: 36px;
+  padding: 0 34px 0 11px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+}
+.admin-damage-option-scope > small {
+  padding-bottom: 9px;
+}
+.admin-damage-option-load-more {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 9px 13px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--surface-2);
+}
+.admin-damage-option-load-more > span {
+  color: var(--muted);
+  font-size: var(--fs-11);
+}
+.admin-damage-option-load-more > button {
+  height: 30px;
+  padding: 0 11px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: var(--fs-11);
+  font-weight: 700;
+  cursor: pointer;
+}
+.admin-damage-option-load-more > button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
 .admin-api-usage {
   padding: 24px 0 20px;
 }

@@ -743,7 +743,7 @@ export default function HoningOptimizerPage() {
                         return (
                           <div key={name}>
                             <i className={gradeClass(meta.grade)}>
-                              {meta.image ? <img src={meta.image} alt="" /> : <Icon />}
+                              {meta.image ? <img loading="lazy" src={meta.image} alt="" /> : <Icon />}
                             </i>
                             <span>
                               <small>{name}</small>
@@ -832,7 +832,7 @@ export default function HoningOptimizerPage() {
                                   return (
                                     <span className="honing-catalyst-chip" key={item.name}>
                                       <i className={gradeClass(meta.grade)}>
-                                        {meta.image ? <img src={meta.image} alt="" /> : <Icon />}
+                                        {meta.image ? <img loading="lazy" src={meta.image} alt="" /> : <Icon />}
                                       </i>
                                       {item.name} x{item.count}
                                     </span>

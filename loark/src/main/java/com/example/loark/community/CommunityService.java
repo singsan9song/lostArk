@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -51,7 +52,22 @@ public class CommunityService {
                 ? posts.findByCategory(category, pageable)
                 : posts.findByCategoryAndTitleContainingIgnoreCase(category, search.trim(), pageable);
 
-        List<Map<String, Object>> content = result.getContent().stream().map(this::summarize).toList();
+        List<CommunityPost> pagePosts = result.getContent();
+        List<Long> postIds = pagePosts.stream().map(CommunityPost::getId).toList();
+        Map<Long, Long> commentCounts = postIds.isEmpty()
+                ? Map.of()
+                : comments.countByPostIdIn(postIds).stream().collect(Collectors.toMap(
+                        CommunityCommentRepository.PostCommentCount::getPostId,
+                        CommunityCommentRepository.PostCommentCount::getCount));
+        Set<String> discordIds = pagePosts.stream().map(CommunityPost::getDiscordId).collect(Collectors.toSet());
+        Map<String, UserAccount> accountsById = discordIds.isEmpty()
+                ? Map.of()
+                : accounts.findAllById(discordIds).stream()
+                        .collect(Collectors.toMap(UserAccount::getDiscordId, account -> account));
+        List<Map<String, Object>> content = pagePosts.stream()
+                .map(post -> summarizeRow(post, accountsById.get(post.getDiscordId()),
+                        commentCounts.getOrDefault(post.getId(), 0L)))
+                .toList();
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("content", content);
         response.put("page", result.getNumber());
@@ -128,12 +144,20 @@ public class CommunityService {
         return Map.of("liked", liked, "likeCount", post.getLikeCount());
     }
 
+    // Single-post path (detail/create) - one post, so per-call queries are fine here.
     private Map<String, Object> summarize(CommunityPost post) {
-        Map<String, Object> row = new LinkedHashMap<>(author(post.getDiscordId()));
+        return summarizeRow(post, accounts.findById(post.getDiscordId()).orElse(null),
+                comments.countByPostId(post.getId()));
+    }
+
+    // List path (listPosts) - author and comment-count are batch-fetched by the caller so this
+    // just assembles the row without querying per post.
+    private Map<String, Object> summarizeRow(CommunityPost post, UserAccount account, long commentCount) {
+        Map<String, Object> row = new LinkedHashMap<>(authorRow(post.getDiscordId(), account));
         row.put("id", post.getId());
         row.put("category", post.getCategory().name());
         row.put("title", post.getTitle());
-        row.put("commentCount", comments.countByPostId(post.getId()));
+        row.put("commentCount", commentCount);
         row.put("likeCount", post.getLikeCount());
         row.put("viewCount", post.getViewCount());
         row.put("createdAt", post.getCreatedAt().toString());
@@ -155,8 +179,11 @@ public class CommunityService {
     }
 
     private Map<String, Object> author(String discordId) {
+        return authorRow(discordId, accounts.findById(discordId).orElse(null));
+    }
+
+    private Map<String, Object> authorRow(String discordId, UserAccount account) {
         Map<String, Object> row = new LinkedHashMap<>();
-        UserAccount account = accounts.findById(discordId).orElse(null);
         row.put("authorDiscordId", discordId);
         row.put("authorName", account == null ? "탈퇴한 사용자" : account.getUsername());
         row.put("authorAvatarUrl", account == null ? "" : Objects.toString(account.getAvatarUrl(), ""));

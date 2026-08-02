@@ -51,6 +51,7 @@ public class BraceletAuctionService {
     private final int samplePages;
     private final int pagesPerRun;
     private final int rateLimitReserve;
+    private final boolean backgroundRefreshEnabled;
     private final ExecutorService backgroundJobExecutor;
     private final Map<String, AtomicBoolean> refreshRunning = new ConcurrentHashMap<>();
 
@@ -62,7 +63,8 @@ public class BraceletAuctionService {
                                   @Value("${app.auction-cache-ttl-seconds:900}") long ttlSeconds,
                                   @Value("${app.bracelet-sample-pages:10}") int samplePages,
                                   @Value("${app.bracelet-refresh-pages-per-run:100}") int pagesPerRun,
-                                  @Value("${app.auction-rate-limit-reserve:50}") int rateLimitReserve) {
+                                  @Value("${app.auction-rate-limit-reserve:50}") int rateLimitReserve,
+                                  @Value("${app.bracelet-auction-refresh.enabled:true}") boolean backgroundRefreshEnabled) {
         this.client = lostArkRestClient;
         this.persistentCache = persistentCache;
         this.objectMapper = objectMapper;
@@ -72,6 +74,7 @@ public class BraceletAuctionService {
         this.samplePages = Math.max(1, samplePages);
         this.pagesPerRun = Math.max(1, pagesPerRun);
         this.rateLimitReserve = Math.max(0, rateLimitReserve);
+        this.backgroundRefreshEnabled = backgroundRefreshEnabled;
         Caffeine<Object, Object> builder = Caffeine.newBuilder().maximumSize(2);
         if (ttlSeconds > 0) builder.expireAfterWrite(Duration.ofSeconds(ttlSeconds));
         this.cache = builder.build();
@@ -109,6 +112,7 @@ public class BraceletAuctionService {
             initialDelayString = "${app.bracelet-ancient-refresh-initial-delay-ms:15000}"
     )
     void refreshAncient() {
+        if (!backgroundRefreshEnabled) return;
         backgroundJobExecutor.execute(() -> refreshIncrementally(ANCIENT));
     }
 
@@ -117,6 +121,7 @@ public class BraceletAuctionService {
             initialDelayString = "${app.bracelet-relic-refresh-initial-delay-ms:90000}"
     )
     void refreshRelic() {
+        if (!backgroundRefreshEnabled) return;
         backgroundJobExecutor.execute(() -> refreshIncrementally(RELIC));
     }
 

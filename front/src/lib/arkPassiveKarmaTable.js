@@ -73,10 +73,10 @@ export const KARMA_RANK_STEPS = [
   },
 ]
 
-// Each entry is the level-up that reaches `level` (e.g. the row labelled
-// "1→2" reaches level 2). Index 0 corresponds to level 2 since level 1 is
-// granted by the rank 1 entry above.
+// 레벨 효과는 카르마 개방으로 획득하는 1레벨부터 즉시 적용되는 누적값이다.
+// 이후 각 행은 해당 레벨에 도달했을 때의 누적 효과를 나타낸다.
 export const KARMA_LEVEL_STEPS = [
+  { level: 1, probability: 100.0, artisanEnergy: 0, maxHp: 400, weaponAttackPercent: 0.1, hyperAwakeningDamagePercent: 0.5 },
   { level: 2, probability: 20.0, artisanEnergy: 10.0, maxHp: 800, weaponAttackPercent: 0.2, hyperAwakeningDamagePercent: 1.0 },
   { level: 3, probability: 15.0, artisanEnergy: 7.5, maxHp: 1200, weaponAttackPercent: 0.3, hyperAwakeningDamagePercent: 1.5 },
   { level: 4, probability: 10.0, artisanEnergy: 5.0, maxHp: 1600, weaponAttackPercent: 0.4, hyperAwakeningDamagePercent: 2.0 },
@@ -113,9 +113,7 @@ function rankStepForRank(rank) {
 }
 
 // Level-based bonuses (최대생명력/무기공격력%/초각성기 피해%) are globally
-// cumulative regardless of rank, so level 1 (granted by the rank-1 entry
-// itself) has none of these yet — everything from level 2 on comes from
-// KARMA_LEVEL_STEPS.
+// cumulative regardless of rank, including the level-1 bonus granted on open.
 function levelStepForLevel(level) {
   return KARMA_LEVEL_STEPS.find((step) => step.level === level)
 }

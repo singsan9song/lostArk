@@ -44,7 +44,7 @@ export default function AvatarOverview({ profile, avatars }) {
         </div>
         <div className="avatar-character">
           {profile.CharacterImage ? (
-            <img src={profile.CharacterImage} alt={`${profile.CharacterName} 아바타`} />
+            <img loading="lazy" src={profile.CharacterImage} alt={`${profile.CharacterName} 아바타`} />
           ) : (
             <div>
               <Palette />
@@ -70,7 +70,7 @@ export default function AvatarOverview({ profile, avatars }) {
             {dyedItems.map(({ item, colors }, index) => (
               <article key={`${item.Type}-${index}`}>
                 <header>
-                  <img src={item.Icon} alt="" />
+                  <img loading="lazy" src={item.Icon} alt="" />
                   <div>
                     <strong>{item.Name}</strong>
                     <span>{normalizeType(item.Type)}</span>
@@ -100,7 +100,7 @@ export default function AvatarOverview({ profile, avatars }) {
 function AvatarSlot({ type, item, reverse }) {
   return (
     <article className={`avatar-slot ${reverse ? 'reverse' : ''} ${item ? 'equipped' : 'empty'}`}>
-      <div className="avatar-slot-icon">{item ? <img src={item.Icon} alt="" /> : <Box />}</div>
+      <div className="avatar-slot-icon">{item ? <img loading="lazy" src={item.Icon} alt="" /> : <Box />}</div>
       <div>
         <strong>{item?.Name || '착용하지 않음'}</strong>
         <span>{type} 아바타</span>

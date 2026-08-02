@@ -62,7 +62,7 @@ export default function AbilityStoneConfigurationSelect({
         onClick={toggle}
         disabled={loading || !configurations.length}
       >
-        <img src={KIT_IMAGE} alt="" />
+        <img loading="lazy" src={KIT_IMAGE} alt="" />
         <span>
           <small>{label}</small>
           <b>{loading ? '조회 중' : selected?.name || '가격 없음'}</b>
@@ -92,7 +92,7 @@ export default function AbilityStoneConfigurationSelect({
                   onClick={() => choose(configuration)}
                   key={configuration.id}
                 >
-                  <img src={KIT_IMAGE} alt="" />
+                  <img loading="lazy" src={KIT_IMAGE} alt="" />
                   <span>
                     <b>{configuration.name}</b>
                     <small>

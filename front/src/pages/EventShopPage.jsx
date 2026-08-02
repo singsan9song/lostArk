@@ -278,7 +278,7 @@ export default function EventShopPage() {
                   </em>
                   <span className="single-item">
                     {image ? (
-                      <img className={gradeClass(product.grade)} src={image} alt="" />
+                      <img loading="lazy" className={gradeClass(product.grade)} src={image} alt="" />
                     ) : (
                       <i>
                         <PackageOpen />
@@ -375,7 +375,7 @@ export default function EventShopPage() {
                     ) : (
                       <span>
                         {image ? (
-                          <img className={gradeClass(product.grade)} src={image} alt="" />
+                          <img loading="lazy" className={gradeClass(product.grade)} src={image} alt="" />
                         ) : (
                           <i>
                             <PackageOpen />

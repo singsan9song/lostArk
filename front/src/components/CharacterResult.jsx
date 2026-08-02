@@ -76,7 +76,7 @@ export default function CharacterResult({
   // otherwise every downstream useMemo keyed on `skills` (accessory damage calc, etc.)
   // would recompute every second even though the underlying armory data hasn't changed.
   const skills = useMemo(
-    () => (armory.ArmorySkills || []).filter((skill) => skill.Level > 1 || skill.Rune),
+    () => armory.ArmorySkills || [],
     [armory],
   )
   const collectibles = armory.Collectibles || []
@@ -177,7 +177,7 @@ function Overview({ profile, stats, equipment, gems, engravings, cards, cardEffe
                 className={`equipment-card ${gradeClass(item.Grade)}`}
                 key={`${item.Type}-${i}`}
               >
-                <img src={item.Icon} alt="" />
+                <img loading="lazy" src={item.Icon} alt="" />
                 <div>
                   <span>
                     {item.Grade} · {item.Type}
@@ -226,7 +226,7 @@ function Overview({ profile, stats, equipment, gems, engravings, cards, cardEffe
                 const icon = getEngravingIcon(item.Name, item.Icon)
                 return (
                   <div key={i}>
-                    {icon ? <img src={icon} alt={`${item.Name} 각인`} /> : <Layers3 />}
+                    {icon ? <img loading="lazy" src={icon} alt={`${item.Name} 각인`} /> : <Layers3 />}
                     <span>
                       <strong>{item.Name}</strong>
                       <small>{cleanApiText(item.Description)}</small>
@@ -246,7 +246,7 @@ function Overview({ profile, stats, equipment, gems, engravings, cards, cardEffe
               {gems.map((item, i) => (
                 <article className={`gem-card ${gradeClass(item.Grade)}`} key={i}>
                   <div>
-                    <img src={item.Icon} alt="" />
+                    <img loading="lazy" src={item.Icon} alt="" />
                     <b>Lv.{item.Level}</b>
                   </div>
                 </article>
@@ -262,7 +262,7 @@ function Overview({ profile, stats, equipment, gems, engravings, cards, cardEffe
             <>
               <div className="card-strip">
                 {cards.map((item, i) => (
-                  <img src={item.Icon} title={item.Name} alt={item.Name} key={i} />
+                  <img loading="lazy" src={item.Icon} title={item.Name} alt={item.Name} key={i} />
                 ))}
               </div>
               {cardEffects.slice(-2).map((effect, i) => (
@@ -298,7 +298,7 @@ function AvatarTab({ avatars }) {
             const item = avatars.find((avatar) => avatar.Type === type)
             return (
               <article className={item ? gradeClass(item.Grade) : 'empty-slot'} key={type}>
-                {item ? <img src={item.Icon} alt="" /> : <Box />}
+                {item ? <img loading="lazy" src={item.Icon} alt="" /> : <Box />}
                 <span>{type.replace(' 아바타', '')}</span>
                 <strong>{item?.Name || '착용하지 않음'}</strong>
                 {item?.IsSet && <em>세트</em>}
@@ -322,7 +322,7 @@ function SkillTab({ skills }) {
           {skills.map((skill) => (
             <article key={skill.Name}>
               <div className="skill-icon">
-                <img src={skill.Icon} alt="" />
+                <img loading="lazy" src={skill.Icon} alt="" />
                 <b>{skill.Level}</b>
               </div>
               <div className="skill-info">
@@ -340,7 +340,7 @@ function SkillTab({ skills }) {
               </div>
               {skill.Rune && (
                 <div className={`rune ${gradeClass(skill.Rune.Grade)}`}>
-                  <img src={skill.Rune.Icon} alt="" />
+                  <img loading="lazy" src={skill.Rune.Icon} alt="" />
                   <span>{skill.Rune.Name}</span>
                 </div>
               )}
@@ -659,7 +659,7 @@ function ExpeditionTab({
             >
               <span className="sibling-avatar">
                 {item.CharacterImage ? (
-                  <img src={item.CharacterImage} alt="" />
+                  <img loading="lazy" src={item.CharacterImage} alt="" />
                 ) : (
                   item.CharacterClassName?.[0]
                 )}

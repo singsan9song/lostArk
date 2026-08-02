@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import {
   BarChart3,
   BookOpen,
+  Database,
   Gem,
   Grid3X3,
   Layers3,
@@ -18,6 +19,7 @@ import SkillOverview from './SkillOverview'
 import DamageAnalysis from './DamageAnalysis'
 import ArkGridOverview from './ArkGridOverview'
 import AccessoryComparison from './AccessoryComparison'
+import DamageOptionDataPage from '../pages/DamageOptionDataPage'
 
 const categories = [
   ['equipment', '장비', Shield],
@@ -25,6 +27,7 @@ const categories = [
   ['skill', '스킬', Sparkles],
   ['arkGrid', '아크그리드', Grid3X3],
   ['damage', '데미지 분석', BarChart3],
+  ['damage2', '데미지 분석 2', Database],
   ['accessoryCompare', '악세 비교', Scale],
 ]
 
@@ -255,7 +258,7 @@ export default function BattleOverview({ armory, profile, stats, skills, sibling
               {cards.map((card, index) => (
                 <article key={index}>
                   <div>
-                    <img src={card.Icon} alt="" />
+                    <img loading="lazy" src={card.Icon} alt="" />
                     <div
                       className="card-frame"
                       style={{
@@ -403,6 +406,17 @@ export default function BattleOverview({ armory, profile, stats, skills, sibling
         />
       )}
 
+      {category === 'damage2' && (
+        <DamageOptionDataPage
+          armory={armory}
+          profile={profile}
+          skills={skills}
+          siblings={siblings}
+          onHover={setHover}
+          embedded
+        />
+      )}
+
       {category === 'accessoryCompare' && (
         <AccessoryComparison
           armory={armory}
@@ -467,7 +481,7 @@ function EquipmentIcon({ item, onHover }) {
       }}
       onMouseLeave={() => onHover?.(null)}
     >
-      <img src={item.Icon} alt="" />
+      <img loading="lazy" src={item.Icon} alt="" />
     </div>
   )
 }
@@ -633,7 +647,7 @@ function EngravingRow({ item, index, open, onToggle, onClose }) {
       }}
     >
       <div className={`engraving-symbol symbol-${index % 5}`}>
-        {icon ? <img src={icon} alt={`${item.Name} 각인`} /> : <span>{item.Name?.[0] || '?'}</span>}
+        {icon ? <img loading="lazy" src={icon} alt={`${item.Name} 각인`} /> : <span>{item.Name?.[0] || '?'}</span>}
       </div>
       <i
         className="engraving-level-mark"
@@ -706,7 +720,7 @@ function JewelSlot({ gem, effect, onHover, onHoverSlot, active }) {
       }}
     >
       <span className="jewel_img">
-        <img src={gem.Icon} alt="" />
+        <img loading="lazy" src={gem.Icon} alt="" />
       </span>
       <b className="jewel_level">
         <em className={isCooldown ? 'gemsymbol-time' : 'gemsymbol-attack'} />
@@ -725,7 +739,7 @@ function GemRow({ gem, effect, onHoverSlot, active }) {
       onMouseEnter={() => onHoverSlot?.(gem.Slot)}
       onMouseLeave={() => onHoverSlot?.(null)}
     >
-      <span className="slot">{effect?.Icon && <img src={effect.Icon} alt="" />}</span>
+      <span className="slot">{effect?.Icon && <img loading="lazy" src={effect.Icon} alt="" />}</span>
       <div className="skill">
         <strong className="skill_tit">{effect?.Name || '연계 스킬 없음'}</strong>
         {description && (
@@ -826,7 +840,7 @@ function PassiveNode({ effect, groupName }) {
   const level = match?.[3] || ''
   return (
     <div className="passive-node">
-      {effect.Icon ? <img src={effect.Icon} alt="" /> : <Sparkles />}
+      {effect.Icon ? <img loading="lazy" src={effect.Icon} alt="" /> : <Sparkles />}
       <span>
         <i>{tier}</i>
         <strong>

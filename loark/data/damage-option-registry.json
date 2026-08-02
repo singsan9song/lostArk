@@ -1,0 +1,3398 @@
+{
+  "version" : 1,
+  "records" : [ {
+    "id" : "weapon-attack-flat-example",
+    "source" : "무기 공격력 +{n}",
+    "effects" : [ {
+      "type" : "WEAPON_ATTACK_FLAT",
+      "valueKey" : "n",
+      "value" : 0,
+      "condition" : "ALWAYS",
+      "label" : ""
+    } ],
+    "ignored" : false
+  }, {
+    "id" : "weapon-attack-percent-example",
+    "source" : "무기 공격력 +{n}%",
+    "effects" : [ {
+      "type" : "WEAPON_ATTACK_PERCENT",
+      "valueKey" : "n",
+      "value" : 0,
+      "condition" : "ALWAYS",
+      "label" : ""
+    } ],
+    "ignored" : false
+  }, {
+    "id" : "base-attack-percent-example",
+    "source" : "[레벨 보너스] 기본 공격력 +{n}%",
+    "effects" : [ {
+      "type" : "BASE_ATTACK_PERCENT",
+      "valueKey" : "n",
+      "value" : 0,
+      "condition" : "ALWAYS",
+      "label" : ""
+    } ],
+    "ignored" : false
+  }, {
+    "id" : "outgoing-back-attack-example",
+    "source" : "적에게 주는 피해가 {n}% 증가하며, 백어택 성공 시 피해량이 추가로 {m}% 증가한다.",
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "value" : 0,
+      "condition" : "ALWAYS",
+      "label" : ""
+    }, {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "value" : 0,
+      "condition" : "BACK_ATTACK",
+      "label" : ""
+    } ],
+    "ignored" : false
+  }, {
+    "id" : "damage-option-1785404658479-2scre9",
+    "source" : "추가 피해 +{n}%",
+    "effects" : [ {
+      "type" : "ADDITIONAL_DAMAGE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "label" : ""
+    } ],
+    "ignored" : false
+  }, {
+    "id" : "damage-option-1785404658479-hp079z",
+    "source" : "힘 +{n}",
+    "effects" : [ {
+      "type" : "MAIN_STAT_FLAT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "label" : ""
+    } ],
+    "ignored" : false
+  }, {
+    "id" : "damage-option-1785404658479-uunm1t",
+    "source" : "할버드를 높이 치켜들고 힘을 모아 전방을 향해 강하게 내려쳐 전방 {n}m안의 적들에게 {m}의 피해를 주고 날려버린다. 홀딩 조작 시간에 비례하여 타격 범위는 {k}m까지, 피해는 최대 {p}%까지 증가한다. 공격 적중 시 엠버레스의 기운 {q}개를 회복한다.",
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "p",
+      "condition" : "ALWAYS",
+      "label" : "",
+      "stack" : null,
+      "skillName" : "퀘이크 스매시"
+    } ],
+    "ignored" : false
+  }, {
+    "id" : "damage-option-1785404658479-1qf3tx",
+    "source" : "피격 이상 면역인 적에게 주는 피해가 {n}% 증가한다.",
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "label" : "",
+      "stack" : null
+    } ],
+    "ignored" : false
+  }, {
+    "id" : "damage-option-1785404658479-jca4m4",
+    "source" : "프렌지 스윕의 피해량이 {n}% 증가한다.",
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "label" : "",
+      "stack" : null,
+      "skillName" : "프렌지 스윕"
+    } ],
+    "ignored" : false
+  }, {
+    "id" : "damage-option-draft-8-1jfe5s1",
+    "source" : "공격력 +{n}",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ATTACK_POWER_FLAT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "label" : "",
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-9-puh4oc",
+    "source" : "공격력 +{n}%",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ATTACK_POWER_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "label" : "",
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-57-1redqc7",
+    "source" : "'운명: 브랜디쉬' : 길로틴 스핀 사용 종료 시 소모되며, 길로틴 스핀의 피해량이 {n}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "label" : "",
+      "stack" : null,
+      "skillName" : "길로틴 스핀"
+    } ]
+  }, {
+    "id" : "damage-option-draft-22-1xgf60z",
+    "source" : "[{n}P] 공격력이 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ATTACK_POWER_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "label" : "",
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-28-zf4z65",
+    "source" : "[{n}P] 적에게 주는 피해가 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "label" : "",
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-21-1xzkxnm",
+    "source" : "[{n}P] 공격력이 {m} 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ATTACK_POWER_FLAT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "label" : "",
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-16-7p38wb",
+    "source" : "기본 공격력 총합 : {n}%",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "BASE_ATTACK_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "label" : "보석 총 증가량",
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-25-bstes7",
+    "source" : "[{n}P] 치명타 피해가 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "CRIT_DAMAGE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "label" : "",
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-7-4zrdyd",
+    "source" : "민첩 +{n}",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "MAIN_STAT_FLAT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "label" : "",
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-24-1eo3a2l",
+    "source" : "[{n}P] 공격 속도가 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ATTACK_SPEED_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "label" : "",
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-43-s6pcav",
+    "source" : "[{n}P] 공격 속도가 {m}% 증가하고, 치명타 피해가 {k}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ATTACK_SPEED_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "label" : "",
+      "stack" : null
+    }, {
+      "type" : "CRIT_DAMAGE_PERCENT",
+      "valueKey" : "k",
+      "condition" : "ALWAYS",
+      "label" : "",
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-68-17m0bm2",
+    "source" : "[{n}P] 길로틴 스핀의 '천부적인 힘' 트라이포드 적용 시 시전 속도가 {m}% 증가하고, 피해량이 {k}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "k",
+      "condition" : "ALWAYS",
+      "skillName" : "길로틴 스핀",
+      "label" : "",
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-30-14k4sdm",
+    "source" : "[{n}P] 임페일 쇼크의 피해량이 {m}% 감소한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "임페일 쇼크",
+      "label" : "감소",
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-26-18ae94p",
+    "source" : "[가디언나이트] 임페일 쇼크 피해 {n}% 증가",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "임페일 쇼크",
+      "label" : "",
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-26-j7h4l8",
+    "source" : "[가디언나이트] 프렌지 스윕 피해 {n}% 증가",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "프렌지 스윕",
+      "label" : "",
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-27-g0y3pr",
+    "source" : "[가디언나이트] 퀘이크 스매시 피해 {n}% 증가",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "퀘이크 스매시",
+      "label" : "",
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-44-1q8efpe",
+    "source" : "{n}회 회전 베기 형태로 변경되며, 적에게 주는 피해가 총 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "길로틴 스핀",
+      "label" : "",
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-79-3loh8i",
+    "source" : "가디언 피어 적중 시 '피해 증폭' 효과가 적용되어 공격에 적중된 적은 {n}초 동안 자신 및 파티원의 공격에 받는 피해가 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ENEMY_RECEIVED_DAMAGE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "label" : "",
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-21-1ocr95e",
+    "source" : "적에게 주는 피해가 {n}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "label" : "",
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-56-p4owd6",
+    "source" : "엠버레스의 기운 회복량이 {n}개 감소하지만, 무기를 강화하여 적에게 주는 피해가 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "길로틴 스핀",
+      "label" : "",
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-26-rr4zi5",
+    "source" : "[가디언나이트] 길로틴 스핀 피해 {n}% 증가",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "길로틴 스핀",
+      "label" : "",
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-51-c4s7y7",
+    "source" : "적에게 주는 피해가 {n}% 증가하며, 헤드어택 성공 시 피해량이 추가로 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "label" : "",
+      "stack" : null
+    }, {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "HEAD_ATTACK",
+      "skillName" : "",
+      "label" : "",
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-35-qz0x4n",
+    "source" : "이동속도 증가량의 {n}% 만큼 적에게 주는 피해량이 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "label" : "돌격 대장 ",
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-152-pa8rkv",
+    "source" : "이동기 및 기본공격을 제외한 스킬 사용 후 {n}초 동안 공격력이 {m}% 증가하며 (최대 {k}중첩) 해당 효과가 최대 중첩 도달 시 치명타 적중률이 추가로 {p}% 증가한다. 해당 효과는 스킬 취소에 따른 재사용 대기시간 감소가 적용되는 경우, 스킬 종료 후 적용된다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ATTACK_POWER_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "label" : "",
+      "stackCount" : 6,
+      "stack" : null
+    }, {
+      "type" : "CRIT_RATE_PERCENT",
+      "valueKey" : "p",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "label" : "",
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-49-1wxlsaz",
+    "source" : "치명타 피해량이 {n}% 증가하지만, 공격 시 일정 확률로 {m}% 감소된 피해를 준다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "CRIT_DAMAGE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "label" : "",
+      "stack" : null
+    }, {
+      "type" : "ADDITIONAL_DAMAGE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "CUSTOM",
+      "skillName" : "",
+      "label" : "예리한 둔기 ",
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-51-1bt6he6",
+    "source" : "보스 및 레이드 몬스터에게 주는 피해가 {n}% 증가하지만, 받는 피해가 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "label" : "",
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-7-1la823l",
+    "source" : "힘 +{n}%",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "MAIN_STAT_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "label" : "",
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-19-1dj39h6",
+    "source" : "치명타 적중률이 {n}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "CRIT_RATE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "label" : "",
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-22-1q5je8w",
+    "source" : "일반 스킬의 피해량이 {n}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "label" : "",
+      "stack" : null,
+      "skillCategories" : [ "일반" ]
+    } ]
+  }, {
+    "id" : "damage-option-draft-57-faxem8",
+    "source" : "초월 상태에선 피격이상에 면역이 되며 공격 속도가 {n}% 증가하고, 일반 스킬 간의 연계가 빨라진다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ATTACK_SPEED_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "label" : "초월 상태",
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-69-2z5r7u",
+    "source" : "강화된 스킬은 피해량이 {n}% 증가하며, 사용 시 공간을 뒤흔들어 주변 {m}m 반경 내의 적들에게 {k}의 피해를 준다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "label" : "초월 상태",
+      "stack" : null,
+      "skillNames" : [ "길로틴 스핀", "퀘이크 스매시", "임페일 쇼크", "프렌지 스윕", "소울 디바이드" ]
+    } ]
+  }, {
+    "id" : "damage-option-draft-26-kw0lwx",
+    "source" : "일반 스킬의 치명타 피해량이 {n}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "CRIT_DAMAGE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "label" : "",
+      "stack" : null,
+      "skillCategories" : [ "일반" ]
+    } ]
+  }, {
+    "id" : "damage-option-draft-40-la6s1h",
+    "source" : "방어에 성공하였을 때 더욱 강하게 반격하여 {n}% 증가된 피해를 준다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "리벤지 블로우" ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-32-1trdss1",
+    "source" : "[가디언나이트] 길로틴 스핀 재사용 대기시간 {n}% 감소",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "길로틴 스핀" ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-36-j9hcu4",
+    "source" : "스킬 사용 시 일정 확률로 전체 재사용 대기 시간이 {n}% 감소",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "일정 확률",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-35-1s5dyjw",
+    "source" : "소모한 엠버레스의 기운 당 추가로 {n}% 증가된 피해를 준다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 4,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-41-1k6iyz4",
+    "source" : "[속행] 스킬 사용 시 일정 확률로 전체 재사용 대기 시간이 {n}% 감소",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-36-ribrz1",
+    "source" : "[가디언나이트] 리벤지 블로우 계열 재사용 대기시간 {n}% 감소",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-52-1hyh2ov",
+    "source" : "공격 거리가 {n}% 증가하고 폭이 {m}% 증가하며, 적에게 주는 피해가 {k}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "k",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "리벤지 스피어" ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-57-hdwlbx",
+    "source" : "공격이 적중할 때마다 마지막 공격이 적에게 주는 피해가 {n}%씩 증가하여 최대 {m}%까지 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "계단식 증가",
+      "stackCount" : 7,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-86-3urfpq",
+    "source" : "더 이상 돌진 공격에 적중 시 즉시 휘두르기 공격을 하지 않지만, 이동 중 모험가 및 일반 몬스터와 충돌이 무시되며 적에게 주는 피해가 {n}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "블레이즈 스윕" ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-59-1wl070a",
+    "source" : "마지막 공격이 강화되어 공간을 갈라버릴 정도로 강하게 베어낸다. 마지막 공격의 피해량이 {n}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "블레이즈 스윕" ],
+      "skillCategories" : [ ],
+      "label" : "마지막 공격",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-36-bug1gm",
+    "source" : "[가디언나이트] 블레이즈 스윕 계열 재사용 대기시간 {n}% 감소",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-30-1xii2tm",
+    "source" : "[가디언나이트] 블레이즈 스윕 계열 피해 {n}% 증가",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-57-150u5be",
+    "source" : "적에게 주는 피해가 {n}% 증가하고, 소모한 엠버레스의 기운 당 추가로 {m}% 증가된 피해를 준다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "블레이즈 플래시" ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    }, {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "블레이즈 플래시" ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 5,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-72-rh9u43",
+    "source" : "첫 번째 공격을 더 이상 하지 않지만, 처음 이동 거리가 {n}m 증가하고, 마지막 공격이 적에게 주는 피해가 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "마지막 공격",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-47-rfipr1",
+    "source" : "공격 적중 시 대상이 자신 및 파티원에게 받는 피해가 {n}초 간 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ENEMY_RECEIVED_DAMAGE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-80-49g1m",
+    "source" : "공격 준비 시간이 짧아지고 돌진 속도가 비약적으로 증가하며, 적에게 주는 피해가 {n}% 증가한다. 스킬 사용 즉시 엠버레스의 기운을 회복한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "쓰러스트" ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-40-j1m24w",
+    "source" : "일반 조작으로 변경되며, 빠르게 올려쳐 총 {n}% 증가된 피해를 준다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-67-qr5y0",
+    "source" : "재사용 대기시간이 {n}초 감소하고, 공격 즉시 강력한 후폭풍을 발생시켜 기본 피해량의 {m}%에 해당하는 피해를 준다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "임페일 쇼크" ],
+      "skillCategories" : [ ],
+      "label" : "마지막 공격",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-59-10427qz",
+    "source" : "엠버레스 오브 게이지 회복량이 {n}% 감소하지만, 무기를 강화하여 적에게 주는 피해가 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-32-1ksn7d9",
+    "source" : "[가디언나이트] 임페일 쇼크 재사용 대기시간 {n}% 감소",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-33-1xhudy3",
+    "source" : "[가디언나이트] 퀘이크 스매시 재사용 대기시간 {n}% 감소",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-53-kpssba",
+    "source" : "땅을 긁으며 올려친 후 그대로 돌아 내려 찍어 기본 피해량의 {n}%에 해당하는 피해를 입힌다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "추가 피해",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-73-1ybztof",
+    "source" : "마지막 공격 직후 어둠의 발톱을 생성하여 전방의 적을 꿰뚫으며 기본 피해량의 {n}%에 해당하는 추가 피해를 주며 적을 날려버린다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "추가 피해",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-37-1bxloj1",
+    "source" : "[{n}P] 초월 상태에서 적에게 주는 피해량이 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "초월 상태",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-18-mj3v83",
+    "source" : "아군 피해량 강화 효과 +{n}%",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ALLY_DAMAGE_ENHANCEMENT_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-51-xodysy",
+    "source" : "[{n}P] 클리브 사용 시 경직에 면역이 되고, 프렌지 스윕의 피해량이 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "프렌지 스윕" ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-9-6y42v9",
+    "source" : "낙인력 +{n}%",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "BRAND_POWER_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-29-51eg0s",
+    "source" : "초각성 스킬이 적에게 주는 피해가 {n}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ "초각성" ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-29-17fiwvn",
+    "source" : "초각성 스킬의 재사용 대기 시간이 {n}% 감소한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ "초각성" ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-65-1uue343",
+    "source" : "소울 디바이드가 더 이상 엠버레스의 기운을 회복하지 않는 대신 무기를 강화하여 적에게 주는 피해가 {n}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "소울 디바이드" ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-19-5v3gx7",
+    "source" : "진화형 피해가 {n}% 증가합니다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "진화형 피해",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-63-1xltjbn",
+    "source" : "각성기, 이동 및 기상기를 제외한 스킬의 재사용 대기시간이 {n}% 감소하고, 진화형 피해가 {m}% 증가합니다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    }, {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "진화형 피해",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-7-1btvm31",
+    "source" : "지능 +{n}",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "MAIN_STAT_FLAT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-50-5h7kd0",
+    "source" : "치명타 적중률이 {n}% 증가하고, 방향성 공격 스킬의 치명타 피해가 {m}% 증가합니다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "CRIT_RATE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    }, {
+      "type" : "CRIT_DAMAGE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "HEAD_ATTACK",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-54-12xdpvd",
+    "source" : "공격이 치명타로 적중 시 적에게 주는 피해가 {n}% 증가하며, 받는 피해가 {m}% 감소합니다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "치명타",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-42-f4o7af",
+    "source" : "달인 : 치명타 적중률 +{n}% / 추가 피해 +{m}%, 최대 {k}중첩",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "CRIT_RATE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 5,
+      "stack" : null
+    }, {
+      "type" : "ADDITIONAL_DAMAGE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 5,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-15-1qrb5oe",
+    "source" : "적에게 주는 피해 +{n}%",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-12-1ykmnrc",
+    "source" : "치명타 피해 +{n}%",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "CRIT_DAMAGE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-13-12rxbgi",
+    "source" : "치명타 적중률 +{n}%",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "CRIT_RATE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-17-1kha2jt",
+    "source" : "무기 공격력이 {n} 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "WEAPON_ATTACK_FLAT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-52-4flftx",
+    "source" : "공격 적중 시 {n}초 마다 {m}초 동안 무기 공격력이 {k} 증가한다. (최대 {p}중첩)",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "WEAPON_ATTACK_FLAT",
+      "valueKey" : "k",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 12,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-8-1odbaw",
+    "source" : "지능 +{n}%",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "MAIN_STAT_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-18-1x6v6d",
+    "source" : "아군 공격력 강화 효과 +{n}%",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "WEAPON_ATTACK_FLAT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-67-1sgbw1b",
+    "source" : "[{n}P] 프렌지 스윕의 '맹습' 트라이포드 적용 시 재사용 대기시간이 {m}초 증가하지만 피해량이 {k}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "k",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "프렌지 스윕" ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-30-16seqgo",
+    "source" : "[{n}P] 프렌지 스윕의 피해량이 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "프렌지 스윕" ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-34-1h9k4lm",
+    "source" : "[{n}P] 보스 이상 적에게 주는 피해가 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-58-mw45x7",
+    "source" : "[{n}P] 보스 이상 적에게 주는 피해가 {m}% 추가로 증가하고, 화상의 피해량이 {k}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-36-1ou6kyl",
+    "source" : "[{n}P] 공격력이 {m}% 증가하고, 추가로 {k} 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ATTACK_POWER_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    }, {
+      "type" : "ATTACK_POWER_FLAT",
+      "valueKey" : "k",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-24-18w6phq",
+    "source" : "[{n}P] 추가 피해가 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ADDITIONAL_DAMAGE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-46-11o9he7",
+    "source" : "[{n}P] 받는 피해가 {m}% 추가로 감소하고, 추가 피해가 {k}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ADDITIONAL_DAMAGE_PERCENT",
+      "valueKey" : "k",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-26-vwgoee",
+    "source" : "보스 등급 이상 몬스터에게 주는 피해 +{n}%",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-39-1wkf6yv",
+    "source" : "치명타 적중률이 {n}% 증가하고, 진화형 피해가 {m}% 증가합니다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "CRIT_RATE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    }, {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "진화형 피해",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-37-1ok386q",
+    "source" : "진화형 피해가 {n}% 증가하며, 받는 피해가 {m}% 감소합니다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "진화형 피해",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-176-fy3jwh",
+    "source" : "공격 적중 시, 공격 속도 및 이동 속도 증가량의 {n}% 만큼 진화형 피해가 증가합니다. 공격 및 이동 속도가 모두 상한을 초과했다면, 진화형 피해가 추가로 {m}% 증가하며, 상한을 초과한 속도 증가량의 {k}%만큼 적중 시 진화형 피해가 증가합니다. 이 노드에 의한 진화형 피해는 최대 {p}%까지 적용됩니다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "아크패시브 진화",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-51-11atns6",
+    "source" : "적에게 주는 피해가 {n}% 증가하며, 무력화 상태의 적에게 주는 피해가 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    }, {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "STAGGERED",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-48-1wr9c2k",
+    "source" : "스킬의 재사용 대기 시간이 {n}% 증가하지만, 적에게 주는 피해가 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    }, {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "증가",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-18-1fyy1zo",
+    "source" : "치명타 피해가 {n}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "CRIT_DAMAGE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-35-2aubfj",
+    "source" : "공격이 치명타로 적중 시 적에게 주는 피해가 {n}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "치명타",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-46-g6oi9o",
+    "source" : "적에게 주는 피해가 {n}% 증가하지만, 받는 모든 회복 효과가 {m}% 감소한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-30-156e3vt",
+    "source" : "피격이상 면역인 적에게 주는 피해가 {n}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-37-1bsdwkg",
+    "source" : "실드 효과가 적용되는 동안 적에게 입히는 피해가 {n}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-40-y4cxa1",
+    "source" : "차지 스킬의 차징 속도가 {n}% 증가하고, 피해량이 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-21-qklk5u",
+    "source" : "적에게 주는 피해가 {n}% 증가된다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "사이즈믹 해머" ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-37-1sl7s8f",
+    "source" : "보유한 코어가 {n}개 일때 적에게 주는 피해가 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-65-jwdnp0",
+    "source" : "자신을 중심으로 반경 {n}m까지 지형을 뒤틀어 벽을 생성하는 형태로 변경되며 벽으로 주는 피해가 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "마지막 공격",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-27-1w5nyvw",
+    "source" : "[디스트로이어] 사이즈믹 해머 피해 {n}% 증가",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "사이즈믹 해머" ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-33-1wucatc",
+    "source" : "[디스트로이어] 사이즈믹 해머 재사용 대기시간 {n}% 감소",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "사이즈믹 해머" ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-26-13nfs26",
+    "source" : "해머로 직접 가하는 피해량이 {n}% 증가된다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ADDITIONAL_DAMAGE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "어스 이터" ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-25-avhey3",
+    "source" : "[디스트로이어] 어스 이터 피해 {n}% 증가",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "어스 이터" ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-31-1uygsuv",
+    "source" : "[디스트로이어] 어스 이터 재사용 대기시간 {n}% 감소",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-32-e0rbmt",
+    "source" : "[디스트로이어] 인듀어 페인 재사용 대기시간 {n}% 감소",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-31-sllhqb",
+    "source" : "[디스트로이어] 파워 숄더 재사용 대기시간 {n}% 감소",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-16-n6d8kw",
+    "source" : "공격속도가 {n}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ATTACK_SPEED_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-17-2wnwsp",
+    "source" : "추가 피해가 {n}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ADDITIONAL_DAMAGE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-27-1s8iozp",
+    "source" : "악마 및 대악마 계열 피해량이 {n}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-30-13okmjb",
+    "source" : "헤드어택 스킬이 적에게 주는 피해가 {n}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "HEAD_ATTACK",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-34-1f11n6w",
+    "source" : "[{n}P] 치명타 시 적에게 주는 피해가 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "CRITICAL_HIT",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-64-sgy5vo",
+    "source" : "[{n}P] 적에게 주는 피해가 {m}% 추가로 증가하고, 치명타 시 적에게 주는 피해가 {k}% 추가로 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    }, {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "k",
+      "condition" : "CRITICAL_HIT",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-22-1lla0y4",
+    "source" : "공격 및 이동 속도가 {n}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ATTACK_SPEED_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    }, {
+      "type" : "MOVE_SPEED_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-18-qjc8d7",
+    "source" : "공격 속도가 {n}% 증가합니다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ATTACK_SPEED_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-18-omus6i",
+    "source" : "이동 속도가 {n}% 증가합니다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "MOVE_SPEED_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-24-1yu13lk",
+    "source" : "스킬 재사용 대기시간이 {n}% 감소합니다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-20-1nf3daj",
+    "source" : "치명타 적중률이 {n}% 증가합니다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "CRIT_RATE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-28-114eh3n",
+    "source" : "무력화 대상에게 주는 피해량이 {n}% 증가합니다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "STAGGERED",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-27-1h69f5u",
+    "source" : "발현 및 화신 스킬 피해량이 {n}% 증가합니다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ "화신", "발현" ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-40-o6q6oe",
+    "source" : "화신 스킬의 엠버레스의 기운 소모당 피해량이 추가로 {n}% 증가합니다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ "화신" ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-42-1ml76d0",
+    "source" : "재사용 대기시간이 {n}초 감소하고, 적에게 주는 피해가 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "WEAPON_ATTACK_FLAT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-20-1rnf8ke",
+    "source" : "재사용 대기시간이 {n}초 감소한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_FLAT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-49-1mj33q2",
+    "source" : "포격 공격 시 {n}회 더 포격하여 포격 공격의 {m}%에 해당하는 추가 피해를 입힌다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "OTHER",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "조건",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-26-z0w677",
+    "source" : "[워로드] 대쉬 어퍼 파이어 피해 {n}% 증가",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-32-1kefudb",
+    "source" : "[워로드] 대쉬 어퍼 파이어 재사용 대기시간 {n}% 감소",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-44-mqr54m",
+    "source" : "{n}m 이내에 지정한 지점까지 뛰어올라 공격하며 {m}% 증가된 피해를 준다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-99-13gjjo3",
+    "source" : "공격 적중 시 {n}초간 약점을 노출시켜 대상이 자신 및 파티원에게 받는 피해를 {m}% 증가시킨다. 헤드 어택 및 백 어택의 경우, 받는 피해 효과가 추가로 {k}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ENEMY_RECEIVED_DAMAGE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-72-eb9pws",
+    "source" : "퍼펙트 존 성공 시 시드 등급 이상 몬스터에게 주는 피해가 {n}% 증가하고, 마지막 공격의 부위 파괴 레벨이 {m}로 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-64-k30f1n",
+    "source" : "차지 조작으로 변경되고 {n}단계 차지 시 퍼펙트 존 효과가 발생되고 오버 차지 시 {m}% 증가된 피해를 입힌다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-23-1lcuulx",
+    "source" : "[워로드] 버스트 캐넌 피해 {n}% 증가",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-29-1595ou1",
+    "source" : "[워로드] 버스트 캐넌 재사용 대기시간 {n}% 감소",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-44-1vr76s8",
+    "source" : "전방을 향해 {n}회 연속 집중포격을 가하여 총 {m}% 증가된 피해를 입힌다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "OTHER",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "조건",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-68-p7sen2",
+    "source" : "{n}단계 차지 시 최대 {m}%, {k}단계 차지 시 최대 {p}%, 오버 차지 시 최대 {q}%의 증가된 피해를 준다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "OTHER",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "조건",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-22-8ccw5g",
+    "source" : "[워로드] 스피어 샷 피해 {n}% 증가",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-28-1tuydug",
+    "source" : "[워로드] 스피어 샷 재사용 대기시간 {n}% 감소",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-108-jw7c5g",
+    "source" : "지정한 위치에 거대한 빛의 창을 내리꽂아 {n}의 [성] 속성 피해를 주고 적중된 적을 띄워올린다. {m}초간 반경 {k}m 범위 안에 있는 자신 및 파티원의 치명타 적중률이 {p}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "CRIT_RATE_PERCENT",
+      "valueKey" : "p",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-80-1ms9hfa",
+    "source" : "거대한 빛의 창을 중심으로 {n}초간 빛의 영역이 생성되어 반경 {m}m 내에 영향을 받는 자신 및 파티원의 치명타 적중률이 {k}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "CRIT_RATE_PERCENT",
+      "valueKey" : "k",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-28-y0x92w",
+    "source" : "차지 단계가 올라갈수록 공격력이 {n}% 상승한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "OTHER",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "조건",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-23-dal9y2",
+    "source" : "[워로드] 차지 스팅거 피해 {n}% 증가",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-29-1lp10iv",
+    "source" : "[{n}P] 랜스 스킬의 피해량이 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ "랜스" ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-34-1ds47bk",
+    "source" : "[{n}P] 버스트 캐넌의 치명타 피해량이 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "CRIT_DAMAGE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "버스트 캐넌" ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-23-dpsjq5",
+    "source" : "일반 스킬의 피해량이 {n}% 증가합니다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ "일반" ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-39-17gxn5r",
+    "source" : "공격속도가 {n}% 감소하지만, 적에게 주는 피해가 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ATTACK_SPEED_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "감소",
+      "stackCount" : 1,
+      "stack" : null
+    }, {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-39-1upbib",
+    "source" : "[{n}P] 무기 공격력이 {m}% 증가하고, 추가로 {k} 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "WEAPON_ATTACK_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    }, {
+      "type" : "WEAPON_ATTACK_FLAT",
+      "valueKey" : "k",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-25-f4rsbl",
+    "source" : "[{n}P] 무기 공격력이 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "WEAPON_ATTACK_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-46-1qaf736",
+    "source" : "전투 중 마나 회복량이 {n}% 증가하고. 랜스 스킬의 피해량이 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ "랜스" ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-29-15305rq",
+    "source" : "[워로드] 차지 스팅거 재사용 대기시간 {n}% 감소",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-105-xzcb59",
+    "source" : "차지 단계가 {n}단계 더 증가된다. 오버 차지 시 이동 거리가 {m}m 증가하며 적에게 주는 피해가 {k}% 증가하고, 포격을 가하여 {p}%의 추가 피해를 주고 적중된 적을 날려버린다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "OTHER",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "조건",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-24-otqjlb",
+    "source" : "[워로드] 카운터 스피어 피해 {n}% 증가",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-31-118aqyr",
+    "source" : "[{n}P] 카운터 스피어의 피해량이 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "카운터 스피어" ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-39-1lgz723",
+    "source" : "[{n}P] 카운터 스피어, 버스트 캐넌의 피해량이 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "카운터 스피어", "버스트 캐넌" ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-87-1pa2by",
+    "source" : "'운명: 전술 제어' : 랜스 스킬의 피해량이 {n}% 증가한다. 랜스 스킬 적중 시 {m}초에 한 번 '운명: 전술 제어'의 지속시간이 {k}초 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ "랜스" ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-71-114neqw",
+    "source" : "[{n}P] '운명: 전술 제어' : 효과가 강화되어 버스트 캐넌의 피해량이 {m}% 증가하고, 이동 속도가 {k}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "버스트 캐넌" ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    }, {
+      "type" : "MOVE_SPEED_PERCENT",
+      "valueKey" : "k",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-30-14otjwh",
+    "source" : "[{n}P] 버스트 캐넌의 피해량이 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "WEAPON_ATTACK_FLAT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-40-1d6qzb2",
+    "source" : "반격 성공 시 창격과 동시에 포격을 가하여 {n}% 증가된 피해를 준다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-30-19unarf",
+    "source" : "[워로드] 카운터 스피어 재사용 대기시간 {n}% 감소",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-146-1og53xp",
+    "source" : "전장의 창 사용 시 이동기 스킬의 재사용 대기시간이 초기화된다. 이어서 {n}초 동안 자신의 최대 생명력의 {m}%에 해당하는 보호막을 획득하며, 실드 게이지가 {k} 증가하고 진격 태세로 전환된다. 또한, 다음 사용하는 랜스 스킬의 피해량이 {p}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "p",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ "랜스" ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-69-1feizto",
+    "source" : "모든 치명타 발생 확률 {n}% 당 랜스 스킬의 피해량이 {m}% 증가한다. 피해량 증가 효과는 최대 {k}%까지 적용된다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "OTHER",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "조건",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-57-1vvvyep",
+    "source" : "랜스 스킬의 피해량이 {n}% 증가하며, 헤드어택 공격 적중 시 적에게 주는 피해가 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ "랜스" ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    }, {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "HEAD_ATTACK",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ "랜스" ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-32-1bwgde1",
+    "source" : "[슬레이어] 그라운드 스매시 재사용 대기시간 {n}% 감소",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-26-1nnw8l9",
+    "source" : "폭주 시 적에게 주는 피해가 {n}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-176-evryxh",
+    "source" : "차지 조작으로 변경되며 바위로 거대한 해머를 만들어 한번에 내려쳐 적에게 피해를 준다. 재사용 대기시간이 {n}초 증가하지만, 차지 조작 중 방향전환이 가능하며 차지 시 {m}%, 오버 차지 시 {k}%의 증가된 피해를 주고, 바위 파편이 날아서 흩어지며 해머로 내려친 공격의 {p}%에 해당하는 추가 피해를 준다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "OTHER",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "조건",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-37-17fkfck",
+    "source" : "공격에 적중된 적들의 모든 방어력을 {n}초간 {m}% 감소시킨다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DEFENSE_REDUCTION_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-43-1t9l3tv",
+    "source" : "마지막 타격의 피해가 {n}% 증가하고 공격 적중 시 적을 내려 찍어 버린다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "마지막 공격",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-26-pm0wt",
+    "source" : "[디스트로이어] 퍼펙트 스윙 피해 {n}% 증가",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-32-45mw7l",
+    "source" : "[디스트로이어] 퍼펙트 스윙 재사용 대기시간 {n}% 감소",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-24-1qf2ljg",
+    "source" : "[디스트로이어] 풀 스윙 피해 {n}% 증가",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ADDITIONAL_DAMAGE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-30-16ayfsg",
+    "source" : "[디스트로이어] 풀 스윙 재사용 대기시간 {n}% 감소",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-59-2j3wtn",
+    "source" : "공격한 자리에 {n}초간 지진을 일으켜, 매 초마다 내려찍는 공격의 {m}%에 해당하는 추가 피해를 준다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "OTHER",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "조건",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-32-dq6y5p",
+    "source" : "[디스트로이어] 헤비 크러쉬 재사용 대기시간 {n}% 감소",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-29-p45eos",
+    "source" : "[{n}P] 해방 스킬의 피해량이 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ "해방" ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-48-qalvzr",
+    "source" : "[{n}P] 퍼펙트 스윙의 피해량이 {m}% 증가하고, 시전 속도가 {k}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "퍼펙트 스윙" ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-67-1ysazer",
+    "source" : "공격 적중 시 매 초마다 {n}초 동안 무기 공격력이 {m} 공격 및 이동 속도가 {k}% 증가한다. (최대 {p}중첩)",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "WEAPON_ATTACK_FLAT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 6,
+      "stack" : null
+    }, {
+      "type" : "ATTACK_SPEED_PERCENT",
+      "valueKey" : "k",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 6,
+      "stack" : null
+    }, {
+      "type" : "MOVE_SPEED_PERCENT",
+      "valueKey" : "k",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 6,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-58-g2llfn",
+    "source" : "자신의 생명력이 {n}% 이상일 경우 적에게 공격 적중 시 {m}초 동안 무기 공격력이 {k} 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "WEAPON_ATTACK_FLAT",
+      "valueKey" : "k",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-24-5orquc",
+    "source" : "[{n}P] 무기 공격력이 {m} 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "WEAPON_ATTACK_FLAT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-34-1lc6xot",
+    "source" : "내공 소모량이 {n}% 증가하고 공격속도가 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ATTACK_SPEED_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-34-1j2fn5q",
+    "source" : "파동이 더욱 강력해지며 적에게 주는 피해가 {n}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-71-1by7t51",
+    "source" : "전신의 혈맥을 타고 흐르는 모든 기운을 손바닥 끝에서 폭발시켜 거대한 기공탄을 쏘아낸다. 적에게 주는 피해가 {n}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-23-z087lo",
+    "source" : "기공 스킬의 피해량이 {n}% 증가합니다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "WEAPON_ATTACK_FLAT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ "기공" ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-129-zs4lb8",
+    "source" : "더 이상 금강선공을 사용할 수 없지만, 새로운 신공 무상신공을 익혀 모든 스킬 사용 시 내공이 필요하지 않고, 무공 스킬의 피해량이 {n}% 증가하며, 무공 스킬 사용시 스킬 기본 내공 획득량의 {m}%에 해당하는 진기를 획득한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ "무공" ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-51-1ctws6d",
+    "source" : "적에게 주는 피해량이 {n}% 증가하고, 무공스킬 사용 시 진기 획득량이 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-47-1huuzj8",
+    "source" : "무공스킬의 피해량이 {n}% 증가하고, 무상신공 초식 사용 중 금강불괴 상태가 된다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "WEAPON_ATTACK_FLAT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ "기공", "무공" ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-22-ro9fed",
+    "source" : "적에게 주는 피해량이 {n}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-30-yh5nrr",
+    "source" : "진화형 피해가 {n}%, 낙인력이 {m}% 증가합니다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "진화형 피해",
+      "stackCount" : 1,
+      "stack" : null
+    }, {
+      "type" : "BRAND_POWER_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-46-lt8326",
+    "source" : "입식 타격 II : 진화형 피해 +{n}% / 낙인력 +{m}% , 최대 {k}중첩",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "진화형 피해",
+      "stackCount" : 6,
+      "stack" : null
+    }, {
+      "type" : "BRAND_POWER_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 6,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-58-kgt8ks",
+    "source" : "스킬 사용 시 자신 및 {n}m 범위 안에 있는 파티원의 공격력이 {m}초 동안 {k}% 만큼 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ATTACK_POWER_PERCENT",
+      "valueKey" : "k",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "시너지",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-26-1qi3g9r",
+    "source" : "[기공사] 파쇄장 재사용 대기시간 {n}% 감소",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-58-372e1p",
+    "source" : "공격 적중 시 자신 및 {n}m 범위 안에 있는 파티원의 공격력이 {m}초 동안 {k}% 만큼 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ATTACK_POWER_PERCENT",
+      "valueKey" : "k",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "시너지",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-36-h16t7l",
+    "source" : "방향성 공격이 아닌 스킬이 적에게 주는 피해가 {n}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-28-si9htn",
+    "source" : "[{n}P] 무공 스킬의 피해가 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ "무공" ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-21-78cfjq",
+    "source" : "[기공사] 음양신장 피해 {n}% 증가",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-27-hlbqaa",
+    "source" : "[기공사] 음양신장 재사용 대기시간 {n}% 감소",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-27-hsbi7r",
+    "source" : "[기공사] 여래신장 재사용 대기시간 {n}% 감소",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-26-yl994w",
+    "source" : "[기공사] 환영격 재사용 대기시간 {n}% 감소",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-20-17h03af",
+    "source" : "[기공사] 난화격 피해 {n}% 증가",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-26-1fgz5r7",
+    "source" : "[기공사] 난화격 재사용 대기시간 {n}% 감소",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-22-f2xo1o",
+    "source" : "[기공사] 단천벽력수 피해 {n}% 증가",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ADDITIONAL_DAMAGE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-28-cwkt9c",
+    "source" : "[기공사] 단천벽력수 재사용 대기시간 {n}% 감소",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-33-ory52j",
+    "source" : "준비 동작이 짧아지며 적에게 주는 피해가 {n}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-28-lonut1",
+    "source" : "[{n}P] 무상신장의 피해량이 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "WEAPON_ATTACK_FLAT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-60-1nh6t1k",
+    "source" : "[{n}P] '운명: 기의 발산' 상태에서 풍뢰일광포, 섬열파, 천류나선장 스킬 피해량이 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "풍뢰일광포", "섬열파", "천류나선장" ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-62-rg20yq",
+    "source" : "[{n}P] 풍뢰일광포, 섬열파, 천류나선장 스킬의 시전 속도가 {m}% 증가하고, 피해량이 {k}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "k",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "풍뢰일광포", "섬열파", "천류나선장" ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-46-zfvi7q",
+    "source" : "[{n}P] 섬열파 '혼신의 일격' 트라이포드 적용 시 피해량이 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "섬열파" ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-29-kiekka",
+    "source" : "[{n}P] 천류나선장의 피해량이 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "천류나선장" ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-29-gkfssd",
+    "source" : "[{n}P] 풍뢰일광포의 피해량이 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "풍뢰일광포" ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-59-1xptljo",
+    "source" : "[{n}P] 적에게 주는 피해가 {m}% 추가로 증가하며, 공격 적중 시 생명력을 {k} 추가로 회복한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-21-8t6t57",
+    "source" : "[기공사] 여래신장 피해 {n}% 증가",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-20-115g9wc",
+    "source" : "[기공사] 환영격 피해 {n}% 증가",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-28-1iag8dp",
+    "source" : "[{n}P] 음양신장의 피해량이 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "WEAPON_ATTACK_FLAT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-96-1p07ky0",
+    "source" : "재사용 대기시간이 {n}초 증가하지만, 전방을 바라보며 후방으로 몸을 낮춘 뒤 순식간에 전방으로 나오면서 돌려차기를 하여 적을 띄워, 적에게 주는 피해가 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ADDITIONAL_DAMAGE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    }, {
+      "type" : "COOLDOWN_REDUCTION_FLAT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "증가",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-66-1gzx226",
+    "source" : "스킬 시전 시 동일하게 공격하는 잔상이 생겨 적에게 주는 피해가 {n}% 증가하고 재사용 대기시간이 {m}초 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    }, {
+      "type" : "COOLDOWN_REDUCTION_FLAT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "증가",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-53-1sirikw",
+    "source" : "양손으로 내려칠 때 발생되는 검기를 {n}m 가량 멀리 쏘아낸다. {m}% 증가된 피해를 준다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-47-4offir",
+    "source" : "공격 준비 및 차지 시간이 {n}% 빨라지며, 적에게 주는 피해가 {m}% 증가한다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  } ]
+}

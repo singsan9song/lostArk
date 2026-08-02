@@ -107,7 +107,7 @@ export default function ArkGridOverview({ arkGrid, onHover }) {
                     }}
                     onMouseLeave={() => onHover?.(null)}
                   >
-                    <img src={slot.Icon} alt="" />
+                    <img loading="lazy" src={slot.Icon} alt="" />
                   </span>
                   <strong className="arkgrid-core-name">{slot.Name}</strong>
                   <b className="arkgrid-core-point">{slot.Point}P</b>
@@ -170,7 +170,7 @@ function ArkGridCore({ slot, position, gemPositions, onHover }) {
         }}
         onMouseLeave={() => onHover?.(null)}
       >
-        <img src={slot.Icon} alt="" />
+        <img loading="lazy" src={slot.Icon} alt="" />
       </span>
       {(slot.Gems || []).map((gem, index) => {
         const gemPosition = gemPositions[index] ?? gemPositions[0]
@@ -185,7 +185,7 @@ function ArkGridCore({ slot, position, gemPositions, onHover }) {
             onMouseLeave={() => onHover?.(null)}
             key={gem.Index ?? index}
           >
-            <img src={gem.Icon} alt="" />
+            <img loading="lazy" src={gem.Icon} alt="" />
           </span>
         )
       })}

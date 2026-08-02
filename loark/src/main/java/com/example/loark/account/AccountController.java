@@ -2,10 +2,13 @@ package com.example.loark.account;
 
 import com.example.loark.character.GameCharacter;
 import com.example.loark.character.GameCharacterRepository;
+import com.example.loark.character.CharacterSnapshot;
+import com.example.loark.character.CharacterSnapshotRepository;
 import com.example.loark.config.LostArkApiRequestCounter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,6 +35,7 @@ public class AccountController {
     private final UserFavoriteRepository favorites;
     private final UserRaidTaskRepository raidTasks;
     private final GameCharacterRepository gameCharacters;
+    private final CharacterSnapshotRepository characterSnapshots;
     private final ObjectMapper objectMapper;
     private final String discordAvatarBaseUrl;
     private final Set<String> adminDiscordIds;
@@ -40,12 +44,14 @@ public class AccountController {
     public AccountController(UserAccountRepository accounts, UserPreferenceRepository preferences,
                              UserFavoriteRepository favorites, UserRaidTaskRepository raidTasks,
                              GameCharacterRepository gameCharacters,
+                             CharacterSnapshotRepository characterSnapshots,
                              ObjectMapper objectMapper,
                              LostArkApiRequestCounter apiRequestCounter,
                              @Value("${discord.cdn.avatar-base-url}") String discordAvatarBaseUrl,
                              @Value("${app.community.admin-discord-ids:}") String adminDiscordIds) {
         this.accounts = accounts; this.preferences = preferences; this.favorites = favorites;
-        this.raidTasks = raidTasks; this.gameCharacters = gameCharacters; this.objectMapper = objectMapper;
+        this.raidTasks = raidTasks; this.gameCharacters = gameCharacters;
+        this.characterSnapshots = characterSnapshots; this.objectMapper = objectMapper;
         this.apiRequestCounter = apiRequestCounter;
         this.discordAvatarBaseUrl = discordAvatarBaseUrl;
         this.adminDiscordIds = new LinkedHashSet<>(Arrays.asList(adminDiscordIds.split(",")));
@@ -92,6 +98,122 @@ public class AccountController {
         return apiRequestCounter.searchHistory(query, page, size);
     }
 
+    @GetMapping("/admin/damage-option-corpus/options")
+    @Transactional(readOnly = true)
+    public JsonNode damageOptionCorpusOptions(@AuthenticationPrincipal OAuth2User principal) {
+        requireAdmin(principal);
+        ObjectNode result = objectMapper.createObjectNode();
+        ArrayNode classes = result.putArray("classes");
+        Map<String, ObjectNode> byClass = new LinkedHashMap<>();
+        for (Object[] row : gameCharacters.findDamageOptionCorpusOptions()) {
+            String className = Objects.toString(row[0], "");
+            String engraving = Objects.toString(row[1], "");
+            int characterCount = row[2] instanceof Number number ? number.intValue() : 0;
+            if (className.isBlank() || engraving.isBlank()) continue;
+            ObjectNode classRow = byClass.computeIfAbsent(className, key -> {
+                ObjectNode created = classes.addObject();
+                created.put("className", key);
+                created.set("engravings", objectMapper.createArrayNode());
+                return created;
+            });
+            ObjectNode engravingRow = ((ArrayNode) classRow.path("engravings")).addObject();
+            engravingRow.put("engraving", engraving);
+            engravingRow.put("characterCount", characterCount);
+        }
+        return result;
+    }
+
+    // Best-geared characters first, one small page at a time - the full engraving group can be
+    // thousands of characters, and pulling all of their armory_payload LOBs in one request is
+    // what used to make this endpoint hang. No @Transactional here: each repository call below
+    // already runs its own short transaction, so a slow admin browsing session never holds a
+    // single DB connection for the whole request (including the JSON-compaction loop).
+    private static final int DAMAGE_OPTION_CORPUS_PAGE_SIZE = 5;
+
+    @GetMapping("/admin/damage-option-corpus")
+    public JsonNode damageOptionCorpus(
+            @AuthenticationPrincipal OAuth2User principal,
+            @RequestParam String className,
+            @RequestParam String engraving,
+            @RequestParam(defaultValue = "0") int page) {
+        requireAdmin(principal);
+        ArrayNode characters = objectMapper.createArrayNode();
+        List<String> characterNames = gameCharacters.findDamageOptionCorpusCharacterNames(
+                className, engraving, PageRequest.of(Math.max(0, page), DAMAGE_OPTION_CORPUS_PAGE_SIZE));
+        List<CharacterSnapshot> snapshots = characterNames.isEmpty()
+                ? List.of()
+                : characterSnapshots.findAllById(
+                        characterSnapshots.findLatestSnapshotIdsForCharacterNames(characterNames));
+        Map<String, CharacterSnapshot> snapshotsByName = new HashMap<>();
+        for (CharacterSnapshot snapshot : snapshots) snapshotsByName.put(snapshot.getCharacterName(), snapshot);
+        for (String characterName : characterNames) {
+            CharacterSnapshot snapshot = snapshotsByName.get(characterName);
+            if (snapshot == null) continue;
+            try {
+                JsonNode armory = objectMapper.readTree(snapshot.getArmoryPayload());
+                ObjectNode compact = objectMapper.createObjectNode();
+
+                ObjectNode profile = objectMapper.createObjectNode();
+                profile.put("CharacterName", snapshot.getCharacterName());
+                profile.put("CharacterClassName", className);
+                profile.set("Stats", armory.path("ArmoryProfile").path("Stats").deepCopy());
+                compact.set("ArmoryProfile", profile);
+                ArrayNode equipment = objectMapper.createArrayNode();
+                Set<String> excludedEquipmentTypes = Set.of("나침반", "부적", "보주", "문장");
+                armory.path("ArmoryEquipment").forEach(item -> {
+                    if (!excludedEquipmentTypes.contains(item.path("Type").asText(""))) {
+                        equipment.add(item.deepCopy());
+                    }
+                });
+                compact.set("ArmoryEquipment", equipment);
+                compact.set("ArmoryAvatars", armory.path("ArmoryAvatars").deepCopy());
+                compact.set("ArkPassive", armory.path("ArkPassive").deepCopy());
+                compact.set("ArmoryEngraving", armory.path("ArmoryEngraving").deepCopy());
+
+                ObjectNode gem = objectMapper.createObjectNode();
+                gem.set("Effects", armory.path("ArmoryGem").path("Effects").deepCopy());
+                compact.set("ArmoryGem", gem);
+
+                ArrayNode skills = objectMapper.createArrayNode();
+                armory.path("ArmorySkills").forEach(skill -> {
+                    JsonNode copied = skill.deepCopy();
+                    if (copied instanceof ObjectNode objectSkill) objectSkill.remove("Tripods");
+                    skills.add(copied);
+                });
+                compact.set("ArmorySkills", skills);
+
+                ObjectNode arkGrid = objectMapper.createObjectNode();
+                ArrayNode slots = objectMapper.createArrayNode();
+                armory.path("ArkGrid").path("Slots").forEach(slot -> {
+                    JsonNode copied = slot.deepCopy();
+                    if (copied instanceof ObjectNode objectSlot) objectSlot.remove("Gems");
+                    slots.add(copied);
+                });
+                arkGrid.set("Slots", slots);
+                arkGrid.set("Effects", armory.path("ArkGrid").path("Effects").deepCopy());
+                compact.set("ArkGrid", arkGrid);
+
+                ObjectNode row = characters.addObject();
+                row.put("characterName", snapshot.getCharacterName());
+                row.put("className", className);
+                row.put("engraving", engraving);
+                row.put("fetchedAt", snapshot.getFetchedAt().toString());
+                row.set("armory", compact);
+            } catch (Exception parseError) {
+                com.example.loark.config.ApplicationLog.infof(
+                        "[DAMAGE OPTION CORPUS] Invalid snapshot ignored: %s / %d%n",
+                        snapshot.getCharacterName(), snapshot.getId());
+            }
+        }
+        ObjectNode result = objectMapper.createObjectNode();
+        result.put("characterCount", characters.size());
+        result.put("page", page);
+        result.put("className", className);
+        result.put("engraving", engraving);
+        result.set("characters", characters);
+        return result;
+    }
+
     private void requireAdmin(OAuth2User principal) {
         String discordId = principal == null ? null : principal.getAttribute("id");
         if (discordId == null || !adminDiscordIds.contains(discordId)) {
@@ -113,9 +235,8 @@ public class AccountController {
         Map<String, String> result = new LinkedHashMap<>();
 
         ArrayNode favoriteRows = objectMapper.createArrayNode();
-        favorites.findByDiscordIdOrderBySortOrderAsc(account.getDiscordId()).forEach(favorite -> {
+        favorites.findByDiscordIdWithCharacterOrderBySortOrderAsc(account.getDiscordId()).forEach(favorite -> {
             GameCharacter character = favorite.getCharacter();
-            if (character == null || !gameCharacters.existsById(character.getId())) return;
             ObjectNode row = favoriteRows.addObject();
             row.put("characterName", character.getCharacterName()); row.put("serverName", character.getServerName());
             row.put("className", character.getClassName()); row.put("itemLevel", character.getItemLevel());
@@ -169,7 +290,7 @@ public class AccountController {
         if (favoriteRows.isArray()) for (JsonNode row : favoriteRows) {
             String name = row.path("characterName").asText("").trim();
             if (name.isBlank()) continue;
-            GameCharacter character = gameCharacters.findByCharacterNameIgnoreCase(name).orElseGet(() -> {
+            GameCharacter character = gameCharacters.findByCharacterName(name).orElseGet(() -> {
                 GameCharacter created = new GameCharacter(name);
                 created.observe(text(row, "serverName"), text(row, "className"), 0, text(row, "itemLevel"),
                         text(row, "combatPower"), text(row, "characterImage"), null, Instant.now());

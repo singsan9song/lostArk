@@ -1,4 +1,5 @@
 import { BookOpen, CircleGauge, ShieldAlert, Sparkles, Swords, Target } from 'lucide-react'
+import { memo } from 'react'
 import { cleanApiText } from '../lib/text'
 import { representativeEngraving } from '../lib/representativeEngraving'
 
@@ -99,7 +100,7 @@ export default function SkillOverview({ profile, skills, armory, onHover }) {
             <span>{engraving.short || '각인 없음'}</span>
           </div>
           <div className="skill-representative-engraving">
-            <img src="/images/etc/ico_arkpassive.png" alt="" aria-hidden="true" />
+            <img loading="lazy" src="/images/etc/ico_arkpassive.png" alt="" aria-hidden="true" />
             <span>
               각인 <strong>{classEngraving}</strong>
             </span>
@@ -215,7 +216,7 @@ function PassiveNode({ effect, groupName, onHover }) {
       }}
       onMouseLeave={() => onHover?.(null)}
     >
-      {effect.Icon ? <img src={effect.Icon} alt="" /> : <Sparkles />}
+      {effect.Icon ? <img loading="lazy" src={effect.Icon} alt="" /> : <Sparkles />}
       <span>
         <i>{tier}</i>
         <strong>
@@ -226,7 +227,7 @@ function PassiveNode({ effect, groupName, onHover }) {
   )
 }
 
-function SkillRow({ skill, onHover }) {
+const SkillRow = memo(function SkillRow({ skill, onHover }) {
   const tripods = (skill.Tripods || []).filter((item) => item.IsSelected)
   const attrs = skillAttributes(skill)
   return (
@@ -240,7 +241,7 @@ function SkillRow({ skill, onHover }) {
           }}
           onMouseLeave={() => onHover?.(null)}
         >
-          <img src={skill.Icon} alt="" />
+          <img loading="lazy" src={skill.Icon} alt="" />
         </div>
         <div>
           <div className="skill-name-line">
@@ -273,7 +274,7 @@ function SkillRow({ skill, onHover }) {
                     }}
                     onMouseLeave={() => onHover?.(null)}
                   >
-                    <img src={tripod.Icon} alt="" />
+                    <img loading="lazy" src={tripod.Icon} alt="" />
                   </div>
                   <span>{tripod.Name}</span>
                 </>
@@ -298,7 +299,7 @@ function SkillRow({ skill, onHover }) {
               }}
               onMouseLeave={() => onHover?.(null)}
             >
-              <img src={skill.Rune.Icon} alt="" />
+              <img loading="lazy" src={skill.Rune.Icon} alt="" />
             </div>
             <strong>{skill.Rune.Name}</strong>
             <span>{skill.Rune.Grade}</span>
@@ -312,4 +313,4 @@ function SkillRow({ skill, onHover }) {
       </div>
     </article>
   )
-}
+})

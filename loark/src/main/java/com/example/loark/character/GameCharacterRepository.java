@@ -12,7 +12,9 @@ import java.util.Optional;
 
 public interface GameCharacterRepository extends JpaRepository<GameCharacter, Long>,
         JpaSpecificationExecutor<GameCharacter> {
-    Optional<GameCharacter> findByCharacterNameIgnoreCase(String characterName);
+    // character_name's collation is already case-insensitive (utf8mb4_unicode_ci); IgnoreCase
+    // would force UPPER() and lose the index (see CharacterSnapshotRepository for details).
+    Optional<GameCharacter> findByCharacterName(String characterName);
 
     // Batch lookup used to save a whole expedition roster in one round trip
     // instead of one findByCharacterNameIgnoreCase per member.
@@ -32,4 +34,24 @@ public interface GameCharacterRepository extends JpaRepository<GameCharacter, Lo
     @Query("select distinct character.className from GameCharacter character "
             + "where character.rankingReady = true and character.className <> '' order by character.className")
     List<String> findRankingClassNames();
+
+    @Query("select character.className, character.representativeEngraving, count(character) "
+            + "from GameCharacter character "
+            + "where character.rankingReady = true "
+            + "and character.className <> '' and character.representativeEngraving <> '' "
+            + "group by character.className, character.representativeEngraving "
+            + "order by character.className, character.representativeEngraving")
+    List<Object[]> findDamageOptionCorpusOptions();
+
+    // Ranked + paged: the corpus endpoint only ever needs a handful of the best-geared
+    // characters per page, never the whole (potentially thousands-strong) engraving group.
+    @Query("select character.characterName from GameCharacter character "
+            + "where character.rankingReady = true "
+            + "and character.className = :className "
+            + "and character.representativeEngraving = :engraving "
+            + "order by character.itemLevelValue desc")
+    List<String> findDamageOptionCorpusCharacterNames(
+            @Param("className") String className,
+            @Param("engraving") String engraving,
+            Pageable pageable);
 }

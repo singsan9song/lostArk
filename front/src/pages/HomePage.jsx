@@ -130,10 +130,10 @@ function RepresentativeHero({ favorites, representative }) {
     <section className="representative-hero has-character">
       <div className="representative-aura" />
       {representative.characterImage && (
-        <img className="representative-backdrop" src={representative.characterImage} alt="" />
+        <img loading="lazy" className="representative-backdrop" src={representative.characterImage} alt="" />
       )}
       {representative.characterImage && (
-        <img className="representative-art" src={representative.characterImage} alt="" />
+        <img loading="lazy" className="representative-art" src={representative.characterImage} alt="" />
       )}
       <div className="representative-copy">
         <p>
@@ -204,7 +204,7 @@ function FavoritesWidget({ favorites, representativeName, remove, removeMany }) 
                     <Link to={`/characters/${encodeURIComponent(item.characterName)}`}>
                       <span className="favorite-character-image">
                         {item.characterImage ? (
-                          <img src={item.characterImage} alt="" />
+                          <img loading="lazy" src={item.characterImage} alt="" />
                         ) : (
                           item.className?.[0]
                         )}
@@ -258,7 +258,7 @@ function ToolsWidget() {
         {tools.map(([color, Icon, title, desc, path]) => (
           <Link className={`tool-card ${color}`} to={path} key={title}>
             <span className="tool-icon">
-              {typeof Icon === 'string' ? <img src={Icon} alt="" /> : <Icon />}
+              {typeof Icon === 'string' ? <img loading="lazy" src={Icon} alt="" /> : <Icon />}
             </span>
             <div>
               <strong>{title}</strong>
@@ -420,7 +420,7 @@ function ScheduleWidget() {
               key={id}
             >
               <span className="daily-content-icon">
-                <img src={icon} alt="" />
+                <img loading="lazy" src={icon} alt="" />
               </span>
               <div>
                 <strong>{label}</strong>
@@ -449,7 +449,7 @@ function ScheduleWidget() {
                   >
                     <span className="adventure-island-icon">
                       {content.ContentsIcon ? (
-                        <img src={content.ContentsIcon} alt="" />
+                        <img loading="lazy" src={content.ContentsIcon} alt="" />
                       ) : (
                         <Palmtree />
                       )}
@@ -463,7 +463,7 @@ function ScheduleWidget() {
                       <header>
                         <span className="adventure-island-icon">
                           {content.ContentsIcon ? (
-                            <img src={content.ContentsIcon} alt="" />
+                            <img loading="lazy" src={content.ContentsIcon} alt="" />
                           ) : (
                             <Palmtree />
                           )}
@@ -478,7 +478,7 @@ function ScheduleWidget() {
                           rewards.map((reward) => (
                             <div key={reward.Name}>
                               <span>
-                                {reward.Icon ? <img src={reward.Icon} alt="" /> : <Palmtree />}
+                                {reward.Icon ? <img loading="lazy" src={reward.Icon} alt="" /> : <Palmtree />}
                               </span>
                               <b>{reward.Name}</b>
                             </div>

@@ -500,7 +500,7 @@ export default function HellRewardPage() {
       </nav>
       <header className="efficiency-hero hell-reward-hero">
         <div className="efficiency-hero-icon paradise-heading-icon">
-          <img src="/images/rewards/311b8974b04c4aa98aeab4d180ba205c.png" alt="낙원 시즌 3" />
+          <img loading="lazy" src="/images/rewards/311b8974b04c4aa98aeab4d180ba205c.png" alt="낙원 시즌 3" />
         </div>
         <div>
           <p>PARADISE SEASON 3</p>
@@ -573,7 +573,7 @@ export default function HellRewardPage() {
           <div className={`pheon-converter compact ${includePheonCost ? 'enabled' : ''}`}>
             <label className="pheon-toggle">
               <span className="pheon-currency-icon legendary">
-                <img src={pheonData.image} alt="페온" />
+                <img loading="lazy" src={pheonData.image} alt="페온" />
               </span>
               <span className="pheon-toggle-copy">
                 <b>페온 가치 포함</b>
@@ -663,7 +663,7 @@ export default function HellRewardPage() {
                     >
                       {images.length ? (
                         images.map((src, imageIndex) => (
-                          <img src={src} alt="" key={`${src}-${imageIndex}`} />
+                          <img loading="lazy" src={src} alt="" key={`${src}-${imageIndex}`} />
                         ))
                       ) : (
                         <PackageOpen />

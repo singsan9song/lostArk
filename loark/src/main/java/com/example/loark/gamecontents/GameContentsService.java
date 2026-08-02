@@ -3,6 +3,7 @@ package com.example.loark.gamecontents;
 import com.example.loark.cache.PersistentApiCache;
 import com.example.loark.config.LostArkRequestContext;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -23,10 +24,13 @@ public class GameContentsService {
 
     private final RestClient client;
     private final PersistentApiCache persistentCache;
+    private final boolean refreshEnabled;
 
-    public GameContentsService(RestClient lostArkRestClient, PersistentApiCache persistentCache) {
+    public GameContentsService(RestClient lostArkRestClient, PersistentApiCache persistentCache,
+                               @Value("${app.gamecontents-refresh.enabled:true}") boolean refreshEnabled) {
         this.client = lostArkRestClient;
         this.persistentCache = persistentCache;
+        this.refreshEnabled = refreshEnabled;
     }
 
     public JsonNode calendar() {
@@ -43,6 +47,7 @@ public class GameContentsService {
     // so the regular daily refresh still runs at the configured time.
     @EventListener(ApplicationReadyEvent.class)
     synchronized void restoreMissingCalendarOnStartup() {
+        if (!refreshEnabled) return;
         if (persistentCache.findLastSuccess(LATEST_CACHE_KEY).isPresent()) return;
 
         ZonedDateTime now = ZonedDateTime.now(KOREA);
@@ -66,6 +71,7 @@ public class GameContentsService {
     // On failure, visitors keep seeing the previous successful DB snapshot.
     @Scheduled(cron = "10 * * * * *", zone = "Asia/Seoul")
     synchronized void refreshAtSixAndRetryIfNeeded() {
+        if (!refreshEnabled) return;
         ZonedDateTime now = ZonedDateTime.now(KOREA);
         ZonedDateTime refreshStartsAt = now.toLocalDate().atTime(DAILY_REFRESH_TIME).atZone(KOREA);
         if (now.isBefore(refreshStartsAt)) return;

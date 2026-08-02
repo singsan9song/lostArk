@@ -42,6 +42,7 @@ public class MarketService {
     private final MarketPriceObservationRepository observations;
     private final Cache<String, Optional<MarketPrice>> cache;
     private final long ttlSeconds;
+    private final boolean backgroundRefreshEnabled;
     private final long requestSpacingNanos;
     // Background sweep (refreshKnownPrices) and lazily-queued stale-cache refreshes run here.
     // Kept separate from userRequestExecutor so a busy background sweep never makes a
@@ -58,6 +59,7 @@ public class MarketService {
                          MarketPriceObservationRepository observations,
                          ObjectMapper objectMapper,
                          @Value("${app.market-cache-ttl-seconds:5}") long ttlSeconds,
+                         @Value("${app.market-refresh.enabled:true}") boolean backgroundRefreshEnabled,
                          @Value("${app.market-refresh-min-interval-ms:10}") long refreshMinIntervalMs,
                          @Value("${app.market-refresh-concurrency:20}") int refreshConcurrency,
                          @Value("${app.market-user-request-concurrency:30}") int userRequestConcurrency) {
@@ -66,6 +68,7 @@ public class MarketService {
         this.observations = observations;
         this.objectMapper = objectMapper;
         this.ttlSeconds = Math.max(0, ttlSeconds);
+        this.backgroundRefreshEnabled = backgroundRefreshEnabled;
         this.requestSpacingNanos = Duration.ofMillis(Math.max(0, refreshMinIntervalMs)).toNanos();
         Caffeine<Object, Object> builder = Caffeine.newBuilder().maximumSize(500);
         if (ttlSeconds > 0) builder.expireAfterWrite(Duration.ofSeconds(ttlSeconds));
@@ -257,6 +260,7 @@ public class MarketService {
             initialDelayString = "${app.market-refresh-initial-delay-ms:5000}"
     )
     void refreshKnownPrices() {
+        if (!backgroundRefreshEnabled) return;
         persistentCache.keysBySource("market").stream()
                 .filter(key -> key.startsWith("market|"))
                 .map(key -> key.substring("market|".length()))

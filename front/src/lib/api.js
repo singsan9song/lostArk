@@ -21,7 +21,12 @@ export const discordLoginUrl = `${API_BASE_URL.replace(/\/api$/, '')}/oauth2/aut
 export const adminApiRequestStreamUrl = `${API_BASE_URL}/admin/api-requests/stream`
 
 export const lostArkApi = {
-  getCharacter: (characterName) => request(`/characters/${encodeURIComponent(characterName)}`),
+  getCharacter: (characterName, signal) =>
+    request(`/characters/${encodeURIComponent(characterName)}`, { signal }),
+  // DB-only instant read for the character page's first paint. Throws (404) when no
+  // snapshot exists yet — callers should treat that as "no cache", not an error.
+  getCachedCharacter: (characterName) =>
+    request(`/characters/${encodeURIComponent(characterName)}/cached`),
   // Lightweight equipment-only read used by the honing pages (일반/상급/통합 재련) — avoids
   // pulling the full armory+roster+discoveries+growth-history bundle just to read 6 items.
   getCharacterEquipment: (characterName) =>
@@ -57,6 +62,7 @@ export const lostArkApi = {
     engraving = '',
     page = 0,
     size = 50,
+    signal,
   } = {}) =>
     request(
       `/rankings/characters?${new URLSearchParams({
@@ -68,13 +74,29 @@ export const lostArkApi = {
         page,
         size,
       })}`,
+      { signal },
     ),
   getCurrentUser: () => request('/auth/me'),
+  getDamageOptionRegistry: () => request('/damage-option-registry'),
+  saveDamageOptionRegistry: (registry) =>
+    request('/damage-option-registry', {
+      method: 'PUT',
+      body: JSON.stringify(registry),
+    }),
   getAdminApiRequestHistory: () => request('/admin/api-requests/history'),
   getAdminApiRequestHistoryDetails: (resetAt) =>
     request(`/admin/api-requests/history/details?${new URLSearchParams({ resetAt })}`),
   searchAdminApiRequestHistory: (query, page = 0, size = 200) =>
     request(`/admin/api-requests/history/search?${new URLSearchParams({ query, page, size })}`),
+  getAdminDamageOptionCorpusOptions: () => request('/admin/damage-option-corpus/options'),
+  getAdminDamageOptionCorpus: (className, engraving, page = 0) =>
+    request(
+      `/admin/damage-option-corpus?${new URLSearchParams({
+        className,
+        engraving,
+        page,
+      })}`,
+    ),
   logout: () => request('/auth/logout', { method: 'POST' }),
   getUserData: () => request('/user-data'),
   saveUserData: (data) => request('/user-data', { method: 'PUT', body: JSON.stringify(data) }),

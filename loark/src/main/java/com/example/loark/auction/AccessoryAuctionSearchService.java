@@ -3,6 +3,8 @@ package com.example.loark.auction;
 import com.example.loark.cache.PersistentApiCache;
 import com.example.loark.config.LostArkApiRequestCounter;
 import com.example.loark.config.LostArkRequestContext;
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import tools.jackson.databind.ObjectMapper;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -59,6 +62,13 @@ public class AccessoryAuctionSearchService {
     private final int rateLimitReserve;
     private final ExecutorService backgroundJobExecutor;
     private final AtomicBoolean refreshRunning = new AtomicBoolean();
+    // Read-through cache for non-forced searches: the background collector already keeps
+    // listings reasonably fresh (see refreshInBackground), so identical filter combos searched
+    // again within this window can skip the DB round trip entirely.
+    private final Cache<SearchRequest, SearchResponse> searchCache = Caffeine.newBuilder()
+            .maximumSize(500)
+            .expireAfterWrite(Duration.ofSeconds(15))
+            .build();
 
     public AccessoryAuctionSearchService(RestClient lostArkRestClient,
                                          AccessoryAuctionListingRepository repository,
@@ -86,9 +96,16 @@ public class AccessoryAuctionSearchService {
     @Transactional
     public SearchResponse search(SearchRequest rawRequest) {
         SearchRequest request = normalize(rawRequest);
-        if (request.refresh()) refresh(request);
+        if (request.refresh()) {
+            refresh(request);
+        } else {
+            SearchResponse cached = searchCache.getIfPresent(request);
+            if (cached != null) return cached;
+        }
         List<SearchItem> items = stored(request);
-        return new SearchResponse(items, items.size(), Instant.now());
+        SearchResponse response = new SearchResponse(items, items.size(), Instant.now());
+        if (!request.refresh()) searchCache.put(request, response);
+        return response;
     }
 
     private SearchRequest normalize(SearchRequest request) {

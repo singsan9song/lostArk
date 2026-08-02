@@ -92,7 +92,7 @@ export default function CommunityPostPage() {
           <h1>{post.title}</h1>
           <div className="community-post-meta">
             {post.authorAvatarUrl ? (
-              <img src={post.authorAvatarUrl} alt="" />
+              <img loading="lazy" src={post.authorAvatarUrl} alt="" />
             ) : (
               <i>
                 <MessageCircle />
@@ -129,7 +129,7 @@ export default function CommunityPostPage() {
           {post.comments.map((item) => (
             <article className="community-comment" key={item.id}>
               {item.authorAvatarUrl ? (
-                <img src={item.authorAvatarUrl} alt="" />
+                <img loading="lazy" src={item.authorAvatarUrl} alt="" />
               ) : (
                 <i>
                   <MessageCircle />

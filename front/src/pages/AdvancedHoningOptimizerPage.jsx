@@ -191,7 +191,7 @@ function MaterialChoice({ items, prices }) {
             key={item.name}
           >
             <i className={gradeClass(meta.grade)}>
-              {meta.image ? <img src={meta.image} alt="" /> : <Icon />}
+              {meta.image ? <img loading="lazy" src={meta.image} alt="" /> : <Icon />}
             </i>
             <em>×{number(item.count)}</em>
             <small>{item.name}</small>
@@ -682,7 +682,7 @@ export default function AdvancedHoningOptimizerPage() {
                           key={material.name}
                         >
                           <i className={gradeClass(meta.grade)}>
-                            {meta.image ? <img src={meta.image} alt="" /> : <Icon />}
+                            {meta.image ? <img loading="lazy" src={meta.image} alt="" /> : <Icon />}
                           </i>
                           <span>
                             <small>

@@ -1,0 +1,6804 @@
+{
+  "version" : 1,
+  "records" : [ {
+    "id" : "damage-option-draft-15-tnlm92",
+    "source" : "각인 > Level: {n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1nv8sk1",
+    "source" : "결투의 대가",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-tadhhx",
+    "source" : "돌격대장",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-1qht88n",
+    "source" : "아드레날린",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-5ybd6x",
+    "source" : "예리한 둔기",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-145m84p",
+    "source" : "원한",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-4b78vw",
+    "source" : "가디언 백래시",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-15-mtkcwl",
+    "source" : "스킬 > Level: {n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-12hdq1l",
+    "source" : "일반",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-19-1l1hx2o",
+    "source" : "스킬 > SkillType: {n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-qvhd5v",
+    "source" : "NameTagBox",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-34v6mt",
+    "source" : "CommonSkillTitle",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-1kioh79",
+    "source" : "각성기",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-62-1xoqss3",
+    "source" : "스킬 > Tooltip > Element_{n} > value > slotData > iconGrade: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-83-dnv502",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/ddk_skill/ddk_skill_{n}_{m}.png",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-wft88m",
+    "source" : "MultiTextBox",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-1yvpqfu",
+    "source" : "PvE",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-1w8kl1z",
+    "source" : "SingleTextBox",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-1udr46q",
+    "source" : "스킬 레벨 {n} (최대)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-193-ynqh8z",
+    "source" : "스킬을 사용하는 즉시 엠버레스 오브 게이지를 {n}% 회복하고 지하에서 가디언을 불러내어 탑승한다. 이후 {m}m를 돌진하며 최대 {k}의 [화] 속성 피해를 주고 공격에 적중된 적들을 띄워올린다. 이후 머리에서 뛰어내리며 내려찍기 공격으로 적에게 {p}의 [화] 속성 피해를 주고 날려버린다. 이동 중 모험가 및 일반 몬스터와 충돌이 무시된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-166ek6b",
+    "source" : "무력화 : 최상",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-23-14pfwg5",
+    "source" : "슈퍼아머 : 피격이상 면역, 상태이상 면역",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-1cl1d9t",
+    "source" : "가디언즈 크래시",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-1iy3d4o",
+    "source" : "재사용 대기시간 {n}분",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-127-aixrxj",
+    "source" : "스킬을 사용하는 즉시 엠버레스의 기운을 모두 회복하고 엠버레스의 힘으로 날개를 펼쳐 공중으로 도약한 뒤, 가속을 붙여 할버드로 강하게 내려친다. 충격과 함께 땅이 갈라지며 지형을 파괴하고, {n}의 피해를 주며 적을 날려버린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-yu4phz",
+    "source" : "부위 파괴 : 레벨 {n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1akglk1",
+    "source" : "길로틴 스핀",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-13fdxfy",
+    "source" : "질풍",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-1svlck5",
+    "source" : "전설",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-c4vu4w",
+    "source" : "ItemTitle",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-55-1be35uz",
+    "source" : "스킬 > Rune > Tooltip > Element_{n} > value > bEquip: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-64-13dzlqd",
+    "source" : "스킬 > Rune > Tooltip > Element_{n} > value > itemIrochiCount: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1r44cq3",
+    "source" : "전설 스킬 룬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-62-1aq1vd6",
+    "source" : "스킬 > Rune > Tooltip > Element_{n} > value > qualityValue: -{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-71-1ua6jeg",
+    "source" : "스킬 > Rune > Tooltip > Element_{n} > value > slotData > advBookIcon: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-78-1py2lyz",
+    "source" : "스킬 > Rune > Tooltip > Element_{n} > value > slotData > battleItemTypeIcon: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-73-16g2snx",
+    "source" : "스킬 > Rune > Tooltip > Element_{n} > value > slotData > blackListIcon: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-70-yal20m",
+    "source" : "스킬 > Rune > Tooltip > Element_{n} > value > slotData > cardIcon: false",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-70-r20y4t",
+    "source" : "스킬 > Rune > Tooltip > Element_{n} > value > slotData > friendship: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-69-2sdsxj",
+    "source" : "스킬 > Rune > Tooltip > Element_{n} > value > slotData > iconGrade: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-34-d8p7yh",
+    "source" : "efui_iconatlas/use/use_{n}_{m}.png",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-70-1e2amhf",
+    "source" : "스킬 > Rune > Tooltip > Element_{n} > value > slotData > islandIcon: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-69-1axkqbm",
+    "source" : "스킬 > Rune > Tooltip > Element_{n} > value > slotData > petBorder: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-69-m3tdaq",
+    "source" : "스킬 > Rune > Tooltip > Element_{n} > value > slotData > temporary: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-64-u8uy3b",
+    "source" : "스킬 > Rune > Tooltip > Element_{n} > value > slotData > town: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-65-1gplgi1",
+    "source" : "스킬 > Rune > Tooltip > Element_{n} > value > slotData > trash: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-1mu53y8",
+    "source" : "ItemPartBox",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-ua67xj",
+    "source" : "스킬 룬 효과",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-1sbe244",
+    "source" : "스킬 시전 속도가 {n}% 증가",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-28-zw91kw",
+    "source" : "스킬에 강력한 힘을 부여할 수 있는 특별한 룬이다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-79u6hy",
+    "source" : "Progress",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-p91q8j",
+    "source" : "[가디언 토벌] 시험 {n}단계",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-iifhbg",
+    "source" : "재사용 대기시간 {n}초",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-11x5yj1",
+    "source" : "[일반 스킬]",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-1gjb323",
+    "source" : "스킬 레벨 {n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-101-njiiqi",
+    "source" : "할버드를 머리 위로 {n}회 회전시켜 총 {m}의 피해를 준 후 원심력을 이용하여 강하게 내려쳐 {k}의 피해를 주고 날려버린다. 공격 적중 시 엠버레스의 기운 {p}개를 회복한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-138qrrm",
+    "source" : "무력화 : 중상",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-13i6r1a",
+    "source" : "슈퍼아머 : 경직 면역",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-kapwn5",
+    "source" : "TripodSkillCustom",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-62-9k2zfu",
+    "source" : "스킬 > Tooltip > Element_{n} > value > Element_{m} > lock: false",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-d9mxnb",
+    "source" : "강화된 일격",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-76-rw4ibz",
+    "source" : "스킬 > Tooltip > Element_{n} > value > Element_{m} > slotData > iconGrade: {k}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-87-1saryuy",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/tripod_tier/tripod_tier_{n}_{m}.png",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-54-b126sp",
+    "source" : "회전 공격을 하는 동안 방향전환이 가능해지며, 이동 중 모험가 및 일반 몬스터와 충돌이 무시된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-walkg0",
+    "source" : "천부적인 힘",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-xqcvv1",
+    "source" : "파멸의 기운",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-1i81a57",
+    "source" : "[질풍] 스킬 시전 속도가 {n}% 증가",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-11f8ppm",
+    "source" : "보석 효과",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-1yp5qf5",
+    "source" : "BlinkLineStart",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-40-j7uncw",
+    "source" : "스킬 > Tooltip > Element_{n} > value: true",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-9mhmvl",
+    "source" : "다음 스킬 레벨 {n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-l5znbn",
+    "source" : "필요 레벨 {n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-7v5aen",
+    "source" : "필요 스킬 포인트 {n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-1x6svgg",
+    "source" : "BlinkLineEnd",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-29-1u215xh",
+    "source" : "적에게 주는 피해를 계산할 때 기준이 되는 값입니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-1khkb7p",
+    "source" : "딥 임팩트",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-1kd49nh",
+    "source" : "지점",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1xfdaul",
+    "source" : "[화신 스킬]",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-15-1cnyngz",
+    "source" : "엠버레스의 기운 {n} 소모",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-130-xi56ru",
+    "source" : "엠버레스의 힘으로 힘차게 도약하여 최대 {n}m 마우스 지점에 할버드를 꽂아 {m}의 피해를 주고, 이어 공간을 파괴하는 가공할 힘으로 내려찍어 {k}의 피해를 주며 넘어뜨린다. 이동 중 모험가 및 가디언 몬스터까지 충돌이 무시된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-1tio3ho",
+    "source" : "슈퍼아머 : 피격이상 면역",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-b3ojli",
+    "source" : "렌딩 피니셔",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1i48k61",
+    "source" : "[발현 스킬]",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-26-1tnpaiv",
+    "source" : "엠버레스의 기운 {n} 소모, 소켓 {m} 잠금",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-85-ucsvro",
+    "source" : "엠버레스의 기운이 담긴 갑주를 위로 치켜든 뒤 움켜쥔다. 동시에 엠버레스의 발톱이 땅을 가르고 함께 솟아올라 전방을 강하게 할퀴어 {n}의 피해를 준다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-26-1h73cyx",
+    "source" : "티어 {n} 트라이포드 스킬 레벨 {m}에 개방",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-61-psnag7",
+    "source" : "스킬 > Tooltip > Element_{n} > value > Element_{m} > lock: true",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1t8d3dz",
+    "source" : "리벤지 블로우",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-1ozbkci",
+    "source" : "홀딩",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-p5cdmr",
+    "source" : "속행",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-1oqj91t",
+    "source" : "희귀",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-5k7aef",
+    "source" : "희귀 스킬 룬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-20-som8jp",
+    "source" : "[퀘스트] 칼라자 마을 - 잿빛 운명",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-yhgzzb",
+    "source" : "무력화 : 중",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-stbf1j",
+    "source" : "공격 타입 : 헤드 어택",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-15eihte",
+    "source" : "기운 강화",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-79-ufix3c",
+    "source" : "스택이 가능하게 변경되며 최대 {n}회까지 충전되고, 방어에 성공하였을 때 반격 적중 시 충전중인 스택의 충전 시간이 최대 {m}초 감소된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1s8h34q",
+    "source" : "반격의 시간",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-mn5ymj",
+    "source" : "응징",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-ltk3y1",
+    "source" : "머리 아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-17s76ab",
+    "source" : "미스틱 아이돌 머리 (이벤트)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-1gomi3",
+    "source" : "영웅",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-28v7s6",
+    "source" : "아바타 > IsSet: false",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-20-1mug3ey",
+    "source" : "아바타 > IsInner: false",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-48-1i0syam",
+    "source" : "아바타 > Tooltip > AvatarAttribute > IsInner: false",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-46-l6avzm",
+    "source" : "아바타 > Tooltip > AvatarAttribute > IsSet: false",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-49-wo6mwx",
+    "source" : "아바타 > Tooltip > Element_{n} > value > bEquip: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-58-12w5vp7",
+    "source" : "아바타 > Tooltip > Element_{n} > value > itemIrochiCount: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-biikd9",
+    "source" : "영웅 머리 아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-56-1ab8e7o",
+    "source" : "아바타 > Tooltip > Element_{n} > value > qualityValue: -{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-s6s18u",
+    "source" : "장착중",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-65-1qjz01i",
+    "source" : "아바타 > Tooltip > Element_{n} > value > slotData > advBookIcon: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-72-jm70gt",
+    "source" : "아바타 > Tooltip > Element_{n} > value > slotData > battleItemTypeIcon: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-67-66rn0f",
+    "source" : "아바타 > Tooltip > Element_{n} > value > slotData > blackListIcon: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-64-1qltjfk",
+    "source" : "아바타 > Tooltip > Element_{n} > value > slotData > cardIcon: false",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-64-1hkkdl3",
+    "source" : "아바타 > Tooltip > Element_{n} > value > slotData > friendship: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-63-120x15l",
+    "source" : "아바타 > Tooltip > Element_{n} > value > slotData > iconGrade: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-79-lylr7m",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/shop_icon/shop_icon_{n}.png",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-64-1rpw9tl",
+    "source" : "아바타 > Tooltip > Element_{n} > value > slotData > islandIcon: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-63-9y49ag",
+    "source" : "아바타 > Tooltip > Element_{n} > value > slotData > petBorder: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-63-bqbkn8",
+    "source" : "아바타 > Tooltip > Element_{n} > value > slotData > temporary: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-58-o9e5ct",
+    "source" : "아바타 > Tooltip > Element_{n} > value > slotData > town: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-59-1e61wrz",
+    "source" : "아바타 > Tooltip > Element_{n} > value > slotData > trash: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-1gl9tz4",
+    "source" : "가디언나이트 전용",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1te942v",
+    "source" : "원정대 귀속됨",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-1067hj3",
+    "source" : "거래 불가",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-1aouj2z",
+    "source" : "기본 효과",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-1g51d64",
+    "source" : "SymbolString",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-19-1wy2e3d",
+    "source" : "&tdc_smart 지성 : {n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-21-128dk0e",
+    "source" : "&tdc_courage 담력 : {n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-19-19v3din",
+    "source" : "&tdc_charm 매력 : {n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-2936t7",
+    "source" : "성향",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-yyipfp",
+    "source" : "판매불가, 분해불가",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1b8oa6c",
+    "source" : "상의 아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-n570ya",
+    "source" : "미스틱 아이돌 상의 (이벤트)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-ny5pm8",
+    "source" : "영웅 상의 아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-1ggw0sz",
+    "source" : "얼굴{n} 아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-g0sdwl",
+    "source" : "스포티 아이돌 블랙 얼굴{n} (이벤트)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-11012bb",
+    "source" : "영웅 얼굴{n} 아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1ny7wyt",
+    "source" : "하의 아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-1adn9yn",
+    "source" : "미스틱 아이돌 하의 (이벤트)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-sbde9d",
+    "source" : "영웅 하의 아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-3kf0qx",
+    "source" : "&tdc_kind 친절 : {n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-6mcq4t",
+    "source" : "아크그리드 > Index: {n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-15-1vr6aph",
+    "source" : "질서의 달 코어 : 도미넌트",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-gqck0n",
+    "source" : "아크그리드 > Point: {n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-51-ajq5fl",
+    "source" : "아크그리드 > Tooltip > Element_{n} > value > bEquip: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-60-ezklrv",
+    "source" : "아크그리드 > Tooltip > Element_{n} > value > itemIrochiCount: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-13qaqbt",
+    "source" : "유물 아크 그리드 코어",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-58-sk8j90",
+    "source" : "아크그리드 > Tooltip > Element_{n} > value > qualityValue: -{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-67-11scd4m",
+    "source" : "아크그리드 > Tooltip > Element_{n} > value > slotData > advBookIcon: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-74-zfz44d",
+    "source" : "아크그리드 > Tooltip > Element_{n} > value > slotData > battleItemTypeIcon: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-69-qyxh33",
+    "source" : "아크그리드 > Tooltip > Element_{n} > value > slotData > blackListIcon: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-66-1xuxlwg",
+    "source" : "아크그리드 > Tooltip > Element_{n} > value > slotData > cardIcon: false",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-66-1otog1z",
+    "source" : "아크그리드 > Tooltip > Element_{n} > value > slotData > friendship: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-65-1na5swp",
+    "source" : "아크그리드 > Tooltip > Element_{n} > value > slotData > iconGrade: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-71-1pdd42y",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/use/use_{n}_{m}.png",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-66-1yz0cah",
+    "source" : "아크그리드 > Tooltip > Element_{n} > value > slotData > islandIcon: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-65-v7d11k",
+    "source" : "아크그리드 > Tooltip > Element_{n} > value > slotData > petBorder: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-65-wzkcec",
+    "source" : "아크그리드 > Tooltip > Element_{n} > value > slotData > temporary: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-60-csvfh",
+    "source" : "아크그리드 > Tooltip > Element_{n} > value > slotData > town: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-61-150n8a7",
+    "source" : "아크그리드 > Tooltip > Element_{n} > value > slotData > trash: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-17gebs8",
+    "source" : "코어 타입",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-19txmqe",
+    "source" : "질서 - 달",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-13zj5am",
+    "source" : "코어 공급 의지력",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-5h9v1j",
+    "source" : "{n} 포인트",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-8xnsaq",
+    "source" : "코어 옵션",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-30-13mwy80",
+    "source" : "[{n}P] 가디언 피어 사용 시 '운명'이 발동한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-zoqg57",
+    "source" : "코어 옵션 발동 조건",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-crwr08",
+    "source" : "드레드 로어 전용",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-25-3p9m94",
+    "source" : "아크 패시브 {n}티어 한계 초월 활성화 필요",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-13mre45",
+    "source" : "분해불가",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-24-p9072j",
+    "source" : "[카제로스 레이드] {n}막 : 파멸의 성채",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-21-1uz899r",
+    "source" : "[카제로스 레이드] 종막 : 최후의 날",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-21-pantx8",
+    "source" : "[그림자 레이드] 고통의 마녀, 세르카",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-l3l89k",
+    "source" : "그 외에 획득처가 더 존재합니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-25-118trch",
+    "source" : "아크그리드 > Gems > Index: {n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-29-15j5c4b",
+    "source" : "아크그리드 > Gems > IsActive: true",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-oy6wtk",
+    "source" : "질서의 젬 : 안정",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-58-168k2yd",
+    "source" : "아크그리드 > Gems > Tooltip > Element_{n} > value > bEquip: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-67-11ujrs7",
+    "source" : "아크그리드 > Gems > Tooltip > Element_{n} > value > itemIrochiCount: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-11hkkcb",
+    "source" : "전설 아크 그리드 젬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-65-1pro0zk",
+    "source" : "아크그리드 > Gems > Tooltip > Element_{n} > value > qualityValue: -{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-74-1vwot5m",
+    "source" : "아크그리드 > Gems > Tooltip > Element_{n} > value > slotData > advBookIcon: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-81-yldmfl",
+    "source" : "아크그리드 > Gems > Tooltip > Element_{n} > value > slotData > battleItemTypeIcon: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-76-zarrkb",
+    "source" : "아크그리드 > Gems > Tooltip > Element_{n} > value > slotData > blackListIcon: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-73-xe98ek",
+    "source" : "아크그리드 > Gems > Tooltip > Element_{n} > value > slotData > cardIcon: false",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-73-ukk7ib",
+    "source" : "아크그리드 > Gems > Tooltip > Element_{n} > value > slotData > friendship: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-72-byizd1",
+    "source" : "아크그리드 > Gems > Tooltip > Element_{n} > value > slotData > iconGrade: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-73-1xrl7hp",
+    "source" : "아크그리드 > Gems > Tooltip > Element_{n} > value > slotData > islandIcon: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-72-1wytgo4",
+    "source" : "아크그리드 > Gems > Tooltip > Element_{n} > value > slotData > petBorder: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-72-vvvg0o",
+    "source" : "아크그리드 > Gems > Tooltip > Element_{n} > value > slotData > temporary: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-67-sbgz49",
+    "source" : "아크그리드 > Gems > Tooltip > Element_{n} > value > slotData > town: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-68-ps79aj",
+    "source" : "아크그리드 > Gems > Tooltip > Element_{n} > value > slotData > trash: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-8jkk02",
+    "source" : "가공 완료",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-12t1rmq",
+    "source" : "젬 기본 정보",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-alxbk",
+    "source" : "젬 타입 : 질서",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-fi9qwx",
+    "source" : "젬 포인트 : {n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-1gomqw5",
+    "source" : "젬 효과",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-36-10vf2zr",
+    "source" : "필요 의지력 : {n} (기본 값 {m} – 의지력 효율 {k})",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-txpxx7",
+    "source" : "질서 포인트 : {n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-p4rw5i",
+    "source" : "[공격력] Lv.{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-yn619u",
+    "source" : "[아군 피해 강화] Lv.{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-1s1pztj",
+    "source" : "[추가 피해] Lv.{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-15-lju9jw",
+    "source" : "[젬 가공] 아크 그리드 젬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-11ec9y6",
+    "source" : "[젬 융합] 가공 완료 젬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-9fay0q",
+    "source" : "공격력",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-ycfxcv",
+    "source" : "아크그리드 > Level: {n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-k4spir",
+    "source" : "낙인력",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-1uszqgg",
+    "source" : "아군 피해 강화",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-6fdsar",
+    "source" : "추가 피해",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1rrd1r9",
+    "source" : "드레드 로어",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-29-18z1gmq",
+    "source" : "아크패시브 효과 > IsArkPassive: true",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-1u8pujb",
+    "source" : "깨달음",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-23-5ubiqs",
+    "source" : "깨달음 {n}티어 드레드 로어 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-10231m3",
+    "source" : "아크 패시브 레벨 {n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-68-ys05xb",
+    "source" : "아크패시브 효과 > ToolTip > Element_{n} > value > slotData > iconGrade: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-91-jaqaf6",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/ark_passive_ddk/ark_passive_ddk_{n}.png",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-hqbfe2",
+    "source" : "도약",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-1fni9vm",
+    "source" : "아크패시브 포인트 > Value: {n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-1edr09e",
+    "source" : "도약 아크 패시브 포인트",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-58-20ld5i",
+    "source" : "캐릭터 전투 레벨 상승 및 장착한 팔찌 아이템을 통해 도약 아크 패시브 포인트를 상승 시킬 수 있습니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-1kk3tg1",
+    "source" : "{n}랭크 {m}레벨",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-x7yl39",
+    "source" : "진화",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-ad3qtv",
+    "source" : "진화 아크 패시브 포인트",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-58-1c7gyhi",
+    "source" : "캐릭터 전투 레벨 상승 및 장착한 장비 아이템을 통해 진화 아크 패시브 포인트를 상승 시킬 수 있습니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-1kxnw9l",
+    "source" : "깨달음 아크 패시브 포인트",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-61-dznjsc",
+    "source" : "캐릭터 전투 레벨 상승 및 장착한 악세서리 아이템을 통해 깨달음 아크 패시브 포인트를 상승 시킬 수 있습니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-rpyw15",
+    "source" : "무기",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-15-c0lw",
+    "source" : "+{n} 운명의 업화 할버드",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-j6v1v1",
+    "source" : "고대",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-48-10nsmjm",
+    "source" : "장비 > Tooltip > Element_{n} > value > bEquip: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-57-11zqt1m",
+    "source" : "장비 > Tooltip > Element_{n} > value > itemIrochiCount: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1apz759",
+    "source" : "고대 할버드",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-fp98j1",
+    "source" : "품질",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-19-1qqr08d",
+    "source" : "아이템 레벨 {n} (티어 {m})",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-54-1owjigu",
+    "source" : "장비 > Tooltip > Element_{n} > value > qualityValue: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-64-p3ln2d",
+    "source" : "장비 > Tooltip > Element_{n} > value > slotData > advBookIcon: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-71-1kh8ls8",
+    "source" : "장비 > Tooltip > Element_{n} > value > slotData > battleItemTypeIcon: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-66-1cgaklo",
+    "source" : "장비 > Tooltip > Element_{n} > value > slotData > blackListIcon: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-63-l6vda9",
+    "source" : "장비 > Tooltip > Element_{n} > value > slotData > cardIcon: false",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-63-mjusju",
+    "source" : "장비 > Tooltip > Element_{n} > value > slotData > friendship: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-62-17ozsv6",
+    "source" : "장비 > Tooltip > Element_{n} > value > slotData > iconGrade: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-77-1yjmueu",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/ddk_item/ddk_item_{n}.png",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-63-cxpf0o",
+    "source" : "장비 > Tooltip > Element_{n} > value > slotData > islandIcon: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-62-1pbigrr",
+    "source" : "장비 > Tooltip > Element_{n} > value > slotData > petBorder: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-62-3choiz",
+    "source" : "장비 > Tooltip > Element_{n} > value > slotData > temporary: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-57-3guv28",
+    "source" : "장비 > Tooltip > Element_{n} > value > slotData > town: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-58-17y0bv4",
+    "source" : "장비 > Tooltip > Element_{n} > value > slotData > trash: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1ip7q1r",
+    "source" : "캐릭터 귀속됨",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-33-1gb725u",
+    "source" : "[상급 재련] {n}단계 {m}단계 - 기본 효과 +{k}%",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-19uaqsv",
+    "source" : "추가 효과",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-49-78qqi4",
+    "source" : "장비 > Tooltip > Element_{n} > value > maximum: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-49-g4xl2q",
+    "source" : "장비 > Tooltip > Element_{n} > value > minimum: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-h4d8j2",
+    "source" : "현재 단계 재련 경험치",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-47-14c6h1h",
+    "source" : "장비 > Tooltip > Element_{n} > value > value: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-51-1ar0xi5",
+    "source" : "장비 > Tooltip > Element_{n} > value > valueType: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-b6nram",
+    "source" : "분해불가, 품질 업그레이드 불가",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-11cil64",
+    "source" : "[제작] 대도시",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-5sccqr",
+    "source" : "ShowMeTheMoney",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-c6h9gl",
+    "source" : "내구도 {n} / {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-1b6a9cj",
+    "source" : "유물 보주",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-55-1n4ehcd",
+    "source" : "장비 > Tooltip > Element_{n} > value > qualityValue: -{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-67-l9yjuu",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/acc/acc_{n}.png",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-2wpf0w",
+    "source" : "특수 효과",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-jm74o5",
+    "source" : "[너른너울]",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-73-1a5ul0c",
+    "source" : "공격 적중 시, 공격 대상에서 {n}갈래의 넓은 파도를 발사합니다. 각각 {m}의 고정 피해를 줍니다. (재사용 대기시간 {k}초)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-38-d5kfxh",
+    "source" : "시즌{n}에 달성한 최대 낙원력에 따라 특수 효과 수치가 변동됩니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-21-18s63n",
+    "source" : "시즌{n} 달성 최대 낙원력 : {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-gow3m5",
+    "source" : "파도의 권능이 깃들어있는 보주.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-35-1b30ula",
+    "source" : "장착 시 잔잔한 물결의 파동을 방출하는 능력을 사용할 수 있다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-1fhgqyh",
+    "source" : "파괴불가, 분해불가",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-7kss3w",
+    "source" : "[낙원] 증명",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-1urwzuh",
+    "source" : "유물",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-1a9vwv4",
+    "source" : "특화",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-5x4v6o",
+    "source" : "전투 특성 > Value: {n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-39-7u9zcd",
+    "source" : "물약 및 원정대 레벨 보상 효과로 {n}만큼 영구적으로 증가되었습니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-47-uq0fov",
+    "source" : "카드 도감 누적 효과가 반영된 값으로 전투정보실에서는 별도 수치를 표기하지 않습니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-9q7259",
+    "source" : "팔찌",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-72k1uj",
+    "source" : "찬란한 구원자의 팔찌",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-48-ur0otb",
+    "source" : "팔찌 > Tooltip > Element_{n} > value > bEquip: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-57-1m35e1d",
+    "source" : "팔찌 > Tooltip > Element_{n} > value > itemIrochiCount: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-4nstov",
+    "source" : "고대 팔찌",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-9bz45t",
+    "source" : "아이템 티어 {n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-55-1x6l1yu",
+    "source" : "팔찌 > Tooltip > Element_{n} > value > qualityValue: -{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-64-12q8a70",
+    "source" : "팔찌 > Tooltip > Element_{n} > value > slotData > advBookIcon: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-71-8tj9m7",
+    "source" : "팔찌 > Tooltip > Element_{n} > value > slotData > battleItemTypeIcon: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-66-uqxhtl",
+    "source" : "팔찌 > Tooltip > Element_{n} > value > slotData > blackListIcon: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-63-o10s4i",
+    "source" : "팔찌 > Tooltip > Element_{n} > value > slotData > cardIcon: false",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-63-w6shax",
+    "source" : "팔찌 > Tooltip > Element_{n} > value > slotData > friendship: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-62-1w4rlsz",
+    "source" : "팔찌 > Tooltip > Element_{n} > value > slotData > iconGrade: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-63-908kwn",
+    "source" : "팔찌 > Tooltip > Element_{n} > value > slotData > islandIcon: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-62-uyw6ta",
+    "source" : "팔찌 > Tooltip > Element_{n} > value > slotData > petBorder: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-62-9eyr4m",
+    "source" : "팔찌 > Tooltip > Element_{n} > value > slotData > temporary: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-57-a95l1f",
+    "source" : "팔찌 > Tooltip > Element_{n} > value > slotData > town: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-58-1h97f1h",
+    "source" : "팔찌 > Tooltip > Element_{n} > value > slotData > trash: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-183smkt",
+    "source" : "거래 제한 아이템 레벨 {n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-13vivmb",
+    "source" : "팔찌 효과",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1ykfl2t",
+    "source" : "치명 +{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1gipo79",
+    "source" : "신속 +{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-ol6j3x",
+    "source" : "효과 부여 불가",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-16f53xb",
+    "source" : "아크 패시브 포인트 효과",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1qxhgwh",
+    "source" : "도약 +{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-1r84yrq",
+    "source" : "치명",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-qfhf60",
+    "source" : "최대 생명력",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-19-q7twxk",
+    "source" : "캐릭터의 최대 생명력을 나타냅니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-25-1tnkxy1",
+    "source" : "체력으로 최대 생명력이 {n} 증가되었습니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-30-9o4ovl",
+    "source" : "생명 활성력으로 최대 생명력이 {n}% 증가되었습니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-12ocoju",
+    "source" : "제압",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-1rzz8ll",
+    "source" : "인내",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-19-1dut6tc",
+    "source" : "물리 방어력이 {n}% 증가합니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-19-1cneow5",
+    "source" : "마법 방어력이 {n}% 증가합니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-19-1o3kdwn",
+    "source" : "보호막 효과가 {n}% 증가합니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-1blzlcq",
+    "source" : "생명력 회복 효과가 {n}% 증가합니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-15omrbl",
+    "source" : "어깨",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-boieqr",
+    "source" : "+{n} 운명의 업화 견갑",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-1yicdts",
+    "source" : "고대 어깨 방어구",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-15fdjdg",
+    "source" : "물리 방어력 +{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-gt1im5",
+    "source" : "마법 방어력 +{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1cv02uh",
+    "source" : "체력 +{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-m876xk",
+    "source" : "생명 활성력 +{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1pfx7ac",
+    "source" : "진화 +{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-14vzzi4",
+    "source" : "상의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-1209rzx",
+    "source" : "+{n} 운명의 업화 상의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-186x5bi",
+    "source" : "고대 상의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-1a9yrcd",
+    "source" : "하의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-1826p7w",
+    "source" : "+{n} 운명의 업화 하의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-52ve7z",
+    "source" : "고대 하의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-10lfwth",
+    "source" : "투구",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-z7tkpw",
+    "source" : "+{n} 운명의 업화 투구",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-cef868",
+    "source" : "고대 머리 방어구",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-z35bfn",
+    "source" : "장갑",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-zvncmm",
+    "source" : "+{n} 운명의 업화 장갑",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-qv50ud",
+    "source" : "고대 장갑",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-1chipgl",
+    "source" : "반지",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-11hzco1",
+    "source" : "도래한 결전의 반지",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-50-asmxa6",
+    "source" : "악세서리 > Tooltip > Element_{n} > value > bEquip: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-59-apyqwe",
+    "source" : "악세서리 > Tooltip > Element_{n} > value > itemIrochiCount: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-kmbqvb",
+    "source" : "고대 반지",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-56-8fd1s2",
+    "source" : "악세서리 > Tooltip > Element_{n} > value > qualityValue: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-66-4249i9",
+    "source" : "악세서리 > Tooltip > Element_{n} > value > slotData > advBookIcon: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-73-18x8g10",
+    "source" : "악세서리 > Tooltip > Element_{n} > value > slotData > battleItemTypeIcon: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-68-1pradfk",
+    "source" : "악세서리 > Tooltip > Element_{n} > value > slotData > blackListIcon: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-65-s45pyd",
+    "source" : "악세서리 > Tooltip > Element_{n} > value > slotData > cardIcon: false",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-65-d1cni6",
+    "source" : "악세서리 > Tooltip > Element_{n} > value > slotData > friendship: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-64-puoeie",
+    "source" : "악세서리 > Tooltip > Element_{n} > value > slotData > iconGrade: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-65-zp7f6c",
+    "source" : "악세서리 > Tooltip > Element_{n} > value > slotData > islandIcon: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-64-352ly3",
+    "source" : "악세서리 > Tooltip > Element_{n} > value > slotData > petBorder: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-64-iphyuf",
+    "source" : "악세서리 > Tooltip > Element_{n} > value > slotData > temporary: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-59-15e5ptg",
+    "source" : "악세서리 > Tooltip > Element_{n} > value > slotData > town: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-60-1jpzyys",
+    "source" : "악세서리 > Tooltip > Element_{n} > value > slotData > trash: {m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-r8icw0",
+    "source" : "목걸이",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-1vb74os",
+    "source" : "도래한 결전의 목걸이",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1yhn4t2",
+    "source" : "고대 목걸이",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-t19eiz",
+    "source" : "연마 효과",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-18qvw32",
+    "source" : "깨달음 +{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-ounww3",
+    "source" : "귀걸이",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-w0am7",
+    "source" : "도래한 결전의 귀걸이",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1qnye6x",
+    "source" : "고대 귀걸이",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-p0zmer",
+    "source" : "진화 {n}티어 치명 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-103-cydjli",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/ark_passive_evolution/ark_passive_evolution_{n}.png",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-l10ne0",
+    "source" : "치명이 {n} 증가합니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-tnb92r",
+    "source" : "진화 {n}티어 신속 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-b4e0ja",
+    "source" : "신속",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-21-5s9xn8",
+    "source" : "진화 {n}티어 한계 돌파 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-1esrtfb",
+    "source" : "한계 돌파",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-t1dfqn",
+    "source" : "진화 {n}티어 최적화 훈련 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1148o6i",
+    "source" : "최적화 훈련",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-1mbmts3",
+    "source" : "진화 {n}티어 일격 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-1xb4zpy",
+    "source" : "일격",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-kt6kja",
+    "source" : "진화 {n}티어 회심 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-1wzm6md",
+    "source" : "회심",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-1msslje",
+    "source" : "진화 {n}티어 달인 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-hwgwi1",
+    "source" : "달인",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-21-18sfy8f",
+    "source" : "진화 {n}티어 음속 돌파 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-wqzeg6",
+    "source" : "음속 돌파",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-47-18ar9sl",
+    "source" : "더 이상 화신 상태로 전환이 불가능해지는 대신 Z 스킬이 '가디언 피어'로 변경된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-52-1k14lqz",
+    "source" : "가디언 피어 사용 시 엠버레스 오브 게이지를 {n}% 소모하고 가디언 스케일을 즉시 발동한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-u1a3j2",
+    "source" : "X 스킬이 '가디언 스케일'로 변경된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-94-ydfqqa",
+    "source" : "가디언 스케일 사용 시 {n}초 동안 최대 생명력의 {m}%에 해당하는 보호막을 획득한다. 보호막이 유지되는 동안 피격이상에 면역 되고, 받는 피해가 {k}% 감소한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-32-wbgqg8",
+    "source" : "가디언 스케일 스킬은 최대 {n}스택까지 보유할 수 있다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-26-1lvrojp",
+    "source" : "또한 일반 스킬이 모두 헤드 어택으로 변경된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-65-d36cr9",
+    "source" : "발현 스킬은 사용 시 더 이상 소켓을 잠그지 않지만 공격 적중 시 엠버레스 오브 게이지를 회복할 수 없도록 변경된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-13n2vze",
+    "source" : "깨달음 {n}티어 완전 연소 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-o9u0c3",
+    "source" : "완전 연소",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-112-19ksoft",
+    "source" : "발현 스킬 사용시 보유한 엠버레스의 기운을 모두 소모하는 대신 소모한 엠버레스의 기운 {n}개당 엠버레스 오브 게이지를 {m}% 회복하고, 최대 체력의 {k}%에 해당하는 보호막을 {p}초간 획득한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-23-167v6e4",
+    "source" : "깨달음 {n}티어 돌파의 외침 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-w350wt",
+    "source" : "돌파의 외침",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-37-zqid3x",
+    "source" : "가디언 피어 사용 시 이동기의 재사용 대기 시간을 즉시 초기화한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-24-ppgtxy",
+    "source" : "깨달음 {n}티어 날카로운 비늘 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-s71o27",
+    "source" : "날카로운 비늘",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-91-1mug9xk",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/ark_passive_{n}/ark_passive_{m}_{k}.png",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-36-136mk5u",
+    "source" : "가디언 스케일 사용 시 엠버레스 오브 게이지를 {n}% 회복한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-66-yr46ur",
+    "source" : "가디언 스케일이 해제될 때 주변 {n}m 범위 내 적들에게 {m}의 피해를 주며 이 피해는 헤드 어택 효과가 적용된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-abetiq",
+    "source" : "깨달음 {n}티어 한계 초월 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-aynrkr",
+    "source" : "한계 초월",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-32-o1l5mb",
+    "source" : "가디언 피어 사용 시 {n}초간 '초월' 상태로 전환한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-59-1fvab7i",
+    "source" : "또한 초월 상태에서는 길로틴 스핀, 퀘이크 스매시, 임페일 쇼크, 프렌지 스윕, 소울 디바이드가 강화된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-24-1fuofp2",
+    "source" : "깨달음 {n}티어 할버드의 대가 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1xrbzxr",
+    "source" : "할버드의 대가",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-49-1oljmbu",
+    "source" : "강화된 스킬을 {n}회 사용 종료 시 남은 지속 시간에 관계 없이 초월 상태가 해제된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-24-yv21ne",
+    "source" : "일반 스킬의 시전 속도가 {n}% 증가한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-18d8vdd",
+    "source" : "재사용 대기시간 {n}분 {m}초",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-137-lp3um3",
+    "source" : "엠버레스의 힘이 담긴 갑주를 팔에 두른 후 공격에 대비하며 자신의 최대 생명력의 {n}% 만큼 적의 공격을 막아낼 수 있다. 이때 적의 공격을 성공적으로 방어하거나, 홀딩 입력 종료 시 즉시 갑주를 강하게 휘둘러 {m}의 피해를 주고 날려버린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1h6ay23",
+    "source" : "리벤지 스피어",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-207-1s0bzhn",
+    "source" : "엠버레스의 힘이 담긴 갑주로 전방을 보호하여 자신의 최대 생명력의 {n}% 만큼 적의 공격을 막아낼 수 있다. 최초 지정한 마우스 지점을 중심으로 자유롭게 이동하면서 할버드를 무차별하게 찌르고 총 {m}의 피해를 준다. 홀딩을 끝까지 유지할 경우 갑주에 모인 에너지를 방출하여 전방에 {k}의 피해를 입히고 날려버린다. 홀딩 중 모험가 및 일반 몬스터와 충돌이 무시된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-1qre0dp",
+    "source" : "넓은 타격",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1hkwe6v",
+    "source" : "종언의 일격",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-srsy1n",
+    "source" : "미티어 크래시",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-83-1oble5u",
+    "source" : "최대 {n}m 범위 내 지정된 위치로 점프하여 할버드를 내리꽂아 {m}의 피해를 주며 넘어뜨린다. 공격 적중 시 엠버레스의 기운 {k}개를 회복한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-1eorvan",
+    "source" : "브레스 오브 엠버레스",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-dgk457",
+    "source" : "초각성기",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-165-sxjrlz",
+    "source" : "스킬을 사용하는 즉시 엠버레스 오브 게이지를 {n}% 회복하고 내면에 존재하고 있던 엠버레스의 사념을 이끌어내 잠시 동안 지상에 강림시킨다. 엠버레스의 사념은 주변의 모든 화염의 기운을 끌어모은 후 어떠한 것도 태울 수 있는 브레스를 뿜어내어 전장을 소멸시키며 {m}의 [화] 속성 피해를 준다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1qlxhho",
+    "source" : "블레이즈 스윕",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-5youol",
+    "source" : "영웅 스킬 룬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-91-1fiumey",
+    "source" : "날개를 펼쳐 전방을 향해 돌진하며 {n}의 피해를 주고, 공격이 적중하거나 도착 지점에 도달했을 시 할버드를 횡으로 크게 돌려베어 {m}의 피해를 주고 날려버린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-1qs8uaw",
+    "source" : "카운터 : 가능",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-23-1opbp3c",
+    "source" : "최초 돌진 시전 속도가 {n}% 증가한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1pynbdb",
+    "source" : "재빠른 손놀림",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1w4c2hz",
+    "source" : "꿰뚫는 진격",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-3t63ds",
+    "source" : "몰아치는 발톱",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-ypem1p",
+    "source" : "블레이즈 플래시",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-5lw6f9",
+    "source" : "콤보",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-93-x3qt7e",
+    "source" : "날개를 펼쳐 뛰어오르며 할버드로 적을 올려쳐 {n}의 피해를 주고 넘어뜨린다. 추가 조작 시 전방 {m}m를 다시 돌진하며 적을 베어 {k}의 피해를 주고 날려버린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1sk0xge",
+    "source" : "깨어난 본능",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-2wy2ob",
+    "source" : "맹렬한 추격",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-hkc0sz",
+    "source" : "소울 디바이드",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-118-1i2k3me",
+    "source" : "할버드로 적을 강하게 올려쳐 {n}의 피해를 입힌 뒤 공중에 띄우고, 엠버레스의 원초적 힘을 담아 하늘을 꿰뚫는 찌르기로 {m}의 피해를 주고 적을 날려버린다. 공격 적중 시 엠버레스의 기운 {k}개를 회복한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-cawoxj",
+    "source" : "무력화 : 상",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-a5syg0",
+    "source" : "스피닝 플레임",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-110-uffjwt",
+    "source" : "엠버레스의 힘이 깃든 갑주를 마우스 방향으로 최대 {n}m까지 회전시켜 던진다. 적중 시 갑주가 충돌하여 {m}의 피해를 입히고, 그 자리에서 {k}초 동안 회전하며 총 {p}의 추가 피해를 준다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1dq4lvg",
+    "source" : "무력화 : 하",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-1gx4v9p",
+    "source" : "쓰러스트",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-21-1inp5lc",
+    "source" : "[퀘스트] 별모래 해변 - 위대한 재건",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-74-xio4dh",
+    "source" : "순간적으로 {n}m 거리를 돌진한 후 할버드를 깊숙이 찔러 {m}의 피해를 준다. 공격 적중 시 엠버레스의 기운 {k}개를 회복한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-lubvax",
+    "source" : "피해 증폭",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1d3en5j",
+    "source" : "아바돈 플레임",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-90-1eey9ct",
+    "source" : "머리 위에 엠버레스의 힘이 담긴 불꽃을 모아 거대한 화염 결정을 만든 후, 할버드로 지정한 위치에 화염 결정 조각을 무자비하게 폭격하여 총 {n}의 피해를 준다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-1186bfh",
+    "source" : "어웨이큰",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-165-edhu9n",
+    "source" : "강력한 엠버레스의 힘을 극한까지 깨우쳐, 말과 손짓만으로 주변 환경을 제어할 수 있는 경지에 다다른다. 엠버레스의 위압이 담긴 언령을 사용하여 공간을 일순간 일그러뜨리고 깨부숴 영역 안에 있는 적들에게 {n}의 피해를 주고 날려버린다. 또한 스킬을 사용하는 즉시 엠버레스의 기운을 모두 회복한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-hmcpgl",
+    "source" : "와일드 어퍼",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-19-22th2z",
+    "source" : "[퀘스트] 플레체 - 플레체의 장미",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-94-h4sd07",
+    "source" : "할버드를 작살처럼 내리꽂아 전방의 적에게 {n}의 피해를 입히고, 이어 올려쳐 {m}의 피해를 주며 적을 넘어뜨린다. 공격 적중 시 엠버레스의 기운 {k}개를 회복한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-19-1279ech",
+    "source" : "스킬 시전 중 경직에 면역이 된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-1bjsi92",
+    "source" : "우직함",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-4bzij7",
+    "source" : "사전 준비",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-29-15ea5gh",
+    "source" : "스택이 가능하게 변경되며 최대 {n}회까지 충전된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-1o5i97y",
+    "source" : "섬광",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-9tf8vk",
+    "source" : "윙 래시",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-30-ckr3",
+    "source" : "양쪽 날개로 순식간에 적을 덮쳐 {n}의 피해를 준다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-108a4m1",
+    "source" : "윙 스팅어",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-45-1y8sa7k",
+    "source" : "한 쪽 날개를 치켜든 후 할버드와 함께 전방을 강하게 찔러 {n}의 피해를 준다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-ldv9j4",
+    "source" : "익스플로전 피니셔",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-81-1k2asyg",
+    "source" : "할버드를 양손에 움켜진 후 엠버레스의 힘을 모은다. 이윽고 엠버레스의 힘이 헌신하여 할버드와 함께 강하게 내려쳐 {n}의 피해를 주고 날려버린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-177caxx",
+    "source" : "임페일 쇼크",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-107-19qkuvf",
+    "source" : "전방을 향해 할버드를 깊숙이 찔러넣어 {n}의 피해를 입히고, 할버드를 비틀며 후폭풍을 발생시켜 {m}의 추가 피해를 주며 적을 날려버린다. 공격 적중 시 엠버레스의 기운 {k}개를 회복한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-31-1fy2vg8",
+    "source" : "공격 적중 시 엠버레스의 기운을 {n}개 추가 회복한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-az5wq3",
+    "source" : "기운 갈취",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-6ywe00",
+    "source" : "즉결심판",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1okyfch",
+    "source" : "파멸의 오브",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-17l453n",
+    "source" : "퀘이크 스매시",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-s5j0b8",
+    "source" : "시전 속도가 {n}% 증가한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-56winj",
+    "source" : "약점 포착",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-1qlkz0j",
+    "source" : "클리브",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-63-4dsk0j",
+    "source" : "할버드를 원형으로 크게 휘둘러 적에게 {n} 의 피해를 준다. 공격 적중 시 엠버레스의 기운 {m}개를 회복한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1pox2aq",
+    "source" : "프렌지 스윕",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-1kz24vp",
+    "source" : "비전",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-42-dlx7nt",
+    "source" : "스킬 시전 속도 {n}% 증가 및 스킬 적중 시 무력화 피해가 {m}% 증가",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-125-1r2ega6",
+    "source" : "할버드를 바닥에 마찰시켜 불을 붙인 후 전방을 향해 마구잡이로 {n}회 휘둘러 총 {m}의 피해를 입히고, 화염의 힘을 담은 일격을 날려 {k}의 피해를 준 후 날려버린다. 공격 적중 시 엠버레스의 기운 {p}개를 회복한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-1p6091v",
+    "source" : "맹습",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1tkzpa2",
+    "source" : "어둠의 발톱",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-47-15ssc6z",
+    "source" : "[비전] 스킬 시전 속도 {n}% 증가 및 스킬 적중 시 무력화 피해가 {m}% 증가",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-bmy3xq",
+    "source" : "이동 효과",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-15wweri",
+    "source" : "비치볼 이동 효과",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-zdoryq",
+    "source" : "영웅 이동 효과 아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-87-16lrorm",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/moving_effect/moving_effect_{n}.png",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-sakgsl",
+    "source" : "질서의 별 코어 : 일당백",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-v55jvp",
+    "source" : "전설 아크 그리드 코어",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1ky3uj2",
+    "source" : "질서 - 별",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-15-j0azwt",
+    "source" : "질서의 해 코어 : 브랜디쉬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-81prge",
+    "source" : "질서 - 해",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-69-17yxpzm",
+    "source" : "'운명' 발동 시 {n}중첩이 가능한 '운명: 스피닝'을 획득하며, 최대 중첩 도달 시 '운명: 브랜디쉬' 효과로 변경된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-67-fcz6ao",
+    "source" : "[{n}P] '운명: 브랜디쉬' 효과를 보유한 상태에서 길로틴 스핀 사용 시 프렌지 스윕의 재사용 대기시간을 초기화한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-yezprb",
+    "source" : "[낙인력] Lv.{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-1kwygqq",
+    "source" : "혼돈의 달 코어 : 불타는 일격",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-8taq8r",
+    "source" : "영웅 아크 그리드 코어",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1nh82su",
+    "source" : "혼돈 - 달",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-51-1acc77h",
+    "source" : "[{n}P] 보스 이상 적에게 공격 적중 시 {m}초 간 화상 상태로 만들어 피해를 입힌다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-1dk5jq0",
+    "source" : "혼돈의 젬 : 침식",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-15vb93c",
+    "source" : "젬 타입 : 혼돈",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-1sky52b",
+    "source" : "혼돈 포인트 : {n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-btt6jn",
+    "source" : "혼돈의 별 코어 : 공격",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1u5knhy",
+    "source" : "혼돈 - 별",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-v5lglz",
+    "source" : "혼돈의 해 코어 : 재빠른 공격",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-h94cti",
+    "source" : "혼돈 - 해",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-21-13c0wcp",
+    "source" : "도약 {n}티어 풀려난 힘 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-zi7sef",
+    "source" : "풀려난 힘",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-1o9hxdr",
+    "source" : "도약 {n}티어 잠재력 해방 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-nzr2z7",
+    "source" : "잠재력 해방",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-21-u86xi1",
+    "source" : "도약 {n}티어 파멸의 피 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-j9etb3",
+    "source" : "파멸의 피",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-16idsew",
+    "source" : "신속이 {n} 증가합니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-60-4w3j5e",
+    "source" : "받는 피해가 {n}% 감소하며, 이동기 및 기상기를 제외한 스킬 사용시 {m}초간 '달인' 효과를 얻습니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-44-2ge2td",
+    "source" : "힘, 민첩, 지능과 무기 공격력을 기반으로 증가한 기본 공격력은 {n} 입니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-28-1tdvm4s",
+    "source" : "공격력 증감 효과로 공격력이 {n} 증가되었습니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-2jxttg",
+    "source" : "숙련",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-27-1dh58mp",
+    "source" : "각인 > AbilityStoneLevel: {n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1khvhjv",
+    "source" : "어빌리티 스톤",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-1xmnw3i",
+    "source" : "위대한 비상의 돌",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-gwvob5",
+    "source" : "고대 어빌리티 스톤",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-75-v6dmtq",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/ability/ability_{n}.png",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-dqvguu",
+    "source" : "세공 단계 보너스",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-1ccga41",
+    "source" : "IndentStringGroup",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-89-17ks8or",
+    "source" : "장비 > Tooltip > Element_{n} > value > Element_{m} > contentStr > Element_{k} > bPoint: {p}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-1uoe2cr",
+    "source" : "[원한] Lv.{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-92-1tmnibf",
+    "source" : "장비 > Tooltip > Element_{n} > value > Element_{m} > contentStr > Element_{k} > pointType: {p}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-9swx3n",
+    "source" : "[아드레날린] Lv.{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-15-r1v483",
+    "source" : "[방어력 감소] Lv.{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-fqtpa5",
+    "source" : "무작위 각인 효과",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-66-1w27x8c",
+    "source" : "푸른 기운과 붉은 기운이 희미하게 뒤섞여 신묘한 느낌이 난다. 자세히 보고 싶지만 더 만졌다가는 부서져 버릴 것 같다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-31-1q9pxc9",
+    "source" : "어빌리티 스톤 세공사에게 세공 완료 후 장착 가능합니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-162rx0h",
+    "source" : "판매불가",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-d0j09j",
+    "source" : "마나 {n} 소모",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-15ecnmz",
+    "source" : "갑옷 파괴",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-23-a3sw0e",
+    "source" : "도약 {n}티어 즉각적인 주문 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-191vk2e",
+    "source" : "즉각적인 주문",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-44-cji1qf",
+    "source" : "초각성 스킬의 시전 속도가 {n}% 증가하고, 마나 소모량이 {m}% 감소한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-15-17od614",
+    "source" : "[공격력 감소] Lv.{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1afe6cl",
+    "source" : "[분침 스킬]",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-1nos0xv",
+    "source" : "[상급 재련] {n}단계",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-t7p5ul",
+    "source" : "[시침 스킬]",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-15-40sxx7",
+    "source" : "[예리한 둔기] Lv.{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-frd315",
+    "source" : "[카오스게이트]",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-55-hjirup",
+    "source" : "홀딩 조작 시간이 절반으로 감소하지만, 홀딩 조작을 끝까지 유지하지 않아도 마지막 타격이 발생한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-1nhki5a",
+    "source" : "[가디언 토벌] 가디언의 잔영 {n}단계",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-1lqte2a",
+    "source" : "냉혹한 영원 머리",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-19-akab2f",
+    "source" : "아바타 > IsInner: true",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-47-x975cj",
+    "source" : "아바타 > Tooltip > AvatarAttribute > IsInner: true",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-ewvq1v",
+    "source" : "전설 머리 아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-qn9e26",
+    "source" : "거래 {n}회 가능",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-1en1z32",
+    "source" : "거래가능",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-18uohph",
+    "source" : "기본값",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-f3ckwu",
+    "source" : "ItemTintGroup",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-a210mu",
+    "source" : "#FFFFFF",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-92-7itf8k",
+    "source" : "아바타 > Tooltip > Element_{n} > value > itemData > Element_{m} > patternHSV > Element_{k}: {p}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1jw84fv",
+    "source" : "간결한 손놀림",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-16g4llz",
+    "source" : "부위{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-1jwpws2",
+    "source" : "#D{n}BCAB",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-1t24whf",
+    "source" : "염색 정보",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-21-1fhilv8",
+    "source" : "[요즈의 항아리] 요즈 III : 영원",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-2lyuui",
+    "source" : "플립 웨어 머리",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-13udu7p",
+    "source" : "아래 능력들이 적용되지 않는 상태입니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-h4qdpq",
+    "source" : "(덧입기 슬롯에 착용 중)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-36-8fc79t",
+    "source" : "착용할 경우, 설정한 외형 중 장식(뿔)이 기본형으로 변경됩니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1764zyp",
+    "source" : "무기 아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-hd09is",
+    "source" : "고요한 영원 할버드",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-1vf1b99",
+    "source" : "전설 할버드 아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-18j1jc6",
+    "source" : "#FFCFE{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-oqhcpu",
+    "source" : "{n}%",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-13a8nmf",
+    "source" : "#FFCDB{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-15w2zfu",
+    "source" : "냉혹한 영원 할버드",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-12qdgi9",
+    "source" : "#{n}D{m}FF",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-6gg5r0",
+    "source" : "#F{n}FFFF",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-4ly2l3",
+    "source" : "냉혹한 영원 상의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-f3rvqu",
+    "source" : "전설 상의 아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-163nvt1",
+    "source" : "플립 웨어 상하의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-l1vv0b",
+    "source" : "아바타 > IsSet: true",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-45-1rh5zan",
+    "source" : "아바타 > Tooltip > AvatarAttribute > IsSet: true",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-j78rru",
+    "source" : "영웅 상의&하의 아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-qq5f52",
+    "source" : "#{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-1bj0qqq",
+    "source" : "플립 웨어 얼굴{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-hr039h",
+    "source" : "웨이브 웨어 얼굴{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-1e1zntp",
+    "source" : "코르부스의 황금 가시 이동 효과",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-32-ugt97g",
+    "source" : "[그림자 레이드] 고통의 마녀, 세르카 - 나이트메어 경매",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-17pmyza",
+    "source" : "냉혹한 영원 하의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-1mela6n",
+    "source" : "전설 하의 아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-68ih8d",
+    "source" : "고대 아크 그리드 코어",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-1w0fe03",
+    "source" : "혼돈의 해 코어 : 안정적인 공격",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-24-19gvog4",
+    "source" : "[{n}P] 받는 피해가 {m}% 감소한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-1cx5qgn",
+    "source" : "보스 피해",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-1bdcyhm",
+    "source" : "아군 공격 강화",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-18qkgtj",
+    "source" : "진화 {n}티어 예리한 감각 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1i1lydm",
+    "source" : "예리한 감각",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-14ye5me",
+    "source" : "진화 {n}티어 분쇄 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-10yx0hh",
+    "source" : "분쇄",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-37-1ytmthx",
+    "source" : "[카제로스 레이드] {n}막 : 대지를 부수는 업화의 궤적 - 하드",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-35-1xxwuww",
+    "source" : "[카제로스 레이드] {n}막 : 부유하는 악몽의 진혼곡 - 하드",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-27-bgcwjx",
+    "source" : "[카제로스 레이드] {n}막 : 칠흑, 폭풍의 밤",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-1j4zgfi",
+    "source" : "+{n} 라 드라고니카",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-18za0vz",
+    "source" : "에스더",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-mz9l67",
+    "source" : "에스더 할버드",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-9jtclx",
+    "source" : "아이템 레벨 {n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-90-7h29ib",
+    "source" : "장비 > Tooltip > Element_{n} > value > Element_{m} > contentStr > Element_{k} > bPoint: true",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-rlf3jl",
+    "source" : "엘라 부여 {n} 단계 (최종)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-65-1n18u0r",
+    "source" : "특정 시간 이후 공격 적중 시 확률에 따라 '기사의 긍지'가 활성화 된다. 활성화 확률은 시간에 따라 점차 증가한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-37-bdtuy7",
+    "source" : "사용 시 {n}초 동안 자신의 힘, 민첩, 지능이 {m} 증가한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-64-ff1iuw",
+    "source" : "특정 시간 이후 공격 적중 시 확률에 따라 '여명의 빛'이 활성화 된다. 활성화 확률은 시간에 따라 점차 증가한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-61-1g7tzcm",
+    "source" : "사용 시 {n}초 동안 {m}m 이내의 파티원에게 용기를 복돋아 자신 및 파티원의 공격력을 {k} 증가시킨다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-h87zrz",
+    "source" : "에스더 효과 [실리안]",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-29-g0efwa",
+    "source" : "판매불가, 파괴불가, 분해불가, 품질 업그레이드 불가",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-20-1iergxv",
+    "source" : "[엘라 부여] 위대한 성 - 바훈투르",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-1nj0r7q",
+    "source" : "문장",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-cmq26i",
+    "source" : "백금 용사의 문장",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-1bz2ql0",
+    "source" : "유물 휘장",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-13y09eg",
+    "source" : "모험가에게 피격 시 '단단함' 효과 획득",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-42-656upm",
+    "source" : "단단함: {n}초 동안 받는 피해 {m}% 감소 (재사용 대기시간 {k}초)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-lk6izz",
+    "source" : "모험가에게 피격 시 '조급함' 효과 획득",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-62-e0kit6",
+    "source" : "조급함: {n}초 동안 이동 속도 {m}% 증가, 스킬 재사용 대기시간 {k}% 감소, 최대 {p}회 중첩 가능",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-37-qk8r4t",
+    "source" : "피격이상 및 상태이상 중 모험가에게 피격 시 '기사회생' 효과 획득",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-50-q0lc5c",
+    "source" : "기사회생: {n}초 동안 기상기 재사용 대기시간 {m}% 감소 (재사용 대기시간 {k}초)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-28-1s38yax",
+    "source" : "영광을 상징하는 백금으로 제작된 투구 형태의 문장.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-24-1wx9rov",
+    "source" : "명예로운 영웅을 기리는 의미에서 제작되었다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-148iw5e",
+    "source" : "+{n} 운명의 전율 상의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-9j158s",
+    "source" : "+{n} 운명의 전율 견갑",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-1naged3",
+    "source" : "[돌격대장] Lv.{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-1o16fl",
+    "source" : "+{n} 운명의 전율 장갑",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-mlkx2z",
+    "source" : "+{n} 운명의 전율 투구",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-ows9yr",
+    "source" : "+{n} 운명의 전율 하의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-1rjxdi9",
+    "source" : "[가디언 토벌] 스콜라키아",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1fwlbkd",
+    "source" : "저주받은 인형",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-31-uwwfy3",
+    "source" : "하급 및 일반 몬스터에게 주는 피해가 {n}% 증가한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-1br5ged",
+    "source" : "약육강식",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-61-1045sm3",
+    "source" : "공격 범위가 {n}% 증가하고, 마지막 공격을 제외한 공격이 더 이상 적을 밀어내지 않고 오히려 끌어 당긴다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-49-yq2kxi",
+    "source" : "적중한 적 {n}명 당 재사용 대기시간이 {m}초씩 감소하여 최대 {k}초까지 감소된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-6rx4mv",
+    "source" : "무자비",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-aoa3ac",
+    "source" : "풍요",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-29-1liatr0",
+    "source" : "스킬 적중 시 아이덴티티 게이지 획득량 {n}% 증가",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-34-6vt0ih",
+    "source" : "[풍요] 스킬 적중 시 아이덴티티 게이지 획득량 {n}% 증가",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-9l2t9z",
+    "source" : "특화 +{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-26-1dilu1f",
+    "source" : "일반 조작으로 변경되며, 최대 범위로 공격한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-1hxacgl",
+    "source" : "[수집품] 거인의 심장",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-15jwfc3",
+    "source" : "공간절삭",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-sj1uxm",
+    "source" : "[던전] 로헨델 - 몽환의 궁전",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-pf53z9",
+    "source" : "전방위 타격",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-1wafpqi",
+    "source" : "[필드 보스] 블루홀 섬 - 이아르 카야",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-re91xr",
+    "source" : "바리케이드",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-11h2blv",
+    "source" : "슈퍼 차지",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-18wqhiy",
+    "source" : "갤럭시 브레이크",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-81-1i6ga3s",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/dt_skill/dt_skill_{n}_{m}.png",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-138-1wp7tcj",
+    "source" : "그래비티 해머로 힘껏 내리쳐 {n}의 피해를 주며 적을 내리찍고, 한순간 차원에 균열을 발생시킨다. 이후 이차원의 중력으로 이루어진 거인과 함께 전방을 내리쳐 {m}의 피해를 주며 적을 내려찍는다. 스킬을 사용하면 중력 게이지가 {k}% 회복된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-k5o9aw",
+    "source" : "그라비티 임팩트",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-d2es83",
+    "source" : "[집속 스킬]",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-172-is894e",
+    "source" : "해머를 내려치며 {n}의 피해를 주고 그 자리에 중력의 힘을 주입하기 시작한다. {m}회 걸쳐 총 {k}의 피해를 주며 적들을 서서히 끌어 당기다가 마지막 순간에 주입한 중력을 순간적으로 폭발시켜 {p}의 피해를 주고 적들을 자신의 앞으로 한 번에 끌어 모은다. 공격 적중 시 중력 코어 {q}개를 획득한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-1b9u6k9",
+    "source" : "그라비티 컴프레이션",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1kpjq3u",
+    "source" : "[해방 스킬]",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-59-psz0v6",
+    "source" : "제자리에서 해머를 바닥에 꽂으며 {n}의 피해를 주며 중력 블랙홀을 생성하기 위해 바닥에 중력을 투하한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-173-uzi233",
+    "source" : "최대 {n}초 동안 홀딩 가능하며, 홀딩 도중 중력을 투하하여 블랙홀 자기장을 생성하고, 최대 {m}회 걸쳐 총 {k}의 피해를 준다. 홀딩 중 키 입력을 떼면 블랙홀은 터지면서 반경 {p}m 범위에 {q}의 피해를 주고 홀딩 완료 시 블랙홀은 더욱 크게 터지면서 반경 {r}m 범위에 {v7}의 피해를 준다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1dhcedr",
+    "source" : "그라비티 포스",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-168-12xkddk",
+    "source" : "해머를 짧게 잡고 전방을 향해 휘두르며 {n}의 피해를 준다. 이후 해머에서 중력이 방출되어 일직선 상에 있는 적에게 {m}회 걸쳐 총 {k}피해를 주며 서서히 당긴다. 방출되는 중력을 거두면서 {p}의 피해를 주고 적들을 가까운 지점으로 강하게 당긴다. 공격 적중 시 중력 코어 {q}개를 획득한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-1rzb41j",
+    "source" : "드레드노트",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-171-1mxh61w",
+    "source" : "해머를 어깨에 걸쳐 메고 준비자세를 취하면, 코어 쪽으로 힘이 집중된다. 그대로 땅을 내려치면 {n}의 피해를 주며 충격파가 뿜어져 나오고 그 반동을 이용해서 높게 점프한다. 점프한 상태에서 그대로 해머를 강력하게 내려쳐 적을 내려찍으며 {m}의 피해를 준다. 공격 적중 시 중력 코어 {k}개를 획득한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1q5vpne",
+    "source" : "러닝 크래쉬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-129-t4p4py",
+    "source" : "홀딩 시 전방으로 질주하여 적에게 부딪혀 {n}회 걸쳐 총 {m} 피해를 주고 홀딩 완료 또는 키 입력을 때는 순간 중력에너지가 폭발하며 {k}의 피해를 주며 적중된 적을 띄워 올린다. 공격 적중 시 중력 코어 {p}개를 획득한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-1sjv8kf",
+    "source" : "빅뱅",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-222-1fsauru",
+    "source" : "중력의 힘을 끌어모아 한번에 폭발시켜 반경 {n}m 안의 적들에게 {m}의 피해를 주고 날려버린다. 중력의 힘을 모으는 동안 모험가 및 일반 몬스터와 충돌이 무시되고, 받는 모든 피해가 {k}% 감소되며, 피격이상, 상태이상, 이동속도 감소에 면역 상태가 된다. 또한, 중력의 힘을 계속해서 모으면서 이동이 가능하고 힘을 모은 시간에 비례하여 폭발 반경은 {p}m까지, 피해는 {q}까지 증가된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1m7s811",
+    "source" : "뉴트럴라이저",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-197-6yrsxj",
+    "source" : "중력의 기운을 해머에 담아 혼신의 힘을 다해 내려친다. 이때 {n}의 피해를 주고 내려친 곳으로부터 {m}m 이내의 범위안에 균열이 발생되며 {k}의 피해를 주는 충격파가 발생된다. 스킬 키의 추가 입력으로 {p}회 더 내려칠 수 있으며 두 번째 내려칠 때는 {q}의 피해를 주고, 세 번째 내려칠 때는 {r}의 피해를 준다. 충격파의 피해는 동일하다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-10ptx5m",
+    "source" : "사이즈믹 해머",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-103-1chrkg4",
+    "source" : "해머를 거꾸로 든 상태로 제자리에서 뛰어올라 그대로 땅을 내려찍으며 적에게 {n}의 피해를 주고 전방으로 {m}m 지점까지 지형을 뒤틀어 부채꼴 형태의 벽을 세워 {k}의 피해를 준다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-19-14n0x1p",
+    "source" : "공격 타입 : 헤드 어택, 백 어택",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-12lf9uc",
+    "source" : "절대적인 힘",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1yhug4m",
+    "source" : "점핑 스매쉬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-69-14k16zy",
+    "source" : "크게 도약하여 {n}m 내 지정된 위치를 해머로 내려쳐 {m}의 피해를 준다. 공격 적중 시 중력 코어 {k}개를 획득한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-112etex",
+    "source" : "체인 스트라이크",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-110-1pcw8x2",
+    "source" : "해머에 중력의 힘을 담아 힘껏 내리쳐 지면을 파괴하는 공격을 하고, 추가 입력을 통해 두 번 더 공격할 수 있으며 공격할수록 지면의 파편이 해머의 중력에 이끌려 더욱 강력하게 내려찍는 공격을 한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-100-1ym79h3",
+    "source" : "첫 번째 공격 적중 시 {n}의 피해를 주고 두 번째 공격 적중 시 {m}의 피해를 주며 마지막 공격 적중 시 {k}의 피해를 준다. 공격 적중 시 중력 코어 {p}개를 획득한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-1z0hhsf",
+    "source" : "파워 숄더",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-135-18hhup5",
+    "source" : "몸을 움츠리고 전방으로 해머를 앞세워 {n}m 가량 돌진하며 {m}회 걸쳐 총 {k} 피해를 준다. 이후 콤보 입력 시 두 손으로 해머를 들어 올리며 {p} 피해를 주며 적중된 적을 띄워 올린다. 공격 적중 시 중력 코어 {q}개를 획득한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1dki6v1",
+    "source" : "단단한 신체",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-138fny1",
+    "source" : "돌진 거리가 {n}m 증가한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-7ji27c",
+    "source" : "목표 완료",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-1jsodpy",
+    "source" : "질서의 달 코어 : 완벽한 제어",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-1dz6ixg",
+    "source" : "디스트로이어 전용",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-zvc1lu",
+    "source" : "심연의 영원 하의 (귀속)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-fsy512",
+    "source" : "악몽의 힙스터 얼굴{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1xrevvw",
+    "source" : "전사(남)계열",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-37-i91963",
+    "source" : "착용할 경우, 설정한 외형 중 장식(수염)이 기본형으로 변경됩니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1yh4q7c",
+    "source" : "악기 아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-1r2np1i",
+    "source" : "슈샤이어의 노엘 악기",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-9hi4bw",
+    "source" : "영웅 악기 아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-131co95",
+    "source" : "심연의 영원 상의 (귀속)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-ndvfqk",
+    "source" : "데일리 캐주얼 상하의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-1caq23v",
+    "source" : "데일리 캐주얼 얼굴{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-ok66tc",
+    "source" : "질서의 별 코어 : 몰아치는 해방",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1r8nsic",
+    "source" : "분노의 망치",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-yhyzj8",
+    "source" : "깨달음 {n}티어 중력 갑옷 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-yneiud",
+    "source" : "중력 갑옷",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-89-1tdhgwe",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/ark_passive_dt/ark_passive_dt_{n}.png",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-8bu1my",
+    "source" : "특화가 {n} 증가합니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-1skx3ma",
+    "source" : "진화 {n}티어 금단의 주문 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-rr8jx",
+    "source" : "진화 {n}티어 특화 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-owtkkx",
+    "source" : "금단의 주문",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-1q2lot4",
+    "source" : "진화 {n}티어 마나 용광로 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-icekmf",
+    "source" : "마나 용광로",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-79-100z3b2",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/dr_item/dr_item_{n}_{m}.png",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-li3tj9",
+    "source" : "[저주받은 인형] Lv.{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-1f4ulgz",
+    "source" : "[바리케이드] Lv.{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-1tt8pjp",
+    "source" : "[가디언 토벌] {n}티어",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-23-6xk8wj",
+    "source" : "[필드 보스] 쿠르잔 북부 - 세베크 아툰",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-shgnyu",
+    "source" : "[에픽 레이드] 폭풍의 지휘관, 베히모스",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-15-ouaiy8",
+    "source" : "+{n} 장엄한 절망의 대지",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-ildkzd",
+    "source" : "에스더 해머",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-12pro0t",
+    "source" : "굶주린 힘",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-1n0580f",
+    "source" : "슈퍼 노바",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-16uyr9",
+    "source" : "차지",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-120-uuve6o",
+    "source" : "그래비티 해머를 각성시켜 한계 이상으로 중력을 모은다. 최대 {n}초까지 {m}단계에 걸쳐 차지할 수 있으며, 차지 단계에 따라 {k}의 피해가 점차 증가하여 오버차지 시 최대 {p}의 피해를 주며 적을 날려버린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1ezv5d",
+    "source" : "어스 스매셔",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-170-o2y412",
+    "source" : "해머로 크게 원을 그린 뒤 머리 위에서 그대로 내리치면 {n}의 피해를 주고 바위를 생성한다. 솟아오른 바위를 향해 해머를 크게 휘두르면 돌이 박살 나며 부채꼴 범위로 파편이 날아가고 {m}의 피해를 준다. 바위 파편에 적중된 적들은 {k}초 동안 기절한다. 공격 적중 시 중력 코어 {p}개를 획득한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1xdudql",
+    "source" : "어스 웨이브",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-95-1t9aard",
+    "source" : "빠르게 {n}m를 돌진하며 {m}의 피해를 최대 {k}회 주고, 해머를 쳐올려 바닥의 지형을 뒤틀어 부채꼴 형태의 벽을 {p}회 세워 각각 {q} {r} 의 피해를 준다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-7nx0vn",
+    "source" : "어스 이터",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-248-98zi9t",
+    "source" : "해머를 앞에서 뒤쪽으로 넘기면서 뒤쪽의 땅을 치며 적에게 피해를 {n}주고, 그대로 해머를 횡으로 휘두르면서 몸 전체를 회전시키면 바위 파편들이 해머에 붙어서 따라온다. 총 {m}회 회전하며 첫 번째 회전에서는 {k}의 피해를 두 번째 회전에서는 {p}의 피해를 세 번째 회전에서는 {q}의 피해를 준다. 한번 회전할 때마다 해머의 높이가 점점 올라가고, 세 번째 회전한 뒤 그대로 전방을 내려치면 바위 파편이 뒤따르면서 {r}의 피해를 준다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-21-ddc3xz",
+    "source" : "스킬 시전 중 피격이상에 면역이 된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-fofufk",
+    "source" : "강인함",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1e85vg9",
+    "source" : "대지의 분노",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-wve101",
+    "source" : "인듀어 페인",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-23-lvghem",
+    "source" : "[필드 보스] 파괴된 제나일 - 하르마게돈",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-155-1ik42eg",
+    "source" : "제자리에서 포효하면 주변 반경 {n}m 내의 적들에게 {m}의 피해를 준다. 스킬 사용 시 {k}초 동안 피격이상에 면역되고 받는 피해 {p}% 감소하며, 특정 보스 등급 이상에게 피격 시 발생하는 페널티 게이지가 {q}%감소한다. 공격 적중 시 중력 코어 {r}개를 획득한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-n5y2bn",
+    "source" : "공격이 적중하지 않아도 코어를 획득한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-1j96w59",
+    "source" : "확정 코어",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-74-nqry4n",
+    "source" : "공격 적중 시 모험가를 제외한 적을 {n}초 간 도발한다. 시드급 이상의 동일한 몬스터는 일정 시간 동안 다시 도발에 걸리지 않는다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-1qgzw9p",
+    "source" : "도발",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-37-t3abbb",
+    "source" : "자신이 적용 받는 인듀어 페인 효과의 유지시간이 {n}초 증가한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-zysowj",
+    "source" : "건강한 정신",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-h4ah3v",
+    "source" : "테라 브레이크",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-187-1k2pp8r",
+    "source" : "해머로 전방의 땅을 내려치며 {n}의 피해를 주고 영역 내 적들은 모두 다운 상태가 된다. 곧바로 해머를 올려쳐 역 중력장을 발생시켜 {m}의 피해를 주고 영역 내 적들은 모두 공중으로 솟구쳐 오른다. 이후 지상에서 디스트로이어가 힘을 모은 뒤 그대로 점프해 해머 및 중력 공격으로 {k} {p}의 피해를 주며 적들을 내려 찍어버린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-30-191884m",
+    "source" : "또한 스킬을 사용하면 중력 게이지가 {n}% 회복된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-28-192wkzy",
+    "source" : "스킬 시전 중 받는 모든 피해가 {n}% 감소한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-297kql",
+    "source" : "파워 스트라이크",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-87-2eraki",
+    "source" : "해머를 머리 위로 들어 올리고 매우 빠르게 전방의 땅을 {n}회 내려치며 {m} {k} {p}의 피해를 준다. 공격 적중 시 중력 코어 {q}개를 획득한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-qorr9i",
+    "source" : "재빠른 움직임",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-t5wfk5",
+    "source" : "퍼펙트 스윙",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1yzuaku",
+    "source" : "치밀한 타격",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-129-1k6talp",
+    "source" : "{n}초 동안 차지가 가능하며, 차지 도중 스킬을 사용 할 경우 전방으로 {m}m 이동하며 두 손으로 해머를 크게 휘둘러 {k}의 피해를 준다. 오버차지 시 전방으로 {p}m 전진하며 더욱 크게 해머를 휘둘러 {q}의 피해를 준다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-15d5qxj",
+    "source" : "무절제",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-2ysrem",
+    "source" : "심연의 영원 머리 (귀속)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-1isonsf",
+    "source" : "고결한 귀공자 전투망치",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-1yca8ql",
+    "source" : "영웅 해머 아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-reak9h",
+    "source" : "심연의 영원 전투망치 (귀속)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-16w1ptv",
+    "source" : "전설 해머 아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-l09wf",
+    "source" : "에센셜 루즈핏 볼캡 머리",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-erw4zb",
+    "source" : "눈꽃 엔젤링",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-85-ti1zzc",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/event_avatar/event_avatar_{n}.png",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-1lywde",
+    "source" : "판매불가, 분해불가, 염색불가",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-8i3e5t",
+    "source" : "피크닉 웨어 상의 (귀속)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-1kzcuxk",
+    "source" : "천공의 능력 전투망치 (패스)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-36mw3q",
+    "source" : "천상의 호른",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-58xd0a",
+    "source" : "피크닉 웨어 얼굴{n} (귀속)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-nd1la2",
+    "source" : "피크닉 웨어 하의 (귀속)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-1wnb06",
+    "source" : "+{n} 운명의 전율 전투망치",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-1aphrmb",
+    "source" : "고대 해머",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-15-1o1w56b",
+    "source" : "[결투의 대가] Lv.{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-ijrfip",
+    "source" : "[이동속도 감소] Lv.{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-sicypy",
+    "source" : "비트 웨이브 전투망치",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-1dnnw1m",
+    "source" : "{n}주년 궤적 상하의 (이벤트)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-1r9qrvk",
+    "source" : "#FFD{n}E{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-1g7c08q",
+    "source" : "#FFEDE{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-1acrlfg",
+    "source" : "#FB{n}CC",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-4xmw69",
+    "source" : "심연의 영원 상의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-x2e2rh",
+    "source" : "심연의 영원 전투망치",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-20-52b3wu",
+    "source" : "{n}주년 궤적 얼굴{m} (이벤트)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1jwksx0",
+    "source" : "별무리 악기",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-h2nr4w",
+    "source" : "심연의 영원 하의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-1ixbdr0",
+    "source" : "심연의 영원 머리",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-190cdxx",
+    "source" : "{n}주년 궤적 머리 (이벤트)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-52-1oainc1",
+    "source" : "공격 적중 시 {n}초 동안 경직 및 피격 이상에 면역이 된다. (재사용 대기 시간 {m}초)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-q6xxz7",
+    "source" : "해당 효과는 {n}회 피격 시 사라진다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-19tyi3",
+    "source" : "혼돈의 해 코어 : 현란한 공격",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-obr0xb",
+    "source" : "윈터 파티 얼굴{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-3bwer9",
+    "source" : "슈샤이어의 노엘 얼굴{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-m1m561",
+    "source" : "녹차 소프트콘 악기",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-1yj1bl8",
+    "source" : "침전하는 도약 하의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-20-1y9nbvf",
+    "source" : "[요즈의 항아리] 요즈 II : 도약",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-19-1xyu57v",
+    "source" : "MUSINSA - 어반 스트릿 하의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-h8twfk",
+    "source" : "#B{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-91-1ap7baz",
+    "source" : "아바타 > Tooltip > Element_{n} > value > itemData > Element_{m} > patternIcon > iconGrade: {k}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-85-ti8g1k",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/tint_pattern/tint_pattern_{n}.png",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-n8vqul",
+    "source" : "#EFEFEF",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-1r3dad9",
+    "source" : "침전하는 도약 상의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-sdealw",
+    "source" : "구름의 꿈 상의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-1t023bi",
+    "source" : "{n}주년 인연 전투망치",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-62itzz",
+    "source" : "#FFE{n}C{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-43gi8j",
+    "source" : "#FF{n}B{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-1qr6qrl",
+    "source" : "침전하는 도약의 전투망치",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-19-mmcdrb",
+    "source" : "MUSINSA - 어반 스트릿 머리",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1ppt3mh",
+    "source" : "헤비 크러쉬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-96-19frrmt",
+    "source" : "제자리에서 해머를 머리 위로 든 뒤, 중력을 가중시켜 엄청난 무게를 부여한 상태로 전방의 땅을 내려치며 {n}의 피해를 준다. 공격 적중 시 중력 코어 {m}개를 획득한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-23-1pgwc41",
+    "source" : "스킬 시전 준비 시간이 {n}초 감소한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-1anhbei",
+    "source" : "순간타격",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-kksjpz",
+    "source" : "하이퍼 빅뱅",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-109-ufshd3",
+    "source" : "공간을 일그러뜨릴 정도로 중력을 한 점으로 압축시켜 총 {n}의 피해를 주며 적들을 끌어당긴다. 고도로 압축된 중력을 한순간 반전시켜 거대한 폭발을 일으키며 {m}의 피해를 주고 적을 날려버린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-7t0n92",
+    "source" : "풀 스윙",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-56-71iw6a",
+    "source" : "해머를 등 뒤쪽으로 넘긴 이후 해머를 {n}도 휘두르며 관성의 힘으로 돌면서 자신의 주변을 공격한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-70-17wz3vv",
+    "source" : "총 {n}회 휘두르며 {m} {k} {p}의 피해를 준다. 차지가 가능하며 오버 차지 시 마지막 공격은 {q}의 피해를 준다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-hnocjv",
+    "source" : "빠른 준비",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-mvedn7",
+    "source" : "야수의 눈",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-25-1hcrs94",
+    "source" : "중력을 폭발시키는 순간 {n}초간 기절시킨다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-by4x7p",
+    "source" : "중력 울림",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-41-vtgsje",
+    "source" : "해머를 강하게 내려친 후 바닥에 적을 끌어 당기는 중력 덩어리를 생성한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-c0w2se",
+    "source" : "의지 강화",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-sptc5c",
+    "source" : "붉은 파편",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-n7tmor",
+    "source" : "공격 범위가 {n}% 증가한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-ilzxgj",
+    "source" : "노력의 성과",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-k2poch",
+    "source" : "바위 폭풍",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-1pqw0n",
+    "source" : "집중",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-21-187si6z",
+    "source" : "[물물교환] 베른 남부 - 떠돌이 상인",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-47-1503r5b",
+    "source" : "중력을 이용하여 {n}초간 자신의 최대 생명력의 {m}% 만큼 중력 보호막을 얻는다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-qc0ox1",
+    "source" : "반중력",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-21-s5hzpl",
+    "source" : "스킬 사용 시 마나 소모 {n}% 감소",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-26-1l7bc6h",
+    "source" : "[집중] 스킬 사용 시 마나 소모 {n}% 감소",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-1yr5tsd",
+    "source" : "수호",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-32-1xyfmc3",
+    "source" : "스킬 시전 중 자신의 최대 생명력의 {n}% 보호막을 획득",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-181ibh6",
+    "source" : "[수집품] 오르페우스의 별",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-498jnn",
+    "source" : "분노 표출",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-37-7n6551",
+    "source" : "[수호] 스킬 시전 중 자신의 최대 생명력의 {n}% 보호막을 획득",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-66-8jir5r",
+    "source" : "올려치는 공격이 해머를 {n}도 휘두르는 공격으로 바뀌며 더 이상 적을 날려버리지 않고 {m}초간 기절 상태로 만든다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-gp9on6",
+    "source" : "고급",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-phuyzc",
+    "source" : "학살의 시간",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-13nmcaq",
+    "source" : "고급 스킬 룬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-1qacqoq",
+    "source" : "최대 마나 +{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-fezoes",
+    "source" : "마주한 종언의 귀걸이",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-1bkrbm7",
+    "source" : "최대 생명력 +{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-1q94ua0",
+    "source" : "[가디언 토벌] 드렉탈라스",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-5p478m",
+    "source" : "네오 스파크 악기",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-1ukpf2t",
+    "source" : "한여름의 코니 선글라스",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-1lm05l9",
+    "source" : "희귀 얼굴{n} 아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-87-ld5dw6",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/normal_avatar/normal_avatar_{n}.png",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-24-1kyfuap",
+    "source" : "[원정대 영지] 쿠키 교환 상인 - 토토쿠키",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-1gc96ck",
+    "source" : "산뜻한 욤 마스크",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-1x4xpoz",
+    "source" : "스포티 아이돌 상하의 (이벤트)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-1j2v24c",
+    "source" : "눈부신 고대 엘라어 이동 효과",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-b4242y",
+    "source" : "아프로 풋볼 모자",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-h94sbe",
+    "source" : "깨달음 {n}티어 중력 충격 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-1i9fyjn",
+    "source" : "중력 충격",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-hcy5ih",
+    "source" : "중력 수련",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-5spsb9",
+    "source" : "파도의 꿈 하의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-124j6uq",
+    "source" : "칠흑의 심판관 얼굴{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-vvb88d",
+    "source" : "비바 풋볼 응원복 상의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-1s8aqre",
+    "source" : "네오 라이트 전투망치",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-f4ncbb",
+    "source" : "스트리트 글리터 머리",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-r1axyr",
+    "source" : "빛나는 고대 엘라어 이동 효과",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1dyns28",
+    "source" : "안개의 용 탈",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-1v4lf5w",
+    "source" : "#{n}DE{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-e6fu7g",
+    "source" : "#EE{n}FF",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-1m0hhm7",
+    "source" : "#{n}B{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-1p0iua8",
+    "source" : "침전하는 도약 머리",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-17365ik",
+    "source" : "스타라이트 인챈터 전투망치",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-1otsc13",
+    "source" : "#{n}DCFF",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-dpc4mn",
+    "source" : "안개의 용 몸통",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-20-1dzdbfi",
+    "source" : "{n}주년 결속 얼굴{m} (이벤트)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-1c9ex1p",
+    "source" : "질서의 달 코어 : 몰아치는 중력",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-15izcvp",
+    "source" : "질서의 별 코어 : 대지 부수기",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-1v7lx50",
+    "source" : "게이트 오브 이럽션",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-81-vqli6i",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/dm_skill/dm_skill_{n}_{m}.png",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-183-1d4wmym",
+    "source" : "자신이 가진 모든 악마의 힘을 발산하여 지옥의 문을 연다. 지옥 에너지가 지면에서 방출되어 적에게 {n}의 피해를 주고 {m}초 동안 공포를 건다. 방출된 지옥 에너지가 구체 형태로 모이며 최대 {k}의 피해를 주고 중앙으로 끌어당긴다. 지옥 에너지 구체가 완성되면 거대한 폭발이 일어나고 {p}의 피해를 주며 적을 날려버린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-21-1y5ikyl",
+    "source" : "※ 일반 상태에서 사용할 수 있습니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-t7lr4m",
+    "source" : "고어 블리딩",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1hux52g",
+    "source" : "[악마 스킬]",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-52-1ucr120",
+    "source" : "난폭하게 양손으로 할퀴어 적에게 {n}의 피해를 주고 전방으로 전진하며 {m}의 피해를 준다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1niv9o2",
+    "source" : "가디언의 낙뢰",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-81-kqb3hm",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/gl_skill/gl_skill_{n}_{m}.png",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-71-1agy041",
+    "source" : "하늘에서 낙뢰를 떨어뜨려 자신을 중심으로 {n}m 반경 적에게 {m}의 [뇌] 속성 피해를 주고 {k}초간 감전 상태로 만든다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-5mywtf",
+    "source" : "가디언의 수호",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-194-53hw87",
+    "source" : "스킬을 사용하는 즉시 실드 게이지를 {n}% 회복하고 자신을 중심으로 {m}m 반경에 {k}초 동안 유지되는 가디언의 방패를 소환한다. 이때 가디언의 방패 영역안에 있는 적들에게 {p}의 피해를 주고 {q}초간 기절시킨다. 가디언의 방패 영역 안에 있는 자신 및 파티원은 피격이상, 상태이상에 면역 상태가 되고 받는 모든 피해가 {r}% 감소된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-2ifxtt",
+    "source" : "갈고리 사슬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-58-1o9g2iq",
+    "source" : "갈고리 사슬을 길게 뻗어 {n}의 피해를 주고 적중된 적을 자신의 앞으로 끌어오며 {m}의 피해를 준다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1memrwy",
+    "source" : "날카로운 창",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-12bs721",
+    "source" : "[랜스 스킬]",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-27-1qq9w",
+    "source" : "창을 힘차게 앞으로 내질러 {n}의 피해를 준다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-18z6vih",
+    "source" : "넬라시아의 기운",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-o8jfr",
+    "source" : "[수집품] 항해 모험물",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-60-1vmavas",
+    "source" : "강하게 포효하여 자신 및 {n}m 범위 안에 있는 파티원이 받는 모든 피해를 {m}초간 {k}% 감소시킨다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-25-1tshlrt",
+    "source" : "상태이상 공격 지속시간이 {n}% 증가합니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-25-6tu9qy",
+    "source" : "상태이상 피해 지속시간이 {n}% 감소합니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-20-lf7ngg",
+    "source" : "무력화 피해량이 {n}% 증가합니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-33-1rd21sz",
+    "source" : "타격 시 엠버레스 오브 게이지 회복량이 {n}% 증가합니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-60-n4n9l",
+    "source" : "스킬 시전 시 자신 및 {n}m 범위 안에 있는 파티원에게 마지막으로 걸린 해로운 효과를 {m}개 해제한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-16zhxz3",
+    "source" : "정화의 함성",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-61-13x3pn9",
+    "source" : "{n}초간 자신 및 {m}m 범위 안에 파티원에게 자신의 최대 생명력의 {k}%에 해당하는 보호막을 생성한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-1epd9tg",
+    "source" : "생존",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-tlcihb",
+    "source" : "대쉬 어퍼 파이어",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-l9ijrw",
+    "source" : "압도",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-1xg9leg",
+    "source" : "스킬 적중 시 무력화 피해 {n}% 증가",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-12374g6",
+    "source" : "[물물교환] 비탄의 섬 - 바라",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-74-3qh64u",
+    "source" : "{n}m 전진하며 창을 쳐올려 {m}의 피해를 주고 상대를 공중에 띄운다. 추가 입력을 통해 포격 공격을 하여 {k}의 피해를 준다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-f15yjq",
+    "source" : "멈추지 않는 포성",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-27-1aj9mlb",
+    "source" : "[압도] 스킬 적중 시 무력화 피해 {n}% 증가",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-11zi5is",
+    "source" : "라이징 스피어",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-65-18xeziz",
+    "source" : "창을 땅에 찔러 넣으며 {n}의 피해를 준 뒤 창을 뽑아 올리며 전방의 적들에게 {m}의 피해를 주고 공중에 띄운다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-1ddttx8",
+    "source" : "리프 어택",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-42-2c97e1",
+    "source" : "{n}m 내 지정한 위치로 크게 뛰어올라 내리 찍으며 {m}의 피해를 준다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-2sa33m",
+    "source" : "방패 격동",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-1ejss6k",
+    "source" : "정화",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-39-1o7c6d3",
+    "source" : "스킬 사용 시 {n}% 확률로 자신에게 걸린 해로운 효과 {m}개 제거",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-i8cgtj",
+    "source" : "[수집품] 이그네아의 징표",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-55-iv718z",
+    "source" : "방패로 지면을 내리찍어 주변 적에게 {n}의 피해를 주고 이동속도를 {m}초간 {k}% 감소시킨다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-34-110ti7e",
+    "source" : "공격 적중 시 받는 모든 피해가 {n}초간 {m}% 감소한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-6qp47w",
+    "source" : "방어 준비",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-1ya9733",
+    "source" : "강습",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-44-1uy8172",
+    "source" : "[정화] 스킬 사용 시 {n}% 확률로 자신에게 걸린 해로운 효과 {m}개 제거",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-vmqrsc",
+    "source" : "방패 돌진",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-52-ps68bq",
+    "source" : "방패로 전방을 방어하며 빠르게 돌진한다. 돌진 공격 중에는 매 타격마다 {n}의 피해를 준다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-slsrxo",
+    "source" : "방패 밀치기",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-74-12amz30",
+    "source" : "전방으로 {n}m 이동하며 방패를 크게 휘둘러 {m}의 피해를 주고, 추가 입력을 통해 한번 더 크게 휘두르며 {k}의 피해를 준다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-5a7bp5",
+    "source" : "배쉬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-8fkn1r",
+    "source" : "[물물교환] 원정대 영지 - 상인 요한나",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-38-1h9bn6n",
+    "source" : "적을 방패로 타격하여 {n}의 피해를 주고, {m}초간 기절 시킨다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-myda7o",
+    "source" : "약점 노출",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-24-sdja3y",
+    "source" : "스킬의 무력화 단계가 [최상]으로 증가한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-1gs6dyw",
+    "source" : "뇌진탕",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-42pprd",
+    "source" : "버스트 캐넌",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-40-1re24fw",
+    "source" : "무기에 장착된 기폭장치를 이용하여 화력을 응축시켜 전방을 향해 쏟아낸다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-73-19tq1qn",
+    "source" : "이때 화력을 충분히 응축하지 못하면 {n} 피해를 주고 적을 밀어내며, 충분히 화력을 응축하면 {m} 피해를 주며 적을 날려버린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-1ceee52",
+    "source" : "고폭탄",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-1wupus6",
+    "source" : "과충전",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-26-rsbp80",
+    "source" : "고폭탄 적용 시 공격 범위가 {n}% 증가한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-1nd4d67",
+    "source" : "집중포화",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-724318",
+    "source" : "수호의 맹세",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-57-1mpbg3i",
+    "source" : "하늘에서 성스러운 빛을 방패로 받아 실드 게이지를 {n}% 회복하고, 이어서 가디언의 방패를 소환한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-77-15jm2e5",
+    "source" : "{n}개의 방패가 순차적으로 소환되며 총 {m}의 피해를 주고, 이후 방패를 펼치며 {k}의 피해를 주고 {p}초간 기절시키며 날려버린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-117-1axoghf",
+    "source" : "펼쳐진 가디언의 방패는 자신을 중심으로 {n}m반경에 {m}초 동안 수호의 영역을 펼치며, 영역안에서 영향을 받는 자신 및 파티원은 피격이상 및 상태이상에 면역 상태가 되고 받는 모든 피해가 {k}% 감소한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-11lbp6a",
+    "source" : "스피어 샷",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-122-1iqvvgu",
+    "source" : "창을 크게 내질러 {n}의 피해를 주고, 화력을 창 끝에 모은다. 이때 적들은 총 {m}의 피해를 입으며 창끝으로 빨려 들어오게 되고 창 끝에 화력이 충분히 모이면 그대로 포격하여 {k}의 피해를 주며 적을 날려버린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1x4sbvn",
+    "source" : "날렵한 움직임",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-121hacf",
+    "source" : "차지 조작으로 변경된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-1nfu58v",
+    "source" : "근접폭발",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-19yl9q3",
+    "source" : "실드 대시",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-62-gxgxa0",
+    "source" : "전방에 가디언의 방패를 소환하여 단숨에 돌진하며 공격한다. 돌진 공격은 적에게 {n}의 피해를 주며 날려버린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-a43mms",
+    "source" : "심판의 창",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-bvn24g",
+    "source" : "정의 실현",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-76-kzj27x",
+    "source" : "정의의 함성을 내지르며, 지정한 위치에 {n}개의 빛의 창을 한번에 내리 꽂아 {m}의 [성] 속성 피해를 주고 적중된 적을 띄워올린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-17c2cd3",
+    "source" : "증오의 함성",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-126-1uqqu0p",
+    "source" : "강하게 포효하여 자신을 중심으로 {n}m 반경 내의 적에게 {m} 피해를 주고, 모험가가 아닌 적들을 {k}초간 도발하여 제한된 스킬만 사용하게 한다. 시드급 이상의 동일한 몬스터는 일정 시간 동안 다시 도발에 걸리지 않는다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-tcnhxg",
+    "source" : "차지 스팅거",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-41-1hi3prd",
+    "source" : "방어자세에서 기운을 모아 순식간에 전방으로 미끄러져 나가며 창을 내지른다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-84-pq46c9",
+    "source" : "기운을 모으는 도중에는 천천히 방향전환이 가능하며 차지 완료 전 {n} 피해를, {m}단계 차지 시 {k} 피해를, 오버 차지 시 {p} 피해를 준다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-1gxo0su",
+    "source" : "차지 강화",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-b2q9h9",
+    "source" : "라스트 차지",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-7mjj9v",
+    "source" : "카운터 스피어",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-mqhvjl",
+    "source" : "태산",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-3u8zb0",
+    "source" : "파이어 불릿",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-43-1rpz06c",
+    "source" : "무기에 장치된 포격 장비로 근거리 적에게 포격을 가하여 {n}의 피해를 준다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-r37a8d",
+    "source" : "풀배럴 캐넌",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-107-b93snh",
+    "source" : "포신을 개방하여 회전 화력을 압축해 전방으로 일격 방출하는 포격으로, 최대 {n}단계까지 충전되며 차지 실패 시 {m}의 피해를 주고, 오버차지 시 최대 {k}의 피해를 주며 적을 날려버린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-3mu2y3",
+    "source" : "냉철한 영원 머리 (귀속)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1as1pn6",
+    "source" : "워로드 전용",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-fl4d8v",
+    "source" : "죽음의 신관 머리 (패스)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-rcgj9r",
+    "source" : "냉철한 영원 랜스 (귀속)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-74g14f",
+    "source" : "전설 랜스 아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-duzu3v",
+    "source" : "용의 흑야 랜스",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-gm72q9",
+    "source" : "영웅 랜스 아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-2naxm8",
+    "source" : "냉철한 영원 상의 (귀속)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-27-t45nr4",
+    "source" : "MUSINSA - 힙스터 모코코 릴렉스드 핏 상의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-1u58dmu",
+    "source" : "용의 흑야 악기",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-mdon19",
+    "source" : "용의 극야 얼굴{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-1ahv2wx",
+    "source" : "한밤의 가호 얼굴{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-lyh3na",
+    "source" : "에기르의 심연 이동 효과",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-40-xcg4za",
+    "source" : "[카제로스 레이드] {n}막 : 대지를 부수는 업화의 궤적 - 하드 경매",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-k0rr8v",
+    "source" : "냉철한 영원 하의 (귀속)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-2lk7vw",
+    "source" : "질서의 달 코어 : 방어 전술",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-h3nqwn",
+    "source" : "질서의 별 코어 : 방어 포격",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-29-tjomo8",
+    "source" : "[{n}P] 전장의 창 사용 시 '운명'이 발동한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-17w76h",
+    "source" : "고독한 기사 전용",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-27-17gn2gz",
+    "source" : "아크 패시브 {n}티어 선봉장의 함성 활성화 필요",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-23-1j4hwex",
+    "source" : "깨달음 {n}티어 고독한 기사 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-2k0hv2",
+    "source" : "고독한 기사",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-89-u4vtqw",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/ark_passive_gl/ark_passive_gl_{n}.png",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-79-90puca",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/gl_item/gl_item_{n}_{m}.png",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-vtbjoz",
+    "source" : "+{n} 운명의 전율 랜스",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-r9w91r",
+    "source" : "고대 랜스",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-moebj8",
+    "source" : "상태이상 공격 지속시간 +{n}%",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-23-j0trrm",
+    "source" : "실드 게이지 회복량이 {n}% 증가합니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-15rhj7v",
+    "source" : "질량 증가",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-n37mgr",
+    "source" : "중독",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-28-1ouarvl",
+    "source" : "스킬 적중 시 적을 {n}초간 '중독' 상태로 만듦",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-33-hvt6ph",
+    "source" : "[중독] 스킬 적중 시 적을 {n}초간 '중독' 상태로 만듦",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-49-aor2hx",
+    "source" : "퍼펙트 존 성공 시 쇠구슬이 사방으로 비산되어 나가며 대상을 더 이상 날려버리지 않는다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-aoeu18",
+    "source" : "확산탄",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-37-1qo1elx",
+    "source" : "일반 조작으로 변경되며 퍼펙트 존 효과에 도달하는 시간이 짧아진다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1vqryah",
+    "source" : "확정된 공격",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-1x6liu6",
+    "source" : "회전포격",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-15-1e95mfr",
+    "source" : "+{n} 장엄한 수호의 바다",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1gd80px",
+    "source" : "에스더 랜스",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-qg4bos",
+    "source" : "전투 중 생명력 회복량 +{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-1v6a0ju",
+    "source" : "스트릿 루즈핏 볼캡 머리",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-17i5j0h",
+    "source" : "아크라시아의 명예 상하의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-1g6p77i",
+    "source" : "판매불가, 염색불가",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-1e7rvew",
+    "source" : "검정 깃털 이동 효과",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-94-s8p110",
+    "source" : "최대 실드 게이지가 {n}% 감소한다. 일반 스킬로 아군에게 부여하는 보호막의 양이 {m}% 감소하며, 일반 스킬 공격 적중 시 실드 게이지 충전량도 {k}% 감소한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-21-9ndz4v",
+    "source" : "Z 스킬이 진격 태세 스킬로 변경된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-145-dxavdf",
+    "source" : "진격 태세 동안 이동속도가 {n}% 감소한다. 피격 시 실드 게이지를 대신 소모하며 피해를 받지 않으며, 시간이 지남에 따라 실드 게이지가 소모되고 실드 게이지가 모두 소모되면 진격 태세가 해제된다. 또한, 랜스 스킬 사용 중에도 Z키를 눌러 해제할 수 있다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-21-16dr0p6",
+    "source" : "X 스킬이 전장의 창 스킬로 변경된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-20-1br8nq3",
+    "source" : "깨달음 {n}티어 정교함 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-ycus9k",
+    "source" : "정교함",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-23-wtqw7c",
+    "source" : "깨달음 {n}티어 건랜스 수련 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-15t4fp5",
+    "source" : "건랜스 수련",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-20-1xgrclu",
+    "source" : "깨달음 {n}티어 결사대 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-1trloe3",
+    "source" : "결사대",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-c17rw2",
+    "source" : "선봉장의 함성",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-1e05kgs",
+    "source" : "전술 이동",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-oksm73",
+    "source" : "깨달음 {n}티어 전술 이동 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-8h3qxt",
+    "source" : "도약 {n}티어 거포 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-1ft5395",
+    "source" : "거포",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-jgim3w",
+    "source" : "행운의 기회",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-bjehii",
+    "source" : "공격창출",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-x51fyy",
+    "source" : "폭격창",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-1bodo15",
+    "source" : "단죄",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-1f9302w",
+    "source" : "광분",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-ijt0j7",
+    "source" : "질서의 해 코어 : 전술 제어",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-k6gt1d",
+    "source" : "혼돈의 별 코어 : 무기",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-1d6oxso",
+    "source" : "마주한 종언의 반지",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-15-74gt6w",
+    "source" : "베히모스의 폭풍우 이동 효과",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-s75io5",
+    "source" : "깨달음 {n}티어 효율 증대 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-by5o56",
+    "source" : "효율 증대",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-30-elscpw",
+    "source" : "[에픽 레이드] 폭풍의 지휘관, 베히모스 - 노말 경매",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-zs1k0a",
+    "source" : "스트릿 심플 하의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-lrrbj3",
+    "source" : "#{n}FFF{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-1yix0og",
+    "source" : "스트릿 루즈핏 상의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-vz87q3",
+    "source" : "#FF{n}FD{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-1ix1uh8",
+    "source" : "#A{n}DAFF",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-zewyr3",
+    "source" : "희귀 머리 아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-r4cq2g",
+    "source" : "백꼼 모자",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-qc21bh",
+    "source" : "눈꽃의 심장 랜스",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-1kya3nz",
+    "source" : "새해의 애정 복면",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-q9sxtp",
+    "source" : "창공 지배자의 축복 얼굴{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-137cj08",
+    "source" : "모래의 꿈 악기",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-1ulwiiv",
+    "source" : "블루 눈꽃 이동 효과",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1thizqz",
+    "source" : "#BFDCFF",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-1t6xs0v",
+    "source" : "#{n}A{m}A{k}A",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-kkecwl",
+    "source" : "#{n}C{m}C{k}C",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-q173ue",
+    "source" : "정열적인 영원 머리",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-y9w2j2",
+    "source" : "파티원 보호막 효과 +{n}%",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-175spco",
+    "source" : "보호막",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-36-1m662sb",
+    "source" : "{n}초간 자신의 최대 생명력의 {m}% 만큼 보호막을 생성한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-19w1q8j",
+    "source" : "파괴 전차",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-gd55mn",
+    "source" : "가벼운 발걸음",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-1jg9i49",
+    "source" : "전류지대",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-76-9j4kfj",
+    "source" : "스킬 시전 속도 {n}% 감소. 스킬 시전 중 최대 생명력의 {m}% 보호막을 획득하고 보호막이 유지되는 동안 받는 피해가 {k}% 감소",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-56-vbckuz",
+    "source" : "방패로 전방을 {n}초간 방어하며, 자신의 최대 생명력의 {m}% 만큼 적의 공격을 막아낼 수 있다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-51-1oujqmj",
+    "source" : "이때 {n}초 안에 적의 공격을 방어하면 강력하게 반격하여 {m}의 피해를 주고 날려버린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-t7qmtd",
+    "source" : "반격의 속도가 {n}% 증가한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-74-19jj6e8",
+    "source" : "[{n}P] 카운터 스피어 반격 공격을 적중 시 재사용 대기시간이 {m}% 감소하고, 실드 게이지 최대량의 {k}%를 즉시 회복한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-45-yjcims",
+    "source" : "[{n}P] '운명' 발동 시 {m}초 동안 '운명: 전술 제어'효과를 획득한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-81-4ul6eh",
+    "source" : "[태산] 스킬 시전 속도 {n}% 감소. 스킬 시전 중 최대 생명력의 {m}% 보호막을 획득하고 보호막이 유지되는 동안 받는 피해가 {k}% 감소",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-24-o281rx",
+    "source" : "깨달음 {n}티어 선봉장의 함성 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-15220u5",
+    "source" : "징벌하는 도약 머리",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-1nz0cxm",
+    "source" : "칠흑의 심판관 머리",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-1d2e0hg",
+    "source" : "죽음의 지배자 랜스",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-1i7sqgw",
+    "source" : "#{n}B{m}B{k}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-ww8xvv",
+    "source" : "징벌하는 도약의 랜스",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-5wtf6o",
+    "source" : "징벌하는 도약 상의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-1lcjx4f",
+    "source" : "칠흑의 심판관 상의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-9ps276",
+    "source" : "#{n}F{m}F{k}F",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-us2w87",
+    "source" : "#AA{n}E",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-y2uz7",
+    "source" : "어반 웨어 얼굴{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-e5bae9",
+    "source" : "징벌하는 도약 하의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-18v054u",
+    "source" : "칠흑의 심판관 하의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-zny49m",
+    "source" : "#{n}E{m}C{k}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-73rc6u",
+    "source" : "기습의 대가",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-h4wajp",
+    "source" : "그라운드 스매시",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-81-yanul6",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/bk_skill/bk_skill_{n}_{m}.png",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-69-w609rn",
+    "source" : "대검을 강하게 내리찍어 {n}의 피해를 주고, 땅에 박힌 대검을 뽑으며 충격으로 {m}의 피해를 주고, 대상을 끌어 당긴다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-llb9gq",
+    "source" : "공격 타입 : 백 어택",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-9j8x56",
+    "source" : "분노 게이지 획득량이 {n}% 증가한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1dka0d4",
+    "source" : "화염 소용돌이",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-1uhzdbj",
+    "source" : "길로틴",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-50-1hiqukz",
+    "source" : "양손에 대검을 쥐고 혼신의 힘을 모아 내려벤다. 적에게 {n}의 피해를 주며 날려 버린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-1apq3m5",
+    "source" : "라그나 브레이크",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-99-xj1jy9",
+    "source" : "극한의 분노 상태가 되며, 분노를 해방하는 순간 분노가 불꽃의 악마 형상으로 발현된다. 해방된 분노의 힘을 대검에 담아 지면을 향해 내려쳐 {n}의 피해를 주며 적을 날려버린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-uuvve3",
+    "source" : "레이지 슬래셔",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-142-14t5sac",
+    "source" : "대검으로 빠르게 올려쳐 {n}의 피해를 주며 분노를 이용해 거대한 분노의 대검을 만들어낸다. 직후 공중으로 도약하며 {m}회에 걸쳐 난도질하듯 공간을 베어 총 {k}의 피해를 준 후 그대로 수직으로 낙하하며 내리쳐 {p}의 피해를 주며 적들을 날려버린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-11rjxgc",
+    "source" : "다이빙 슬래쉬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-55-nxnlh0",
+    "source" : "힘차게 도약하여 {n}m 내의 지정된 위치를 대검으로 내려쳐 {m}의 피해를 주고 적을 넘어뜨린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1yg9bjh",
+    "source" : "더블 슬래쉬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-32-br9qdv",
+    "source" : "X자로 대검을 휘둘러 적에게 {n} {m}의 피해를 준다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-9rwig1",
+    "source" : "레드 더스트",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-23-q4g74k",
+    "source" : "[던전] 베른 북부 - 고대 유적 엘베리아",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-82-1xcnrdb",
+    "source" : "대검을 크게 올려치며 붉은 기운을 일으켜 {n}의 피해를 준다. 스킬 사용 시 {m}초 간 격노 효과를 획득하여 자신의 공격력이 {k}% 증가한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-dax8vh",
+    "source" : "레이지 블레이드",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-91-6qtwcm",
+    "source" : "대검을 교차 형태로 빠르게 베어 {n} {m}의 피해를 주며 적을 띄운 뒤 힘차게 도약하며 극한의 분노를 대검에 담아 내려쳐 {k}의 피해를 주며 적을 날려버린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-4pxd35",
+    "source" : "메일스톰",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-1xa2o49",
+    "source" : "브레이브 슬래쉬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-36-878ynt",
+    "source" : "힘을 모은 뒤 대검으로 전방을 강하게 베어 {n}의 피해를 준다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-15dq4rf",
+    "source" : "블러드 슬래시",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-133-1yk6tf5",
+    "source" : "대검으로 빠르게 올려쳐 {n}의 피해를 주며 적을 띄운 후 난도질 하듯 공간을 베어내며 총 {m}의 피해를 주고 공간에 검흔을 남긴다. 마지막으로 대검을 횡으로 크게 휘둘러 검흔을 일시에 폭발시켜 총 {k}의 피해를 주며 적을 날려버린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1al9vkb",
+    "source" : "블러디 버스트",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-60-17b0vw0",
+    "source" : "몸속에 잠재되어 있는 분노를 극한으로 응축하여 일순간 폭발시킨다. 총 {n}의 피해를 주며 적을 날려버린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1efp6nx",
+    "source" : "버서크 퓨리",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-178-1ba788p",
+    "source" : "힘의 기운을 대검에 주입해 분노의 검 버서크 퓨리를 만들어 낸 후 강력한 일격을 가한다. 버서크 퓨리를 완성하기 위해서는 차지 단계를 거쳐야 하며, 차지 단계가 높아질수록 위력이 강해진다. 즉시 사용 시 {n} {m}단계 차지 시 {k} 오버차지 시 {p} {q}의 피해를 주며 차지 단계에 따라 공격 범위가 증가한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-1wj6lbn",
+    "source" : "소드 스톰",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-65-1htgs8n",
+    "source" : "반시계 방향으로 회전하며 점프 한 후 대검을 바닥에 내리쳐 검기 폭풍이 뻗어 나가며 {n}의 피해를 주고 넘어뜨린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-v4dzi1",
+    "source" : "어설트 블레이드",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-25-jukea5",
+    "source" : "사선으로 적을 베어 총 {n}의 피해를 준다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-o7zjrj",
+    "source" : "윈드 블레이드",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-56-1rqptxq",
+    "source" : "대검을 휘두르며 이동하면서 {n}의 피해를 준다. 이동 중 모험가 및 일반 몬스터와 충돌이 무시된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-1uxumci",
+    "source" : "네오 베어 봇 머리",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-1u9xo3h",
+    "source" : "{n}주년 여정 대검 (이벤트)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-14aq8e9",
+    "source" : "영웅 대검 아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-o0oite",
+    "source" : "버서커 전용",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-1t7mwwt",
+    "source" : "네오 베어 봇 몸통",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-1cdxlv3",
+    "source" : "질서의 달 코어 : 피의 순환",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-23-166b21n",
+    "source" : "분노 게이지 획득량이 {n}% 증가합니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-n41rtb",
+    "source" : "마운틴 크래쉬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-1sxhuss",
+    "source" : "+{n} 운명의 업화 대검",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-gimma7",
+    "source" : "고대 대검",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-79-6ryjje",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/bk_item/bk_item_{n}_{m}.png",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-53-27kox8",
+    "source" : "[상급 재련] {n}단계 {m}단계 - 기본 효과 +{k}% {p}단계 - 기본 효과 +{q}%",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-1oj3hoo",
+    "source" : "불타는 불꽃의 대검",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-1us4g8v",
+    "source" : "전설 대검 아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-19-1klivg5",
+    "source" : "[요즈의 항아리] 요즈 I : 약속",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-1u5ppnd",
+    "source" : "금빛 도약 머리",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-s0uvv8",
+    "source" : "금빛 도약 상의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-12fses5",
+    "source" : "금빛 도약 하의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-8hd8pq",
+    "source" : "도트 안경 (블랙)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-1bzln2a",
+    "source" : "레드 리스 이동 효과",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1ipxh1c",
+    "source" : "광전사의 비기",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-23-1ho7l9c",
+    "source" : "깨달음 {n}티어 강인한 육체 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1jo7a1d",
+    "source" : "강인한 육체",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-62-1v1cnn8",
+    "source" : "폭주 중 X키를 이용해 일반 상태로 돌아갈 수 있으며, 폭주 상태 돌입 시 {n}초 동안 피격이상 면역이 된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-7xjinr",
+    "source" : "깨달음 {n}티어 신체 활성 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-ah6ihg",
+    "source" : "신체 활성",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1aq9zx1",
+    "source" : "무서운 해머",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-1yygme5",
+    "source" : "여진",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-30-6jfmtg",
+    "source" : "[{n}P] 퍼펙트 스윙 사용 시 '운명'이 발동한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-14adcvn",
+    "source" : "분노의 망치 전용",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-25-s4twiz",
+    "source" : "아크 패시브 {n}티어 중력 해방 활성화 필요",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-1gngumo",
+    "source" : "질서의 해 코어 : 특이점",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-19qol3v",
+    "source" : "환영의 월식 머리",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-1reaufs",
+    "source" : "영광의 선율 전투망치",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-erzhgh",
+    "source" : "#BDAB{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-ac7w68",
+    "source" : "밤의 은하 상의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-1rq2mjx",
+    "source" : "#{n}E{m}F{k}D",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-1onehes",
+    "source" : "#{n}E{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-1bx3mo7",
+    "source" : "밤의 은하 얼굴{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-13yxjso",
+    "source" : "{n}주년 용기 하의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1o1fqad",
+    "source" : "#DEDEDE",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-e09u1p",
+    "source" : "질서의 달 코어 : 중력 질주",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-15n4zef",
+    "source" : "안정된 상태",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-2f4mua",
+    "source" : "모래의 소년 전투망치",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-6ful0i",
+    "source" : "천상의 영원 전투망치 (귀속)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-1m3nolr",
+    "source" : "기분 좋은 모코코 몸통",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-31-16j83cc",
+    "source" : "모코코의 기분 좋은 표정을 본따서 제작된 특별한 상하의.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-26-1xba8jn",
+    "source" : "입고 있으면 왠지 모르게 기분이 솔솔 좋아진다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-a7n37q",
+    "source" : "천상의 영원 상의 (귀속)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-15-r0henl",
+    "source" : "기분 좋은 모코코 이동 효과",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-ff5wrh",
+    "source" : "천상의 영원 하의 (귀속)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-wwbus1",
+    "source" : "천상의 영원 머리 (귀속)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-gwp97i",
+    "source" : "블랙 바니 탈",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-ljbuks",
+    "source" : "#A{n}EE{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-wjmkto",
+    "source" : "#FFC{n}BE",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-178thu6",
+    "source" : "극상마섬광",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-81-i2py80",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/so_skill/so_skill_{n}_{m}.png",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-220-d2d7z5",
+    "source" : "기를 끌어 모은 뒤 전방으로 기를 강력하게 쏟아낸다. 홀딩 가능하며 최대 {n}초 동안 에너지를 뿜어내어 {m}회에 걸쳐 최대 {k}의 피해를 주고 이후 동료가 나타나 함께 전방으로 {p}초 동안 모든 에너지를 폭발적으로 뿜어내어 {q}회에 걸쳐 최대 {r}의 피해를 주며 적을 날려버린다. 홀딩 중 취소할 경우 즉시 동료가 나타나 함께 공격한다. 스킬 적중 시 내공을 {v7} 만큼 회복한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-o71utt",
+    "source" : "기공장",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-f4gfoi",
+    "source" : "[기공 스킬]",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-pfq91e",
+    "source" : "내공 {n} 소모",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-71-1nomh0e",
+    "source" : "순간적으로 손바닥을 뻗으며 강력한 기공탄을 발사한다. 기공탄은 느린 속도로 퍼져 나가며 적에게 {n}의 피해를 주며 넘어뜨린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-1pxlqou",
+    "source" : "낙영장",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1fbk0h2",
+    "source" : "[무공 스킬]",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-142-51lptr",
+    "source" : "제자리에서 바닥을 신속하게 {n}회 내려치며 {m} {k}의 피해를 주고 반대 손바닥으로 강하게 내려쳐 {p}의 피해를 주고, 내공을 {q} 회복한다. 첫 번째 공격은 공중에 뜬 적에게 적중 시 즉시 바닥에 내려 꽂아버리며 {r}% 증가된 피해를 입힌다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-1u3dhjw",
+    "source" : "난화격",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-121-f8r4xc",
+    "source" : "전방으로 {n}m 이동하며 주먹을 뻗어 {m}의 피해를 주고 빠르게 오른발로 발차기를 날려 {k}의 피해와 이후 주먹을 내지르는 공격하여 {p}의 피해를 주고, 내공을 {q} 회복한다. 공격 중 방향 전환이 가능하다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-d1kz6v",
+    "source" : "확실한 일격",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-19nl8gp",
+    "source" : "+{n} 운명의 전율 머리장식",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-81-jg48wi",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/ffm_item/ffm_item_{n}_{m}.png",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1sfya29",
+    "source" : "기공사 전용",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-36-1rsgxnr",
+    "source" : "피격이상 및 상태이상 대상에게 주는 피해량이 {n}% 증가합니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-1hoypy7",
+    "source" : "[질량 증가] Lv.{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-15-yggo4s",
+    "source" : "+{n} 운명의 전율 기공패",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1s500iw",
+    "source" : "고대 기공패",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-15-3or9w8",
+    "source" : "파티원 회복 효과 +{n}%",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-us6p4z",
+    "source" : "혼돈의 달 코어 : 흡수의 일격",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-15-d0ganc",
+    "source" : "질서의 해 코어 : 광류연파",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-15-ejz5gi",
+    "source" : "질서의 별 코어 : 파공나선",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-1kl5vj7",
+    "source" : "탄생하는 도약 머리",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-1eoaxpw",
+    "source" : "{n}주년 잔상 기공패 (이벤트)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-1rhab4e",
+    "source" : "영웅 기공패 아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-1218qi9",
+    "source" : "파멸하는 도약의 기공패",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-1s8nltk",
+    "source" : "전설 기공패 아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-1kgrjvs",
+    "source" : "#AEC{n}D{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-16vfmge",
+    "source" : "윈터 블리치 상의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-fwiuli",
+    "source" : "무도가(여)계열",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-si7jyi",
+    "source" : "#{n}C{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-fbc5a8",
+    "source" : "파도 바다 악기",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-ax8u01",
+    "source" : "윈터 블리치 얼굴{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-1ds5g5b",
+    "source" : "윈터 블리치 하의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-1syoey4",
+    "source" : "파멸하는 도약 하의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-19c1mqp",
+    "source" : "#FFDED{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-1egg02h",
+    "source" : "#{n}D{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-d9g3ck",
+    "source" : "회선격추",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-94-1drzveq",
+    "source" : "소폭 전진하여 하단을 발로 걸어 당겨 적을 넘어뜨리며 {n}피해를 준다. 이후 {m}m 전진하여 몸을 부딪혀 적을 날려버리며 {k}피해를 주고, 내공을 {p} 회복한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-1hwubfw",
+    "source" : "질서의 달 코어 : 천류섬열풍",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-soc2rs",
+    "source" : "파쇄장",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-146-4f53aw",
+    "source" : "순간적으로 {n}m가량 전진하며 {m} 피해를 준다. 이후 손바닥에 기를 주입하여 {k}의 피해를 {p}회 주고 마지막 타격이 들어가며 {q}의 피해를 주고, 내공을 {r} 회복한다. 마지막 타격은 공중에 뜬 적 적중 시 적에게 주는 피해가 {v7}% 증가한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-ipep42",
+    "source" : "투지 강화",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-n528l6",
+    "source" : "탁월한 기동성",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-1yk9ns1",
+    "source" : "환영격",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-71-cftuvo",
+    "source" : "전방으로 신속하게 이동한 후, 주변의 적들 사이를 빠르게 오가며 적에게 {n}의 피해를 {m}회 주고, 내공을 {k} 회복한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-12e4u8h",
+    "source" : "풍뢰일광포",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-63-h1ry81",
+    "source" : "전방을 향해 기를 발사한 뒤 다시 강하게 손바닥을 내지르면 더욱 굵고 강력한 기가 발사되며 {n}의 피해를 준다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-1qmcl29",
+    "source" : "충전 강화",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-26-kyh3rt",
+    "source" : "준비 시간이 줄어들어 기를 더욱 빨리 방출한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-19zwxr3",
+    "source" : "혹독한 훈련",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-1qed0h1",
+    "source" : "무상신공",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-21-1tfxs84",
+    "source" : "깨달음 {n}티어 무상신공 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-89-16kn612",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/ark_passive_so/ark_passive_so_{n}.png",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-500ld8",
+    "source" : "바다의 청춘 머리",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-gt60cp",
+    "source" : "창공 지배자의 권위 머리",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-7np5yk",
+    "source" : "{n}주년 미래 기공패",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-eiiire",
+    "source" : "권위의 기공패",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-10h07ui",
+    "source" : "스노클 웨어 상의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-j9pdw9",
+    "source" : "#{n}E",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-1p4d8fa",
+    "source" : "#{n}B{m}B{k}B",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-175ignz",
+    "source" : "#CFBDBD",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-1gqgzgd",
+    "source" : "파멸하는 도약 상의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-cuw6js",
+    "source" : "애니츠의 연인 악기",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-q8m2pk",
+    "source" : "고귀한 마녀의 축제 얼굴{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-1wipt6n",
+    "source" : "순수한 밤 얼굴{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-bc17a0",
+    "source" : "비트박스 하의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-whw0th",
+    "source" : "창공 지배자의 권위 하의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-15-171iwx9",
+    "source" : "[안정된 상태] Lv.{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-avcx8l",
+    "source" : "각성기는 적용되지 않는다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-20-12h30ab",
+    "source" : "도약 {n}티어 허공답보 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-y5xqp3",
+    "source" : "허공답보",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-tzizsd",
+    "source" : "속도 강화",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-cmpx6f",
+    "source" : "강화된 파동",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-17onb2a",
+    "source" : "공간 팽창",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-15-w1qg2a",
+    "source" : "공포의 영원 기공패 (귀속)",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-1niknm8",
+    "source" : "파멸하는 도약 머리",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-2wu4fs",
+    "source" : "피크닉 웨어 얼굴{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-1q5a98z",
+    "source" : "{n}주년 용기 얼굴{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1k6z2f5",
+    "source" : "공포의 기공패",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-7q4hkp",
+    "source" : "구름의 꿈 머리",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1cgisp1",
+    "source" : "탐험가 하의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-1118edv",
+    "source" : "네이처 웨어 하의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-1nb67tb",
+    "source" : "#A{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-gurp9w",
+    "source" : "#D{n}AF{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-11sq6ae",
+    "source" : "#D{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-ovqv1e",
+    "source" : "네이처 웨어 상의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-1fvjdbu",
+    "source" : "[제작] 대도시 - 아바타 가공",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-7bf4en",
+    "source" : "창공의 오라",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-1jvgk6c",
+    "source" : "성실한 토끼 머리띠",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-q08a7z",
+    "source" : "{n}주년 결속 기공패",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-1uane4d",
+    "source" : "네이처 웨어 얼굴{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-86-1h89f90",
+    "source" : "일정량의 진기 획득 시 순차적으로 무상신공이 {n}성, {m}성, {k}성으로 상승되고 신공의 단계 마다 무상신각, 무상신장, 무상신권을 사용할 수 있다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-27-1o8p5fj",
+    "source" : "무상신권을 사용하면 획득한 진기가 모두 소모된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-21-1deft65",
+    "source" : "깨달음 {n}티어 무상진결 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-heandu",
+    "source" : "무상진결",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-55-gjobk6",
+    "source" : "무상신공 초식 사용 시 초각성 스킬을 제외한 무공 스킬의 재사용 대기시간이 즉시 {n}초 감소한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-21-195wi4s",
+    "source" : "깨달음 {n}티어 혼원진기 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-1n0d9sd",
+    "source" : "혼원진기",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-21-1c4w66x",
+    "source" : "깨달음 {n}티어 삼화취정 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-if9ur2",
+    "source" : "삼화취정",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-33-y2r24g",
+    "source" : "금강불괴 : 스킬 시전 중 받는 피해량이 {n}% 감소한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-21-tzub4",
+    "source" : "깨달음 {n}티어 오기조원 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-1tgww9t",
+    "source" : "오기조원",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-47-1mty3pj",
+    "source" : "무공 스킬, 무상신공 초식 및 이동기 사용 후 다음 무상신공 초식의 연계가 빨라진다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-wp07jt",
+    "source" : "진화 {n}티어 혼신의 강타 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-gk0fkk",
+    "source" : "혼신의 강타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-qmul4b",
+    "source" : "진화 {n}티어 입식 타격가 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1ex3gh2",
+    "source" : "입식 타격가",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-89-1hmohg7",
+    "source" : "전투 시작 후, '입식 타격 II' 효과를 최대로 얻습니다. 피격 이상 시 중첩을 {n}회 잃습니다. 이후 {m}초가 지날 때마다 효과를 {k}중첩 회복합니다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-in7yd9",
+    "source" : "순보",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-15h4ykh",
+    "source" : "체인",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-dvull4",
+    "source" : "이동거리가 {n}m 증가한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-20-irbpu6",
+    "source" : "스킬 시전 속도가 {n}% 증가한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-7dzc8",
+    "source" : "강인한 어깨",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-wzyan1",
+    "source" : "음양신장",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-su91f2",
+    "source" : "양의역행",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-1ttc2s2",
+    "source" : "내공수련",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-z5tiub",
+    "source" : "낙일멸천옥",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-92-196t3yp",
+    "source" : "마우스 지점에 공격을 가한다. 지면을 박차고 올라 두 손을 머리 위로 올리고 거대한 기를 모은다. 기가 다 모이면 선택한 지점에 기를 떨어뜨려 {n}의 피해를 준다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-stfa9d",
+    "source" : "단천벽력수",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-96-gkeywh",
+    "source" : "단전의 진원진기를 손날에 실어 번개처럼 빠르게 내려친다. 가로막는 모든 것을 파괴하는 날카로운 기운을 만들어 {n}의 피해를 주고, 내공을 {m} 회복하며 적을 날려버린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-19bn7yq",
+    "source" : "무공탄",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-46-4gwxgp",
+    "source" : "전방으로 응축된 기를 빠르게 {n}회 발사한다. {m}회 당 {k}의 피해를 준다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-c2gyyk",
+    "source" : "번천장",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-75-riok21",
+    "source" : "양 손바닥에 기를 모으고 전방을 향해 강력한 기를 뿜어내어 {n}의 피해를 주고 내공을 {m} 회복하며 후방으로 약 {k}m 이동한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-zr5aom",
+    "source" : "벽력장",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-70-guuqoa",
+    "source" : "전방을 향해 두 손바닥을 뻗으며 {n}의 피해를 주고 내공을 {m} 회복하며 공중에 뜬 적에게 공격 적중 시 적을 날려버린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-143-1kkbxt4",
+    "source" : "순간적으로 몸을 날려 마우스 방향으로 이동한다. 신속하게 움직여 도착 지점에 있는 적에게 {n}의 피해를 주고 내공을 {m} 회복하며 적이 공중에 뜬 상태일 때 공격 적중 시 다시 공중에 띄운다. {k}초 내로 추가 입력 시 {p}회 더 사용 할 수 있다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-107-1edfqvf",
+    "source" : "몸안에 흐르는 태극의 기운을 손바닥으로 응집시킨 뒤, 전방을 향해 폭발적으로 방출한다. 음과 양이 조화된 충격파는 대기를 가르며 {n}의 피해를 주고, 내공을 {m} 회복하며 적을 날려버린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-1jsxfac",
+    "source" : "천류나선장",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-105-1vi47ct",
+    "source" : "오른손에 전신의 기운을 나선 형태로 응집시켜 순식간에 방출한다. 방출된 기운은 한정된 공간에서 소용돌이치며 최대 {n}의 피해를 주고, 이내 폭발하여 {m}의 피해를 주며 적을 날려버린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-1knu72r",
+    "source" : "천하군림보",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-89-1oz4cey",
+    "source" : "전방에 강력한 발 구름으로 적에게 {n}의 피해를 주고, 순간적으로 허공으로 도약하여 내려 찍으며 {m}의 피해를 주고 내공을 {k} 회복하며 적을 날려버린다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-19kx9sw",
+    "source" : "초신마섬광",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-194-1d53sj3",
+    "source" : "기를 끌어 모은 뒤 전방으로 점점 더 강한 기를 쏟아낸다. 두 번째 에너지파까지 각각 {n} {m}의 피해를 준다. 이후 다시 한 번 기를 모아 전방으로 {k}초 동안 에너지를 폭발적으로 뿜어내어 {p}회에 걸쳐 최대 {q}의 피해를 주고 마지막에 폭발이 일어나 {r}의 피해를 주며 적을 날려버린다. 스킬 적중 시 내공을 {v7} 만큼 회복한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-1yw3q1c",
+    "source" : "천하섬멸옥",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-85-1jb7208",
+    "source" : "마우스 지점에 공격을 가한다. 두 손을 머리 위로 올리고 {n}초 동안 기를 모은다. 기가 다 모이면 선택한 지점에 기를 떨어뜨려 {m}의 피해를 준다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1p7wr6l",
+    "source" : "단단한 갑옷",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-1ga0wkq",
+    "source" : "진원단공섬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-1tbw7n3",
+    "source" : "전광석화",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-15-gdqtjq",
+    "source" : "질서의 해 코어 : 무상기연",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-14uuyqm",
+    "source" : "질서의 별 코어 : 불영세",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-lyq1n1",
+    "source" : "질서의 달 코어 : 신장대멸겁",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-hnbgju",
+    "source" : "경외의 영원 상의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-1b2tpiy",
+    "source" : "#FFE{n}B{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-1oannk4",
+    "source" : "경외의 영원 기공패",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-z2flnu",
+    "source" : "#FF{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-79-1dpy5u2",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/ft_item/ft_item_{n}_{m}.png",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-lwxgpz",
+    "source" : "경외의 영원 머리",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-1f9wjvi",
+    "source" : "천상의 비파",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-1ilskvg",
+    "source" : "전설 이동 효과 아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-rt9cf",
+    "source" : "[요즈의 항아리] 영원 특별 상점",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-spz2nf",
+    "source" : "경외의 영원 하의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-15-7y6xxw",
+    "source" : "질서의 해 코어 : 축기회류",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-45-1q45ncs",
+    "source" : "[{n}P] '운명' 발동 시 {m}초 동안 '운명: 일점집중' 효과를 획득한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-ii8nqw",
+    "source" : "무상신공 전용",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-24-vq682m",
+    "source" : "아크 패시브 {n}티어 오기조원 활성화 필요",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-6l0n3e",
+    "source" : "탄생하는 도약의 기공패",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-hq669",
+    "source" : "#FFD{n}DA",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-49co00",
+    "source" : "아크라시아의 의지 상하의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1io14x",
+    "source" : "광란의 기공패",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-15kiyse",
+    "source" : "#F{n}E{m}EC",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-1qey6qj",
+    "source" : "#E{n}B{m}BE",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-t972rj",
+    "source" : "#EAD{n}DA",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-110ys5t",
+    "source" : "적린 악기",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-1sig88e",
+    "source" : "탄생하는 도약 상의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-y78cy9",
+    "source" : "밤의 별무리 얼굴{n}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-1nq88ef",
+    "source" : "태양의 천체 마법진",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-1w5nahk",
+    "source" : "질서의 달 코어 : 연태극",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-lxj0an",
+    "source" : "탄생하는 도약 하의",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-enptvu",
+    "source" : "여래신장",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-1nbxxx4",
+    "source" : "경지",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-53-1krg897",
+    "source" : "지점 스킬로 변경된다. 자신으로부터 {n}m이내 지정한 위치에 잔상 공격을 펼칠 수 있게 된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-lvtcyy",
+    "source" : "끓어오르는 투지",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-dwofes",
+    "source" : "잔상 공격",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-rspj3n",
+    "source" : "섬열파",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-hq6nn5",
+    "source" : "연쇄",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-1ulu192",
+    "source" : "천공참",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-132-pf6wnm",
+    "source" : "머리 위로 강력한 기운을 압축해 타원 모양의 기공을 형성하고 전방으로 {n}회 던져 {m} {k}의 피해를 준다. 이후 마지막 기운을 모아 적에게 던지는 기공은 적에게 적중할 경우 속도가 느려지지만 {p}의 피해를 최대 {q}회 입힌다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-26-109gso1",
+    "source" : "무상신권 종료 시 '운명: 무상기'가 해제된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-31-1dmbah7",
+    "source" : "[{n}P] 무상신공 초식 사용 시 '운명'이 발동한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-4mp2pt",
+    "source" : "진화 {n}티어 타이밍 지배 Lv.{m}",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-13k4r7w",
+    "source" : "타이밍 지배",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-3-15w2vgw",
+    "source" : "승부사",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-1dec14u",
+    "source" : "선수필승",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-bk0hnp",
+    "source" : "음양의 궤적",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-f8jax",
+    "source" : "천군파쇄",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-4-1apw759",
+    "source" : "사면초가",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-113a4vh",
+    "source" : "폭발적인 공격",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-ia2ort",
+    "source" : "출혈",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-lcnaqc",
+    "source" : "흡기",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-90-uqun30",
+    "source" : "'운명: 기의 발산' : 금강선공 상태 동안 초각성 스킬을 제외한 무공 스킬 사용 시 풍뢰일광포, 섬열파, 천류나선장 스킬의 재사용 대기시간이 {n}초 감소한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-12y8djj",
+    "source" : "역천지체 전용",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-25-nyvowc",
+    "source" : "아크 패시브 {n}티어 한계 돌파 활성화 필요",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-59-1lzjkj0",
+    "source" : "[{n}P] 적에게 공격 적중 시 {m}의 생명력을 회복한다. 해당 효과는 {k}초에 {p}회만 발동한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-2-pv9d6p",
+    "source" : "심판",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-69-1i71u44",
+    "source" : "스킬 적중 시 {n}% 확률로 자신의 '단죄' 상태를 제거하여 {m}초간 전투자원 회복량 증가 및 스킬 재사용 대기시간 감소",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-61fnfa",
+    "source" : "[수집품] 위대한 미술품",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1lm1132",
+    "source" : "무도가의 육감",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-74-1oae8j2",
+    "source" : "[심판] 스킬 적중 시 {n}% 확률로 자신의 '단죄' 상태를 제거하여 {m}초간 전투자원 회복량 증가 및 스킬 재사용 대기시간 감소",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-glw0jv",
+    "source" : "부위 파괴 {n}레벨이 부여된다.",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-6wgb4o",
+    "source" : "부위 파괴 강화",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-1te6jzx",
+    "source" : "몰아치는 공격",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-80-ih2e7s",
+    "source" : "[단죄] 스킬 적중 시 {n}% 확률로 자신에게 {m}초간 지속되는 '단죄' 상태 부여하며 해당 상태 일 때 '심판' 을 통해 추가 효과를 발동",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-1bkvsei",
+    "source" : "질서의 별 코어 : 음양결",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-1v77102",
+    "source" : "혼돈의 달 코어 : 부수는 일격",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-25-7oshj4",
+    "source" : "스킬 시전 중 받는 피해가 {n}% 감소한다.",
+    "ignored" : true,
+    "effects" : [ ]
+  } ]
+}

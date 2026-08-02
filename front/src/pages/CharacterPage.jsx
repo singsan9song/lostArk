@@ -37,6 +37,7 @@ export default function CharacterPage() {
 
   useEffect(() => {
     let active = true
+    const controller = new AbortController()
     setLoading(true)
     setError('')
     setData(null)
@@ -44,17 +45,43 @@ export default function CharacterPage() {
     setRosterError('')
     setCharacterCooldownUntil(readCooldown('information', name))
     setRosterCooldownUntil(readCooldown('roster', name))
-    lostArkApi
-      .getCharacter(name)
-      .then((result) => {
+
+    async function load() {
+      // 1) Show whatever's already in the DB immediately, if anything.
+      let hasCachedData = false
+      try {
+        const cachedResult = await lostArkApi.getCachedCharacter(name)
         if (!active) return
-        setData(result)
+        setData(cachedResult)
+        setLoading(false)
+        hasCachedData = true
+      } catch {
+        // No snapshot yet (404) — fall through to the live fetch below.
+      }
+
+      // 2) Live data is only worth waiting on the API's rate-limited cooldown for.
+      // Skip it if we already refreshed recently and just keep showing the cache.
+      if (hasCachedData && readCooldown('information', name) > Date.now()) return
+
+      try {
+        const live = await lostArkApi.getCharacter(name, controller.signal)
+        if (!active) return
+        setData(live)
         startCooldown('information', name, setCharacterCooldownUntil)
-      })
-      .catch((err) => active && setError(err.message || '캐릭터 정보를 불러오지 못했습니다.'))
-      .finally(() => active && setLoading(false))
+      } catch (err) {
+        if (!active || err.name === 'AbortError') return
+        // With cached data already on screen, a failed background refresh isn't
+        // worth surfacing as an error — the user is still looking at valid data.
+        if (!hasCachedData) setError(err.message || '캐릭터 정보를 불러오지 못했습니다.')
+      } finally {
+        if (active) setLoading(false)
+      }
+    }
+    load()
+
     return () => {
       active = false
+      controller.abort()
     }
   }, [name])
 

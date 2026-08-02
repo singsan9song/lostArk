@@ -2,6 +2,11 @@ import { Database, HelpCircle, Sigma, Swords, X } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { cleanApiText } from '../lib/text'
 import { parseKarmaDescription } from '../lib/arkPassiveKarmaTable'
+import {
+  DAMAGE_EFFECT_TYPES,
+  damageOptionSkillCategory,
+  damageOptionSkillCategoryLabel,
+} from '../lib/damageOptionRegistry'
 import { expeditionMainStatBonus, levelMainStatBonus } from '../lib/mainStatTables'
 import { useAuth } from '../lib/auth'
 import {
@@ -94,9 +99,7 @@ function PetTraitOptionButtons({ settingKey, value, onChange, label }) {
       {PET_TRAIT_OPTIONS[settingKey].map((option) => (
         <button
           type="button"
-          className={`${option.gradeClass}${
-            normalizedValue === option.value ? ' active' : ''
-          }`}
+          className={`${option.gradeClass}${normalizedValue === option.value ? ' active' : ''}`}
           aria-pressed={normalizedValue === option.value}
           onClick={() => onChange(String(option.value))}
           key={option.value}
@@ -154,11 +157,9 @@ const DEFENSE_FORMULA_CONSTANT = 6500
 const LUMERUS_BASE_DEFENSE = 6500
 const LUMERUS_DEFENSE_REDUCTION = 0
 const LUMERUS_DAMAGE_REDUCTION_MULTIPLIER = 0.8
-const LUMERUS_EFFECTIVE_DEFENSE =
-  LUMERUS_BASE_DEFENSE * (1 - LUMERUS_DEFENSE_REDUCTION / 100)
+const LUMERUS_EFFECTIVE_DEFENSE = LUMERUS_BASE_DEFENSE * (1 - LUMERUS_DEFENSE_REDUCTION / 100)
 const LUMERUS_DEFENSE_MULTIPLIER =
-  (DEFENSE_FORMULA_CONSTANT /
-    (DEFENSE_FORMULA_CONSTANT + LUMERUS_EFFECTIVE_DEFENSE)) *
+  (DEFENSE_FORMULA_CONSTANT / (DEFENSE_FORMULA_CONSTANT + LUMERUS_EFFECTIVE_DEFENSE)) *
   LUMERUS_DAMAGE_REDUCTION_MULTIPLIER
 
 function combatStatValue(stats, name) {
@@ -181,9 +182,7 @@ function combatStatConversions(stats) {
 
 function combatStatTooltipLines(stat) {
   const tooltip = Array.isArray(stat?.Tooltip) ? stat.Tooltip : [stat?.Tooltip]
-  return tooltip
-    .map((line) => cleanApiText(line || '').trim())
-    .filter(Boolean)
+  return tooltip.map((line) => cleanApiText(line || '').trim()).filter(Boolean)
 }
 
 function profileBaseAttackPower(profile) {
@@ -290,17 +289,14 @@ function accessoryEngineDamageScore(armory, profile, skills, skill, settings = {
   if (!skill) return null
   const stats = Object.fromEntries((profile?.Stats || []).map((stat) => [stat.Type, stat.Value]))
   const combatStats = combatStatConversions(stats)
-  const category = skillCategoryFromTooltip(skill)
+  const category = damageOptionSkillCategory(skill)
   const enabledConditionals = defaultEnabledConditionalKeys(armory)
   const petMainStat = normalizePetTraitValue('petTraitMainStat', settings.petTraitMainStat)
   const petSpeciesDamage = normalizePetTraitValue(
     'petTraitSpeciesDamage',
     settings.petTraitSpeciesDamage,
   )
-  const petAdditional = normalizePetTraitValue(
-    'petTraitAdditional',
-    settings.petTraitAdditional,
-  )
+  const petAdditional = normalizePetTraitValue('petTraitAdditional', settings.petTraitAdditional)
   const mainStatData = mainStatBreakdown(armory, profile, {
     potionSourceInput: settings.potionSource ?? '',
     cardBookInput: settings.cardBook ?? '',
@@ -309,15 +305,11 @@ function accessoryEngineDamageScore(armory, profile, skills, skill, settings = {
   })
   const mainStat = { name: mainStatData.mainStatName, value: mainStatData.mainStatFinal }
   const weaponAttackBase = weaponAttackBreakdown(armory)
-  const weaponFeast =
-    !settings.eventFeastEnabled && Boolean(settings.weaponAttackFeastEnabled)
+  const weaponFeast = !settings.eventFeastEnabled && Boolean(settings.weaponAttackFeastEnabled)
   const weaponAttack = weaponFeast
     ? {
         ...weaponAttackBase,
-        flat: [
-          ...weaponAttackBase.flat,
-          { kind: 'flat', value: WEAPON_ATTACK_FEAST_BONUS },
-        ],
+        flat: [...weaponAttackBase.flat, { kind: 'flat', value: WEAPON_ATTACK_FEAST_BONUS }],
       }
     : weaponAttackBase
   const { finalAttackPower } = finalAttackPowerChain(
@@ -349,9 +341,7 @@ function accessoryEngineDamageScore(armory, profile, skills, skill, settings = {
     massIncreaseDamageFacts(armory).total,
     arkPassiveTierDamageBreakdown(armory, '도약', skill.Name, category, skill).total,
     specializationSkillDamageFacts(profile, category).total,
-    ...outgoingDamageBreakdown(armory, skill.Name, category).groups.map(
-      (group) => group.total,
-    ),
+    ...outgoingDamageBreakdown(armory, skill.Name, category).groups.map((group) => group.total),
   ]
   const damageMultiplier = damageGroups.reduce(
     (product, percent) => product * (1 + percent / 100),
@@ -397,13 +387,7 @@ function accessoryEngineDamageScore(armory, profile, skills, skill, settings = {
   )
 }
 
-export function calculateAccessoryOptionShares({
-  armory,
-  profile,
-  skills,
-  skillName,
-  siblings,
-}) {
+export function calculateAccessoryOptionShares({ armory, profile, skills, skillName, siblings }) {
   const skill = (skills || []).find((item) => item.Name === skillName) || skills?.[0]
   const characterName = profile?.CharacterName || ''
   const settings = characterName
@@ -455,7 +439,18 @@ export function calculateAccessoryOptionShares({
   })
 }
 
-function syntheticAccessoryTooltip(lines, quality = 100) {
+function syntheticAccessoryTooltip(lines, quality = 100, itemType = '') {
+  if (itemType === '팔찌') {
+    return JSON.stringify({
+      Element_000: {
+        type: 'ItemPartBox',
+        value: {
+          Element_000: '팔찌 효과',
+          Element_001: lines.join('<br>'),
+        },
+      },
+    })
+  }
   const mainStatLines = lines.filter((line) => /^(힘|민첩|지능)\s*\+/.test(line))
   const refineLines = lines.filter((line) => !mainStatLines.includes(line))
   return JSON.stringify({
@@ -501,6 +496,39 @@ export function calculateAccessoryReplacement({
       ) || {}
     : {}
   const baseline = accessoryEngineDamageScore(armory, profile, skills, skill, settings)
+  const targetItem = armory?.ArmoryEquipment?.[equipmentIndex]
+  const combatStatsFromLines = (sourceLines) => {
+    const result = {}
+    sourceLines.forEach((line) => {
+      const match = cleanApiText(line).match(
+        /(치명|특화|신속)(?:\s*\+?\s*|\s*이\s+)([\d,]+)(?:\s*증가)?/,
+      )
+      if (!match) return
+      result[match[1]] = (result[match[1]] || 0) + Number(match[2].replaceAll(',', ''))
+    })
+    return result
+  }
+  const currentBraceletStats =
+    targetItem?.Type === '팔찌'
+      ? combatStatsFromLines(baseEffectRawLines(targetItem.Tooltip))
+      : {}
+  const buildProfile = (nextLines) => {
+    if (targetItem?.Type !== '팔찌') return profile
+    const nextBraceletStats = combatStatsFromLines(nextLines)
+    return {
+      ...profile,
+      Stats: (profile?.Stats || []).map((stat) => {
+        const statName = cleanApiText(stat.Type || '')
+        if (!['치명', '특화', '신속'].includes(statName)) return stat
+        const currentValue = Number(String(stat.Value || 0).replaceAll(',', '')) || 0
+        const adjustedValue =
+          currentValue +
+          (nextBraceletStats[statName] || 0) -
+          (currentBraceletStats[statName] || 0)
+        return { ...stat, Value: String(Math.max(adjustedValue, 0)) }
+      }),
+    }
+  }
   const buildArmory = (nextLines) => ({
     ...armory,
     ArmoryEquipment: (armory?.ArmoryEquipment || []).map((item, index) =>
@@ -508,7 +536,7 @@ export function calculateAccessoryReplacement({
         ? {
             ...item,
             Grade: grade || item.Grade,
-            Tooltip: syntheticAccessoryTooltip(nextLines, quality),
+            Tooltip: syntheticAccessoryTooltip(nextLines, quality, item.Type),
           }
         : item,
     ),
@@ -516,7 +544,7 @@ export function calculateAccessoryReplacement({
   const candidateArmory = buildArmory(lines)
   const candidate = accessoryEngineDamageScore(
     candidateArmory,
-    profile,
+    buildProfile(lines),
     skills,
     skill,
     settings,
@@ -527,23 +555,22 @@ export function calculateAccessoryReplacement({
   const options = lines.flatMap((line, index) => {
     const without = accessoryEngineDamageScore(
       buildArmory(lines.filter((_, lineIndex) => lineIndex !== index)),
-      profile,
+      buildProfile(lines.filter((_, lineIndex) => lineIndex !== index)),
       skills,
       skill,
       settings,
     )
     if (!Number.isFinite(without) || Math.abs(candidate - without) < 1e-9) return []
-    return [{
-      line,
-      share: ((candidate - without) / candidate) * 100,
-      damageIncrease: (candidate / without - 1) * 100,
-    }]
+    return [
+      {
+        line,
+        share: ((candidate - without) / candidate) * 100,
+        damageIncrease: (candidate / without - 1) * 100,
+      },
+    ]
   })
   return {
-    total:
-      Number.isFinite(baseline) && baseline > 0
-        ? (candidate / baseline - 1) * 100
-        : null,
+    total: Number.isFinite(baseline) && baseline > 0 ? (candidate / baseline - 1) * 100 : null,
     options,
   }
 }
@@ -595,9 +622,7 @@ function specializationSkillDamageFacts(profile, skillCategory) {
 // 있으므로 Level > 0으로 다시 거르지 않는다.
 function activeEngravings(armory) {
   const effects =
-    armory?.ArmoryEngraving?.ArkPassiveEffects ||
-    armory?.ArmoryEngraving?.Effects ||
-    []
+    armory?.ArmoryEngraving?.ArkPassiveEffects || armory?.ArmoryEngraving?.Effects || []
   return effects.filter((engraving) => engraving?.Name && engraving?.Description)
 }
 
@@ -617,9 +642,7 @@ function keenBluntPenaltyFacts(armory) {
     }
   }
   const description = cleanApiText(engraving.Description || '')
-  const reduction = Number(
-    description.match(/([\d.]+)\s*%\s*감소된\s*피해/)?.[1],
-  )
+  const reduction = Number(description.match(/([\d.]+)\s*%\s*감소된\s*피해/)?.[1])
   const appliedReduction = Number.isFinite(reduction) ? reduction : 20
   return {
     active: true,
@@ -658,23 +681,42 @@ const EMPTY_CONDITIONAL_KEYS = new Set()
 // enabledConditionalKeys에 무엇이 들어있는지에 따라 "마을 기준"(빈 집합)과
 // "조건부 반영"(실제 체크 상태) 두 가지를 같은 공식으로 구해서 서로 어긋나지
 // 않게 한다.
-function finalAttackPowerChain(weaponAttack, attackPower, mainStat, baseAttackRateTotal, enabledConditionalKeys) {
+function finalAttackPowerChain(
+  weaponAttack,
+  attackPower,
+  mainStat,
+  baseAttackRateTotal,
+  enabledConditionalKeys,
+  baseAttackFlatTotal = 0,
+) {
   const weaponBaseTotal = weaponAttack.base.reduce((sum, source) => sum + source.value, 0)
   const weaponFlatTotal = weaponAttack.flat.reduce((sum, source) => sum + source.value, 0)
   const weaponPercentTotal = weaponAttack.percent.reduce((sum, source) => sum + source.value, 0)
-  const weaponConditional = conditionalTotals(weaponAttack.conditional, enabledConditionalKeys, 'weapon')
+  const weaponConditional = conditionalTotals(
+    weaponAttack.conditional,
+    enabledConditionalKeys,
+    'weapon',
+  )
   const weaponAttackTotal = weaponAttack.base.length
     ? (weaponBaseTotal + weaponFlatTotal + weaponConditional.flat) *
       (1 + (weaponPercentTotal + weaponConditional.percent) / 100)
     : null
   const pureAttackPower =
-    weaponAttackTotal != null && mainStat.value ? Math.sqrt((mainStat.value * weaponAttackTotal) / 6) : null
+    weaponAttackTotal != null && mainStat.value
+      ? Math.sqrt((mainStat.value * weaponAttackTotal) / 6)
+      : null
   const finalBaseAttack =
-    pureAttackPower != null ? pureAttackPower * (1 + baseAttackRateTotal / 100) : null
+    pureAttackPower != null
+      ? (pureAttackPower + baseAttackFlatTotal) * (1 + baseAttackRateTotal / 100)
+      : null
 
   const flatAtkTotal = attackPower.flat.reduce((sum, source) => sum + source.value, 0)
   const atkRatePercentTotal = attackPower.percent.reduce((sum, source) => sum + source.value, 0)
-  const attackConditional = conditionalTotals(attackPower.conditional, enabledConditionalKeys, 'attack')
+  const attackConditional = conditionalTotals(
+    attackPower.conditional,
+    enabledConditionalKeys,
+    'attack',
+  )
   const finalAttackPower =
     finalBaseAttack != null
       ? (finalBaseAttack + flatAtkTotal + attackConditional.flat) *
@@ -845,14 +887,37 @@ function skillSynergyEffects(skills) {
   return results
 }
 
+function cooldownSeconds(value) {
+  if (typeof value === 'number') return Number.isFinite(value) ? value : null
+
+  const text = cleanApiText(value || '').trim()
+  if (!text) return null
+
+  const numeric = Number(text)
+  if (Number.isFinite(numeric)) return numeric
+
+  const minuteMatch = text.match(/(\d+(?:\.\d+)?)\s*분/)
+  const secondMatch = text.match(/(\d+(?:\.\d+)?)\s*초/)
+  if (!minuteMatch && !secondMatch) return null
+
+  const minutes = Number(minuteMatch?.[1] || 0)
+  const seconds = Number(secondMatch?.[1] || 0)
+  const total = minutes * 60 + seconds
+  return Number.isFinite(total) ? total : null
+}
+
 function tooltipFacts(skill) {
   const text = cleanApiText(skill?.Tooltip || '')
     .replace(/\s+/g, ' ')
     .trim()
-  const cooldown =
-    skill?.Cooldown ||
-    text.match(/재사용\s*대기시간\s*:?\s*(\d+(?:\.\d+)?)초/i)?.[1] ||
-    text.match(/쿨타임\s*:?\s*(\d+(?:\.\d+)?)초/i)?.[1]
+  const cooldownText =
+    text.match(
+      /재사용\s*대기시간\s*:?\s*((?:\d+(?:\.\d+)?\s*분\s*)?(?:\d+(?:\.\d+)?\s*초)?)/i,
+    )?.[1] ||
+    text.match(
+      /쿨타임\s*:?\s*((?:\d+(?:\.\d+)?\s*분\s*)?(?:\d+(?:\.\d+)?\s*초)?)/i,
+    )?.[1]
+  const cooldown = cooldownSeconds(skill?.Cooldown) ?? cooldownSeconds(cooldownText)
   const attackTypes = ['헤드 어택', '백 어택', '카운터', '부위 파괴', '무력화'].filter((type) =>
     text.includes(type),
   )
@@ -871,7 +936,9 @@ function currentSkillDamageDescription(skill) {
         typeof element.value === 'string' &&
         /[\d,]+(?:\.\d+)?\s*(?:의\s*)?피해/.test(cleanApiText(element.value))
       ) {
-        return cleanApiText(element.value).split(/부위\s*파괴|무력화|공격\s*타입|슈퍼아머/)[0].trim()
+        return cleanApiText(element.value)
+          .split(/부위\s*파괴|무력화|공격\s*타입|슈퍼아머/)[0]
+          .trim()
       }
     }
   } catch {
@@ -903,17 +970,17 @@ function skillMotionHits(skill) {
     motions = motions.slice(0, -1)
   }
   if (!motions.length) {
-    motions = [{ key: 'motion-1', order: 1, repeat: 1, apiDamage: null, context: '피해 구간 자동 감지 실패' }]
+    motions = [
+      {
+        key: 'motion-1',
+        order: 1,
+        repeat: 1,
+        apiDamage: null,
+        context: '피해 구간 자동 감지 실패',
+      },
+    ]
   }
   return motions.map((motion, index) => ({ ...motion, order: index + 1 }))
-}
-
-// 스킬 툴팁 CommonSkillTitle의 level 값에 표시되는 [일반 스킬]·[잠식 스킬]·
-// [악마 스킬]을 계산용 분류로 사용한다. API 필드 Type의 "일반"은 공격 타입
-// 표기와 섞일 수 있으므로 툴팁에 명시된 대괄호 분류를 우선한다.
-function skillCategoryFromTooltip(skill) {
-  const text = cleanApiText(skill?.Tooltip || '')
-  return text.match(/\[(일반|잠식|악마)\s*스킬\]/)?.[1] || ''
 }
 
 function gemFacts(armory, skillName) {
@@ -971,7 +1038,10 @@ function baseEffectRawLines(raw = '') {
       const heading = typeof value.Element_000 === 'string' ? cleanApiText(value.Element_000) : ''
       // 팔찌는 힘/민첩/지능이 "기본 효과"가 아니라 "팔찌 효과" 아래에 나온다
       // (예: " 민첩 +14500 치명 +70 ..."), 이것도 같이 잡아야 한다.
-      if ((heading === '기본 효과' || heading === '팔찌 효과') && typeof value.Element_001 === 'string') {
+      if (
+        (heading === '기본 효과' || heading === '팔찌 효과') &&
+        typeof value.Element_001 === 'string'
+      ) {
         lines.push(...value.Element_001.split(/<br\s*\/?>/i))
       }
       Object.values(value).forEach(walk)
@@ -1038,9 +1108,28 @@ function arkPassiveKarmaFacts(armory) {
   return result
 }
 
-function isHyperAwakeningSkill(skill) {
-  const text = `${skill?.Type || ''} ${cleanApiText(skill?.Tooltip || '')}`
-  return /\[?\s*초각성기?\s*\]?/.test(text)
+function isHyperAwakeningUltimate(skill) {
+  if (Number(skill?.SkillType) === 101) return true
+  if (skill?.SkillType != null) return false
+  return /\[\s*초각성기\s*\]/.test(cleanApiText(skill?.Tooltip || ''))
+}
+
+const SUPPORT_ARK_PASSIVE_NAMES = ['절실한 구원', '축복의 오라', '만개', '빛의 기사']
+
+function isSupportArkPassiveBuild(armory) {
+  return (armory?.ArkPassive?.Effects || [])
+    .filter((effect) => String(effect?.Name || '').includes('깨달음'))
+    .some((effect) => {
+      const text = [
+        effect?.Name,
+        effect?.Description,
+        effect?.ToolTip,
+        effect?.Tooltip,
+      ]
+        .filter(Boolean)
+        .join(' ')
+      return SUPPORT_ARK_PASSIVE_NAMES.some((name) => text.includes(name))
+    })
 }
 
 // 아크패시브 노드 문구는 "6초 동안"/"최대 N중첩"류(전투 버프) 외에도
@@ -1081,7 +1170,12 @@ function baseAttackRateBreakdown(armory) {
   })
   ;(armory?.ArkPassive?.Effects || []).forEach((effect, index) => {
     const { nodeName } = arkPassiveNodeText(effect)
-    scan(`arkpassive-${index}`, `아크 패시브 ${effect.Name}`, nodeName || effect.Name, effect.ToolTip)
+    scan(
+      `arkpassive-${index}`,
+      `아크 패시브 ${effect.Name}`,
+      nodeName || effect.Name,
+      effect.ToolTip,
+    )
   })
   ;(armory?.ArkGrid?.Slots || []).forEach((slot, index) => {
     arkGridActiveCoreSegments(slot).forEach((segment, segmentIndex) => {
@@ -1171,7 +1265,13 @@ function attackPowerBreakdown(armory) {
   })
   ;(armory?.ArkPassive?.Effects || []).forEach((effect, index) => {
     const { nodeName, text } = arkPassiveNodeText(effect)
-    scanSource(`arkpassive-${index}`, `아크 패시브 ${effect.Name}`, nodeName || effect.Name, '효과', text)
+    scanSource(
+      `arkpassive-${index}`,
+      `아크 패시브 ${effect.Name}`,
+      nodeName || effect.Name,
+      '효과',
+      text,
+    )
   })
 
   // 아크그리드 코어 옵션은 [10P]/[14P]/[17P]... 포인트 구간별 문구라, 툴팁에
@@ -1192,7 +1292,9 @@ function attackPowerBreakdown(armory) {
   // 아크그리드 젬의 "[공격력]" 스탯은 API가 이미 Effects에서 전체 젬 합산치를
   // 하나로 계산해 주므로(기본 공격력 총합과 같은 방식), 젬 하나하나를 다시
   // 더하면 이중 합산이 된다. 그 합산 필드 하나만 쓴다.
-  const arkGridAttackEffect = (armory?.ArkGrid?.Effects || []).find((effect) => effect.Name === '공격력')
+  const arkGridAttackEffect = (armory?.ArkGrid?.Effects || []).find(
+    (effect) => effect.Name === '공격력',
+  )
   if (arkGridAttackEffect) {
     const percentMatch = cleanApiText(arkGridAttackEffect.Tooltip || '').match(/([\d.]+)\s*%/)
     if (percentMatch) {
@@ -1296,7 +1398,14 @@ function additionalDamageBreakdown(armory) {
 
   ;(armory?.ArkPassive?.Effects || []).forEach((effect, index) => {
     const { nodeName, text } = arkPassiveNodeText(effect)
-    addSources(weapon, `arkpassive-${index}`, `아크 패시브 ${effect.Name}`, nodeName || effect.Name, '효과', text)
+    addSources(
+      weapon,
+      `arkpassive-${index}`,
+      `아크 패시브 ${effect.Name}`,
+      nodeName || effect.Name,
+      '효과',
+      text,
+    )
   })
 
   // 아크그리드 코어 옵션도 [10P]/[14P]... 포인트 구간별 문구라, 툴팁에 표시된
@@ -1310,7 +1419,11 @@ function additionalDamageBreakdown(armory) {
         if (!pointMatch || Number(pointMatch[1]) > ownedPoint) return
         if (!/추가\s*피해/.test(segment)) return
         scanAdditionalDamagePercents(segment).forEach(({ rawValue, line, maxStacks }) => {
-          const { value, appliedStacks, perStackValue } = resolveStackedValue(slot.Name, rawValue, maxStacks)
+          const { value, appliedStacks, perStackValue } = resolveStackedValue(
+            slot.Name,
+            rawValue,
+            maxStacks,
+          )
           const key = `arkgrid-${slot.Index}-${pointMatch[1]}-${value}`
           if (seen.has(key)) return
           seen.add(key)
@@ -1430,7 +1543,7 @@ function skillCategoryCooldownFacts(armory, skillCategory) {
           unit,
           itemType,
           itemName,
-          heading: `${heading} · ${skillCategory} 스킬`,
+          heading: `${heading} · ${damageOptionSkillCategoryLabel(skillCategory)}`,
           context: line.replace(/^\[\d+P\]\s*/, '').trim(),
         }
         ;(ARK_PASSIVE_CONDITIONAL.test(line) ? conditional : active).push(source)
@@ -1631,7 +1744,7 @@ function arkPassiveTierDamageBreakdown(armory, tierName, skillName, skillCategor
   if (
     tierName === '도약' &&
     karma?.hyperAwakeningDamagePercent &&
-    isHyperAwakeningSkill(skill)
+    isHyperAwakeningUltimate(skill)
   ) {
     unconditional.push({
       value: karma.hyperAwakeningDamagePercent,
@@ -1670,7 +1783,9 @@ function outgoingDamageBreakdown(armory, skillName, skillCategory) {
     tooltipSections(item.Tooltip).forEach(({ text }) => {
       const isAccessory = ACCESSORY_TYPES.has(item.Type)
       const groupKey = isAccessory ? 'accessory-honing' : `equip-${item.Type}-${item.Name}`
-      const label = isAccessory ? '장신구 연마 · 적에게 주는 피해' : `${item.Type || '장비'} · 적에게 주는 피해`
+      const label = isAccessory
+        ? '장신구 연마 · 적에게 주는 피해'
+        : `${item.Type || '장비'} · 적에게 주는 피해`
       scanOutgoingDamage(text, skillCategory).forEach(({ value, qualifier, line }) => {
         // "치명타 시"/"치명타로 적중 시" 조건부는 여기가 아니라 CRIT_HIT_BRACELET
         // 항목(critHitBraceletFacts)에서 따로 모은다 — 이중 합산 방지. 같은 줄에
@@ -1734,7 +1849,13 @@ function outgoingDamageBreakdown(armory, skillName, skillCategory) {
   // 이미 그 합산 필드를 쓰고, 낙인력·아군 관련은 서포터가 파티원에게 주는
   // 버프라 이 캐릭터의 딜이 아니므로 여기서 제외한다. 개별 코어와도 서로 다른
   // 출처(코어 조합 집계)라 따로 그룹을 둔다.
-  const ARK_GRID_EFFECT_EXCLUDE = new Set(['공격력', '추가 피해', '낙인력', '아군 피해 강화', '아군 공격 강화'])
+  const ARK_GRID_EFFECT_EXCLUDE = new Set([
+    '공격력',
+    '추가 피해',
+    '낙인력',
+    '아군 피해 강화',
+    '아군 공격 강화',
+  ])
   ;(armory?.ArkGrid?.Effects || []).forEach((effect) => {
     if (ARK_GRID_EFFECT_EXCLUDE.has(effect.Name)) return
     const text = cleanApiText(effect.Tooltip || '')
@@ -1770,7 +1891,12 @@ function cardDamageFacts(armory) {
       if (/감소|받는/.test(text)) return
       const match = text.match(/피해\s*\+?\s*([\d.]+)\s*%/)
       if (!match) return
-      sources.push({ value: Number(match[1]), itemType: '카드', itemName: item.Name, context: text })
+      sources.push({
+        value: Number(match[1]),
+        itemType: '카드',
+        itemName: item.Name,
+        context: text,
+      })
     })
   })
   return { sources, total: sources.reduce((sum, source) => sum + source.value, 0) }
@@ -1815,7 +1941,12 @@ function critDamageBreakdown(armory) {
     const { nodeName, text } = arkPassiveNodeText(effect)
     scanCritDamage(text).forEach(({ value, line }) => {
       if (ARK_PASSIVE_CONDITIONAL.test(line)) return
-      sources.push({ value, itemType: `아크 패시브 ${effect.Name}`, itemName: nodeName, context: line })
+      sources.push({
+        value,
+        itemType: `아크 패시브 ${effect.Name}`,
+        itemName: nodeName,
+        context: line,
+      })
     })
   })
   ;(armory?.ArkGrid?.Slots || []).forEach((slot) => {
@@ -1882,7 +2013,9 @@ function critHitBraceletFacts(armory) {
     })
   }
   ;(armory?.ArmoryEquipment || []).forEach((item, index) => {
-    tooltipSections(item.Tooltip).forEach(({ text }) => scan(item.Type || '장비', item.Name, text, `equip-${index}`))
+    tooltipSections(item.Tooltip).forEach(({ text }) =>
+      scan(item.Type || '장비', item.Name, text, `equip-${index}`),
+    )
   })
   ;(armory?.ArkGrid?.Slots || []).forEach((slot) => {
     const ownedPoint = arkGridOwnedPoint(slot)
@@ -1947,7 +2080,8 @@ function critRateFacts(armory, criticalStat = 0, skillCategory = '') {
     const text = cleanApiText(engraving.Description || '')
     if (engraving.Name === '아드레날린') {
       const maxStacks = Number(text.match(/최대\s*(\d+)\s*중첩/)?.[1]) || null
-      const appliedStacks = dataizedStackEntryFor(text, engraving.Name, maxStacks)?.appliedStacks ?? 0
+      const appliedStacks =
+        dataizedStackEntryFor(text, engraving.Name, maxStacks)?.appliedStacks ?? 0
       // 아드레날린의 추가 치명타 적중률은 최대 중첩에 도달했을 때만 발동한다.
       if (!maxStacks || appliedStacks < maxStacks) return
     }
@@ -1959,7 +2093,12 @@ function critRateFacts(armory, criticalStat = 0, skillCategory = '') {
     const { nodeName, text } = arkPassiveNodeText(effect)
     scanCritRate(text, skillCategory).forEach(({ value, line }) => {
       if (ARK_PASSIVE_CONDITIONAL.test(line)) return
-      sources.push({ value, itemType: `아크 패시브 ${effect.Name}`, itemName: nodeName, context: line })
+      sources.push({
+        value,
+        itemType: `아크 패시브 ${effect.Name}`,
+        itemName: nodeName,
+        context: line,
+      })
     })
   })
   ;(armory?.ArkGrid?.Slots || []).forEach((slot) => {
@@ -1997,7 +2136,7 @@ function mainStatBreakdown(
     baseEffectRawLines(item.Tooltip).forEach((line) => {
       if (/COLOR=['"]?#686660/i.test(line)) return
       const cleanedLine = cleanApiText(line)
-      const match = cleanedLine.match(/(힘|민첩|지능)\s*\+?\s*([\d,]+)/)
+      const match = cleanedLine.match(/(힘|민첩|지능)(?:\s*\+?\s*|\s*이\s+)([\d,]+)(?:\s*증가)?/)
       if (!match) return
       const value = Number(match[2].replaceAll(',', ''))
       if (!Number.isFinite(value)) return
@@ -2064,7 +2203,8 @@ function mainStatBreakdown(
   )
   // 펫 특기도 API로 확인이 안 돼 사용자 입력(0~1%, 소수점 가능)을 받아 아바타 %와
   // 함께 더한다.
-  const mainStatPercent = avatarSlotPercent.무기 + avatarSlotPercent.머리 + topBottomPercent + petTraitPercent
+  const mainStatPercent =
+    avatarSlotPercent.무기 + avatarSlotPercent.머리 + topBottomPercent + petTraitPercent
 
   // 원정대 레벨 효과·레벨에 따른 주 스탯은 규칙이 고정돼 있어 테이블로 정확히
   // 나온다. 게임 상태창에는 물약 효과가 원정대 레벨 효과와 합산된 채로만
@@ -2082,7 +2222,9 @@ function mainStatBreakdown(
   const potionSourceRaw = String(potionSourceInput ?? '').trim()
   const potionSourceValue = Number(potionSourceRaw.replaceAll(',', ''))
   const hasPotionSourceInput = potionSourceRaw !== '' && Number.isFinite(potionSourceValue)
-  const potionBonus = hasPotionSourceInput ? potionSourceValue - expeditionBonus : DEFAULT_POTION_BONUS
+  const potionBonus = hasPotionSourceInput
+    ? potionSourceValue - expeditionBonus
+    : DEFAULT_POTION_BONUS
 
   const cardBookRaw = String(cardBookInput ?? '').trim()
   const cardBookValue = Number(cardBookRaw.replaceAll(',', ''))
@@ -2146,7 +2288,10 @@ function weaponAttackBreakdown(armory) {
         const conditional = conditionalPattern.test(line)
         const maxStacks = conditional ? Number(line.match(maxStackPattern)?.[1]) || null : null
         const appliedStacks = maxStacks
-          ? Math.min(findDataizedStackEntry(line)?.appliedStacks ?? DEFAULT_STACK_ASSUMPTION, maxStacks)
+          ? Math.min(
+              findDataizedStackEntry(line)?.appliedStacks ?? DEFAULT_STACK_ASSUMPTION,
+              maxStacks,
+            )
           : null
         const kind =
           itemType === '무기' && /기본 효과/.test(heading) && !percent && !conditional
@@ -2198,7 +2343,13 @@ function weaponAttackBreakdown(armory) {
   // was missing.
   ;(armory?.ArkPassive?.Effects || []).forEach((effect, effectIndex) => {
     const { nodeName, text } = arkPassiveNodeText(effect)
-    scanSource(`arkpassive-${effectIndex}`, `아크 패시브 ${effect.Name}`, nodeName || effect.Name, '효과', text)
+    scanSource(
+      `arkpassive-${effectIndex}`,
+      `아크 패시브 ${effect.Name}`,
+      nodeName || effect.Name,
+      '효과',
+      text,
+    )
   })
   // 깨달음 포인트의 무기 공격력% 보너스는 개별 노드 ToolTip 텍스트로는 잡히지
   // 않고(전체 랭크/레벨 누적치라 어느 한 노드 설명에도 안 적혀 있음), 실제
@@ -2272,7 +2423,9 @@ function MainStatBreakdown({ breakdown }) {
                 <span>
                   <b>{source.itemType}</b>
                   <small>{source.itemName}</small>
-                  {source.context && <small className="source-context-text">"{source.context}"</small>}
+                  {source.context && (
+                    <small className="source-context-text">"{source.context}"</small>
+                  )}
                 </span>
                 <strong>+{numberText(source.value)}</strong>
               </div>
@@ -2289,7 +2442,9 @@ function MainStatBreakdown({ breakdown }) {
               <b>레벨에 따른 주스탯</b>
               <small>캐릭터 Lv.{breakdown.characterLevel}</small>
             </span>
-            <strong>{breakdown.levelStatBonus ? `+${numberText(breakdown.levelStatBonus)}` : '자료 없음'}</strong>
+            <strong>
+              {breakdown.levelStatBonus ? `+${numberText(breakdown.levelStatBonus)}` : '자료 없음'}
+            </strong>
           </div>
           <div>
             <span>
@@ -2305,7 +2460,9 @@ function MainStatBreakdown({ breakdown }) {
           <div>
             <span>
               <b>카드 도감 효과</b>
-              <small>{breakdown.hasCardBookInput ? '위 "계산 설정" 입력값' : '미입력 · 242 고정'}</small>
+              <small>
+                {breakdown.hasCardBookInput ? '위 "계산 설정" 입력값' : '미입력 · 242 고정'}
+              </small>
             </span>
             <strong>+{numberText(breakdown.cardBookBonus)}</strong>
           </div>
@@ -2325,7 +2482,9 @@ function MainStatBreakdown({ breakdown }) {
                 <span>
                   <b>{source.itemType}</b>
                   <small>{source.itemName}</small>
-                  {source.context && <small className="source-context-text">"{source.context}"</small>}
+                  {source.context && (
+                    <small className="source-context-text">"{source.context}"</small>
+                  )}
                 </span>
                 <strong>+{numberText(source.value)}%</strong>
               </div>
@@ -2343,8 +2502,8 @@ function MainStatBreakdown({ breakdown }) {
 
       <p className="weapon-attack-note">
         장비 툴팁의 "기본 효과"에서 회색으로 표시되지 않은(=직업에 적용되는) 스탯 줄만 합산하고,
-        아바타 %는 무기·머리 각각의 최댓값과 상하의(원피스형 vs 상의+하의 중 최댓값)를 더한 값에
-        펫 특기 입력값까지 더해서 곱한 근사치입니다. 원정대 레벨 효과·레벨에 따른 주스탯은 정확한
+        아바타 %는 무기·머리 각각의 최댓값과 상하의(원피스형 vs 상의+하의 중 최댓값)를 더한 값에 펫
+        특기 입력값까지 더해서 곱한 근사치입니다. 원정대 레벨 효과·레벨에 따른 주스탯은 정확한
         테이블 값이고, 물약 효과는 게임 상태창에 원정대 레벨 효과와 합산돼서만 보이므로 그 합산
         수치를 입력받아 원정대 레벨 효과를 뺀 값을 씁니다. 아제나의 축복은 켜면 고정 6,000을 그대로
         더합니다.
@@ -2426,7 +2585,9 @@ function WeaponAttackBreakdown({ breakdown, enabledConditionalKeys, onToggleCond
                           <small>
                             {source.itemName} · {source.heading}
                           </small>
-                          {source.context && <small className="source-context-text">"{source.context}"</small>}
+                          {source.context && (
+                            <small className="source-context-text">"{source.context}"</small>
+                          )}
                         </span>
                         <strong>
                           {source.kind === 'base' ? '' : source.value >= 0 ? '+' : ''}
@@ -2447,10 +2608,17 @@ function WeaponAttackBreakdown({ breakdown, enabledConditionalKeys, onToggleCond
                   const checked = enabledConditionalKeys.has(key)
                   const stackExpanded = expandedStackKey === key
                   return (
-                    <div className={`conditional-source-row${checked ? ' checked' : ''}`} key={rowKey}>
+                    <div
+                      className={`conditional-source-row${checked ? ' checked' : ''}`}
+                      key={rowKey}
+                    >
                       <div className="conditional-source-row-main">
                         <label className="conditional-source-label">
-                          <input type="checkbox" checked={checked} onChange={() => onToggleConditional(key)} />
+                          <input
+                            type="checkbox"
+                            checked={checked}
+                            onChange={() => onToggleConditional(key)}
+                          />
                           <span>
                             <b>{source.itemType}</b>
                             <small>
@@ -2543,6 +2711,8 @@ function BaseAttackRateBreakdown({
   pureAttackPower,
   finalBaseAttack,
 }) {
+  const flatSources = facts.flatSources || []
+  const flatTotal = flatSources.reduce((sum, source) => sum + source.value, 0)
   return (
     <div className="weapon-attack-breakdown">
       {pureAttackPower != null && (
@@ -2563,25 +2733,47 @@ function BaseAttackRateBreakdown({
             <b>{numberText(finalBaseAttack)}</b>
           </span>
           <code>
-            {numberText(pureAttackPower)} × (1 + {numberText(facts.total)}%)
+            ({numberText(pureAttackPower)} + {numberText(flatTotal)}) × (1 +{' '}
+            {numberText(facts.total)}%)
           </code>
         </div>
       )}
-      {facts.sources.length ? (
+      {flatSources.length || facts.sources.length ? (
         <div className="weapon-attack-groups single-column">
-          <section>
-            <h5>기본 공격력 증가 출처</h5>
-            {facts.sources.map((source, index) => (
-              <div key={`${source.itemName}-${index}`}>
-                <span>
-                  <b>{source.itemType}</b>
-                  <small>{source.itemName}</small>
-                  {source.context && <small className="source-context-text">"{source.context}"</small>}
-                </span>
-                <strong>+{numberText(source.value)}%</strong>
-              </div>
-            ))}
-          </section>
+          {flatSources.length > 0 && (
+            <section>
+              <h5>기본 공격력 고정 증가 출처</h5>
+              {flatSources.map((source, index) => (
+                <div key={`base-flat-${source.itemName}-${index}`}>
+                  <span>
+                    <b>{source.itemType}</b>
+                    <small>{source.itemName}</small>
+                    {source.context && (
+                      <small className="source-context-text">"{source.context}"</small>
+                    )}
+                  </span>
+                  <strong>+{numberText(source.value)}</strong>
+                </div>
+              ))}
+            </section>
+          )}
+          {facts.sources.length > 0 && (
+            <section>
+              <h5>기본 공격력 퍼센트 증가 출처</h5>
+              {facts.sources.map((source, index) => (
+                <div key={`${source.itemName}-${index}`}>
+                  <span>
+                    <b>{source.itemType}</b>
+                    <small>{source.itemName}</small>
+                    {source.context && (
+                      <small className="source-context-text">"{source.context}"</small>
+                    )}
+                  </span>
+                  <strong>+{numberText(source.value)}%</strong>
+                </div>
+              ))}
+            </section>
+          )}
         </div>
       ) : (
         <p className="weapon-attack-empty">
@@ -2589,9 +2781,8 @@ function BaseAttackRateBreakdown({
         </p>
       )}
       <p className="weapon-attack-note">
-        최종 기본 공격력 = 기본 공격력(√(주스탯 × 무기 공격력 ÷ 6)) × (1 + 기본 공격력 증가 배율
-        합계). 보석은 개별 젬 옵션을 다시 더하면 이중 합산이 되므로 API가 제공하는 "기본 공격력
-        총합" 값 하나만 사용합니다.
+        최종 기본 공격력 = (기본 공격력(√(주스탯 × 무기 공격력 ÷ 6)) + 고정 증가) × (1 +
+        기본 공격력 증가 배율 합계).
       </p>
     </div>
   )
@@ -2626,7 +2817,8 @@ function AttackPowerBreakdown({
             <b>{numberText(finalAttackPower)}</b>
           </span>
           <code>
-            ({numberText(finalBaseAttack)} + {numberText(totalFlat)}) × (1 + {numberText(totalPercent)}%)
+            ({numberText(finalBaseAttack)} + {numberText(totalFlat)}) × (1 +{' '}
+            {numberText(totalPercent)}%)
           </code>
         </div>
       )}
@@ -2650,7 +2842,9 @@ function AttackPowerBreakdown({
                           <small>
                             {source.itemName} · {source.heading}
                           </small>
-                          {source.context && <small className="source-context-text">"{source.context}"</small>}
+                          {source.context && (
+                            <small className="source-context-text">"{source.context}"</small>
+                          )}
                         </span>
                         <strong>
                           {source.value >= 0 ? '+' : ''}
@@ -2664,10 +2858,17 @@ function AttackPowerBreakdown({
                   const checked = enabledConditionalKeys.has(key)
                   const stackExpanded = expandedStackKey === key
                   return (
-                    <div className={`conditional-source-row${checked ? ' checked' : ''}`} key={rowKey}>
+                    <div
+                      className={`conditional-source-row${checked ? ' checked' : ''}`}
+                      key={rowKey}
+                    >
                       <div className="conditional-source-row-main">
                         <label className="conditional-source-label">
-                          <input type="checkbox" checked={checked} onChange={() => onToggleConditional(key)} />
+                          <input
+                            type="checkbox"
+                            checked={checked}
+                            onChange={() => onToggleConditional(key)}
+                          />
                           <span>
                             <b>{source.itemType}</b>
                             <small>
@@ -2695,7 +2896,9 @@ function AttackPowerBreakdown({
                               조건부 중첩 스택 보기
                             </button>
                           ) : (
-                            source.context && <small className="source-context-text">"{source.context}"</small>
+                            source.context && (
+                              <small className="source-context-text">"{source.context}"</small>
+                            )
                           )}
                         </span>
                       </div>
@@ -2747,8 +2950,8 @@ function AttackPowerBreakdown({
         {showConditionals
           ? ' 조건부(중첩·버프 등)는 체크한 경우에만 합계에 포함됩니다.'
           : ' 조건부(중첩·버프 등)는 마을 기준 계산에서 제외합니다.'}{' '}
-        아크그리드 코어 옵션은 API 코어 포인트가 충족된 구간만 반영했고, 아크그리드 젬은 개별
-        옵션을 다시 더하면 이중 합산이 되어 API가 제공하는 합산치 하나만 사용합니다.
+        아크그리드 코어 옵션은 API 코어 포인트가 충족된 구간만 반영했고, 아크그리드 젬은 개별 옵션을
+        다시 더하면 이중 합산이 되어 API가 제공하는 합산치 하나만 사용합니다.
       </p>
     </div>
   )
@@ -2782,7 +2985,11 @@ function AttackPowerStaircase({
   const steps = [
     { no: '①', title: `주 스탯 (${mainStatData.mainStatName})` },
     { no: '②', title: '무기 공격력' },
-    { no: '③', title: '기본 공격력 = √(주스탯 × 무기 공격력 ÷ 6) × 기본 공격력 증가 배율' },
+    {
+      no: '③',
+      title:
+        '기본 공격력 = (√(주스탯 × 무기 공격력 ÷ 6) + 기본 공격력 고정 증가) × 기본 공격력 증가 배율',
+    },
     { no: '④', title: '최종 공격력 = 기본 공격력 + 공격력 고정 증가, × (1 + 공격력 퍼센트 증가)' },
   ]
   const components = [
@@ -2832,7 +3039,9 @@ function AttackPowerStaircase({
             </span>
             <i aria-hidden="true">{openSteps.has(index) ? '−' : '+'}</i>
           </button>
-          {openSteps.has(index) && <div className="staircase-step-content">{components[index]}</div>}
+          {openSteps.has(index) && (
+            <div className="staircase-step-content">{components[index]}</div>
+          )}
         </div>
       ))}
     </div>
@@ -2863,7 +3072,9 @@ function AdditionalDamageBreakdown({ label, sources, total, note }) {
                     {source.itemName}
                     {source.heading ? ` · ${source.heading}` : ''}
                   </small>
-                  {source.context && <small className="source-context-text">"{source.context}"</small>}
+                  {source.context && (
+                    <small className="source-context-text">"{source.context}"</small>
+                  )}
                 </span>
                 <strong>
                   {source.value >= 0 ? '+' : ''}
@@ -2923,7 +3134,7 @@ function CooldownReductionBreakdown({
         <div className="weapon-attack-total">
           <span>
             <small>
-              {skillName} · {skillCategory ? `${skillCategory} 스킬` : '분류 미확인'}
+              {skillName} · {damageOptionSkillCategoryLabel(skillCategory)}
             </small>
             <b>{numberText(adjustedCooldown)}초</b>
           </span>
@@ -2939,9 +3150,9 @@ function CooldownReductionBreakdown({
         {renderSources('조건부 · 현재 합계 제외', conditionalSources, true)}
       </div>
       <p className="weapon-attack-note">
-        스킬 툴팁의 [{skillCategory || '분류 미확인'} 스킬] 표기와 효과 문구의 스킬
-        종류가 일치할 때만 반영합니다. 발동·보유 상태가 필요한 효과는 조건부 목록에만
-        표시하고 현재 재사용 대기시간에서는 제외합니다.
+        선택한 스킬의 {damageOptionSkillCategoryLabel(skillCategory)} 분류와 효과 문구의 스킬 종류가 일치할
+        때만 반영합니다. 발동·보유 상태가 필요한 효과는 조건부 목록에만 표시하고 현재 재사용
+        대기시간에서는 제외합니다.
       </p>
     </div>
   )
@@ -2975,7 +3186,9 @@ function FinalAdditionalDamageBreakdown({ sources, total, note }) {
                     {source.itemName}
                     {source.heading ? ` · ${source.heading}` : ''}
                   </small>
-                  {source.context && <small className="source-context-text">"{source.context}"</small>}
+                  {source.context && (
+                    <small className="source-context-text">"{source.context}"</small>
+                  )}
                 </span>
                 <strong>+{numberText(source.value)}%</strong>
               </div>
@@ -3033,7 +3246,9 @@ function FinalDamageIncreaseBreakdown({
                       {source.itemName}
                       {source.heading ? ` · ${source.heading}` : ''}
                     </small>
-                    {source.context && <small className="source-context-text">"{source.context}"</small>}
+                    {source.context && (
+                      <small className="source-context-text">"{source.context}"</small>
+                    )}
                   </span>
                   <strong>
                     {source.value >= 0 ? '+' : ''}
@@ -3145,10 +3360,14 @@ function rawLinesForItem(category, item) {
         lines.push(`카르마 누적 보너스 · 진화형 피해 ${numberText(karma.evolutionPercent)}% 증가`)
       }
       if (name === '깨달음' && karma.weaponAttackPercent) {
-        lines.push(`카르마 누적 보너스 · 무기 공격력 ${numberText(karma.weaponAttackPercent)}% 증가`)
+        lines.push(
+          `카르마 누적 보너스 · 무기 공격력 ${numberText(karma.weaponAttackPercent)}% 증가`,
+        )
       }
       if (name === '도약' && karma.hyperAwakeningDamagePercent) {
-        lines.push(`카르마 누적 보너스 · 초각성기 피해 ${numberText(karma.hyperAwakeningDamagePercent)}% 증가`)
+        lines.push(
+          `카르마 누적 보너스 · 초각성기 피해 ${numberText(karma.hyperAwakeningDamagePercent)}% 증가`,
+        )
       }
     }
     return lines
@@ -3251,7 +3470,9 @@ function buildAppliedLineIndex({
     index.get(key).add(label)
   }
 
-  mainStatData.sources.forEach((s) => add(s.context, `주 스탯(${mainStatData.mainStatName}) 고정 출처`))
+  mainStatData.sources.forEach((s) =>
+    add(s.context, `주 스탯(${mainStatData.mainStatName}) 고정 출처`),
+  )
   weaponAttack.sources.forEach((s) => add(s.context, '무기 공격력'))
   baseAttackRate.sources.forEach((s) => add(s.context, '기본 공격력 증가 배율'))
   attackPower.sources.forEach((s) => add(s.context, '최종 공격력 (공격력 고정·퍼센트 증가)'))
@@ -3262,7 +3483,9 @@ function buildAppliedLineIndex({
   evolutionDamage.unconditional.forEach((s) => add(s.context, '최종 피해 증가 · 진화형 피해'))
   evolutionDamage.conditional.forEach((s) => add(s.context, '진화형 피해 (조건부 · 합계 제외)'))
   enlightenmentDamage.unconditional.forEach((s) => add(s.context, '최종 피해 증가 · 깨달음형 피해'))
-  enlightenmentDamage.conditional.forEach((s) => add(s.context, '깨달음형 피해 (조건부 · 합계 제외)'))
+  enlightenmentDamage.conditional.forEach((s) =>
+    add(s.context, '깨달음형 피해 (조건부 · 합계 제외)'),
+  )
   leapDamage.unconditional.forEach((s) => add(s.context, '최종 피해 증가 · 도약형 피해'))
   leapDamage.conditional.forEach((s) => add(s.context, '도약형 피해 (조건부 · 합계 제외)'))
   outgoingDamage.groups.forEach((group) => {
@@ -3292,7 +3515,8 @@ function buildAppliedLineIndex({
 function lineTagForItem(category, item) {
   if (category === 'combatStat') return `전투 특성 · ${cleanApiText(item.Type || '')}`
   if (category === 'arkPassivePoint') return `아크패시브 포인트 · ${cleanApiText(item.Name || '')}`
-  if (category === 'equipment' || category === 'accessory' || category === 'bracelet') return item.Type || '장비'
+  if (category === 'equipment' || category === 'accessory' || category === 'bracelet')
+    return item.Type || '장비'
   if (category === 'tripod') return `트라이포드 · ${item.skillName}`
   if (category === 'arkGrid') return `아크그리드 · ${item.Name}`
   if (category === 'arkPassive') {
@@ -3326,9 +3550,7 @@ function gemRowsForSkill(armory, gemItems, selectedSkillName) {
   })
 }
 
-// "최대 N중첩" 조건부 중 적용 중첩을 12(또는 최대 중첩이 더 작으면 그 값)로
-// 고정해서 항상 계산에 반영해둔 항목만 모아 보여주는 모달 — 아직 고정값을
-// 정의하지 않아 계산식 모달에서 직접 체크해야 하는 조건부는 여기 나오지 않는다.
+// 현재 계산에 고정 중첩 수가 적용되는 항목을 원문과 함께 보여준다.
 function DataizedConditionalsModal({ items, onClose }) {
   return (
     <div className="damage-formula-backdrop" onClick={onClose}>
@@ -3340,11 +3562,9 @@ function DataizedConditionalsModal({ items, onClose }) {
       >
         <header>
           <div>
-            <h2>데이터화된 조건부 목록</h2>
+            <h2>중첩 카운트 확인</h2>
             <p>
-              최대 중첩이 있는 전투 조건부 중 적용 중첩을 고정값으로 정의해서 항상 계산에 반영해둔
-              항목입니다. 아직 정의하지 않은 조건부는 "계산식 보기" 모달에서 체크박스로 직접 켜야
-              반영됩니다.
+              현재 선택한 스킬 계산에 반영되는 중첩형 효과의 실제 원문과 적용 중첩 수입니다.
             </p>
           </div>
           <button type="button" onClick={onClose} aria-label="닫기">
@@ -3357,10 +3577,18 @@ function DataizedConditionalsModal({ items, onClose }) {
               {items.map((item, index) => (
                 <li key={`${item.group}-${item.itemName}-${index}`}>
                   <span className="armory-line-text">
-                    <b>[{item.group}]</b> "{item.context}"
+                    <b>[{item.group}]</b>
+                    {item.itemName && ` ${item.itemName}`}
+                    <small>"{item.context}"</small>
                   </span>
                   <span className="armory-line-applied">
-                    {item.appliedStacks}/{item.maxStacks}중첩 적용 · {item.value >= 0 ? '+' : ''}
+                    현재 {numberText(item.appliedStacks)}중첩 적용
+                    {item.perStackValue != null &&
+                      ` · 1중첩 ${item.perStackValue >= 0 ? '+' : ''}${numberText(
+                        item.perStackValue,
+                      )}${item.percent ? '%' : ''}`}
+                    {' · 최종 '}
+                    {item.value >= 0 ? '+' : ''}
                     {numberText(item.value)}
                     {item.percent ? '%' : ''}
                   </span>
@@ -3368,7 +3596,7 @@ function DataizedConditionalsModal({ items, onClose }) {
               ))}
             </ul>
           ) : (
-            <p className="weapon-attack-empty">데이터화된 조건부가 없습니다.</p>
+            <p className="weapon-attack-empty">현재 적용되는 중첩형 효과가 없습니다.</p>
           )}
         </div>
       </section>
@@ -3386,8 +3614,12 @@ function ArmoryLinesModal({ armory, profile, skill, appliedLineIndex, mainStatNa
   // BattleOverview.jsx와 같은 구분을 따른다: 나침반·부적은 전투 장비가 아니라
   // 아예 뺀다. 어빌리티 스톤은 장비가 아니라 악세서리 쪽(rightEquipmentTypes)에
   // 속한다.
-  const equipment = (armory?.ArmoryEquipment || []).filter((item) => !['나침반', '부적'].includes(item.Type))
-  const accessoryItems = equipment.filter((item) => ['목걸이', '귀걸이', '반지', '어빌리티 스톤'].includes(item.Type))
+  const equipment = (armory?.ArmoryEquipment || []).filter(
+    (item) => !['나침반', '부적'].includes(item.Type),
+  )
+  const accessoryItems = equipment.filter((item) =>
+    ['목걸이', '귀걸이', '반지', '어빌리티 스톤'].includes(item.Type),
+  )
   const braceletItems = equipment.filter((item) => item.Type === '팔찌')
   // 보주·문장은 데미지 계산과 무관해 "장비" 탭에서 아예 뺀다(문장은 PvP 전용
   // 효과라 "모험가에게 피격 시"처럼 PvE 딜 계산과 상관없는 조건부뿐이다).
@@ -3405,7 +3637,8 @@ function ArmoryLinesModal({ armory, profile, skill, appliedLineIndex, mainStatNa
   const arkGridItems = armory?.ArkGrid?.Slots || []
   const arkPassiveItems = armory?.ArkPassive?.Effects || []
   const gemItems = armory?.ArmoryGem?.Gems || []
-  const engravingItems = armory?.ArmoryEngraving?.ArkPassiveEffects || armory?.ArmoryEngraving?.Effects || []
+  const engravingItems =
+    armory?.ArmoryEngraving?.ArkPassiveEffects || armory?.ArmoryEngraving?.Effects || []
   const combatStatItems = profile?.Stats || []
   const arkPassivePointItems = armory?.ArkPassive?.Points || []
 
@@ -3460,9 +3693,8 @@ function ArmoryLinesModal({ armory, profile, skill, appliedLineIndex, mainStatNa
             <h2>보유 데이터 원본 줄 목록</h2>
             <p>
               구분을 고르면 그 아이템들의 툴팁을 한 줄씩 그대로 나열합니다. 트라이포드·보석은 현재
-              선택한 스킬({skill?.Name})에 해당하는 것만 보여줍니다(보석의 "기본 공격력" 줄은
-              스킬과 무관해 항상 표시). 각 줄 오른쪽에 지금 어느 계산에 실제로 반영 중인지도
-              표시됩니다.
+              선택한 스킬({skill?.Name})에 해당하는 것만 보여줍니다(보석의 "기본 공격력" 줄은 스킬과
+              무관해 항상 표시). 각 줄 오른쪽에 지금 어느 계산에 실제로 반영 중인지도 표시됩니다.
             </p>
           </div>
           <button type="button" onClick={onClose} aria-label="닫기">
@@ -3522,7 +3754,9 @@ function ArmoryLinesModal({ armory, profile, skill, appliedLineIndex, mainStatNa
                       <b>[{row.tag}]</b> {row.line}
                     </span>
                     {applied ? (
-                      <span className="armory-line-applied">적용 중 · {[...applied].join(', ')}</span>
+                      <span className="armory-line-applied">
+                        적용 중 · {[...applied].join(', ')}
+                      </span>
                     ) : (
                       <span className="armory-line-unapplied">미적용</span>
                     )}
@@ -3543,7 +3777,11 @@ const variableGroups = [
   {
     title: '1. 스킬 공격력 계산',
     items: [
-      ['ATTACK_POWER_FINAL', '최종 공격력', '주 스탯 → 무기 공격력 → 기본 공격력 → 최종 공격력 순서로 자동 계산'],
+      [
+        'ATTACK_POWER_FINAL',
+        '최종 공격력',
+        '주 스탯 → 무기 공격력 → 기본 공격력 → 최종 공격력 순서로 자동 계산',
+      ],
     ],
   },
   {
@@ -3569,11 +3807,7 @@ const variableGroups = [
   {
     title: '4. 적받는피해 증가 계산',
     items: [
-      [
-        'RECEIVED_DAMAGE',
-        '적 받는 피해 배율',
-        '피해 증폭·낙인·서포터 효과를 모두 합친 단일 배율',
-      ],
+      ['RECEIVED_DAMAGE', '적 받는 피해 배율', '피해 증폭·낙인·서포터 효과를 모두 합친 단일 배율'],
       [
         'DEFENSE_MULTIPLIER',
         '방어력 배율',
@@ -3622,7 +3856,15 @@ const critRateFactsCached = memoizeN(critRateFacts)
 const critDamageBreakdownCached = memoizeN(critDamageBreakdown)
 const gemFactsCached = memoizeN(gemFacts)
 
-export default function DamageAnalysis({ armory, profile, skills, siblings, onHover }) {
+export default function DamageAnalysis({
+  armory,
+  profile,
+  skills,
+  siblings,
+  onHover,
+  mappedEffects = null,
+  mappedSourceArmory = null,
+}) {
   const { user } = useAuth()
   const [selectedName, setSelectedName] = useState(skills[0]?.Name || '')
   const [showAttackPowerFinalDetail, setShowAttackPowerFinalDetail] = useState(false)
@@ -3692,12 +3934,8 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
     setAzenaBlessing(Boolean(saved?.azenaBlessing))
     const savedEventFeastEnabled = Boolean(saved?.eventFeastEnabled)
     setEventFeastEnabled(savedEventFeastEnabled)
-    setWeaponAttackFeastEnabled(
-      !savedEventFeastEnabled && Boolean(saved?.weaponAttackFeastEnabled),
-    )
-    setPetTraitMainStatInput(
-      normalizePetTraitValue('petTraitMainStat', saved?.petTraitMainStat),
-    )
+    setWeaponAttackFeastEnabled(!savedEventFeastEnabled && Boolean(saved?.weaponAttackFeastEnabled))
+    setPetTraitMainStatInput(normalizePetTraitValue('petTraitMainStat', saved?.petTraitMainStat))
     setPetTraitSpeciesDamageInput(
       normalizePetTraitValue('petTraitSpeciesDamage', saved?.petTraitSpeciesDamage),
     )
@@ -3766,18 +4004,12 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
   }
 
   const handleCancelDamageSettings = () => {
-    const saved = characterName
-      ? getDamageAnalysisSettingsFor(characterName, expeditionKey)
-      : null
+    const saved = characterName ? getDamageAnalysisSettingsFor(characterName, expeditionKey) : null
     setAzenaBlessing(Boolean(saved?.azenaBlessing))
     const savedEventFeastEnabled = Boolean(saved?.eventFeastEnabled)
     setEventFeastEnabled(savedEventFeastEnabled)
-    setWeaponAttackFeastEnabled(
-      !savedEventFeastEnabled && Boolean(saved?.weaponAttackFeastEnabled),
-    )
-    setPetTraitMainStatInput(
-      normalizePetTraitValue('petTraitMainStat', saved?.petTraitMainStat),
-    )
+    setWeaponAttackFeastEnabled(!savedEventFeastEnabled && Boolean(saved?.weaponAttackFeastEnabled))
+    setPetTraitMainStatInput(normalizePetTraitValue('petTraitMainStat', saved?.petTraitMainStat))
     setPetTraitSpeciesDamageInput(
       normalizePetTraitValue('petTraitSpeciesDamage', saved?.petTraitSpeciesDamage),
     )
@@ -3806,11 +4038,140 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
     )
 
   const facts = tooltipFacts(skill)
+  const mappedMode = Array.isArray(mappedEffects)
+  // 카르마 랭크·레벨은 매핑 대상 원문이 아니라 API Point.Description에서
+  // 별도로 읽는 고정 데이터다. 데미지 분석 2용 armory는 미매핑 Description을
+  // 비우므로 반드시 필터링 전 원본 armory를 사용해야 한다.
+  const karmaSourceArmory = mappedSourceArmory || armory
+  const karmaFacts = arkPassiveKarmaFacts(karmaSourceArmory)
+  const evolutionKarma = karmaFacts.진화
+  const enlightenmentKarma = karmaFacts.깨달음
+  const leapKarma = karmaFacts.도약
+  const supportArkPassiveBuild = isSupportArkPassiveBuild(karmaSourceArmory)
+  const automaticMappedKarmaEffects = mappedMode
+    ? [
+        ...(evolutionKarma?.evolutionPercent
+          ? [
+              {
+                type: supportArkPassiveBuild
+                  ? 'BRAND_POWER_PERCENT'
+                  : 'DAMAGE_INCREASE_PERCENT',
+                value: evolutionKarma.evolutionPercent,
+                baseValue: evolutionKarma.evolutionPercent,
+                condition: 'ALWAYS',
+                label: supportArkPassiveBuild ? '낙인력' : '진화형 피해',
+                skillNames: [],
+                skillCategories: [],
+                origin: '아크 패시브 카르마 · 진화',
+                template: `${evolutionKarma.rank}랭크 ${evolutionKarma.level}레벨`,
+                source: supportArkPassiveBuild
+                  ? `카르마 누적 보너스 · 낙인력 ${evolutionKarma.evolutionPercent}% 증가`
+                  : `카르마 누적 보너스 · 진화형 피해 ${evolutionKarma.evolutionPercent}% 증가`,
+              },
+            ]
+          : []),
+        ...(enlightenmentKarma?.weaponAttackPercent
+          ? [
+              {
+                type: 'WEAPON_ATTACK_PERCENT',
+                value: enlightenmentKarma.weaponAttackPercent,
+                baseValue: enlightenmentKarma.weaponAttackPercent,
+                condition: 'ALWAYS',
+                label: '무기 공격력',
+                skillNames: [],
+                skillCategories: [],
+                origin: '아크 패시브 카르마 · 깨달음',
+                template: `${enlightenmentKarma.rank}랭크 ${enlightenmentKarma.level}레벨`,
+                source: `카르마 누적 보너스 · 무기 공격력 ${enlightenmentKarma.weaponAttackPercent}% 증가`,
+              },
+            ]
+          : []),
+        ...(leapKarma?.hyperAwakeningDamagePercent
+          ? [
+              {
+                type: 'DAMAGE_INCREASE_PERCENT',
+                value: leapKarma.hyperAwakeningDamagePercent,
+                baseValue: leapKarma.hyperAwakeningDamagePercent,
+                condition: 'ALWAYS',
+                label: '초각성기 피해',
+                skillNames: [],
+                skillCategories: ['초각성기'],
+                origin: '아크 패시브 카르마 · 도약',
+                template: `${leapKarma.rank}랭크 ${leapKarma.level}레벨 · 초각성기`,
+                source: `카르마 누적 보너스 · 초각성기 피해 ${leapKarma.hyperAwakeningDamagePercent}% 증가`,
+              },
+            ]
+          : []),
+      ]
+    : []
+  const mappedEffectsForSkill = mappedMode
+    ? [...mappedEffects, ...automaticMappedKarmaEffects].filter((effect) => {
+          const targetSkillNames = effect.skillNames?.length
+            ? effect.skillNames
+            : effect.skillName
+              ? [effect.skillName]
+              : []
+          const targetSkillCategories = effect.skillCategories || []
+          const selectedSkillCategory = damageOptionSkillCategory(skill)
+          const hasExplicitSkillTarget =
+            targetSkillNames.length > 0 || targetSkillCategories.length > 0
+          if (
+            hasExplicitSkillTarget &&
+            !targetSkillNames.includes(skill.Name) &&
+            !targetSkillCategories.includes(selectedSkillCategory)
+          ) {
+            return false
+          }
+          if (
+            !hasExplicitSkillTarget &&
+            effect.sourceSkillName &&
+            effect.sourceSkillName !== skill.Name
+          ) {
+            return false
+          }
+          if (!effect.condition || effect.condition === 'ALWAYS') return true
+          if (effect.condition === 'BACK_ATTACK') return facts.attackTypes.includes('백 어택')
+          if (effect.condition === 'HEAD_ATTACK') return facts.attackTypes.includes('헤드 어택')
+          return false
+        })
+    : []
+  const mappedSources = (type) =>
+    mappedEffectsForSkill
+      .filter((effect) => effect.type === type)
+      .map((effect) => {
+        const explicitNames = effect.skillNames?.length
+          ? effect.skillNames
+          : effect.skillName
+            ? [effect.skillName]
+            : []
+        const explicitCategories = effect.skillCategories || []
+        const targetLabel = [
+          ...explicitCategories.map(damageOptionSkillCategoryLabel),
+          ...explicitNames,
+        ].join(', ')
+        const automaticTarget = !targetLabel && effect.sourceSkillName
+        return {
+          value: Number(effect.value) || 0,
+          baseValue: Number(effect.baseValue) || 0,
+          itemType: '등록 데이터',
+          itemName: targetLabel
+            ? `${effect.origin || '매핑 원문'} · ${targetLabel} 전용`
+            : automaticTarget
+              ? `${effect.origin || '매핑 원문'} · ${effect.sourceSkillName} 전용 (출처 자동)`
+              : effect.origin || '매핑 원문',
+          heading: [effect.template || type, effect.label].filter(Boolean).join(' · '),
+          context: effect.source,
+          condition: effect.condition || 'ALWAYS',
+          maxStacks: effect.stack?.maxStacks ?? null,
+          appliedStacks: effect.stack?.appliedStacks ?? null,
+          perStackValue: effect.stack ? Number(effect.baseValue) || 0 : null,
+          percent: type.endsWith('_PERCENT'),
+        }
+      })
   const motionHits = skillMotionHits(skill)
   const baseAttackTooltip = profileBaseAttackPower(profile)
   const storedMotionConstants = invenMotionConstants(profile, skill)
-  const motionInputs =
-    motionInputsByCharacter[motionCharacterKey]?.[skill.Name] || {}
+  const motionInputs = motionInputsByCharacter[motionCharacterKey]?.[skill.Name] || {}
   const motionRepeat = (motion) => {
     const input = motionInputs[motion.key]?.repeat
     if (String(input ?? '').trim() === '') return motion.repeat
@@ -3828,7 +4189,7 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
     }, 0)
     return { total, motions: motions.length }
   }
-  const selectedSkillCategory = skillCategoryFromTooltip(skill)
+  const selectedSkillCategory = damageOptionSkillCategory(skill)
   const skillMoveSpeed = skillMoveSpeedFacts(skills)
   const baseSkillCooldown = Number(facts.cooldown)
   const categoryCooldown = skillCategoryCooldownFacts(armory, selectedSkillCategory)
@@ -3846,20 +4207,19 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
         context: `공격속도와 이동속도 ${FEAST_SPEED_BONUS}% 증가`,
       }
     : null
-  const attackSpeedSources =
-    [
-      ...(combatStats.swiftness > 0
-        ? [
+  const attackSpeedSources = [
+    ...(combatStats.swiftness > 0
+      ? [
           {
             value: combatStats.attackSpeed,
             itemType: 'API 전투 특성',
             itemName: `신속 ${numberText(combatStats.swiftness)} × ${SWIFT_SPEED_PER_POINT}%`,
           },
-          ]
-        : []),
-      ...arkGridAttackSpeed.sources,
-      ...(feastSpeedSource ? [feastSpeedSource] : []),
-    ]
+        ]
+      : []),
+    ...(mappedMode ? mappedSources('ATTACK_SPEED_PERCENT') : arkGridAttackSpeed.sources),
+    ...(feastSpeedSource ? [feastSpeedSource] : []),
+  ]
   const attackSpeed = {
     sources: attackSpeedSources,
     total: attackSpeedSources.reduce((sum, source) => sum + source.value, 0),
@@ -3875,7 +4235,7 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
         ]
       : []),
     ...(feastSpeedSource ? [feastSpeedSource] : []),
-    ...skillMoveSpeed.sources,
+    ...(mappedMode ? mappedSources('MOVE_SPEED_PERCENT') : skillMoveSpeed.sources),
   ]
   const moveSpeed = {
     sources: moveSpeedSources,
@@ -3892,27 +4252,45 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
           },
         ]
       : []),
-    ...categoryCooldown.active.filter((source) => source.unit === '%'),
+    ...(mappedMode
+      ? mappedSources('COOLDOWN_REDUCTION_PERCENT').map((source) => ({
+          ...source,
+          unit: '%',
+        }))
+      : categoryCooldown.active.filter((source) => source.unit === '%')),
   ]
-  const cooldownFixedSources = categoryCooldown.active.filter((source) => source.unit === '초')
+  const cooldownFixedSources = mappedMode
+    ? mappedSources('COOLDOWN_REDUCTION_FLAT').map((source) => ({
+        ...source,
+        unit: '초',
+      }))
+    : categoryCooldown.active.filter((source) => source.unit === '초')
   const cooldownReductionTotal = cooldownReductionSources.reduce(
     (sum, source) => sum + source.value,
     0,
   )
-  const cooldownFixedTotal = cooldownFixedSources.reduce(
-    (sum, source) => sum + source.value,
-    0,
-  )
+  const cooldownFixedTotal = cooldownFixedSources.reduce((sum, source) => sum + source.value, 0)
   const adjustedCooldown = Number.isFinite(baseSkillCooldown)
-    ? Math.max(
-        0,
-        baseSkillCooldown * (1 - cooldownReductionTotal / 100) - cooldownFixedTotal,
-      )
+    ? Math.max(0, baseSkillCooldown * (1 - cooldownReductionTotal / 100) - cooldownFixedTotal)
     : null
   const tripods = selectedTripods(skill)
   const gems = gemFactsCached(armory, skill.Name)
   const arkGridEffects = armory?.ArkGrid?.Effects || []
-  const weaponAttackBase = weaponAttackBreakdownCached(armory)
+  const mappedWeaponFlatSources = mappedMode
+    ? mappedSources('WEAPON_ATTACK_FLAT').map((source) => ({ ...source, kind: 'base' }))
+    : []
+  const mappedWeaponPercentSources = mappedMode
+    ? mappedSources('WEAPON_ATTACK_PERCENT').map((source) => ({ ...source, kind: 'percent' }))
+    : []
+  const weaponAttackBase = mappedMode
+    ? {
+        base: mappedWeaponFlatSources,
+        flat: [],
+        percent: mappedWeaponPercentSources,
+        conditional: [],
+        sources: [...mappedWeaponFlatSources, ...mappedWeaponPercentSources],
+      }
+    : weaponAttackBreakdownCached(armory)
   const weaponAttackFeastSource = weaponAttackFeastEnabled
     ? {
         kind: 'flat',
@@ -3938,42 +4316,222 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
   const petTraitMainStatPercent = parsePetTraitPercent(petTraitMainStatInput, 0)
   const petTraitSpeciesDamagePercent = parsePetTraitPercent(petTraitSpeciesDamageInput, 0)
   const petTraitAdditionalPercent = parsePetTraitPercent(petTraitAdditionalInput, 0)
-  const mainStatData = mainStatBreakdown(armory, profile, {
+  const detectedMainStatData = mainStatBreakdown(mappedSourceArmory || armory, profile, {
     potionSourceInput,
     cardBookInput,
     azenaBlessing,
     petTraitPercent: petTraitMainStatPercent,
   })
+  const mappedMainStatName = detectedMainStatData.mainStatName
+  const isMappedMainStatSource = (source) => {
+    const namedStat = source.context?.match(/^(힘|민첩|지능)(?=\s|$)/)?.[1]
+    return !namedStat || namedStat === mappedMainStatName
+  }
+  const mappedMainStatFlatSources = mappedMode
+    ? mappedSources('MAIN_STAT_FLAT')
+        .filter(isMappedMainStatSource)
+        .map((source) => ({ ...source, stat: mappedMainStatName }))
+    : []
+  const mappedMainStatPercentSources = mappedMode
+    ? mappedSources('MAIN_STAT_PERCENT')
+        .filter(isMappedMainStatSource)
+        .map((source) => ({ ...source, stat: mappedMainStatName }))
+    : []
+  const mappedMainStatValue = mappedMainStatFlatSources.reduce(
+    (sum, source) => sum + source.value,
+    0,
+  )
+  const mappedMainStatPercent = mappedMainStatPercentSources.reduce(
+    (sum, source) => sum + source.value,
+    0,
+  )
+  const mappedMainStatFixedTotal =
+    mappedMainStatValue +
+    detectedMainStatData.expeditionBonus +
+    detectedMainStatData.levelStatBonus +
+    detectedMainStatData.potionBonus +
+    detectedMainStatData.cardBookBonus +
+    detectedMainStatData.azenaBonus
+  const mainStatData = mappedMode
+    ? {
+        ...detectedMainStatData,
+        totals: {
+          힘: mappedMainStatName === '힘' ? mappedMainStatValue : 0,
+          민첩: mappedMainStatName === '민첩' ? mappedMainStatValue : 0,
+          지능: mappedMainStatName === '지능' ? mappedMainStatValue : 0,
+        },
+        mainStatValue: mappedMainStatValue,
+        mainStatPercent: mappedMainStatPercent + petTraitMainStatPercent,
+        totalFixedStat: mappedMainStatFixedTotal,
+        mainStatFinal:
+          mappedMainStatFixedTotal *
+          (1 + (mappedMainStatPercent + petTraitMainStatPercent) / 100),
+        sources: mappedMainStatFlatSources,
+        percentSources: mappedMainStatPercentSources,
+      }
+    : detectedMainStatData
   const mainStat = { name: mainStatData.mainStatName, value: mainStatData.mainStatFinal }
   const attack = stats['공격력']
 
-  const baseAttackRate = baseAttackRateBreakdownCached(armory)
-  const attackPower = attackPowerBreakdownCached(armory)
+  const mappedBaseAttackPercentSources = mappedMode
+    ? mappedSources('BASE_ATTACK_PERCENT')
+    : []
+  const mappedBaseAttackFlatSources = mappedMode ? mappedSources('BASE_ATTACK_FLAT') : []
+  const baseAttackRate = mappedMode
+    ? {
+        sources: mappedBaseAttackPercentSources,
+        flatSources: mappedBaseAttackFlatSources,
+        total: mappedBaseAttackPercentSources.reduce((sum, source) => sum + source.value, 0),
+      }
+    : baseAttackRateBreakdownCached(armory)
+  const mappedAttackFlatSources = mappedMode
+    ? mappedSources('ATTACK_POWER_FLAT').map((source) => ({ ...source, kind: 'flat' }))
+    : []
+  const mappedAttackPercentSources = mappedMode
+    ? mappedSources('ATTACK_POWER_PERCENT').map((source) => ({ ...source, kind: 'percent' }))
+    : []
+  const attackPower = mappedMode
+    ? {
+        flat: mappedAttackFlatSources,
+        percent: mappedAttackPercentSources,
+        conditional: [],
+        sources: [...mappedAttackFlatSources, ...mappedAttackPercentSources],
+      }
+    : attackPowerBreakdownCached(armory)
+  const mappedBaseAttackFlatTotal = mappedBaseAttackFlatSources.reduce(
+    (sum, source) => sum + source.value,
+    0,
+  )
   const adrenalineAttackSources = attackPower.conditional
     .map((source, index) => ({ source, key: conditionalSourceKey('attack', source, index) }))
-    .filter(({ source, key }) => source.itemName === '아드레날린' && enabledConditionalKeys.has(key))
+    .filter(
+      ({ source, key }) => source.itemName === '아드레날린' && enabledConditionalKeys.has(key),
+    )
     .map(({ source }) => source)
   const adrenalineAttackTotal = adrenalineAttackSources.reduce(
     (sum, source) => sum + source.value,
     0,
   )
-  const dataizedConditionalItems = [
-    ...weaponAttack.conditional
-      .filter((source) => source.maxStacks && isDataizedConditionalSource(source))
-      .map((source) => ({ ...source, group: '무기 공격력' })),
-    ...attackPower.conditional
-      .filter((source) => source.maxStacks && isDataizedConditionalSource(source))
-      .map((source) => ({ ...source, group: '공격력' })),
-  ]
+  const mappedStackCountItems = mappedMode
+    ? mappedEffectsForSkill.flatMap((effect) => {
+        const appliedStacks = Number(effect.stack?.appliedStacks ?? effect.stackCount)
+        if (!Number.isFinite(appliedStacks) || appliedStacks <= 1) return []
+        return [
+          {
+            group:
+              DAMAGE_EFFECT_TYPES.find((candidate) => candidate.value === effect.type)?.label ||
+              effect.type,
+            itemName: effect.origin || '매핑 원문',
+            context: effect.source || effect.template || '',
+            appliedStacks,
+            maxStacks: Number(effect.stack?.maxStacks) || appliedStacks,
+            perStackValue: Number(effect.baseValue) || 0,
+            value: Number(effect.value) || 0,
+            percent: effect.type?.endsWith('_PERCENT'),
+          },
+        ]
+      })
+    : []
+  const dataizedConditionalItems = mappedMode
+    ? mappedStackCountItems
+    : [
+        ...weaponAttack.conditional
+          .filter((source) => source.maxStacks && isDataizedConditionalSource(source))
+          .map((source) => ({ ...source, group: '무기 공격력' })),
+        ...attackPower.conditional
+          .filter((source) => source.maxStacks && isDataizedConditionalSource(source))
+          .map((source) => ({ ...source, group: '공격력' })),
+      ]
+
+  // 데미지 분석 2의 마을 기준 공격력에는 전투 중 쌓이는 고정 중첩 효과를
+  // 항목 전체로 제외한다. 중첩 모달에는 그대로 남겨 실제 설정값을 확인할 수 있다.
+  const withoutMappedStacks = (sources) =>
+    mappedMode
+      ? sources.filter((source) => Number(source.appliedStacks ?? 1) <= 1)
+      : sources
+  const townWeaponAttack = mappedMode
+    ? {
+        ...weaponAttack,
+        base: withoutMappedStacks(weaponAttack.base),
+        flat: withoutMappedStacks(weaponAttack.flat),
+        percent: withoutMappedStacks(weaponAttack.percent),
+        conditional: [],
+        sources: withoutMappedStacks(weaponAttack.sources),
+      }
+    : weaponAttack
+  const townAttackPower = mappedMode
+    ? {
+        ...attackPower,
+        flat: withoutMappedStacks(attackPower.flat),
+        percent: withoutMappedStacks(attackPower.percent),
+        conditional: [],
+        sources: withoutMappedStacks(attackPower.sources),
+      }
+    : attackPower
+  const townBaseAttackPercentSources = withoutMappedStacks(baseAttackRate.sources)
+  const townBaseAttackFlatSources = withoutMappedStacks(baseAttackRate.flatSources || [])
+  const townBaseAttackRate = mappedMode
+    ? {
+        ...baseAttackRate,
+        sources: townBaseAttackPercentSources,
+        flatSources: townBaseAttackFlatSources,
+        total: townBaseAttackPercentSources.reduce((sum, source) => sum + source.value, 0),
+      }
+    : baseAttackRate
+  const townMainStatFlatSources = withoutMappedStacks(mappedMainStatFlatSources)
+  const townMainStatPercentSources = withoutMappedStacks(mappedMainStatPercentSources)
+  const townMappedMainStatValue = townMainStatFlatSources.reduce(
+    (sum, source) => sum + source.value,
+    0,
+  )
+  const townMappedMainStatPercent = townMainStatPercentSources.reduce(
+    (sum, source) => sum + source.value,
+    0,
+  )
+  const townMappedMainStatFixedTotal =
+    townMappedMainStatValue +
+    detectedMainStatData.expeditionBonus +
+    detectedMainStatData.levelStatBonus +
+    detectedMainStatData.potionBonus +
+    detectedMainStatData.cardBookBonus +
+    detectedMainStatData.azenaBonus
+  const townMainStatData = mappedMode
+    ? {
+        ...mainStatData,
+        totals: {
+          힘: mappedMainStatName === '힘' ? townMappedMainStatValue : 0,
+          민첩: mappedMainStatName === '민첩' ? townMappedMainStatValue : 0,
+          지능: mappedMainStatName === '지능' ? townMappedMainStatValue : 0,
+        },
+        mainStatValue: townMappedMainStatValue,
+        mainStatPercent: townMappedMainStatPercent + petTraitMainStatPercent,
+        totalFixedStat: townMappedMainStatFixedTotal,
+        mainStatFinal:
+          townMappedMainStatFixedTotal *
+          (1 + (townMappedMainStatPercent + petTraitMainStatPercent) / 100),
+        sources: townMainStatFlatSources,
+        percentSources: townMainStatPercentSources,
+      }
+    : mainStatData
+  const townMainStat = {
+    name: townMainStatData.mainStatName,
+    value: townMainStatData.mainStatFinal,
+  }
+  const townMappedBaseAttackFlatTotal = townBaseAttackFlatSources.reduce(
+    (sum, source) => sum + source.value,
+    0,
+  )
 
   // 아래 상세 분석은 체크한 전투 조건부를 반영한다.
-  const { weaponAttackTotal, pureAttackPower, finalBaseAttack, finalAttackPower } = finalAttackPowerChain(
-    weaponAttack,
-    attackPower,
-    mainStat,
-    baseAttackRate.total,
-    enabledConditionalKeys,
-  )
+  const { weaponAttackTotal, pureAttackPower, finalBaseAttack, finalAttackPower } =
+    finalAttackPowerChain(
+      weaponAttack,
+      attackPower,
+      mainStat,
+      baseAttackRate.total,
+      enabledConditionalKeys,
+      mappedBaseAttackFlatTotal,
+    )
 
   // 위쪽 마을 기준 최종 공격력은 체크 상태와 무관하게 전투 조건부를 전부 제외한다.
   const {
@@ -3982,14 +4540,33 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
     finalBaseAttack: finalBaseAttackTown,
     finalAttackPower: finalAttackPowerTown,
   } = finalAttackPowerChain(
-    weaponAttack,
-    attackPower,
-    mainStat,
-    baseAttackRate.total,
+    townWeaponAttack,
+    townAttackPower,
+    townMainStat,
+    townBaseAttackRate.total,
     EMPTY_CONDITIONAL_KEYS,
+    townMappedBaseAttackFlatTotal,
   )
 
-  const additionalDamage = additionalDamageBreakdownCached(armory)
+  const mappedAdditionalDamageSources = mappedMode
+    ? [
+        ...mappedSources('ADDITIONAL_DAMAGE_PERCENT'),
+        ...mappedSources('ADDITIONAL_DAMAGE_FLAT'),
+      ]
+    : []
+  const additionalDamage = mappedMode
+    ? {
+        weapon: mappedAdditionalDamageSources,
+        accessory: [],
+        bracelet: [],
+        weaponTotal: mappedAdditionalDamageSources.reduce(
+          (sum, source) => sum + source.value,
+          0,
+        ),
+        accessoryTotal: 0,
+        braceletTotal: 0,
+      }
+    : additionalDamageBreakdownCached(armory)
   // deal.html의 ADDITIONAL_DAMAGE는 무기/장신구/팔찌/펫 추가 피해를 전부 더한
   // 값이라, 섹션별 소계 대신 모든 출처를 한 목록에 그대로 나열해 하나의
   // 합계로 보여준다 (무기 아이템·아크그리드 젬처럼 서로 다른 출처를 한 줄로
@@ -3999,10 +4576,19 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
     ...additionalDamage.accessory,
     ...additionalDamage.bracelet,
     ...(petTraitAdditionalPercent > 0
-      ? [{ value: petTraitAdditionalPercent, itemType: '펫 특기', itemName: '끓어오르는 힘 (계산 설정 입력값)' }]
+      ? [
+          {
+            value: petTraitAdditionalPercent,
+            itemType: '펫 특기',
+            itemName: '끓어오르는 힘 (계산 설정 입력값)',
+          },
+        ]
       : []),
   ]
-  const additionalDamageFinalTotal = additionalDamageFinalSources.reduce((sum, source) => sum + source.value, 0)
+  const additionalDamageFinalTotal = additionalDamageFinalSources.reduce(
+    (sum, source) => sum + source.value,
+    0,
+  )
 
   const engravingDamage = engravingDamageFacts(armory)
   const massIncreaseDamage = massIncreaseDamageFacts(armory)
@@ -4028,21 +4614,14 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
     selectedSkillCategory,
     skill,
   )
-  const outgoingDamage = outgoingDamageBreakdownCached(
-    armory,
-    skill.Name,
-    selectedSkillCategory,
-  )
-  const specializationDamage = specializationSkillDamageFacts(
-    profile,
-    selectedSkillCategory,
-  )
+  const outgoingDamage = outgoingDamageBreakdownCached(armory, skill.Name, selectedSkillCategory)
+  const specializationDamage = specializationSkillDamageFacts(profile, selectedSkillCategory)
   const cardDamage = cardDamageFacts(armory)
   // deal.html의 DAMAGE_INCREASE는 각 항이 (1 + 증가율)로 곱해지는 곱연산이라,
   // 자동으로 값을 구할 수 있는 항목만 모아 하나의 배율로 계산한다. 보석·
   // 아크그리드·특화·장비 세트처럼 아직 자동 감지가 안 되는 항목은
   // 곱셈에서 빼고 Group 3에 별도 행으로 남겨둔다.
-  const damageIncreaseItems = [
+  const detectedDamageIncreaseItems = [
     ...engravingDamage.sources.map((source, index) => ({
       key: `ENGRAVING_DAMAGE__${source.itemName}__${index}`,
       label: `각인 · ${source.itemName}`,
@@ -4082,7 +4661,12 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
             ]
           : [],
     },
-    { key: 'CARD_DAMAGE', label: '카드 피해', percent: cardDamage.total, sources: cardDamage.sources },
+    {
+      key: 'CARD_DAMAGE',
+      label: '카드 피해',
+      percent: cardDamage.total,
+      sources: cardDamage.sources,
+    },
     {
       key: 'RAID_CAPTAIN_DAMAGE',
       label: '돌격대장',
@@ -4095,7 +4679,12 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
       percent: massIncreaseDamage.total,
       sources: massIncreaseDamage.sources,
     },
-    { key: 'LEAP_DAMAGE', label: '도약형 피해', percent: leapDamage.total, sources: leapDamage.unconditional },
+    {
+      key: 'LEAP_DAMAGE',
+      label: '도약형 피해',
+      percent: leapDamage.total,
+      sources: leapDamage.unconditional,
+    },
     // "적에게 주는 피해"는 출처별로 완전히 다른 스킬/조건에 붙는 별개의 버프라
     // 하나로 합치지 않고 그룹(장신구 연마, 아크그리드 코어별, 아크그리드 효과)
     // 마다 독립된 곱연산 항으로 넣는다 — 그룹 내부에서만 합연산.
@@ -4106,6 +4695,17 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
       sources: group.sources,
     })),
   ]
+  const damageIncreaseItems = mappedMode
+    ? [
+        ...mappedSources('DAMAGE_INCREASE_PERCENT'),
+        ...mappedSources('DAMAGE_INCREASE_FLAT'),
+      ].map((source, index) => ({
+        key: `MAPPED_DAMAGE_INCREASE__${index}`,
+        label: source.itemName,
+        percent: source.value,
+        sources: [source],
+      }))
+    : detectedDamageIncreaseItems
   const damageIncreaseMultiplier = damageIncreaseItems.reduce(
     (product, item) => product * (1 + item.percent / 100),
     1,
@@ -4116,13 +4716,60 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
   const damageIncreaseResolvedItems = damageIncreaseItems.filter(
     (item) => item.percent !== 0 || item.sources.length > 0,
   )
-  const receivedDamage = receivedDamageFacts(skills)
+  const mappedReceivedDamageSources = mappedMode
+    ? [
+        ...mappedSources('ENEMY_RECEIVED_DAMAGE_PERCENT'),
+        ...mappedSources('ENEMY_RECEIVED_DAMAGE_FLAT'),
+      ]
+    : []
+  const receivedDamage = mappedMode
+    ? {
+        sources: mappedReceivedDamageSources,
+        total: mappedReceivedDamageSources.reduce((sum, source) => sum + source.value, 0),
+      }
+    : receivedDamageFacts(skills)
   const receivedDamageMultiplier = 1 + receivedDamage.total / 100
   const characterSkillSynergies = skillSynergyEffects(skills)
 
-  const critDamage = critDamageBreakdownCached(armory)
-  const critHitBracelet = critHitBraceletFacts(armory)
-  const critRate = critRateFactsCached(armory, combatStats.critical, selectedSkillCategory)
+  const mappedCritDamageSources = mappedMode
+    ? [
+        ...mappedSources('CRIT_DAMAGE_PERCENT'),
+        ...mappedSources('CRIT_DAMAGE_FLAT'),
+      ]
+    : []
+  const critDamage = mappedMode
+    ? {
+        sources: mappedCritDamageSources,
+        base: CRIT_DAMAGE_BASE,
+        bonusTotal: mappedCritDamageSources.reduce((sum, source) => sum + source.value, 0),
+        total:
+          CRIT_DAMAGE_BASE +
+          mappedCritDamageSources.reduce((sum, source) => sum + source.value, 0),
+      }
+    : critDamageBreakdownCached(armory)
+  const critHitBracelet = mappedMode
+    ? { sources: [], total: 0 }
+    : critHitBraceletFacts(armory)
+  const mappedCritRateSources = mappedMode ? mappedSources('CRIT_RATE_PERCENT') : []
+  const critRate = mappedMode
+    ? {
+        sources: [
+          ...(combatStats.critical > 0
+            ? [
+                {
+                  value: combatStats.critical * CRIT_RATE_PER_POINT,
+                  itemType: 'API 전투 특성',
+                  itemName: `치명 ${numberText(combatStats.critical)} × ${CRIT_RATE_PER_POINT}%`,
+                },
+              ]
+            : []),
+          ...mappedCritRateSources,
+        ],
+        total:
+          combatStats.critical * CRIT_RATE_PER_POINT +
+          mappedCritRateSources.reduce((sum, source) => sum + source.value, 0),
+      }
+    : critRateFactsCached(armory, combatStats.critical, selectedSkillCategory)
   // 6번 치명타 피해는 기본 200%에 치명타 피해 증가분을 합연산한다.
   // 7번 "치명타 시 주는 피해"는 치명타 피해와 다른 별도 곱연산 항이다.
   const critDamageItems = [
@@ -4144,7 +4791,10 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
       sources: critHitBracelet.sources,
     },
   ]
-  const critDamageMultiplier = critDamageItems.reduce((product, item) => product * (1 + item.percent / 100), 1)
+  const critDamageMultiplier = critDamageItems.reduce(
+    (product, item) => product * (1 + item.percent / 100),
+    1,
+  )
   const critDamageResolvedItems = critDamageItems.filter((item) => item.percent !== 0)
   const critHitDamageMultiplier = critHitDamageItems.reduce(
     (product, item) => product * (1 + item.percent / 100),
@@ -4156,9 +4806,7 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
   const criticalTotalMultiplier = critDamageMultiplier * critHitDamageMultiplier
   const keenPenalty = keenBluntPenaltyFacts(armory)
   const calculationAttack =
-    finalAttackPower != null
-      ? finalAttackPower
-      : Number(String(attack || '').replaceAll(',', ''))
+    finalAttackPower != null ? finalAttackPower : Number(String(attack || '').replaceAll(',', ''))
   const sharedDamageMultiplier =
     (1 + additionalDamageFinalTotal / 100) *
     damageIncreaseMultiplier *
@@ -4192,8 +4840,7 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
       normalPerHit,
       normalTotal: normalPerHit != null ? normalPerHit * repeat : null,
       criticalPerHit: normalPerHit != null ? normalPerHit * criticalTotalMultiplier : null,
-      criticalTotal:
-        normalPerHit != null ? normalPerHit * criticalTotalMultiplier * repeat : null,
+      criticalTotal: normalPerHit != null ? normalPerHit * criticalTotalMultiplier * repeat : null,
     }
   })
   const motionInputsReady =
@@ -4293,7 +4940,7 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
           <div className="damage-settings-summary">
             <div>
               <span className="damage-setting-label">
-                <img src="/images/etc/shop_icon_9888.png" alt="" />
+                <img loading="lazy" src="/images/etc/shop_icon_9888.png" alt="" />
                 <span>
                   <b>아제나의 축복</b>
                   <small>캐릭터 전용</small>
@@ -4304,7 +4951,7 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
             <div>
               <span className="damage-setting-label">
                 <i className={petTraitGradeClass('petTraitMainStat', petTraitMainStatInput)}>
-                  <img src="/images/etc/pet03.png" alt="" />
+                  <img loading="lazy" src="/images/etc/pet03.png" alt="" />
                 </i>
                 <span>
                   <b>우월한 유전자</b>
@@ -4321,7 +4968,7 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
                     petTraitSpeciesDamageInput,
                   )}
                 >
-                  <img src="/images/etc/pet01.png" alt="" />
+                  <img loading="lazy" src="/images/etc/pet01.png" alt="" />
                 </i>
                 <span>
                   <b>자연 선택 (악마)</b>
@@ -4329,17 +4976,13 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
                 </span>
               </span>
               <strong>
-                {normalizePetTraitValue(
-                  'petTraitSpeciesDamage',
-                  petTraitSpeciesDamageInput,
-                )}
-                %
+                {normalizePetTraitValue('petTraitSpeciesDamage', petTraitSpeciesDamageInput)}%
               </strong>
             </div>
             <div>
               <span className="damage-setting-label">
                 <i className={petTraitGradeClass('petTraitAdditional', petTraitAdditionalInput)}>
-                  <img src="/images/etc/pet02.png" alt="" />
+                  <img loading="lazy" src="/images/etc/pet02.png" alt="" />
                 </i>
                 <span>
                   <b>끓어오르는 힘</b>
@@ -4366,7 +5009,9 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
             </div>
             <div>
               <span className="damage-setting-label">
-                <i className="damage-setting-placeholder-icon" aria-hidden="true">?</i>
+                <i className="damage-setting-placeholder-icon" aria-hidden="true">
+                  ?
+                </i>
                 <span>
                   <b>이벤트 만찬</b>
                   <small>공격속도·이동속도 +{FEAST_SPEED_BONUS}%</small>
@@ -4376,7 +5021,9 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
             </div>
             <div>
               <span className="damage-setting-label">
-                <i className="damage-setting-placeholder-icon" aria-hidden="true">?</i>
+                <i className="damage-setting-placeholder-icon" aria-hidden="true">
+                  ?
+                </i>
                 <span>
                   <b>무공 만찬</b>
                   <small>
@@ -4396,7 +5043,10 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
               <Swords />
               <span>
                 <h4>마을 기준 최종 공격력</h4>
-                <small>전투 조건부를 전부 제외한 값입니다. 조건부 반영값은 아래 최종 공격력 상세에서 확인합니다.</small>
+                <small>
+                  전투 조건부를 전부 제외한 값입니다. 조건부 반영값은 아래 최종 공격력 상세에서
+                  확인합니다.
+                </small>
               </span>
               <button
                 type="button"
@@ -4420,7 +5070,7 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
             className="town-final-attack-power-conditional-btn"
             onClick={() => setShowDataizedConditionalsModal(true)}
           >
-            조건부 확인하기 ({dataizedConditionalItems.length})
+            중첩 카운트 확인하기 ({dataizedConditionalItems.length})
           </button>
           <button
             type="button"
@@ -4440,7 +5090,11 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
                   <article
                     key={`${effect.sourceName}-${effect.category}-${effect.percent}-${index}`}
                   >
-                    {effect.skillIcon ? <img src={effect.skillIcon} alt="" /> : <Swords />}
+                    {effect.skillIcon ? (
+                      <img loading="lazy" src={effect.skillIcon} alt="" />
+                    ) : (
+                      <Swords />
+                    )}
                     <span>
                       <strong>
                         {effect.category}
@@ -4491,8 +5145,8 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
             </div>
             <div className="damage-settings-edit-body">
               <p>
-                아제나의 축복은 이 캐릭터에만, 나머지 값은 같은 원정대의 모든 캐릭터에
-                공통으로 적용됩니다.{' '}
+                아제나의 축복은 이 캐릭터에만, 나머지 값은 같은 원정대의 모든 캐릭터에 공통으로
+                적용됩니다.{' '}
                 {user
                   ? '로그인 상태라 서버에도 저장됩니다.'
                   : '로그인하지 않아 이 브라우저에만 저장됩니다.'}
@@ -4500,7 +5154,7 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
               <div className="damage-settings-grid">
                 <div className="card-effect-input">
                   <span className="damage-setting-label">
-                    <img src="/images/etc/shop_icon_9888.png" alt="" />
+                    <img loading="lazy" src="/images/etc/shop_icon_9888.png" alt="" />
                     <span>
                       <b>아제나의 축복</b>
                       <small>주 스탯 +6,000</small>
@@ -4517,7 +5171,9 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
                 </div>
                 <div className="card-effect-input">
                   <span className="damage-setting-label">
-                    <i className="damage-setting-placeholder-icon" aria-hidden="true">?</i>
+                    <i className="damage-setting-placeholder-icon" aria-hidden="true">
+                      ?
+                    </i>
                     <span>
                       <b>이벤트 만찬</b>
                       <small>공격속도·이동속도 +{FEAST_SPEED_BONUS}%</small>
@@ -4534,7 +5190,9 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
                 </div>
                 <div className="card-effect-input">
                   <span className="damage-setting-label">
-                    <i className="damage-setting-placeholder-icon" aria-hidden="true">?</i>
+                    <i className="damage-setting-placeholder-icon" aria-hidden="true">
+                      ?
+                    </i>
                     <span>
                       <b>무공 만찬</b>
                       <small>
@@ -4555,7 +5213,7 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
                 <div className="card-effect-input">
                   <span className="damage-setting-label">
                     <i className={petTraitGradeClass('petTraitMainStat', petTraitMainStatInput)}>
-                      <img src="/images/etc/pet03.png" alt="" />
+                      <img loading="lazy" src="/images/etc/pet03.png" alt="" />
                     </i>
                     <span>
                       <b>우월한 유전자</b>
@@ -4577,7 +5235,7 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
                         petTraitSpeciesDamageInput,
                       )}
                     >
-                      <img src="/images/etc/pet01.png" alt="" />
+                      <img loading="lazy" src="/images/etc/pet01.png" alt="" />
                     </i>
                     <span>
                       <b>자연 선택 (악마)</b>
@@ -4594,12 +5252,9 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
                 <div className="card-effect-input">
                   <span className="damage-setting-label">
                     <i
-                      className={petTraitGradeClass(
-                        'petTraitAdditional',
-                        petTraitAdditionalInput,
-                      )}
+                      className={petTraitGradeClass('petTraitAdditional', petTraitAdditionalInput)}
                     >
-                      <img src="/images/etc/pet02.png" alt="" />
+                      <img loading="lazy" src="/images/etc/pet02.png" alt="" />
                     </i>
                     <span>
                       <b>끓어오르는 힘</b>
@@ -4689,7 +5344,11 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
               </button>
             </header>
             <div className="damage-setting-guide-image">
-              <img src="/images/etc/buff_setting.png" alt="주 스탯 효과 확인 위치 안내" />
+              <img
+                loading="lazy"
+                src="/images/etc/buff_setting.png"
+                alt="주 스탯 효과 확인 위치 안내"
+              />
             </div>
           </section>
         </div>
@@ -4708,7 +5367,8 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
                 <h2>최종 공격력 계산식</h2>
                 <p>
                   주 스탯 → 무기 공격력 → 기본 공격력 → 최종 공격력 순서로 계산합니다. 전투 중
-                  발동하는 조건부 항목은 표시하거나 합산하지 않고, 마을 기준 상시 적용값만 보여줍니다.
+                  발동하는 조건부 항목은 표시하거나 합산하지 않고, 마을 기준 상시 적용값만
+                  보여줍니다.
                 </p>
               </div>
               <button type="button" onClick={() => setShowFormulaModal(false)} aria-label="닫기">
@@ -4717,14 +5377,14 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
             </header>
             <div className="damage-formula-modal-body">
               <AttackPowerStaircase
-                mainStatData={mainStatData}
-                weaponAttack={weaponAttack}
+                mainStatData={townMainStatData}
+                weaponAttack={townWeaponAttack}
                 weaponAttackTotal={weaponAttackTotalTown}
-                mainStat={mainStat}
-                baseAttackRate={baseAttackRate}
+                mainStat={townMainStat}
+                baseAttackRate={townBaseAttackRate}
                 pureAttackPower={pureAttackPowerTown}
                 finalBaseAttack={finalBaseAttackTown}
-                attackPower={attackPower}
+                attackPower={townAttackPower}
                 finalAttackPower={finalAttackPowerTown}
                 apiAttack={attack}
                 enabledConditionalKeys={EMPTY_CONDITIONAL_KEYS}
@@ -4761,12 +5421,17 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
                   onMouseLeave={() => onHover?.(null)}
                   key={item.Name}
                 >
-                  {item.Icon ? <img src={item.Icon} alt="" /> : <Swords />}
+                  {item.Icon ? <img loading="lazy" src={item.Icon} alt="" /> : <Swords />}
                   <span>
                     <b>{item.Name}</b>
                     <small>
-                      Lv.{item.Level} · 총 {numberText(hitSummary.total)}타 · 모션{' '}
-                      {hitSummary.motions}개
+                      Lv.{item.Level}
+                      {mappedMode
+                        ? ` · ${damageOptionSkillCategoryLabel(
+                            damageOptionSkillCategory(item),
+                          )}`
+                        : ''}
+                      {' · '}총 {numberText(hitSummary.total)}타 · 모션 {hitSummary.motions}개
                     </small>
                   </span>
                 </button>
@@ -4795,9 +5460,14 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
 
         <main className="damage-analysis-detail">
           <header>
-            {skill.Icon && <img src={skill.Icon} alt="" />}
+            {skill.Icon && <img loading="lazy" src={skill.Icon} alt="" />}
             <span>
-              <small>{skill.Type || '스킬'}</small>
+              <small>
+                {skill.Type || '스킬'}
+                {mappedMode
+                  ? ` · ${damageOptionSkillCategoryLabel(selectedSkillCategory)}`
+                  : ''}
+              </small>
               <h3>{skill.Name}</h3>
               <em>Lv.{skill.Level}</em>
             </span>
@@ -4865,12 +5535,7 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
                           step="1"
                           value={input.repeat ?? motion.repeat}
                           onChange={(event) =>
-                            updateMotionInput(
-                              skill.Name,
-                              motion.key,
-                              'repeat',
-                              event.target.value,
-                            )
+                            updateMotionInput(skill.Name, motion.key, 'repeat', event.target.value)
                           }
                           aria-label={`${motion.order}타 반복 횟수`}
                         />
@@ -5014,11 +5679,11 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
                               </code>
                             </div>
                             <p className="weapon-attack-note">
-                              루메루스 기본 방어력은 {numberText(LUMERUS_BASE_DEFENSE)}이고,
-                              추가 데미지 감소 20%를 ×
-                              {numberText(LUMERUS_DAMAGE_REDUCTION_MULTIPLIER)}로 적용합니다.
-                              현재 방어력 감소 효과는 {numberText(LUMERUS_DEFENSE_REDUCTION)}%입니다.
-                              방어력 감소 효과가 생기면 유효 방어력 부분만 달라집니다.
+                              루메루스 기본 방어력은 {numberText(LUMERUS_BASE_DEFENSE)}이고, 추가
+                              데미지 감소 20%를 ×{numberText(LUMERUS_DAMAGE_REDUCTION_MULTIPLIER)}로
+                              적용합니다. 현재 방어력 감소 효과는{' '}
+                              {numberText(LUMERUS_DEFENSE_REDUCTION)}%입니다. 방어력 감소 효과가
+                              생기면 유효 방어력 부분만 달라집니다.
                             </p>
                           </div>
                         ),
@@ -5050,8 +5715,7 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
                       CRIT_HIT_DAMAGE_FINAL: {
                         resolved: true,
                         expanded: showCritHitDamageFinalDetail,
-                        toggle: () =>
-                          setShowCritHitDamageFinalDetail((current) => !current),
+                        toggle: () => setShowCritHitDamageFinalDetail((current) => !current),
                         summary: `×${numberText(critHitDamageMultiplier)}`,
                         Component: (
                           <FinalDamageIncreaseBreakdown
@@ -5149,8 +5813,8 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
                               <code>{keenPenalty.description}</code>
                             </div>
                             <p className="weapon-attack-note">
-                              패널티 발동 여부는 치명타 여부와 별개이므로 최종 결과를
-                              네 가지 조합으로 나눠 계산합니다.
+                              패널티 발동 여부는 치명타 여부와 별개이므로 최종 결과를 네 가지
+                              조합으로 나눠 계산합니다.
                             </p>
                           </div>
                         ),
@@ -5175,8 +5839,8 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
                               <code>{keenPenalty.description}</code>
                             </div>
                             <p className="weapon-attack-note">
-                              패널티 발동 여부는 치명타 여부와 별개이므로 최종 결과를
-                              네 가지 조합으로 나눠 계산합니다.
+                              패널티 발동 여부는 치명타 여부와 별개이므로 최종 결과를 네 가지
+                              조합으로 나눠 계산합니다.
                             </p>
                           </div>
                         ),
@@ -5250,9 +5914,7 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
               <Sigma />
               <span>
                 <h4>자동 최종 데미지 계산</h4>
-                <small>
-                  자동 산출한 스킬 계수와 저장된 모션 상수로 아래 결과를 계산합니다.
-                </small>
+                <small>자동 산출한 스킬 계수와 저장된 모션 상수로 아래 결과를 계산합니다.</small>
               </span>
             </div>
             {motionResults.some((motion) => motion.ready) && (
@@ -5301,9 +5963,7 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
                     >
                       <span>
                         <b>{damageCase.critical ? '치명타 발생' : '치명타 미발생'}</b>
-                        <small>
-                          예리한 둔기 패널티 {damageCase.penalized ? '발동' : '미발동'}
-                        </small>
+                        <small>예리한 둔기 패널티 {damageCase.penalized ? '발동' : '미발동'}</small>
                       </span>
                       <strong>{damageResultText(damageCase.damage)}</strong>
                       <em>발생 확률 {numberText(damageCase.probability * 100)}%</em>
@@ -5321,10 +5981,10 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
                   </code>
                 </div>
                 <p className="damage-case-note">
-                  내부 계산은 소수점을 유지하고 결과 표시에서만 FLOOR 처리해 억·만·천
-                  단위로 구분합니다. 툴팁에서 감지한 반복 타수와 사용자가 보정한 횟수를
-                  합산합니다. 아직 자동 계산되지 않는 트라이포드 피해
-                  배율·백어택·헤드어택 등의 값은 현재 결과에서 ×1입니다.
+                  내부 계산은 소수점을 유지하고 결과 표시에서만 FLOOR 처리해 억·만·천 단위로
+                  구분합니다. 툴팁에서 감지한 반복 타수와 사용자가 보정한 횟수를 합산합니다. 아직
+                  자동 계산되지 않는 트라이포드 피해 배율·백어택·헤드어택 등의 값은 현재 결과에서
+                  ×1입니다.
                   {keenPenalty.active
                     ? ` 예리한 둔기는 패널티 확률 ${numberText(keenPenalty.rate)}%, 발동 시 ×${numberText(keenPenalty.multiplier)}로 적용했습니다.`
                     : ' 활성화된 예리한 둔기가 없어 패널티 경우는 표시하지 않습니다.'}
@@ -5334,7 +5994,8 @@ export default function DamageAnalysis({ armory, profile, skills, siblings, onHo
               <div className="damage-case-input-required">
                 <b>스킬 계수 자동 계산에 필요한 데이터가 부족합니다.</b>
                 <small>
-                  공격력 전투 특성의 기본 공격력, 스킬 툴팁 표시 피해, 해당 레벨의 모션 상수를 확인해 주세요.
+                  공격력 전투 특성의 기본 공격력, 스킬 툴팁 표시 피해, 해당 레벨의 모션 상수를
+                  확인해 주세요.
                 </small>
               </div>
             )}

@@ -36,17 +36,20 @@ public class AbilityStoneAuctionService {
     private final Cache<String, Long> configurationPriceCache;
     private final AbilityStonePriceObservationRepository observations;
     private final ExecutorService backgroundJobExecutor;
+    private final boolean backgroundRefreshEnabled;
 
     public AbilityStoneAuctionService(RestClient lostArkRestClient, PersistentApiCache persistentCache,
                                       AbilityStonePriceObservationRepository observations,
                                       ObjectMapper objectMapper,
                                       ExecutorService backgroundJobExecutor,
-                                      @Value("${app.auction-cache-ttl-seconds:900}") long ttlSeconds) {
+                                      @Value("${app.auction-cache-ttl-seconds:900}") long ttlSeconds,
+                                      @Value("${app.ability-stone-refresh.enabled:true}") boolean backgroundRefreshEnabled) {
         this.client = lostArkRestClient;
         this.persistentCache = persistentCache;
         this.objectMapper = objectMapper;
         this.observations = observations;
         this.backgroundJobExecutor = backgroundJobExecutor;
+        this.backgroundRefreshEnabled = backgroundRefreshEnabled;
         Caffeine<Object, Object> builder = Caffeine.newBuilder().maximumSize(2);
         if (ttlSeconds > 0) builder.expireAfterWrite(Duration.ofSeconds(ttlSeconds));
         this.cache = builder.build();
@@ -76,6 +79,7 @@ public class AbilityStoneAuctionService {
             initialDelayString = "${app.ability-stone-refresh-initial-delay-ms:5000}"
     )
     void refreshValue() {
+        if (!backgroundRefreshEnabled) return;
         backgroundJobExecutor.execute(this::doRefreshValue);
     }
 

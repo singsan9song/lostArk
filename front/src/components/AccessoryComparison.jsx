@@ -2,19 +2,53 @@ import { Plus, Scale, Trash2 } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { cleanApiText } from '../lib/text'
 import { lostArkApi } from '../lib/api'
-import {
-  calculateAccessoryOptionShares,
-  calculateAccessoryReplacement,
-} from './DamageAnalysis'
+import ancientBraceletOptions from '../data/ancient_bracelet_options.json'
+import relicBraceletOptions from '../data/relic_bracelet_options.json'
+import { calculateAccessoryOptionShares, calculateAccessoryReplacement } from './DamageAnalysis'
 
 const ACCESSORY_TYPES = new Set(['목걸이', '귀걸이', '반지', '팔찌'])
 const DEFAULT_EFFECT = () => ({ name: '', value: '' })
 const MAIN_STATS = ['힘', '민첩', '지능']
+const BRACELET_DATA = {
+  고대: ancientBraceletOptions,
+  유물: relicBraceletOptions,
+}
+const BRACELET_IMAGES = {
+  고대: '/images/rewards/acc_327.png',
+  유물: '/images/rewards/acc_328.png',
+}
+const BRACELET_NAMES = {
+  고대: '찬란한 구원자의 팔찌',
+  유물: '고귀한 구원자의 팔찌',
+}
+const BRACELET_CATEGORIES = ['기본 효과', '전투 특성', '특수 효과']
 const DEALER_OPTIONS = [
-  { key: 'attackPercent', name: '공격력 %', engineName: '공격력', values: { 상: 1.55, 중: 0.95, 하: 0.4 }, percent: true },
-  { key: 'weaponPercent', name: '무기 공격력 %', engineName: '무기 공격력', values: { 상: 3, 중: 1.8, 하: 0.8 }, percent: true },
-  { key: 'attackFlat', name: '공격력 +', engineName: '공격력', values: { 상: 390, 중: 195, 하: 80 } },
-  { key: 'weaponFlat', name: '무기 공격력 +', engineName: '무기 공격력', values: { 상: 960, 중: 480, 하: 195 } },
+  {
+    key: 'attackPercent',
+    name: '공격력 %',
+    engineName: '공격력',
+    values: { 상: 1.55, 중: 0.95, 하: 0.4 },
+    percent: true,
+  },
+  {
+    key: 'weaponPercent',
+    name: '무기 공격력 %',
+    engineName: '무기 공격력',
+    values: { 상: 3, 중: 1.8, 하: 0.8 },
+    percent: true,
+  },
+  {
+    key: 'attackFlat',
+    name: '공격력 +',
+    engineName: '공격력',
+    values: { 상: 390, 중: 195, 하: 80 },
+  },
+  {
+    key: 'weaponFlat',
+    name: '무기 공격력 +',
+    engineName: '무기 공격력',
+    values: { 상: 960, 중: 480, 하: 195 },
+  },
 ]
 const OPTION_GRADE_FILTERS = [
   ['MID_SINGLE', '중단일'],
@@ -73,9 +107,7 @@ function currentAccessoryEffects(item) {
   if (!item) return []
   if (item.Type === '팔찌') {
     return tooltipEffectLines(tooltipPart(item.Tooltip, '팔찌 효과')).map((line, index) => {
-      const match = line.match(
-        /^(.*?)([+-]\s*[\d,]+(?:\.\d+)?%?)$/,
-      )
+      const match = line.match(/^(.*?)([+-]\s*[\d,]+(?:\.\d+)?%?)$/)
       return {
         key: `bracelet-${index}-${line}`,
         name: match?.[1]?.trim() || line,
@@ -93,9 +125,7 @@ function currentAccessoryEffects(item) {
         !/COLOR=['"]?#686660/i.test(segment) &&
         /(?:힘|민첩|지능)\s*\+\s*[\d,]+/.test(cleanApiText(segment)),
     )
-  const mainStatMatch = cleanApiText(mainStatLine || '').match(
-    /(힘|민첩|지능)\s*\+\s*([\d,]+)/,
-  )
+  const mainStatMatch = cleanApiText(mainStatLine || '').match(/(힘|민첩|지능)\s*\+\s*([\d,]+)/)
   if (mainStatMatch) {
     effects.push({
       key: 'main-stat',
@@ -107,23 +137,23 @@ function currentAccessoryEffects(item) {
 
   effects.push(
     ...tooltipPart(item.Tooltip, '연마 효과')
-    .split(/<br\s*\/?>/i)
-    .map((segment, index) => {
-      const match = segment.match(
-        /([가-힣\s]+?)\s*<FONT\s+color=['"]?#?[A-F0-9]{6}['"]?[^>]*>\s*(\+[\d,]+(?:\.\d+)?%?)/i,
-      )
-      if (!match) return null
-      const name = cleanApiText(match[1]).trim()
-      const value = match[2]
-      return {
-        key: `refine-${index}-${name}`,
-        name,
-        value,
-        line: `${name} ${value}`,
-      }
-    })
-    .filter(Boolean)
-    .slice(0, 3),
+      .split(/<br\s*\/?>/i)
+      .map((segment, index) => {
+        const match = segment.match(
+          /([가-힣\s]+?)\s*<FONT\s+color=['"]?#?[A-F0-9]{6}['"]?[^>]*>\s*(\+[\d,]+(?:\.\d+)?%?)/i,
+        )
+        if (!match) return null
+        const name = cleanApiText(match[1]).trim()
+        const value = match[2]
+        return {
+          key: `refine-${index}-${name}`,
+          name,
+          value,
+          line: `${name} ${value}`,
+        }
+      })
+      .filter(Boolean)
+      .slice(0, 3),
   )
 
   const enlightenment = tooltipText(item.Tooltip).match(/깨달음\s*\+(\d+)/)?.[1]
@@ -138,24 +168,62 @@ function currentAccessoryEffects(item) {
   return effects
 }
 
-function numericEffectValue(value) {
-  const number = Number(String(value || '').replace(/[,%+\s]/g, ''))
-  return Number.isFinite(number) ? number : null
+function braceletDefinition(grade, option) {
+  return BRACELET_DATA[grade]?.[option?.category]?.[option?.name] || null
 }
 
-function effectUnit(value) {
-  return String(value || '').includes('%') ? '%' : ''
+function braceletEffect(option, grade) {
+  const definition = braceletDefinition(grade, option)
+  if (!definition) return null
+  let values
+  let value
+  if (definition.range) {
+    const min = Number(definition.range.min)
+    const max = Number(definition.range.max)
+    const entered = Number(option.value)
+    const number = Number.isFinite(entered) ? Math.min(Math.max(entered, min), max) : min
+    values = { n: number }
+    value = `+${number.toLocaleString('ko-KR')}`
+  } else {
+    const tier = definition.grades?.[option.tier] ? option.tier : '상'
+    values = definition.grades?.[tier]
+    value = tier
+  }
+  if (!values) return null
+  const line = definition.template.replace(/\{(\w+)\}/g, (_, key) =>
+    values[key] == null ? '' : values[key].toLocaleString('ko-KR'),
+  )
+  return { name: option.name, value, line, tier: option.tier }
+}
+
+function defaultBraceletOption(grade, category = '기본 효과') {
+  const data = BRACELET_DATA[grade]?.[category] || {}
+  const name = Object.keys(data)[0] || ''
+  const definition = data[name]
+  return {
+    category,
+    name,
+    value: definition?.range?.min ?? '',
+    tier: definition?.grades ? '상' : '',
+  }
 }
 
 function candidateEffects(candidate) {
   if (!candidate) return []
+  if (candidate.bracelet) {
+    return (candidate.braceletOptions || [])
+      .map((option) => braceletEffect(option, candidate.grade))
+      .filter(Boolean)
+  }
   if (candidate.auctionItem) {
     const mainStatName = candidate.mainStatName || '힘'
-    const effects = [{
-      name: mainStatName,
-      value: `+${candidate.auctionItem.mainStatValue}`,
-      line: `${mainStatName} +${candidate.auctionItem.mainStatValue}`,
-    }]
+    const effects = [
+      {
+        name: mainStatName,
+        value: `+${candidate.auctionItem.mainStatValue}`,
+        line: `${mainStatName} +${candidate.auctionItem.mainStatValue}`,
+      },
+    ]
     candidate.auctionItem.options
       .filter((option) => option.type === 'ACCESSORY_UPGRADE' && option.key)
       .forEach((auctionOption) => {
@@ -196,30 +264,6 @@ function candidateEffects(candidate) {
   return candidate.effects.filter((effect) => effect.name.trim() && effect.value.trim())
 }
 
-function effectRows(currentEffects, comparisonEffects) {
-  const names = [
-    ...new Set([
-      ...currentEffects.map((effect) => effect.name.trim()),
-      ...comparisonEffects.map((effect) => effect.name.trim()),
-    ]),
-  ]
-  return names.map((name) => {
-    const current = currentEffects.find((effect) => effect.name.trim() === name)
-    const comparison = comparisonEffects.find((effect) => effect.name.trim() === name)
-    const currentValue = numericEffectValue(current?.value)
-    const comparisonValue = numericEffectValue(comparison?.value)
-    return {
-      name,
-      current,
-      comparison,
-      difference:
-        currentValue != null && comparisonValue != null
-          ? comparisonValue - currentValue
-          : null,
-    }
-  })
-}
-
 function percentText(value) {
   const number = Number(value)
   if (!Number.isFinite(number)) return '0'
@@ -230,7 +274,9 @@ function percentText(value) {
 }
 
 function normalizeEffectText(value) {
-  return cleanApiText(value || '').replace(/\s+/g, '').replaceAll(',', '')
+  return cleanApiText(value || '')
+    .replace(/\s+/g, '')
+    .replaceAll(',', '')
 }
 
 function shareForEffect(effect, shares) {
@@ -296,7 +342,6 @@ export default function AccessoryComparison({
   const selectedCandidate =
     currentCandidates.find((candidate) => candidate.id === selectedCandidateId) || null
   const selectedComparisonEffects = candidateEffects(selectedCandidate)
-  const comparisonRows = effectRows(currentEffects, selectedComparisonEffects)
   const currentMainStatName =
     currentEffects.find((effect) => MAIN_STATS.includes(effect.name))?.name || '힘'
   const optionShares = useMemo(
@@ -445,9 +490,20 @@ export default function AccessoryComparison({
     const id = nextId.current++
     const candidate = {
       id,
-      name: `${currentType} 비교 ${currentCandidates.length + 1}`,
+      name:
+        currentType === '팔찌'
+          ? BRACELET_NAMES[currentItem?.Grade === '유물' ? '유물' : '고대']
+          : `${currentType} 비교 ${currentCandidates.length + 1}`,
       ...(currentType === '팔찌'
-        ? { effects: [DEFAULT_EFFECT(), DEFAULT_EFFECT(), DEFAULT_EFFECT()] }
+        ? {
+            structured: true,
+            bracelet: true,
+            grade: currentItem?.Grade === '유물' ? '유물' : '고대',
+            quality: 100,
+            braceletOptions: Array.from({ length: 3 }, () =>
+              defaultBraceletOption(currentItem?.Grade === '유물' ? '유물' : '고대'),
+            ),
+          }
         : {
             structured: true,
             grade: '고대',
@@ -470,10 +526,12 @@ export default function AccessoryComparison({
     setAuctionLoading(true)
     setAuctionError('')
     try {
+      // DB-first: the background collector (every 60s) already keeps listings reasonably
+      // fresh, so search doesn't need to force a live external API pull on every click.
       const response = await lostArkApi.searchAccessoryAuctions({
         part: currentType,
         ...auctionFilters,
-        refresh: true,
+        refresh: false,
       })
       setAuctionResults(response?.items || [])
     } catch (error) {
@@ -527,9 +585,7 @@ export default function AccessoryComparison({
   const removeCandidate = (id) => {
     setCandidates((current) => ({
       ...current,
-      [currentType]: (current[currentType] || []).filter(
-        (candidate) => candidate.id !== id,
-      ),
+      [currentType]: (current[currentType] || []).filter((candidate) => candidate.id !== id),
     }))
   }
 
@@ -560,6 +616,61 @@ export default function AccessoryComparison({
           dealerOptions[key] = tier
         })
       return { ...current, refineCount, dealerOptions }
+    })
+  }
+
+  const setBraceletGrade = (candidateId, grade) => {
+    updateCandidate(candidateId, (current) => ({
+      ...current,
+      grade,
+      name: Object.values(BRACELET_NAMES).includes(current.name)
+        ? BRACELET_NAMES[grade]
+        : current.name,
+      braceletOptions: (current.braceletOptions || []).map((option) => {
+        const definition = braceletDefinition(grade, option)
+        if (!definition) return defaultBraceletOption(grade, option.category)
+        if (definition.range) {
+          const value = Math.min(
+            Math.max(Number(option.value) || definition.range.min, definition.range.min),
+            definition.range.max,
+          )
+          return { ...option, value, tier: '' }
+        }
+        return {
+          ...option,
+          value: '',
+          tier: definition.grades?.[option.tier] ? option.tier : '상',
+        }
+      }),
+    }))
+  }
+
+  const setBraceletOptionCategory = (candidateId, optionIndex, category) => {
+    updateCandidate(candidateId, (current) => ({
+      ...current,
+      braceletOptions: current.braceletOptions.map((option, index) =>
+        index === optionIndex ? defaultBraceletOption(current.grade, category) : option,
+      ),
+    }))
+  }
+
+  const setBraceletOptionName = (candidateId, optionIndex, name) => {
+    updateCandidate(candidateId, (current) => {
+      const definition =
+        BRACELET_DATA[current.grade]?.[current.braceletOptions[optionIndex].category]?.[name]
+      return {
+        ...current,
+        braceletOptions: current.braceletOptions.map((option, index) =>
+          index === optionIndex
+            ? {
+                ...option,
+                name,
+                value: definition?.range?.min ?? '',
+                tier: definition?.grades ? '상' : '',
+              }
+            : option,
+        ),
+      }
     })
   }
 
@@ -607,7 +718,7 @@ export default function AccessoryComparison({
                 onMouseLeave={() => onHover?.(null)}
                 key={`${item.Type}-${item.Name}-${equipmentIndex}`}
               >
-                {item.Icon && <img src={item.Icon} alt="" />}
+                {item.Icon && <img loading="lazy" src={item.Icon} alt="" />}
                 <span>
                   <small>
                     {index + 1}. {item.Type}
@@ -637,7 +748,7 @@ export default function AccessoryComparison({
                     onMouseEnter={(event) => showItemTooltip(event, currentItem)}
                     onMouseLeave={() => onHover?.(null)}
                   >
-                    {currentItem.Icon && <img src={currentItem.Icon} alt="" />}
+                    {currentItem.Icon && <img loading="lazy" src={currentItem.Icon} alt="" />}
                     <span>
                       <b>{currentItem.Name}</b>
                       <small>{currentItem.Grade}</small>
@@ -701,8 +812,27 @@ export default function AccessoryComparison({
               </header>
               {selectedCandidate ? (
                 <>
-                  <div className="accessory-comparison-name">{selectedCandidate.name}</div>
-                  {selectedCandidate.structured && (
+                  {selectedCandidate.bracelet ? (
+                    <div className="accessory-summary-item">
+                      <img
+                        src={BRACELET_IMAGES[selectedCandidate.grade]}
+                        alt=""
+                      />
+                      <span>
+                        <b>
+                          {selectedCandidate.grade} {selectedCandidate.name}
+                        </b>
+                        <small>팔찌</small>
+                      </span>
+                      <strong className="accessory-summary-item-total">
+                        <small>딜 + 총합</small>
+                        <b>+{percentText(comparisonOptionShareTotal)}%</b>
+                      </strong>
+                    </div>
+                  ) : (
+                    <div className="accessory-comparison-name">{selectedCandidate.name}</div>
+                  )}
+                  {selectedCandidate.structured && !selectedCandidate.bracelet && (
                     <div className="accessory-comparison-meta">
                       <span>
                         <small>등급</small>
@@ -718,7 +848,7 @@ export default function AccessoryComparison({
                       </span>
                     </div>
                   )}
-                  {comparisonResult.total != null && (
+                  {comparisonResult.total != null && !selectedCandidate.bracelet && (
                     <div
                       className={`accessory-comparison-total${
                         comparisonResult.total >= 0 ? ' up' : ' down'
@@ -729,6 +859,14 @@ export default function AccessoryComparison({
                         {comparisonResult.total >= 0 ? '+' : ''}
                         {percentText(comparisonResult.total)}%
                       </b>
+                    </div>
+                  )}
+                  {selectedCandidate.bracelet && (
+                    <div className="accessory-ability-heading">
+                      <span>
+                        <small>TOOLTIP ABILITY</small>
+                        <b>비교 악세 능력치</b>
+                      </span>
                     </div>
                   )}
                   <div className="accessory-summary-effects">
@@ -752,7 +890,7 @@ export default function AccessoryComparison({
                       <p>아래 비교 악세에 옵션을 입력하세요.</p>
                     )}
                   </div>
-                  {comparisonResult.total != null && (
+                  {comparisonResult.total != null && !selectedCandidate.bracelet && (
                     <div className="accessory-comparison-total up">
                       <span>옵션별 딜 + 총합</span>
                       <b>+{percentText(comparisonOptionShareTotal)}%</b>
@@ -768,35 +906,6 @@ export default function AccessoryComparison({
               )}
             </article>
           </section>
-
-          {selectedCandidate && (
-            <section className="battle-panel accessory-option-difference">
-              <header>
-                <b>옵션 차이</b>
-                <small>기준 악세와 선택한 비교 악세의 입력 능력치를 비교합니다.</small>
-              </header>
-              <div>
-                {comparisonRows.map((row) => (
-                  <span key={row.name}>
-                    <b>{row.name}</b>
-                    <small>{row.current?.value || '-'}</small>
-                    <small>{row.comparison?.value || '-'}</small>
-                    <em
-                      className={
-                        row.difference == null ? '' : row.difference >= 0 ? 'up' : 'down'
-                      }
-                    >
-                      {row.difference == null
-                        ? '-'
-                        : `${row.difference >= 0 ? '+' : ''}${row.difference}${effectUnit(
-                            row.comparison?.value || row.current?.value,
-                          )}`}
-                    </em>
-                  </span>
-                ))}
-              </div>
-            </section>
-          )}
 
           {showAuctionSearch && currentType !== '팔찌' && (
             <section className="battle-panel accessory-auction-search">
@@ -817,9 +926,7 @@ export default function AccessoryComparison({
                       <button
                         type="button"
                         className={auctionFilters.grade === grade ? 'active' : ''}
-                        onClick={() =>
-                          setAuctionFilters((current) => ({ ...current, grade }))
-                        }
+                        onClick={() => setAuctionFilters((current) => ({ ...current, grade }))}
                         key={grade}
                       >
                         {grade}
@@ -857,12 +964,8 @@ export default function AccessoryComparison({
                     {[1, 2, 3].map((level) => (
                       <button
                         type="button"
-                        className={
-                          auctionFilters.refineLevels.includes(level) ? 'active' : ''
-                        }
-                        onClick={() =>
-                          toggleAuctionFilterValue('refineLevels', level)
-                        }
+                        className={auctionFilters.refineLevels.includes(level) ? 'active' : ''}
+                        onClick={() => toggleAuctionFilterValue('refineLevels', level)}
                         key={level}
                       >
                         {level}연마
@@ -876,12 +979,8 @@ export default function AccessoryComparison({
                     {DEALER_OPTIONS.map((option) => (
                       <button
                         type="button"
-                        className={
-                          auctionFilters.optionTypes.includes(option.key) ? 'active' : ''
-                        }
-                        onClick={() =>
-                          toggleAuctionFilterValue('optionTypes', option.key)
-                        }
+                        className={auctionFilters.optionTypes.includes(option.key) ? 'active' : ''}
+                        onClick={() => toggleAuctionFilterValue('optionTypes', option.key)}
                         key={option.key}
                       >
                         {option.name}
@@ -933,12 +1032,8 @@ export default function AccessoryComparison({
               )}
               <div className="accessory-auction-results">
                 {strongerAuctionResults.map((item) => (
-                  <button
-                    type="button"
-                    onClick={() => selectAuctionItem(item)}
-                    key={item.id}
-                  >
-                    <img src={item.icon} alt="" />
+                  <button type="button" onClick={() => selectAuctionItem(item)} key={item.id}>
+                    <img loading="lazy" src={item.icon} alt="" />
                     <span className="accessory-auction-item-name">
                       <small>
                         {item.grade} · 품질 {item.quality} · {item.upgradeLevel}연마
@@ -1029,8 +1124,8 @@ export default function AccessoryComparison({
                       <div className="selected-auction-accessory">
                         <span>
                           <small>
-                            {candidate.grade} · 품질 {candidate.quality} ·{' '}
-                            {candidate.refineCount}연마
+                            {candidate.grade} · 품질 {candidate.quality} · {candidate.refineCount}
+                            연마
                           </small>
                           <b>{candidate.auctionItem.buyPrice.toLocaleString('ko-KR')} G</b>
                         </span>
@@ -1041,6 +1136,147 @@ export default function AccessoryComparison({
                             <b>{effect.value}</b>
                           </div>
                         ))}
+                      </div>
+                    ) : candidate.bracelet ? (
+                      <div
+                        className="structured-accessory-form bracelet-builder"
+                        onClick={(event) => event.stopPropagation()}
+                      >
+                        <div className="bracelet-builder-grade">
+                          <img src={BRACELET_IMAGES[candidate.grade]} alt="" />
+                          <label>
+                            <span>팔찌 등급</span>
+                            <select
+                              value={candidate.grade}
+                              onChange={(event) =>
+                                setBraceletGrade(candidate.id, event.target.value)
+                              }
+                            >
+                              <option value="유물">유물</option>
+                              <option value="고대">고대</option>
+                            </select>
+                          </label>
+                          <b>{BRACELET_NAMES[candidate.grade]}</b>
+                        </div>
+                        <div className="bracelet-option-list">
+                          {candidate.braceletOptions.map((option, optionIndex) => {
+                            const definition = braceletDefinition(candidate.grade, option)
+                            return (
+                              <div className="bracelet-option-row" key={optionIndex}>
+                                <select
+                                  value={option.category}
+                                  aria-label={`${optionIndex + 1}번 팔찌 옵션 분류`}
+                                  onChange={(event) =>
+                                    setBraceletOptionCategory(
+                                      candidate.id,
+                                      optionIndex,
+                                      event.target.value,
+                                    )
+                                  }
+                                >
+                                  {BRACELET_CATEGORIES.map((category) => (
+                                    <option value={category} key={category}>
+                                      {category}
+                                    </option>
+                                  ))}
+                                </select>
+                                <select
+                                  value={option.name}
+                                  aria-label={`${optionIndex + 1}번 팔찌 옵션`}
+                                  onChange={(event) =>
+                                    setBraceletOptionName(
+                                      candidate.id,
+                                      optionIndex,
+                                      event.target.value,
+                                    )
+                                  }
+                                >
+                                  {Object.keys(
+                                    BRACELET_DATA[candidate.grade]?.[option.category] || {},
+                                  ).map((name) => (
+                                    <option value={name} key={name}>
+                                      {name}
+                                    </option>
+                                  ))}
+                                </select>
+                                {definition?.range ? (
+                                  <input
+                                    type="number"
+                                    min={definition.range.min}
+                                    max={definition.range.max}
+                                    value={option.value}
+                                    aria-label={`${optionIndex + 1}번 팔찌 옵션 수치`}
+                                    onChange={(event) =>
+                                      updateCandidate(candidate.id, (current) => ({
+                                        ...current,
+                                        braceletOptions: current.braceletOptions.map(
+                                          (item, index) =>
+                                            index === optionIndex
+                                              ? { ...item, value: event.target.value }
+                                              : item,
+                                        ),
+                                      }))
+                                    }
+                                  />
+                                ) : (
+                                  <select
+                                    value={option.tier}
+                                    aria-label={`${optionIndex + 1}번 팔찌 옵션 등급`}
+                                    onChange={(event) =>
+                                      updateCandidate(candidate.id, (current) => ({
+                                        ...current,
+                                        braceletOptions: current.braceletOptions.map(
+                                          (item, index) =>
+                                            index === optionIndex
+                                              ? { ...item, tier: event.target.value }
+                                              : item,
+                                        ),
+                                      }))
+                                    }
+                                  >
+                                    {Object.keys(definition?.grades || {}).map((tier) => (
+                                      <option value={tier} key={tier}>
+                                        {tier}
+                                      </option>
+                                    ))}
+                                  </select>
+                                )}
+                                <button
+                                  type="button"
+                                  aria-label={`${optionIndex + 1}번 팔찌 옵션 삭제`}
+                                  disabled={candidate.braceletOptions.length <= 1}
+                                  onClick={() =>
+                                    updateCandidate(candidate.id, (current) => ({
+                                      ...current,
+                                      braceletOptions: current.braceletOptions.filter(
+                                        (_, index) => index !== optionIndex,
+                                      ),
+                                    }))
+                                  }
+                                >
+                                  <Trash2 />
+                                </button>
+                                <small>{braceletEffect(option, candidate.grade)?.line}</small>
+                              </div>
+                            )
+                          })}
+                        </div>
+                        <button
+                          type="button"
+                          className="accessory-effect-add"
+                          disabled={candidate.braceletOptions.length >= 5}
+                          onClick={() =>
+                            updateCandidate(candidate.id, (current) => ({
+                              ...current,
+                              braceletOptions: [
+                                ...current.braceletOptions,
+                                defaultBraceletOption(current.grade),
+                              ],
+                            }))
+                          }
+                        >
+                          <Plus /> 옵션 추가 ({candidate.braceletOptions.length}/5)
+                        </button>
                       </div>
                     ) : candidate.structured ? (
                       <div
@@ -1134,8 +1370,7 @@ export default function AccessoryComparison({
                           {DEALER_OPTIONS.map((option) => {
                             const tier = candidate.dealerOptions?.[option.key] || ''
                             const atLimit =
-                              !tier &&
-                              selectedDealerOptionCount(candidate) >= candidate.refineCount
+                              !tier && selectedDealerOptionCount(candidate) >= candidate.refineCount
                             return (
                               <label key={option.key}>
                                 <span>{option.name}</span>

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import {
   ChevronLeft,
   ChevronRight,
@@ -174,10 +174,22 @@ export default function RankingPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
-  useEffect(() => setPage(0), [metric, server, role, className, engraving])
+  // Filter changes and the page-reset they trigger used to be two separate effects, which
+  // both fired on the same filter change - one request with the stale page, then a second
+  // with page 0. Tracking the filter signature in a ref lets this single effect skip straight
+  // to the page reset (no fetch) when filters change, then fetch once page settles to 0.
+  const filterSignature = `${metric}|${server}|${role}|${className}|${engraving}`
+  const filterSignatureRef = useRef(filterSignature)
 
   useEffect(() => {
-    let active = true
+    const filtersChanged = filterSignatureRef.current !== filterSignature
+    filterSignatureRef.current = filterSignature
+    if (filtersChanged && page !== 0) {
+      setPage(0)
+      return undefined
+    }
+
+    const controller = new AbortController()
     setLoading(true)
     setError('')
     lostArkApi
@@ -189,20 +201,16 @@ export default function RankingPage() {
         engraving,
         page,
         size: PAGE_SIZE,
+        signal: controller.signal,
       })
-      .then((result) => {
-        if (active) setData(result)
-      })
+      .then((result) => setData(result))
       .catch((requestError) => {
-        if (active) setError(requestError.message || '랭킹을 불러오지 못했습니다.')
+        if (requestError.name === 'AbortError') return
+        setError(requestError.message || '랭킹을 불러오지 못했습니다.')
       })
-      .finally(() => {
-        if (active) setLoading(false)
-      })
-    return () => {
-      active = false
-    }
-  }, [metric, server, role, className, engraving, page])
+      .finally(() => setLoading(false))
+    return () => controller.abort()
+  }, [metric, server, role, className, engraving, page, filterSignature])
 
   const copy = metricText[metric]
   const rows = data?.rows || []
@@ -311,7 +319,7 @@ export default function RankingPage() {
                       >
                         <span>
                           {row.characterImage ? (
-                            <img src={row.characterImage} alt="" />
+                            <img loading="lazy" src={row.characterImage} alt="" />
                           ) : (
                             row.className?.[0] || '?'
                           )}

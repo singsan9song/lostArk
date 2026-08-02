@@ -594,8 +594,7 @@
   padding: 15px;
 }
 .accessory-stat-card > header,
-.accessory-engine-result > header,
-.accessory-option-difference > header {
+.accessory-engine-result > header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -901,6 +900,90 @@
   font-size: var(--fs-9);
   text-align: right;
 }
+.accessory-comparison-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.bracelet-comparison-image {
+  width: 34px;
+  height: 34px;
+  border-radius: 7px;
+}
+.bracelet-builder {
+  gap: 12px;
+}
+.bracelet-builder-grade {
+  display: grid;
+  grid-template-columns: 42px 100px minmax(0, 1fr);
+  align-items: end;
+  gap: 8px;
+}
+.bracelet-builder-grade > img {
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+}
+.bracelet-builder-grade > b {
+  align-self: center;
+  overflow: hidden;
+  font-size: var(--fs-9);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.bracelet-option-list {
+  display: grid;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+.bracelet-option-row {
+  display: grid;
+  grid-template-columns: 92px minmax(150px, 1fr) 78px 30px;
+  gap: 6px;
+  padding: 8px;
+  border-radius: 8px;
+  background: var(--surface-2);
+}
+.bracelet-option-row > button {
+  display: grid;
+  width: 30px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: transparent;
+  color: var(--muted);
+  place-items: center;
+}
+.bracelet-option-row > button:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+.bracelet-option-row > button svg {
+  width: 14px;
+  height: 14px;
+}
+.bracelet-option-row > small {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-size: var(--fs-8);
+  line-height: 1.45;
+}
+@media (max-width: 720px) {
+  .bracelet-builder-grade {
+    grid-template-columns: 42px minmax(0, 1fr);
+  }
+  .bracelet-builder-grade > b {
+    grid-column: 1 / -1;
+  }
+  .bracelet-option-row {
+    grid-template-columns: minmax(0, 1fr) 70px 30px;
+  }
+  .bracelet-option-row > select:first-child {
+    grid-column: 1 / -1;
+  }
+}
 .accessory-auction-search {
   display: grid;
   gap: 12px;
@@ -1021,6 +1104,12 @@
   font: inherit;
   text-align: left;
   cursor: pointer;
+  /* Up to 100 rows can render here at once; content-visibility skips layout/paint for
+     rows scrolled out of view instead of the browser doing that work for every row up
+     front. contain-intrinsic-size gives it a placeholder height so scrollbar size stays
+     correct before an off-screen row has ever been measured. */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 68px;
 }
 .accessory-auction-results > button:hover {
   border-color: rgba(167, 139, 250, 0.55);
@@ -1148,44 +1237,6 @@
 .accessory-candidate-effects > div {
   grid-template-columns: minmax(0, 1fr) 90px;
 }
-.accessory-option-difference {
-  padding: 14px;
-}
-.accessory-option-difference > header small {
-  color: var(--muted);
-  font-size: var(--fs-8);
-}
-.accessory-option-difference > div {
-  display: grid;
-  gap: 5px;
-  margin-top: 9px;
-}
-.accessory-option-difference > div > span {
-  display: grid;
-  grid-template-columns: minmax(130px, 1fr) 90px 90px 70px;
-  gap: 7px;
-  align-items: center;
-  padding: 7px 8px;
-  border-radius: 7px;
-  background: var(--surface-2);
-  font-size: var(--fs-9);
-}
-.accessory-option-difference small {
-  color: var(--muted);
-  text-align: right;
-}
-.accessory-option-difference em {
-  color: var(--muted);
-  font-style: normal;
-  font-weight: 800;
-  text-align: right;
-}
-.accessory-option-difference em.up {
-  color: #86c46c;
-}
-.accessory-option-difference em.down {
-  color: #f87171;
-}
 .accessory-engine-result {
   display: grid;
   gap: 5px;
@@ -1269,12 +1320,6 @@
   }
   .accessory-selection-summary {
     grid-template-columns: 1fr;
-  }
-  .accessory-option-difference > div > span {
-    grid-template-columns: minmax(0, 1fr) auto auto;
-  }
-  .accessory-option-difference > div > span > b {
-    grid-column: 1 / -1;
   }
   .accessory-auction-filters {
     grid-template-columns: 1fr;

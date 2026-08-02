@@ -41,7 +41,7 @@ public class CharacterRankingBackfillService {
         List<GameCharacter> pending = characters.findCharactersNeedingRanking(PageRequest.of(0, batchSize));
         for (GameCharacter character : pending) {
             CharacterSnapshot snapshot = snapshots
-                    .findTopByCharacterNameIgnoreCaseOrderByFetchedAtDesc(character.getCharacterName())
+                    .findTopByCharacterNameOrderByFetchedAtDesc(character.getCharacterName())
                     .orElse(null);
             JsonNode armory = null;
             if (snapshot != null) {

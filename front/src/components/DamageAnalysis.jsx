@@ -120,7 +120,15 @@ function PetTraitOptionButtons({ settingKey, value, onChange, label }) {
 const numberText = (value) => {
   const number = Number(String(value || 0).replaceAll(',', ''))
   if (!Number.isFinite(number)) return '0'
-  const text = String(number)
+  // 168.57/100+1 같은 계산에서 나오는 IEEE 754 표현 오차(...99999998류)만 화면
+  // 표시에서 잘라낸다 - 계산에 쓰이는 number 자체는 그대로 두고, 문자열로 바꾸는
+  // 이 시점에만 유효숫자 12자리로 정리한다(정수는 노이즈가 낄 여지가 없고 큰
+  // 정수에 toPrecision을 쓰면 불필요하게 지수 표기가 될 수 있어 그대로 둔다).
+  const cleaned =
+    Number.isInteger(number) || Math.abs(number) >= 1e12
+      ? number
+      : Number(number.toPrecision(12))
+  const text = String(cleaned)
   if (/[eE]/.test(text)) return text
   const [integer, fraction] = text.split('.')
   const groupedInteger = integer.replace(/\B(?=(\d{3})+(?!\d))/g, ',')

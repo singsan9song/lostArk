@@ -19,6 +19,7 @@ import {
 } from '../lib/damageAnalysisSettings'
 import conditionalStackData from '../data/damage-analysis-conditional-stacks.json'
 import invenSkillConstants from '../data/lostark_inven_skill_constants.json'
+import { missingSkillsForClass } from '../lib/invenSkillCatalog'
 import '../damage-analysis.css'
 
 // Small reference-equality LRU cache for the heaviest tooltip-parsing breakdown functions
@@ -3866,7 +3867,16 @@ export default function DamageAnalysis({
   mappedSourceArmory = null,
 }) {
   const { user } = useAuth()
-  const [selectedName, setSelectedName] = useState(skills[0]?.Name || '')
+  // Skills the class has (per the inven skill catalog) that never show up in this character's
+  // own ArmorySkills - offered so they can still be picked and analyzed. Only used for
+  // selection below; aggregate calculations (synergy/received-damage/move-speed) further down
+  // must keep using the real `skills` list, or unowned skills would skew those totals.
+  const missingSkills = useMemo(
+    () => missingSkillsForClass(profile.CharacterClassName, skills),
+    [profile.CharacterClassName, skills],
+  )
+  const selectableSkills = useMemo(() => [...skills, ...missingSkills], [skills, missingSkills])
+  const [selectedName, setSelectedName] = useState(selectableSkills[0]?.Name || '')
   const [showAttackPowerFinalDetail, setShowAttackPowerFinalDetail] = useState(false)
   const [showAdditionalDamageFinalDetail, setShowAdditionalDamageFinalDetail] = useState(false)
   const [showDamageIncreaseFinalDetail, setShowDamageIncreaseFinalDetail] = useState(false)
@@ -3902,8 +3912,10 @@ export default function DamageAnalysis({
   )
 
   useEffect(() => {
-    if (!skills.some((skill) => skill.Name === selectedName)) setSelectedName(skills[0]?.Name || '')
-  }, [selectedName, skills])
+    if (!selectableSkills.some((skill) => skill.Name === selectedName)) {
+      setSelectedName(selectableSkills[0]?.Name || '')
+    }
+  }, [selectedName, selectableSkills])
 
   // 아제나의 축복은 캐릭터마다 따로 켜고 끌 수 있어 캐릭터 단위로 저장하고,
   // 펫 특기·물약/카드도감 값은 원정대(계정) 전체가 공유하는 값이라 원정대
@@ -4021,7 +4033,7 @@ export default function DamageAnalysis({
     setShowDamageSettingsModal(false)
   }
 
-  const skill = skills.find((item) => item.Name === selectedName) || skills[0]
+  const skill = selectableSkills.find((item) => item.Name === selectedName) || selectableSkills[0]
   const stats = useMemo(
     () => Object.fromEntries((profile.Stats || []).map((stat) => [stat.Type, stat.Value])),
     [profile.Stats],
@@ -5402,7 +5414,7 @@ export default function DamageAnalysis({
             <span>{skills.length}개</span>
           </header>
           <div>
-            {skills.map((item) => {
+            {selectableSkills.map((item) => {
               const hitSummary = hitSummaryForSkill(item)
               return (
                 <button

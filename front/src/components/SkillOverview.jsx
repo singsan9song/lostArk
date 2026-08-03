@@ -1,7 +1,8 @@
 import { BookOpen, CircleGauge, ShieldAlert, Sparkles, Swords, Target } from 'lucide-react'
-import { memo } from 'react'
+import { memo, useMemo } from 'react'
 import { cleanApiText } from '../lib/text'
 import { representativeEngraving } from '../lib/representativeEngraving'
+import { missingSkillsForClass } from '../lib/invenSkillCatalog'
 
 const gradeClass = (grade) =>
   ({
@@ -83,6 +84,13 @@ export default function SkillOverview({ profile, skills, armory, onHover }) {
   const staggers = skills.filter((skill) => hasKeyword(skill, '무력화'))
   const destructions = skills.filter((skill) => hasKeyword(skill, '부위 파괴'))
   const passive = armory.ArkPassive || {}
+  // API(ArmorySkills)에는 없는 같은 직업 스킬 - 목록에는 같이 보여주되, 실제 보유 스킬
+  // 기준인 카운터/무력화/부위 파괴 집계에는 포함하지 않는다 (DamageAnalysis.jsx와 동일 원칙).
+  const missingSkills = useMemo(
+    () => missingSkillsForClass(profile.CharacterClassName, skills),
+    [profile.CharacterClassName, skills],
+  )
+  const displaySkills = [...skills, ...missingSkills]
 
   return (
     <div className="skill-dashboard">
@@ -141,7 +149,7 @@ export default function SkillOverview({ profile, skills, armory, onHover }) {
             <span>트라이포드</span>
             <span>룬</span>
           </header>
-          {skills.map((skill) => (
+          {displaySkills.map((skill) => (
             <SkillRow skill={skill} onHover={onHover} key={skill.Name} />
           ))}
         </section>

@@ -18,6 +18,7 @@ import {
 import { adminApiRequestStreamUrl, lostArkApi } from '../lib/api'
 import { useAuth } from '../lib/auth'
 import { COMMUNITY_CATEGORIES, formatCommunityDate } from '../lib/community'
+import { missingSkillsForClass } from '../lib/invenSkillCatalog'
 import CommunityWriteModal from '../components/CommunityWriteModal'
 import DamageOptionDataPage from './DamageOptionDataPage'
 import '../community.css'
@@ -449,7 +450,17 @@ function AdminApiStatusPanel() {
     (option) => option.engraving === mappingEngraving,
   )
   const mappingTotalCount = Number(selectedMappingEngraving?.characterCount) || 0
-  const hasMoreMapping = mappingArmories.length < mappingTotalCount
+  const mappingLoadedCount = mappingArmories.filter((row) => !row.synthetic).length
+  const hasMoreMapping = mappingLoadedCount < mappingTotalCount
+  // API(ArmorySkills)에는 안 나오는 같은 직업 스킬도 매핑 대상 원문에 같이 잡히도록, 실제
+  // 캐릭터 목록과 별도로 한 줄 더 얹는다. collectDamageOptionSourceEntries가 armory 모양
+  // 객체를 그대로 훑기 때문에 ArmorySkills만 채워주면 나머지는 기존 로직이 다 처리한다.
+  const missingSkillRow = (className) => {
+    const skills = missingSkillsForClass(className, [])
+    return skills.length
+      ? [{ characterName: `${className} 스킬 도감`, armory: { ArmorySkills: skills }, synthetic: true }]
+      : []
+  }
   const toggleMapping = async (view) => {
     if (mappingOpen && mappingView === view) {
       setMappingOpen(false)
@@ -471,7 +482,8 @@ function AdminApiStatusPanel() {
       // Best-geared characters first, one page at a time - fetching every character in a
       // popular engraving at once is what used to freeze this view (see 저장 매핑 관리 history).
       const corpus = await lostArkApi.getAdminDamageOptionCorpus(mappingClass, mappingEngraving, 0)
-      setMappingArmories(Array.isArray(corpus?.characters) ? corpus.characters : [])
+      const characters = Array.isArray(corpus?.characters) ? corpus.characters : []
+      setMappingArmories([...characters, ...missingSkillRow(mappingClass)])
       setMappingCorpusKey(corpusKey)
       setMappingPage(1)
       setMappingOpen(true)
@@ -596,7 +608,7 @@ function AdminApiStatusPanel() {
       {mappingOpen && mappingArmories.length > 0 && (
         <div className="admin-damage-option-load-more">
           <span>
-            아이템 레벨 상위 {number(mappingArmories.length)} / {number(mappingTotalCount)}명 로드됨
+            아이템 레벨 상위 {number(mappingLoadedCount)} / {number(mappingTotalCount)}명 로드됨
           </span>
           {hasMoreMapping && (
             <button type="button" onClick={loadMoreMapping} disabled={mappingLoading}>

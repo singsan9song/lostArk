@@ -1166,10 +1166,15 @@
   overflow: hidden;
   border-radius: 7px;
 }
+.damage-settings-summary .damage-setting-label > i {
+  display: grid;
+  place-items: center;
+}
 .damage-settings-summary .damage-setting-label > i > img,
 .damage-settings-summary .damage-setting-label > img {
   width: 30px;
   height: 30px;
+  display: block;
   object-fit: cover;
 }
 .damage-setting-placeholder-icon {

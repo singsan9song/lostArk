@@ -3394,5 +3394,20 @@
       "stackCount" : 1,
       "stack" : null
     } ]
+  }, {
+    "id" : "damage-option-draft-25-jlryim",
+    "source" : "악마화 시 스킬 피해량이 {n}% 증가합니다.",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ "악마" ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
   } ]
 }

@@ -150,18 +150,6 @@ export const DAMAGE_EFFECT_CONDITIONS = [
   { value: 'CUSTOM', label: '사용자 조건' },
 ]
 
-// ArmorySkills.SkillType의 상위 분류와 SkillType 0 안의 툴팁 세부 분류를
-// 동일한 내부 키로 다룬다. 발현/화신 스킬은 API상 SkillType 0이지만
-// [발현 스킬]/[화신 스킬] 표기가 있으므로 일반 스킬과 배타적으로 분리한다.
-export const DAMAGE_SKILL_CATEGORIES = [
-  '일반',
-  '초각성',
-  '각성기',
-  '초각성기',
-  '발현',
-  '화신',
-]
-
 export function damageOptionSkillCategoryLabel(category = '') {
   const normalized = String(category || '').trim()
   if (!normalized) return '분류 미확인'
@@ -810,6 +798,7 @@ export function freshDamageEffect() {
     skillName: '',
     skillNames: [],
     skillCategories: [],
+    motionOrders: [],
     label: '',
     stackCount: 1,
     stack: null,
@@ -832,6 +821,7 @@ export function damageOptionRegistryToCsv(registry) {
     'skillName',
     'skillNames',
     'skillCategories',
+    'motionOrders',
     'label',
     'stackCount',
   ]
@@ -847,6 +837,7 @@ export function damageOptionRegistryToCsv(registry) {
           effect.skillName || '',
           JSON.stringify(effect.skillNames || []),
           JSON.stringify(effect.skillCategories || []),
+          JSON.stringify(effect.motionOrders || []),
           effect.label || '',
           effect.stackCount ?? '',
         ])
@@ -859,6 +850,7 @@ export function damageOptionRegistryToCsv(registry) {
             '',
             '',
             '',
+            '[]',
             '[]',
             '[]',
             '',
@@ -934,6 +926,8 @@ export function damageOptionRegistryFromCsv(text) {
       skillNames: column.skillNames == null ? [] : parseArray(row[column.skillNames]),
       skillCategories:
         column.skillCategories == null ? [] : parseArray(row[column.skillCategories]),
+      motionOrders:
+        column.motionOrders == null ? [] : parseArray(row[column.motionOrders]).map(Number),
       label: row[column.label] || '',
       stackCount:
         column.stackCount == null || row[column.stackCount] === ''

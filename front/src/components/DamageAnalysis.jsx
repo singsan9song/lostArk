@@ -136,6 +136,16 @@ const numberText = (value) => {
   return fraction ? `${groupedInteger}.${fraction}` : groupedInteger
 }
 
+// "핵심 전투 수치" 5개 박스(공격속도/이동속도/재사용대기시간감소/치명타적중률/치명타피해)
+// 전용 - 화면에만 소수점 2자리 밑을 반올림 없이 잘라서 보여준다. 계산에 쓰이는 실제 값
+// (attackSpeed.total 등)은 이 함수를 거치지 않으니 그대로 유지된다.
+const floorPercentText = (value) => {
+  const number = Number(value)
+  if (!Number.isFinite(number)) return '0'
+  const floored = Math.sign(number) * Math.floor(Math.abs(number) * 100) / 100
+  return numberText(floored)
+}
+
 const damageResultText = (value) => {
   const number = Number(value)
   if (!Number.isFinite(number)) return '0'
@@ -307,9 +317,10 @@ function accessoryEngineDamageScore(
   settings = {},
   registry = null,
   battleStatCoefficients = {},
+  resolvedMappedEffects = null,
 ) {
   if (!skill) return null
-  const mappedMode = Boolean(registry)
+  const mappedMode = Boolean(registry || resolvedMappedEffects)
   const stats = Object.fromEntries((profile?.Stats || []).map((stat) => [stat.Type, stat.Value]))
   const combatStats = combatStatConversions(stats)
   const category = damageOptionSkillCategory(skill)
@@ -321,8 +332,16 @@ function accessoryEngineDamageScore(
   )
   const petAdditional = normalizePetTraitValue('petTraitAdditional', settings.petTraitAdditional)
 
+  // 같은 armory를 여러 스킬에 걸쳐 반복 계산할 때(예: 장착 스킬 목록의 스킬별 기대 피해
+  // 순위)는 이미 해석해둔 효과 목록을 그대로 넘겨받아 collectResolvedDamageOptionEffects를
+  // 스킬마다 다시 돌리지 않는다. armory가 매번 달라지는 악세 비교 쪽은 registry를 넘겨서
+  // 그때그때 새로 해석한다.
   const mappedEffectsForSkill = mappedMode
-    ? resolveMappedEffectsForSkill(collectResolvedDamageOptionEffects(armory, registry), armory, skill)
+    ? resolveMappedEffectsForSkill(
+        resolvedMappedEffects || collectResolvedDamageOptionEffects(armory, registry),
+        armory,
+        skill,
+      )
     : []
   const mappedSources = (type) => mappedEffectSources(mappedEffectsForSkill, type)
 
@@ -429,22 +448,47 @@ function accessoryEngineDamageScore(
           petAdditional,
         )
       })()
+  const moveSpeedTracked = mappedMode
+    ? battleStatTrackedSource(
+        battleStatCoefficients,
+        'MOVE_SPEED_PERCENT',
+        '신속',
+        combatStats.swiftness,
+      )
+    : { source: null, recordId: null }
   const moveSpeed = mappedMode
-    ? 0
+    ? (moveSpeedTracked.source ? moveSpeedTracked.source.value : 0) +
+      (settings.eventFeastEnabled || weaponFeast ? FEAST_SPEED_BONUS : 0) +
+      mappedSources('MOVE_SPEED_PERCENT')
+        .filter((source) => source.recordId !== moveSpeedTracked.recordId)
+        .reduce((sum, source) => sum + source.value, 0)
     : combatStats.moveSpeed +
       (settings.eventFeastEnabled || weaponFeast ? FEAST_SPEED_BONUS : 0) +
       skillMoveSpeedFacts(skills).total
+  // 돌격대장은 고정 %가 아니라 실시간 이동속도 증가량에 각인 계수를 곱하는 값이라
+  // 레지스트리에 정적으로 매핑할 수 없다 - 매핑 모드에서도 항상 이 하드코딩 함수로
+  // 직접 계산해 더한다(예리한 둔기 패널티와 같은 이유로 모드 무관 항상 적용).
+  const raidCaptainDamage = raidCaptainDamageFacts(armory, moveSpeed)
+  const mappedDamageIncreaseSources = mappedMode
+    ? [...mappedSources('DAMAGE_INCREASE_PERCENT'), ...mappedSources('DAMAGE_INCREASE_FLAT')]
+    : []
+  const motionSpecificDamageIncreaseItems = mappedDamageIncreaseSources
+    .filter((source) => source.motionOrders?.length)
+    .map((source) => ({ percent: source.value, sources: [source] }))
   const damageGroups = mappedMode
-    ? [...mappedSources('DAMAGE_INCREASE_PERCENT'), ...mappedSources('DAMAGE_INCREASE_FLAT')].map(
-        (source) => source.value,
-      )
+    ? [
+        ...mappedDamageIncreaseSources
+          .filter((source) => !source.motionOrders?.length)
+          .map((source) => source.value),
+        raidCaptainDamage.total,
+      ]
     : [
         ...engravingDamageFacts(armory).sources.map((source) => source.value),
         arkPassiveTierDamageBreakdown(armory, '진화', skill.Name, category, skill).total,
         arkPassiveTierDamageBreakdown(armory, '깨달음', skill.Name, category, skill).total,
         petSpeciesDamage,
         cardDamageFacts(armory).total,
-        raidCaptainDamageFacts(armory, moveSpeed).total,
+        raidCaptainDamage.total,
         massIncreaseDamageFacts(armory).total,
         arkPassiveTierDamageBreakdown(armory, '도약', skill.Name, category, skill).total,
         specializationSkillDamageFacts(profile, category).total,
@@ -468,7 +512,7 @@ function accessoryEngineDamageScore(
 
   const baseAttack = profileBaseAttackPower(profile)
   const constants = invenMotionConstants(profile, skill)
-  const skillBaseDamage = skillMotionHits(skill).reduce((sum, motion) => {
+  const skillBaseDamage = skillMotionHits(profile, skill).reduce((sum, motion) => {
     const constant = constants[motion.order - 1]?.value
     const coefficient =
       Number.isFinite(baseAttack.value) &&
@@ -478,7 +522,10 @@ function accessoryEngineDamageScore(
         ? (motion.apiDamage - constant) / baseAttack.value
         : null
     return Number.isFinite(coefficient)
-      ? sum + (finalAttackPower * coefficient + constant) * motion.repeat
+      ? sum +
+          (finalAttackPower * coefficient + constant) *
+            motion.repeat *
+            motionSpecificDamageMultiplier(motionSpecificDamageIncreaseItems, motion.order)
       : sum
   }, 0)
   const critDamageBonusTotal = mappedMode
@@ -784,7 +831,10 @@ function activeEngravings(armory) {
   return effects.filter((engraving) => engraving?.Name && engraving?.Description)
 }
 
+// 예리한 둔기는 각인 레벨과 무관하게 발동 확률 10% · 피해 감소율 20%로 고정이라
+// 툴팁 텍스트에서 수치를 파싱하지 않고 그대로 하드코딩한다.
 const KEEN_BLUNT_PENALTY_RATE = 10
+const KEEN_BLUNT_PENALTY_REDUCTION = 20
 
 function keenBluntPenaltyFacts(armory) {
   const engraving = activeEngravings(armory).find(
@@ -799,15 +849,12 @@ function keenBluntPenaltyFacts(armory) {
       description: '',
     }
   }
-  const description = cleanApiText(engraving.Description || '')
-  const reduction = Number(description.match(/([\d.]+)\s*%\s*감소된\s*피해/)?.[1])
-  const appliedReduction = Number.isFinite(reduction) ? reduction : 20
   return {
     active: true,
     rate: KEEN_BLUNT_PENALTY_RATE,
-    reduction: appliedReduction,
-    multiplier: 1 - appliedReduction / 100,
-    description,
+    reduction: KEEN_BLUNT_PENALTY_REDUCTION,
+    multiplier: 1 - KEEN_BLUNT_PENALTY_REDUCTION / 100,
+    description: cleanApiText(engraving.Description || ''),
   }
 }
 
@@ -1138,19 +1185,125 @@ function currentSkillDamageDescription(skill) {
   return cleanApiText(skill?.Tooltip || '')
 }
 
-function skillMotionHits(skill) {
+// 타수(모션) 개수는 더 이상 툴팁에 "N의 피해"가 몇 번 나오는지 정규식으로 세어 임의로
+// 정하지 않는다 - new_lostark_inven_skills.json에 스킬·레벨별로 1타/2타/3타/4타가 이미
+// 정확히 정의돼 있고(lostark_inven_skill_constants.json이 그 순서를 그대로 배열로 담고
+// 있음, invenMotionConstants 참고), 그 개수를 그대로 타수 개수로 쓴다. 각 타수에 실제로
+// 표시되는 피해량(apiDamage, 캐릭터 본인의 공격력이 반영된 값이라 카탈로그로는 알 수 없음)만
+// 툴팁 텍스트에서 순서대로 매칭해 채운다.
+// "적에게 A, B, C 피해를 준다"처럼 다단히트 스킬은 숫자 여러 개가 쉼표로 나열된 뒤에
+// "피해" 하나만 나온다 - 예전엔 숫자 뒤에 곧장 "피해"가 붙는 경우만 매칭해서 마지막
+// 숫자(C) 하나만 걸리고 A/B는 통째로 누락됐다. 숫자 자체의 천단위 구분 쉼표(공백 없음)와
+// 나열 구분 쉼표(뒤에 공백 있음)를 구분해서, 나열된 숫자를 전부 순서대로 뽑아낸다.
+const DAMAGE_NUMBER = String.raw`\d{1,3}(?:,\d{3})*(?:\.\d+)?`
+// "숫자 의 [뇌] 속성 피해", "숫자 추가 피해", "숫자 의 지속 피해"처럼 숫자와 "피해" 사이에
+// 수식어가 끼는 경우도 매칭되도록 짧은 수식어 목록을 허용한다(816개 스킬 원문 전수 검증으로
+// 뽑아낸 목록).
+const DAMAGE_MODIFIER = String.raw`(?:\[[^\]]{1,4}\]\s*속성\s*|추가\s*|폭파\s*|지속적인\s*|지속\s*|강력한\s*|마무리\s*|출혈\s*|및\s*)?`
+// "난무"(예: 쉐도우 스톰의 "최대 325 의 난무를 펼치고")도 실제 타격이라 "피해"와 동급으로
+// 문장 끝 키워드로 인정한다.
+const DAMAGE_CLAUSE_PATTERN = new RegExp(
+  `(${DAMAGE_NUMBER}(?:\\s*,\\s*${DAMAGE_NUMBER})*)\\s*(?:의\\s*)?${DAMAGE_MODIFIER}(?:피해|난무)`,
+  'g',
+)
+// "피해는 77,662 까지 증가된다"(빅뱅), "1,265 까지 피해가 증가된다"(풍신권)처럼 차지
+// 시간에 비례해 커지는 문장은 숫자가 "피해" 뒤에 오거나 "까지"를 사이에 두고 있어서 위
+// 패턴(숫자 다음에 피해가 오는 형태)으로는 못 잡는다 - 별도 패턴으로 최댓값만 뽑는다.
+const SCALING_CLAUSE_PATTERN = new RegExp(
+  `피해(?:는|가|이)?\\s*(?:최대\\s*)?(${DAMAGE_NUMBER})\\s*까지\\s*증가|(${DAMAGE_NUMBER})\\s*까지\\s*피해(?:는|가|이)?\\s*증가`,
+  'g',
+)
+
+// 차지 단계별로 값이 여러 개 적혀 있지만 실제로는 그중 하나만 발생하는(합산하면 안 되는)
+// 스킬들 - 카탈로그의 damage_hits가 "1타/2타/3타"처럼 순차 콤보 모양으로 쪼개놨지만 실제
+// 뜻은 "무차지/1단계 차지/오버차지"다. 원문 전수 검증(816개)으로 확인한 목록이며, 이
+// 스킬들은 원문에 마지막(가장 강한 차지 단계) 수치만 남긴다.
+const CHARGE_TIER_MAX_ONLY_SKILLS = new Set([
+  '차지 스팅거',
+  '풀배럴 캐넌',
+  '퍼펙트 스윙',
+  '슈퍼 노바',
+  '빅뱅',
+  '브루탈 임팩트',
+  '플레임 블레이드',
+  '풍신권',
+  '오의 : 청염각',
+  '성운멸쇄권',
+  '차징 샷',
+  '펜리르의 전령',
+  '에너지 버스터',
+  '소울 앱소버',
+  '브레이킹 문',
+  '데몬 비전',
+  '여름 햇살',
+  '슈웅 곰',
+])
+// 카탈로그엔 슬롯이 여러 개지만 실제로는 첫 번째 값만 진짜 타격이고 나머지는 "최대 N" 같은
+// 부가 설명이거나 대상에 따라 갈리는 대체값이라 무시해야 하는 스킬.
+// - 타겟 다운 "567 씩 최대 1,700" - 567이 실제 발당 피해고 1,700은 3발 다 맞았을 때
+//   참고용 합계일 뿐 별도 타격이 아님.
+// - 오쉬 "중심 대상 2,858 / 바깥쪽 대상 1,907" - 대상 위치에 따라 둘 중 하나만 맞는
+//   대체값이고, 중심 쪽(더 흔히 맞는 값)을 대표값으로 씀.
+const FIRST_HIT_ONLY_SKILLS = new Set(['타겟 다운', '오쉬'])
+// 앞쪽 N개 슬롯은 차지 단계별 대체값(그중 최댓값만 유효)이고, 그 뒤는 차지 단계와 무관하게
+// 항상 발생하는 별개의 진짜 타격이라 그대로 더해야 하는 스킬. 예: 버서크 퓨리는
+// [즉시/1단계/오버차지](1타 대체값) + [9,405](2타, 항상 발생) 구조.
+const PARTIAL_CHARGE_TIER_SKILLS = new Map([['버서크 퓨리', { chargeTierCount: 3 }]])
+// 마지막 슬롯이 실제 타격이 아니라서(다른 결말과 양자택일이거나, 조건부 %증가 같은 비-피해
+// 값이 카탈로그에 잘못 끼어든 경우) 통째로 버려야 하는 스킬.
+// - 쉐도우 스톰: "...329 의 피해를 주고 난무 도중에 취소 시 246 의 피해를 준다" - 246은
+//   난무를 끝까지 쓴 329와 양자택일인 "취소" 시나리오라 정상 진행(329)과 안 더해짐.
+// - 낙영장/파쇄장: 마지막 슬롯은 "50% 증가된 피해" 같은 조건부 배율 문구가 카탈로그에
+//   숫자 없는 4번째 damage_hits로 잘못 들어간 것 - 애초에 실제 타격이 아님.
+const DROP_LAST_HIT_SKILLS = new Set(['쉐도우 스톰', '낙영장', '파쇄장'])
+// 콤보 타격과 차지 대체값이 한 스킬 안에 섞여 있어서(예: 3연타 중 마지막 한 타만 오버차지
+// 시 값이 바뀜) 자동으로 올바르게 계산할 수 없는 스킬들 - 잘못된 합계를 보여주는 대신
+// "확인 불가"로 남긴다.
+const AMBIGUOUS_MULTI_HIT_SKILLS = new Set(['풀 스윙', '회심의 일격', '블리츠 러시'])
+
+function skillMotionHits(profile, skill) {
+  if (AMBIGUOUS_MULTI_HIT_SKILLS.has(skill?.Name)) {
+    return [
+      {
+        key: 'motion-1',
+        order: 1,
+        repeat: 1,
+        apiDamage: null,
+        context: '차지·콤보 혼합 구조라 자동 계산 불가',
+      },
+    ]
+  }
   const description = currentSkillDamageDescription(skill)
-  const matches = [...description.matchAll(/([\d,]+(?:\.\d+)?)\s*(?:의\s*)?피해/g)]
-  let motions = matches.map((match, index) => {
-    const nextIndex = matches[index + 1]?.index ?? description.length
-    const clause = description.slice(match.index, nextIndex)
-    const repeat = Number(clause.match(/피해(?:를|을)?\s*(\d+)\s*회/)?.[1]) || 1
+  const clauseMatches = [...description.matchAll(DAMAGE_CLAUSE_PATTERN)]
+  const hitNumbers = []
+  clauseMatches.forEach((match, clauseIndex) => {
+    const nextIndex = clauseMatches[clauseIndex + 1]?.index ?? description.length
+    const context = description.slice(match.index, nextIndex).replace(/\s+/g, ' ').trim()
+    const repeat = Number(context.match(/피해(?:를|을)?\s*(\d+)\s*회/)?.[1]) || 1
+    match[1]
+      .split(/,\s+/)
+      .map((numText) => Number(numText.replace(/,/g, '')))
+      .filter((value) => Number.isFinite(value))
+      .forEach((value) => hitNumbers.push({ value, repeat, context }))
+  })
+  if (CHARGE_TIER_MAX_ONLY_SKILLS.has(skill?.Name)) {
+    const scalingMatch = [...description.matchAll(SCALING_CLAUSE_PATTERN)][0]
+    const scalingValue = scalingMatch
+      ? Number((scalingMatch[1] ?? scalingMatch[2]).replace(/,/g, ''))
+      : null
+    if (Number.isFinite(scalingValue)) {
+      hitNumbers.push({ value: scalingValue, repeat: 1, context: scalingMatch[0] })
+    }
+  }
+  const hitCount = invenMotionConstants(profile, skill).length || hitNumbers.length || 1
+  let motions = Array.from({ length: hitCount }, (_, index) => {
+    const hit = hitNumbers[index]
     return {
       key: `motion-${index + 1}`,
       order: index + 1,
-      repeat,
-      apiDamage: Number(match[1].replaceAll(',', '')),
-      context: clause.replace(/\s+/g, ' ').trim(),
+      repeat: hit?.repeat ?? 1,
+      apiDamage: hit ? hit.value : null,
+      context: hit?.context ?? `${index + 1}타`,
     }
   })
 
@@ -1160,31 +1313,29 @@ function skillMotionHits(skill) {
   if (/마지막\s*공격을?\s*(?:가하지|하지)\s*않/.test(tripodText) && motions.length > 1) {
     motions = motions.slice(0, -1)
   }
-  if (!motions.length) {
-    motions = [
-      {
-        key: 'motion-1',
-        order: 1,
-        repeat: 1,
-        apiDamage: null,
-        context: '피해 구간 자동 감지 실패',
-      },
-    ]
+  if (DROP_LAST_HIT_SKILLS.has(skill?.Name) && motions.length > 1) {
+    motions = motions.slice(0, -1)
+  }
+  // 아래 세 가지 특수 케이스는 골라낸 슬롯의 order(=호출부의 모션 상수 인덱스,
+  // constants[order-1])를 그대로 유지한 채 반환한다 - 1부터 다시 매기면 엉뚱한(예: 무차지
+  // 단계) 모션 상수를 가리키게 된다. 그래서 이 세 분기는 맨 끝의 재인덱싱을 타지 않고 바로
+  // return한다.
+  if (FIRST_HIT_ONLY_SKILLS.has(skill?.Name) && motions.length > 1) {
+    return [motions[0]]
+  }
+  if (CHARGE_TIER_MAX_ONLY_SKILLS.has(skill?.Name) && motions.length > 1) {
+    return [motions[motions.length - 1]]
+  }
+  const partialChargeTier = PARTIAL_CHARGE_TIER_SKILLS.get(skill?.Name)
+  if (partialChargeTier && motions.length > partialChargeTier.chargeTierCount) {
+    const tierMotions = motions.slice(0, partialChargeTier.chargeTierCount)
+    const rest = motions.slice(partialChargeTier.chargeTierCount)
+    const maxTierMotion = tierMotions.reduce((max, candidate) =>
+      (candidate.apiDamage ?? -Infinity) > (max.apiDamage ?? -Infinity) ? candidate : max,
+    )
+    return [maxTierMotion, ...rest]
   }
   return motions.map((motion, index) => ({ ...motion, order: index + 1 }))
-}
-
-function gemFacts(armory, skillName) {
-  const effects = armory.ArmoryGem?.Effects?.Skills || []
-  return effects
-    .filter((effect) => effect.Name === skillName)
-    .map((effect) => ({
-      slot: effect.GemSlot,
-      text: cleanApiText(
-        Array.isArray(effect.Description) ? effect.Description.join(' ') : effect.Description || '',
-      ),
-      option: cleanApiText(effect.Option || ''),
-    }))
 }
 
 function tooltipSections(raw = '') {
@@ -3458,59 +3609,6 @@ function FinalDamageIncreaseBreakdown({
   )
 }
 
-function GemDamageBreakdown({ gems }) {
-  return (
-    <div className="weapon-attack-breakdown">
-      {gems.length ? (
-        <div className="weapon-attack-groups">
-          <section>
-            <h5>선택한 스킬에 연결된 보석</h5>
-            {gems.map((gem, index) => (
-              <div key={`${gem.slot}-${index}`}>
-                <span>
-                  <b>슬롯 {gem.slot}</b>
-                  <small>{gem.text}</small>
-                </span>
-                <strong>{gem.option}</strong>
-              </div>
-            ))}
-          </section>
-        </div>
-      ) : (
-        <p className="weapon-attack-empty">이 스킬에 연결된 보석이 없습니다.</p>
-      )}
-      <p className="weapon-attack-note">
-        보석 효과(피해 증가·재사용 대기시간 감소)는 스킬마다 다르며, 위 목록은 현재 선택한 스킬에
-        연결된 보석만 보여줍니다.
-      </p>
-    </div>
-  )
-}
-
-// 장착 스킬 목록 아래에 캐릭터가 가진 원본 데이터를 구분(장비/악세서리/팔찌/
-// 트라이포드/아크그리드/아크패시브/보석/각인)별로 "줄" 단위로 전부 나열한다 —
-// 데미지 계산에 이미 반영됐는지 여부와 무관하게, 툴팁에 적힌 문장을 한 줄씩
-// 그대로 훑어볼 수 있게 하기 위한 참조용 모달이다(카드 UI가 아니라 raw 텍스트
-// 목록). [태그] 줄 내용 형태로 보여준다 (예: [팔찌] 무기 공격력이 7800 증가한다).
-const INVENTORY_CATEGORIES = [
-  ['combatStat', '전투 특성'],
-  ['arkPassivePoint', '아크패시브 포인트'],
-  ['equipment', '장비'],
-  ['accessory', '악세서리'],
-  ['bracelet', '팔찌'],
-  ['tripod', '스킬 트라이포드'],
-  ['arkGrid', '아크그리드'],
-  ['arkPassive', '아크패시브'],
-  ['gem', '보석'],
-  ['engraving', '각인'],
-]
-
-// "장비"·"악세서리" 탭에서 데미지 계산과 무관한 방어/생존 스탯·아크패시브
-// 포인트 줄은 안 보이게 뺀다. \b는 한글에서 단어 경계로 작동하지 않아(한글이
-// JS 정규식의 "word char"가 아님) 공백/줄끝 lookahead로 대체한다.
-const EXCLUDED_EQUIPMENT_STAT_PATTERN =
-  /^(물리 방어력|마법 방어력|생명 활성력|진화|깨달음|도약|체력)(?=\s|$)/
-
 // 데미지 수치가 아니라 포인트/코어 위치를 나타내거나 조작감을 설명하는 원본 줄.
 // 숨김 OFF에서는 원문 확인을 위해 다시 보여주지만 계산 출처로는 사용하지 않는다.
 const EXCLUDED_DAMAGE_ANALYSIS_LINE_PATTERN =
@@ -3518,15 +3616,6 @@ const EXCLUDED_DAMAGE_ANALYSIS_LINE_PATTERN =
 
 function isExcludedDamageAnalysisLine(line) {
   return EXCLUDED_DAMAGE_ANALYSIS_LINE_PATTERN.test((line || '').trim())
-}
-
-// 장비·악세서리 "기본 효과"에는 힘·민첩·지능이 전부 나오지만 그중 캐릭터의
-// 실제 주스탯 하나만 값이 적용되고 나머지 둘은 회색으로 표시되는 무의미한
-// 자리다(원본 줄 목록은 색상 정보가 이미 지워진 뒤라 직접 구분 못 하므로,
-// mainStatBreakdown이 이미 판별해둔 실제 주스탯 이름과 비교해서 걸러낸다).
-function isIrrelevantMainStatLine(line, mainStatName) {
-  const match = line.match(/^(힘|민첩|지능)(?=\s|$)/)
-  return Boolean(match) && match[1] !== mainStatName
 }
 
 // 카테고리마다 원본 텍스트가 있는 자리가 다르다: 장비·악세서리·팔찌·아크그리드·
@@ -3608,138 +3697,11 @@ function arkGridActiveCoreSegments(item) {
     })
 }
 
-// 아크그리드 코어 옵션은 "[17P]" 다음에 포인트 접두어가 없는 후속 설명이
-// 이어질 수 있다. 새 "[nP]" 줄이 나오기 전까지를 같은 포인트 구간으로 보고,
-// 현재 코어의 보유 포인트를 초과한 구간 전체를 원본 줄 목록에서 숨긴다.
-function arkGridLinesWithinOwnedPoint(lines, item) {
-  const ownedPoint = arkGridOwnedPoint(item)
-  let requiredPoint = null
-  return lines.filter((line) => {
-    const pointMatch = line.match(/^\[(\d+)P\]/)
-    if (pointMatch) requiredPoint = Number(pointMatch[1])
-    return requiredPoint === null || requiredPoint <= ownedPoint
-  })
-}
-
 // 아크그리드 코어 옵션 줄은 계산 함수마다 "[10P]" 같은 포인트 접두어를 남겨두기도
 // 하고(무기 공격력·최종 공격력 쪽) 떼어내기도 해서(최종 추가 피해·최종 피해 증가
 // 쪽), 원본 줄과 각 계산의 context를 그대로 비교하면 어긋난다. 매칭 전에 둘 다
 // 접두어를 떼어내 맞춰준다.
 const normalizeForMatch = (text) => (text || '').replace(/^\[\d+P\]\s*/, '').trim()
-
-// 이미 계산된 breakdown들의 sources[].context(스캔한 원본 줄)를 모아 "이 줄이
-// 실제로 어느 계산에 반영됐는지" 찾을 수 있는 색인을 만든다. 계산 로직을 다시
-// 타지 않고 이미 화면에 쓰인 결과를 그대로 재사용하므로 Level 0 각인 제외,
-// 조건부 제외, 이중 합산 방지 같은 규칙이 전부 그대로 반영된다.
-function buildAppliedLineIndex({
-  mainStatData,
-  weaponAttack,
-  baseAttackRate,
-  attackPower,
-  additionalDamageFinalSources,
-  engravingDamage,
-  massIncreaseDamage,
-  raidCaptainDamage,
-  evolutionDamage,
-  enlightenmentDamage,
-  leapDamage,
-  outgoingDamage,
-  cardDamage,
-  critDamage,
-  critHitBracelet,
-  critRate,
-  attackSpeed,
-  receivedDamage,
-  specializationDamage,
-  gemItems,
-}) {
-  const index = new Map()
-  const add = (context, label) => {
-    const key = normalizeForMatch(context)
-    if (!key) return
-    if (!index.has(key)) index.set(key, new Set())
-    index.get(key).add(label)
-  }
-
-  mainStatData.sources.forEach((s) =>
-    add(s.context, `주 스탯(${mainStatData.mainStatName}) 고정 출처`),
-  )
-  weaponAttack.sources.forEach((s) => add(s.context, '무기 공격력'))
-  baseAttackRate.sources.forEach((s) => add(s.context, '기본 공격력 증가 배율'))
-  attackPower.sources.forEach((s) => add(s.context, '최종 공격력 (공격력 고정·퍼센트 증가)'))
-  additionalDamageFinalSources.forEach((s) => add(s.context, '최종 추가 피해'))
-  engravingDamage.sources.forEach((s) => add(s.context, '최종 피해 증가 · 각인 피해'))
-  massIncreaseDamage.sources.forEach((s) => add(s.context, '질량 증가 피해 배율'))
-  raidCaptainDamage.sources.forEach((s) => add(s.context, '최종 피해 증가 · 돌격대장'))
-  evolutionDamage.unconditional.forEach((s) => add(s.context, '최종 피해 증가 · 진화형 피해'))
-  evolutionDamage.conditional.forEach((s) => add(s.context, '진화형 피해 (조건부 · 합계 제외)'))
-  enlightenmentDamage.unconditional.forEach((s) => add(s.context, '최종 피해 증가 · 깨달음형 피해'))
-  enlightenmentDamage.conditional.forEach((s) =>
-    add(s.context, '깨달음형 피해 (조건부 · 합계 제외)'),
-  )
-  leapDamage.unconditional.forEach((s) => add(s.context, '최종 피해 증가 · 도약형 피해'))
-  leapDamage.conditional.forEach((s) => add(s.context, '도약형 피해 (조건부 · 합계 제외)'))
-  outgoingDamage.groups.forEach((group) => {
-    group.sources.forEach((s) => add(s.context, `최종 피해 증가 · ${group.label}`))
-  })
-  cardDamage.sources.forEach((s) => add(s.context, '최종 피해 증가 · 카드 피해'))
-  critDamage.sources.forEach((s) => add(s.context, '치명타 피해 배율'))
-  critHitBracelet.sources.forEach((s) => add(s.context, '치명타 시 주는 피해 배율'))
-  critRate.sources.forEach((s) => add(s.context, '치명타 적중률'))
-  attackSpeed.sources.forEach((s) => add(s.context, '공격 속도 증가'))
-  receivedDamage.sources.forEach((s) => add(s.context, '적 받는 피해 배율'))
-  specializationDamage.sources.forEach((s) => add(s.context, '최종 피해 증가 · 특화'))
-
-  // 보석의 "기본 공격력" 줄은 API가 이미 전체 젬을 합산한 "기본 공격력 총합"
-  // 하나로 묶어서 주기 때문에(이중 합산 방지를 위해 개별 젬 줄은 다시 스캔하지
-  // 않음) baseAttackRate.sources에는 안 잡힌다. 그래도 실제로는 그 합산치에
-  // 포함되는 값이라 여기서 따로 표시해준다.
-  ;(gemItems || []).forEach((item) => {
-    rawLinesForItem('gem', item).forEach((line) => {
-      if (BASE_ATTACK_LINE_PATTERN.test(line)) add(line, '기본 공격력 증가 배율 (보석 합산에 포함)')
-    })
-  })
-
-  return index
-}
-
-function lineTagForItem(category, item) {
-  if (category === 'combatStat') return `전투 특성 · ${cleanApiText(item.Type || '')}`
-  if (category === 'arkPassivePoint') return `아크패시브 포인트 · ${cleanApiText(item.Name || '')}`
-  if (category === 'equipment' || category === 'accessory' || category === 'bracelet')
-    return item.Type || '장비'
-  if (category === 'tripod') return `트라이포드 · ${item.skillName}`
-  if (category === 'arkGrid') return `아크그리드 · ${item.Name}`
-  if (category === 'arkPassive') {
-    const { nodeName } = arkPassiveNodeText(item)
-    return `아크패시브(${item.Name}) · ${nodeName || item.Name}`
-  }
-  if (category === 'gem') return `보석 · ${cleanApiText(item.Name || '')}`
-  if (category === 'engraving') return `각인 · ${item.Name}`
-  return category
-}
-
-// 보석 슬롯(gem.Slot)이 어느 스킬에 연결됐는지는 ArmoryGem.Gems가 아니라
-// ArmoryGem.Effects.Skills(슬롯별 스킬 매핑)에만 있다.
-function gemLinkedSkillName(armory, gemSlot) {
-  const effects = armory?.ArmoryGem?.Effects?.Skills || []
-  return effects.find((effect) => effect.GemSlot === gemSlot)?.Name || null
-}
-
-// "기본 공격력" 증가 줄은 스킬을 안 가리고 상시 적용되는 보석 옵션이라 스킬
-// 필터와 무관하게 항상 보여준다. 그 외(피해 증가·재사용 대기시간 감소 등)는
-// 그 보석이 연결된 스킬이 현재 선택한 스킬일 때만 보여준다.
-const BASE_ATTACK_LINE_PATTERN = /기본\s*공격력/
-
-function gemRowsForSkill(armory, gemItems, selectedSkillName) {
-  return gemItems.flatMap((item) => {
-    const skillName = gemLinkedSkillName(armory, item.Slot)
-    const tag = lineTagForItem('gem', item)
-    return rawLinesForItem('gem', item)
-      .filter((line) => BASE_ATTACK_LINE_PATTERN.test(line) || skillName === selectedSkillName)
-      .map((line) => ({ tag, line }))
-  })
-}
 
 // 현재 계산에 고정 중첩 수가 적용되는 항목을 원문과 함께 보여준다.
 function DataizedConditionalsModal({ items, onClose }) {
@@ -3795,82 +3757,38 @@ function DataizedConditionalsModal({ items, onClose }) {
   )
 }
 
-function ArmoryLinesModal({ armory, profile, skill, appliedLineIndex, mainStatName, onClose }) {
-  const [activeCategory, setActiveCategory] = useState('combatStat')
-  // 장비·악세서리의 방어/생존 스탯·주스탯 아닌 힘/민첩/지능 등을 기본은 숨기되,
-  // 끄면 원본 그대로 전부 다시 보여준다.
-  const [hideIrrelevantLines, setHideIrrelevantLines] = useState(true)
-  const [hideUnavailableArkGridLines, setHideUnavailableArkGridLines] = useState(true)
-
-  // BattleOverview.jsx와 같은 구분을 따른다: 나침반·부적은 전투 장비가 아니라
-  // 아예 뺀다. 어빌리티 스톤은 장비가 아니라 악세서리 쪽(rightEquipmentTypes)에
-  // 속한다.
-  const equipment = (armory?.ArmoryEquipment || []).filter(
-    (item) => !['나침반', '부적'].includes(item.Type),
+// "핵심 전투 수치" 요약 박스를 눌렀을 때 뜨는 모달 - 안에 들어가는 내용(출처 목록)은
+// 호출하는 쪽에서 children으로 넘긴 AdditionalDamageBreakdown 등을 그대로 재사용한다.
+function StatSummaryDetailModal({ title, onClose, children }) {
+  return (
+    <div className="damage-formula-backdrop" onClick={onClose}>
+      <section
+        className="damage-formula-modal armory-lines-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-label={`${title} 계산 출처`}
+        onClick={(event) => event.stopPropagation()}
+      >
+        <header>
+          <div>
+            <h2>{title}</h2>
+            <p>이 수치가 이렇게 나온 계산 출처입니다.</p>
+          </div>
+          <button type="button" onClick={onClose} aria-label="닫기">
+            <X />
+          </button>
+        </header>
+        <div className="damage-formula-modal-body">{children}</div>
+      </section>
+    </div>
   )
-  const accessoryItems = equipment.filter((item) =>
-    ['목걸이', '귀걸이', '반지', '어빌리티 스톤'].includes(item.Type),
-  )
-  const braceletItems = equipment.filter((item) => item.Type === '팔찌')
-  // 보주·문장은 데미지 계산과 무관해 "장비" 탭에서 아예 뺀다(문장은 PvP 전용
-  // 효과라 "모험가에게 피격 시"처럼 PvE 딜 계산과 상관없는 조건부뿐이다).
-  const gearItems = equipment.filter(
-    (item) =>
-      !accessoryItems.includes(item) &&
-      !braceletItems.includes(item) &&
-      !['보주', '문장'].includes(item.Type),
-  )
-  // 트라이포드는 스킬마다 다른 항목이라 다른 카테고리처럼 전체를 나열하지 않고
-  // 현재 선택한 스킬의 선택된 트라이포드만 보여준다.
-  const tripodItems = (skill?.Tripods || [])
-    .filter((tripod) => tripod.IsSelected)
-    .map((tripod) => ({ ...tripod, skillName: skill?.Name }))
-  const arkGridItems = armory?.ArkGrid?.Slots || []
-  const arkPassiveItems = armory?.ArkPassive?.Effects || []
-  const gemItems = armory?.ArmoryGem?.Gems || []
-  const engravingItems =
-    armory?.ArmoryEngraving?.ArkPassiveEffects || armory?.ArmoryEngraving?.Effects || []
-  const combatStatItems = profile?.Stats || []
-  const arkPassivePointItems = armory?.ArkPassive?.Points || []
+}
 
-  const dataByCategory = {
-    combatStat: combatStatItems,
-    arkPassivePoint: arkPassivePointItems,
-    equipment: gearItems,
-    accessory: accessoryItems,
-    bracelet: braceletItems,
-    tripod: tripodItems,
-    arkGrid: arkGridItems,
-    arkPassive: arkPassiveItems,
-    gem: gemItems,
-    engraving: engravingItems,
-  }
-  const items = dataByCategory[activeCategory] || []
-  // 보석은 스킬-슬롯 매핑에 따라 줄 단위로 걸러야 해서 별도 함수로 뽑는다.
-  const rows =
-    activeCategory === 'gem'
-      ? gemRowsForSkill(armory, gemItems, skill?.Name)
-      : items.flatMap((item) => {
-          const rawLines = rawLinesForItem(activeCategory, item)
-          const hideNonDamageLines =
-            activeCategory === 'arkGrid' ? hideUnavailableArkGridLines : hideIrrelevantLines
-          const pointFilteredLines =
-            activeCategory === 'arkGrid' && hideUnavailableArkGridLines
-              ? arkGridLinesWithinOwnedPoint(rawLines, item)
-              : rawLines
-
-          return pointFilteredLines
-            .filter(
-              (line) =>
-                (!hideNonDamageLines || !isExcludedDamageAnalysisLine(line)) &&
-                (!hideIrrelevantLines ||
-                  !['equipment', 'accessory'].includes(activeCategory) ||
-                  (!EXCLUDED_EQUIPMENT_STAT_PATTERN.test(line) &&
-                    !isIrrelevantMainStatLine(line, mainStatName))),
-            )
-            .map((line) => ({ tag: lineTagForItem(activeCategory, item), line }))
-        })
-
+// 단순 수치 매핑으로 표현이 안 되는 특수 "조건" 효과(label이 '조건'으로 시작) 목록이다 -
+// 하드코딩으로 이미 처리된 것(라벨에 "하드코딩 적용됨" 같은 설명이 붙음)과 아직 계산에
+// 반영 안 된 것 둘 다 여기 계속 보여준다. 이미 처리된 것도 "어떻게 처리했는지" 사람이
+// 확인할 수 있는 참고 목록으로 남겨두는 게 목적이라, 처리됐다고 목록에서 빼지 않는다.
+function ConditionDataModal({ items, onClose }) {
   return (
     <div className="damage-formula-backdrop" onClick={onClose}>
       <section
@@ -3881,156 +3799,45 @@ function ArmoryLinesModal({ armory, profile, skill, appliedLineIndex, mainStatNa
       >
         <header>
           <div>
-            <h2>보유 데이터 원본 줄 목록</h2>
+            <h2>조건 데이터 확인</h2>
             <p>
-              구분을 고르면 그 아이템들의 툴팁을 한 줄씩 그대로 나열합니다. 트라이포드·보석은 현재
-              선택한 스킬({skill?.Name})에 해당하는 것만 보여줍니다(보석의 "기본 공격력" 줄은 스킬과
-              무관해 항상 표시). 각 줄 오른쪽에 지금 어느 계산에 실제로 반영 중인지도 표시됩니다.
+              단순 수치 매핑으로 표현이 안 되는 특수 "조건" 효과입니다. 각 항목 오른쪽에 실제
+              데미지 계산에서 어떻게 처리 중인지(하드코딩 적용 여부) 표시됩니다.
             </p>
           </div>
           <button type="button" onClick={onClose} aria-label="닫기">
             <X />
           </button>
         </header>
-        <div className="armory-lines-toolbar">
-          <span>
-            {activeCategory === 'arkGrid'
-              ? '보유 포인트 초과 옵션·코어 위치 표기 숨김'
-              : activeCategory === 'bracelet'
-                ? '도약 포인트·경직 면역 문구 숨김'
-                : '방어/생존 스탯·주스탯 아닌 힘·민첩·지능 숨김처리'}
-          </span>
-          <button
-            type="button"
-            className={`azena-toggle${
-              (activeCategory === 'arkGrid' ? hideUnavailableArkGridLines : hideIrrelevantLines)
-                ? ' active'
-                : ''
-            }`}
-            onClick={() =>
-              activeCategory === 'arkGrid'
-                ? setHideUnavailableArkGridLines((current) => !current)
-                : setHideIrrelevantLines((current) => !current)
-            }
-            aria-pressed={
-              activeCategory === 'arkGrid' ? hideUnavailableArkGridLines : hideIrrelevantLines
-            }
-          >
-            {(activeCategory === 'arkGrid' ? hideUnavailableArkGridLines : hideIrrelevantLines)
-              ? 'ON'
-              : 'OFF'}
-          </button>
-        </div>
-        <div className="armory-inventory-tabs">
-          {INVENTORY_CATEGORIES.map(([key, label]) => (
-            <button
-              type="button"
-              key={key}
-              className={activeCategory === key ? 'active' : ''}
-              onClick={() => setActiveCategory(key)}
-            >
-              {label}
-              <em>{(dataByCategory[key] || []).length}</em>
-            </button>
-          ))}
-        </div>
-        <div className="damage-formula-modal-body armory-lines-body">
-          {rows.length ? (
+        <div className="damage-formula-modal-body">
+          {items.length ? (
             <ul className="armory-lines-list">
-              {rows.map((row, index) => {
-                const applied = appliedLineIndex.get(normalizeForMatch(row.line))
+              {items.map((item, index) => {
+                const detail = (item.label || '').replace(/^조건\s*·?\s*/, '').trim()
                 return (
-                  <li key={`${row.tag}-${index}`}>
+                  <li key={item.id || `${item.recordId}-${index}`}>
                     <span className="armory-line-text">
-                      <b>[{row.tag}]</b> {row.line}
+                      <b>[{item.origin || '출처 미상'}]</b>
+                      <small>"{item.source}"</small>
                     </span>
-                    {applied ? (
-                      <span className="armory-line-applied">
-                        적용 중 · {[...applied].join(', ')}
-                      </span>
-                    ) : (
-                      <span className="armory-line-unapplied">미적용</span>
-                    )}
+                    <span className="armory-line-applied">
+                      {item.type} · {numberText(item.value)}
+                      {item.condition && item.condition !== 'ALWAYS' ? ` · ${item.condition}` : ''}
+                      {' · '}
+                      {detail || '처리 방식 미정 (하드코딩 필요)'}
+                    </span>
                   </li>
                 )
               })}
             </ul>
           ) : (
-            <p className="weapon-attack-empty">해당 구분에 데이터가 없습니다.</p>
+            <p className="weapon-attack-empty">현재 캐릭터에 해당하는 조건 데이터가 없습니다.</p>
           )}
         </div>
       </section>
     </div>
   )
 }
-
-const variableGroups = [
-  {
-    title: '1. 스킬 공격력 계산',
-    items: [
-      [
-        'ATTACK_POWER_FINAL',
-        '최종 공격력',
-        '주 스탯 → 무기 공격력 → 기본 공격력 → 최종 공격력 순서로 자동 계산',
-      ],
-    ],
-  },
-  {
-    title: '2. 추가 피해 계산',
-    items: [
-      [
-        'ADDITIONAL_DAMAGE_FINAL',
-        '최종 추가 피해',
-        '무기·장신구·팔찌·펫 특기 추가 피해를 전부 더한 값 (엘릭서 추가 피해는 자동 감지 불가로 미포함)',
-      ],
-    ],
-  },
-  {
-    title: '3. 피해 증가 계산',
-    items: [
-      [
-        'DAMAGE_INCREASE_FINAL',
-        '최종 피해 증가',
-        '각인·돌격대장·진화·깨달음·종족·카드·질량증가·도약·주는피해 배율을 전부 곱한 값 (특화·장비 세트는 자동 감지 불가로 미포함)',
-      ],
-    ],
-  },
-  {
-    title: '4. 적받는피해 증가 계산',
-    items: [
-      ['RECEIVED_DAMAGE', '적 받는 피해 배율', '피해 증폭·낙인·서포터 효과를 모두 합친 단일 배율'],
-      [
-        'DEFENSE_MULTIPLIER',
-        '방어력 배율',
-        '루메루스 기본 방어력 6,500 · 추가 데미지 감소 20% 기준',
-      ],
-    ],
-  },
-  {
-    title: '5. 치명타 확률 계산',
-    items: [['CRIT_RATE', '치명타 적중률', 'API 치명 환산값에 장비 효과를 합산']],
-  },
-  {
-    title: '6. 치명타 피해 증가 계산',
-    items: [
-      [
-        'CRIT_DAMAGE_FINAL',
-        '최종 치명타 피해 배율',
-        '기본 200%에 각인·장비·아크패시브·아크그리드의 치명타 피해 증가를 합산',
-      ],
-    ],
-  },
-  {
-    title: '7. 치명타 시 주는 피해 계산',
-    items: [
-      [
-        'CRIT_HIT_DAMAGE_FINAL',
-        '치명타 시 주는 피해 배율',
-        '진화 회심과 장비·아크패시브·아크그리드의 치명타 시 주는 피해를 별도 곱연산',
-      ],
-    ],
-  },
-]
 
 // Cached wrappers for the heaviest tooltip-scanning breakdown functions, used only inside the
 // component below - see memoizeN's comment above. Call sites just swap the plain function name
@@ -4045,7 +3852,6 @@ const arkPassiveTierDamageBreakdownCached = memoizeN(arkPassiveTierDamageBreakdo
 const baseAttackRateBreakdownCached = memoizeN(baseAttackRateBreakdown)
 const critRateFactsCached = memoizeN(critRateFacts)
 const critDamageBreakdownCached = memoizeN(critDamageBreakdown)
-const gemFactsCached = memoizeN(gemFacts)
 
 // 카르마(진화/깨달음/도약) 누적 보너스를 매핑 레지스트리 효과와 같은 모양으로 합성한다 -
 // 카르마 랭크·레벨은 매핑 대상 원문이 아니라 API Point.Description에서 별도로 읽는
@@ -4180,8 +3986,19 @@ function mappedEffectSources(mappedEffectsForSkill, type) {
         appliedStacks: effect.stack?.appliedStacks ?? null,
         perStackValue: effect.stack ? Number(effect.baseValue) || 0 : null,
         percent: type.endsWith('_PERCENT'),
+        motionOrders: effect.motionOrders || [],
       }
     })
+}
+
+function isMotionSpecificDamageItem(item) {
+  return item.sources.some((source) => source.motionOrders?.length)
+}
+
+function motionSpecificDamageMultiplier(motionSpecificItems, motionOrder) {
+  return motionSpecificItems
+    .filter((item) => item.sources.some((source) => source.motionOrders?.includes(motionOrder)))
+    .reduce((product, item) => product * (1 + item.percent / 100), 1)
 }
 
 // 전투 특성(치명/신속 등) 값이 백엔드 계수 자동 추적으로 좁혀진 구간을 갖고 있으면, API
@@ -4231,20 +4048,10 @@ export default function DamageAnalysis({
   )
   const selectableSkills = useMemo(() => [...skills, ...missingSkills], [skills, missingSkills])
   const [selectedName, setSelectedName] = useState(selectableSkills[0]?.Name || '')
-  const [showAttackPowerFinalDetail, setShowAttackPowerFinalDetail] = useState(false)
-  const [showAdditionalDamageFinalDetail, setShowAdditionalDamageFinalDetail] = useState(false)
-  const [showDamageIncreaseFinalDetail, setShowDamageIncreaseFinalDetail] = useState(false)
-  const [showReceivedDamageDetail, setShowReceivedDamageDetail] = useState(false)
-  const [showDefenseMultiplierDetail, setShowDefenseMultiplierDetail] = useState(false)
-  const [showGemDamageDetail, setShowGemDamageDetail] = useState(false)
-  const [showCritDamageFinalDetail, setShowCritDamageFinalDetail] = useState(false)
-  const [showCritHitDamageFinalDetail, setShowCritHitDamageFinalDetail] = useState(false)
-  const [showCritRateDetail, setShowCritRateDetail] = useState(false)
-  const [showAttackSpeedDetail, setShowAttackSpeedDetail] = useState(false)
-  const [showMoveSpeedDetail, setShowMoveSpeedDetail] = useState(false)
-  const [showCooldownReductionDetail, setShowCooldownReductionDetail] = useState(false)
-  const [showAdrenalineDetail, setShowAdrenalineDetail] = useState(false)
-  const [showKeenPenaltyDetail, setShowKeenPenaltyDetail] = useState(false)
+  // 상단 "핵심 전투 수치" 5개 박스와 "N타" 카드를 눌렀을 때 뜨는 모달 - 어떤 값인지(키)만
+  // 들고 있고, 실제 출처 목록은 AdditionalDamageBreakdown/CooldownReductionBreakdown/
+  // FinalDamageIncreaseBreakdown/AttackPowerStaircase를 그대로 재사용해서 보여준다.
+  const [statSummaryDetail, setStatSummaryDetail] = useState(null)
   const [potionSourceInput, setPotionSourceInput] = useState('')
   const [cardBookInput, setCardBookInput] = useState('')
   const [azenaBlessing, setAzenaBlessing] = useState(false)
@@ -4256,7 +4063,8 @@ export default function DamageAnalysis({
   const [saveStatus, setSaveStatus] = useState('idle')
   const [showFormulaModal, setShowFormulaModal] = useState(false)
   const [showDataizedConditionalsModal, setShowDataizedConditionalsModal] = useState(false)
-  const [showArmoryLinesModal, setShowArmoryLinesModal] = useState(false)
+  const [showConditionDataModal, setShowConditionDataModal] = useState(false)
+  const [motionDetailOrder, setMotionDetailOrder] = useState(null)
   const [showBuffSettingGuide, setShowBuffSettingGuide] = useState(false)
   const [showDamageSettingsModal, setShowDamageSettingsModal] = useState(false)
   // 저장소에는 기록하지 않고, 이 화면이 열려 있는 동안 캐릭터별 입력만 유지한다.
@@ -4413,7 +4221,7 @@ export default function DamageAnalysis({
     ? resolveMappedEffectsForSkill(mappedEffects, karmaSourceArmory, skill)
     : []
   const mappedSources = (type) => mappedEffectSources(mappedEffectsForSkill, type)
-  const motionHits = skillMotionHits(skill)
+  const motionHits = skillMotionHits(profile, skill)
   const baseAttackTooltip = profileBaseAttackPower(profile)
   const storedMotionConstants = invenMotionConstants(profile, skill)
   const motionInputs = motionInputsByCharacter[motionCharacterKey]?.[skill.Name] || {}
@@ -4424,16 +4232,44 @@ export default function DamageAnalysis({
     return Number.isFinite(parsed) ? Math.max(0, parsed) : motion.repeat
   }
   const totalHitCount = motionHits.reduce((sum, motion) => sum + motionRepeat(motion), 0)
-  const hitSummaryForSkill = (candidate) => {
-    const motions = skillMotionHits(candidate)
-    const saved = motionInputsByCharacter[motionCharacterKey]?.[candidate.Name] || {}
-    const total = motions.reduce((sum, motion) => {
-      const value = saved[motion.key]?.repeat
-      const parsed = String(value ?? '').trim() === '' ? motion.repeat : Number(value)
-      return sum + (Number.isFinite(parsed) ? Math.max(0, parsed) : motion.repeat)
-    }, 0)
-    return { total, motions: motions.length }
+  // 장착 스킬 목록에 스킬별 기대 데미지를 게이지로 보여주기 위해, 선택된 스킬 하나만 도는
+  // accessoryEngineDamageScore를 보유 스킬 전체에 대해 돌린다 - armory는 전부 동일하므로
+  // mappedEffects를 이미 해석된 채로 넘겨 스킬마다 collectResolvedDamageOptionEffects를
+  // 다시 하지 않는다(위 accessoryEngineDamageScore의 resolvedMappedEffects 인자 참고).
+  const skillDamageRankingSettings = {
+    azenaBlessing,
+    eventFeastEnabled,
+    weaponAttackFeastEnabled,
+    petTraitMainStat: petTraitMainStatInput,
+    petTraitSpeciesDamage: petTraitSpeciesDamageInput,
+    petTraitAdditional: petTraitAdditionalInput,
+    potionSource: potionSourceInput,
+    cardBook: cardBookInput,
   }
+  const skillDamageEntries = selectableSkills
+    .map((candidate) => {
+      const rawDamage = mappedMode
+        ? accessoryEngineDamageScore(
+            armory,
+            profile,
+            skills,
+            candidate,
+            skillDamageRankingSettings,
+            null,
+            battleStatCoefficients,
+            mappedEffects,
+          )
+        : null
+      return {
+        skill: candidate,
+        damage: Number.isFinite(rawDamage) && rawDamage > 0 ? rawDamage : null,
+      }
+    })
+    .sort((a, b) => (b.damage || 0) - (a.damage || 0))
+  const maxSkillDamage = skillDamageEntries.reduce(
+    (max, entry) => Math.max(max, entry.damage || 0),
+    0,
+  )
   const selectedSkillCategory = damageOptionSkillCategory(skill)
   const skillMoveSpeed = skillMoveSpeedFacts(skills)
   const baseSkillCooldown = Number(facts.cooldown)
@@ -4557,7 +4393,6 @@ export default function DamageAnalysis({
     ? Math.max(0, baseSkillCooldown * (1 - cooldownReductionTotal / 100) - cooldownFixedTotal)
     : null
   const tripods = selectedTripods(skill)
-  const gems = gemFactsCached(armory, skill.Name)
   const arkGridEffects = armory?.ArkGrid?.Effects || []
   const mappedWeaponFlatSources = mappedMode
     ? mappedSources('WEAPON_ATTACK_FLAT').map((source) => ({ ...source, kind: 'base' }))
@@ -4682,16 +4517,6 @@ export default function DamageAnalysis({
       }
     : attackPowerBreakdownCached(armory)
   const mappedBaseAttackFlatTotal = mappedBaseAttackFlatSources.reduce(
-    (sum, source) => sum + source.value,
-    0,
-  )
-  const adrenalineAttackSources = attackPower.conditional
-    .map((source, index) => ({ source, key: conditionalSourceKey('attack', source, index) }))
-    .filter(
-      ({ source, key }) => source.itemName === '아드레날린' && enabledConditionalKeys.has(key),
-    )
-    .map(({ source }) => source)
-  const adrenalineAttackTotal = adrenalineAttackSources.reduce(
     (sum, source) => sum + source.value,
     0,
   )
@@ -4980,25 +4805,62 @@ export default function DamageAnalysis({
   ]
   const damageIncreaseItems = mappedMode
     ? [
-        ...mappedSources('DAMAGE_INCREASE_PERCENT'),
-        ...mappedSources('DAMAGE_INCREASE_FLAT'),
-      ].map((source, index) => ({
-        key: `MAPPED_DAMAGE_INCREASE__${index}`,
-        label: source.itemName,
-        percent: source.value,
-        sources: [source],
-      }))
+        ...[
+          ...mappedSources('DAMAGE_INCREASE_PERCENT'),
+          ...mappedSources('DAMAGE_INCREASE_FLAT'),
+        ].map((source, index) => ({
+          key: `MAPPED_DAMAGE_INCREASE__${index}`,
+          label: source.itemName,
+          percent: source.value,
+          sources: [source],
+        })),
+        // 돌격대장은 실시간 이동속도 증가량에 각인 계수를 곱하는 값이라 레지스트리에
+        // 정적으로 매핑할 수 없어, 매핑 모드에서도 항상 이 하드코딩 결과를 더한다.
+        {
+          key: 'RAID_CAPTAIN_DAMAGE',
+          label: '돌격대장',
+          percent: raidCaptainDamage.total,
+          sources: raidCaptainDamage.sources,
+        },
+      ]
     : detectedDamageIncreaseItems
-  const damageIncreaseMultiplier = damageIncreaseItems.reduce(
+  const globalDamageIncreaseItems = damageIncreaseItems.filter(
+    (item) => !isMotionSpecificDamageItem(item),
+  )
+  const motionSpecificDamageIncreaseItems = damageIncreaseItems.filter(isMotionSpecificDamageItem)
+  const damageIncreaseMultiplier = globalDamageIncreaseItems.reduce(
     (product, item) => product * (1 + item.percent / 100),
     1,
   )
   // 값이 0인(=출처가 아예 없는) 항목만 계산식 상세 목록에서 뺀다 — 곱연산에서
   // (1+0%)=×1이라 빼도 최종 배율은 그대로다. 트레이드오프로 음수가 된 항목은
-  // 실제로 배율을 깎아먹는 값이라 반드시 보여줘야 한다.
-  const damageIncreaseResolvedItems = damageIncreaseItems.filter(
-    (item) => item.percent !== 0 || item.sources.length > 0,
-  )
+  // 실제로 배율을 깎아먹는 값이라 반드시 보여줘야 한다. 타수 전용 항목은 위 합계
+  // 배율에는 안 들어가지만(해당 타수에서만 적용) 출처 확인용으로 목록에는 남긴다.
+  const damageIncreaseResolvedItems = damageIncreaseItems
+    .filter((item) => item.percent !== 0 || item.sources.length > 0)
+    .map((item) =>
+      isMotionSpecificDamageItem(item)
+        ? {
+            ...item,
+            label: `${item.label} (${[
+              ...new Set(
+                item.sources.flatMap((source) => source.motionOrders || []),
+              ),
+            ]
+              .sort((a, b) => a - b)
+              .map((order) => `${order}타`)
+              .join(',')} 전용)`,
+          }
+        : item,
+    )
+  // "N타 눌러서 뭐가 적용됐는지 보기" 모달용 - 항상 적용되는 전역 피해 증가 항목에,
+  // 그 타수에 한정된 타수 전용 항목만 골라 더한다(모션 카드의 실제 계산과 동일한 조합).
+  const damageIncreaseItemsForMotionOrder = (order) => [
+    ...globalDamageIncreaseItems,
+    ...motionSpecificDamageIncreaseItems.filter((item) =>
+      item.sources.some((source) => source.motionOrders?.includes(order)),
+    ),
+  ]
   const mappedReceivedDamageSources = mappedMode
     ? [
         ...mappedSources('ENEMY_RECEIVED_DAMAGE_PERCENT'),
@@ -5114,7 +4976,12 @@ export default function DamageAnalysis({
       Number.isFinite(calculationAttack)
     const repeat = motionRepeat(motion)
     const basePerHit = ready ? calculationAttack * coefficient + constant : null
-    const normalPerHit = basePerHit != null ? basePerHit * sharedDamageMultiplier : null
+    const motionMultiplier = motionSpecificDamageMultiplier(
+      motionSpecificDamageIncreaseItems,
+      motion.order,
+    )
+    const normalPerHit =
+      basePerHit != null ? basePerHit * sharedDamageMultiplier * motionMultiplier : null
     return {
       ...motion,
       repeat,
@@ -5123,6 +4990,7 @@ export default function DamageAnalysis({
       constantContext: storedConstant?.context || '',
       ready,
       basePerHit,
+      motionMultiplier,
       normalPerHit,
       normalTotal: normalPerHit != null ? normalPerHit * repeat : null,
       criticalPerHit: normalPerHit != null ? normalPerHit * criticalTotalMultiplier : null,
@@ -5180,30 +5048,12 @@ export default function DamageAnalysis({
     0,
   )
 
-  // "보유 데이터 원본 줄 목록" 모달에서 각 줄이 지금 어느 계산에 반영 중인지
-  // 보여주기 위한 색인 — 이미 위에서 구한 breakdown 결과들을 그대로 재사용한다.
-  const appliedLineIndex = buildAppliedLineIndex({
-    mainStatData,
-    weaponAttack,
-    baseAttackRate,
-    attackPower,
-    additionalDamageFinalSources,
-    engravingDamage,
-    massIncreaseDamage,
-    raidCaptainDamage,
-    evolutionDamage,
-    enlightenmentDamage,
-    leapDamage,
-    outgoingDamage,
-    cardDamage,
-    critDamage,
-    critHitBracelet,
-    critRate,
-    attackSpeed,
-    receivedDamage,
-    specializationDamage,
-    gemItems: armory?.ArmoryGem?.Gems || [],
-  })
+  // "조건 데이터 확인" 모달용 - label이 "조건"으로 시작하는 특수 효과를 현재 캐릭터
+  // (선택한 스킬 기준으로 해석된) 매핑 결과에서 골라낸다. 하드코딩으로 이미 처리된
+  // 것도 계속 포함한다 - 어떻게 처리 중인지 사람이 볼 수 있는 참고 목록이 목적이다.
+  const conditionDataItems = mappedEffectsForSkill.filter((effect) =>
+    (effect.label || '').startsWith('조건'),
+  )
 
   return (
     <section className="damage-analysis">
@@ -5357,9 +5207,9 @@ export default function DamageAnalysis({
           <button
             type="button"
             className="town-final-attack-power-conditional-btn"
-            onClick={() => setShowArmoryLinesModal(true)}
+            onClick={() => setShowConditionDataModal(true)}
           >
-            보유 데이터 원본 줄 전체 목록 보기
+            조건 데이터 확인하기 ({conditionDataItems.length})
           </button>
           {characterSkillSynergies.length > 0 && (
             <section className="skill-synergy-summary">
@@ -5684,8 +5534,9 @@ export default function DamageAnalysis({
             <span>{skills.length}개</span>
           </header>
           <div>
-            {selectableSkills.map((item) => {
-              const hitSummary = hitSummaryForSkill(item)
+            {skillDamageEntries.map(({ skill: item, damage }) => {
+              const damagePercent = maxSkillDamage ? (damage / maxSkillDamage) * 100 : 0
+              const damageLabel = damage != null ? damageResultText(damage) : ''
               return (
                 <button
                   className={item.Name === skill.Name ? 'active' : ''}
@@ -5704,40 +5555,268 @@ export default function DamageAnalysis({
                   key={item.Name}
                 >
                   {item.Icon ? <img loading="lazy" src={item.Icon} alt="" /> : <Swords />}
-                  <span>
-                    <b>{item.Name}</b>
-                    <small>
-                      Lv.{item.Level}
-                      {mappedMode
-                        ? ` · ${damageOptionSkillCategoryLabel(
-                            damageOptionSkillCategory(item),
-                          )}`
-                        : ''}
-                      {' · '}총 {numberText(hitSummary.total)}타 · 모션 {hitSummary.motions}개
-                    </small>
-                  </span>
+                  <div className="skill-damage-content">
+                    <span className="skill-damage-name">
+                      <b>{item.Name}</b>
+                      <small>Lv.{item.Level}</small>
+                      {damage != null && <strong title={damageLabel}>{damageLabel}</strong>}
+                    </span>
+                    {damage != null && (
+                      <div className="skill-damage-gauge">
+                        <span
+                          className="skill-damage-gauge-track"
+                          role="progressbar"
+                          aria-label={`${item.Name} 상대 데미지`}
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                          aria-valuenow={Math.round(damagePercent)}
+                        >
+                          <span
+                            className="skill-damage-gauge-fill"
+                            style={{ width: `${damagePercent}%` }}
+                          />
+                        </span>
+                      </div>
+                    )}
+                  </div>
                 </button>
               )
             })}
           </div>
         </aside>
 
-        {showArmoryLinesModal && (
-          <ArmoryLinesModal
-            armory={armory}
-            profile={profile}
-            skill={skill}
-            appliedLineIndex={appliedLineIndex}
-            mainStatName={mainStatData.mainStatName}
-            onClose={() => setShowArmoryLinesModal(false)}
+        {showConditionDataModal && (
+          <ConditionDataModal
+            items={conditionDataItems}
+            onClose={() => setShowConditionDataModal(false)}
           />
         )}
+
+        {motionDetailOrder != null &&
+          (() => {
+            const motion = motionResults.find((item) => item.order === motionDetailOrder)
+            const motionDetailItems = damageIncreaseItemsForMotionOrder(motionDetailOrder)
+            const motionDetailMultiplier = motionDetailItems.reduce(
+              (product, item) => product * (1 + item.percent / 100),
+              1,
+            )
+            return (
+              <StatSummaryDetailModal
+                title={`${motionDetailOrder}타 데미지 계산 전체`}
+                onClose={() => setMotionDetailOrder(null)}
+              >
+                <div className="motion-detail-sections">
+                  <section>
+                    <h5>1. 스킬 공격력 계산</h5>
+                    <AttackPowerStaircase
+                      mainStatData={mainStatData}
+                      weaponAttack={weaponAttack}
+                      weaponAttackTotal={weaponAttackTotal}
+                      mainStat={mainStat}
+                      baseAttackRate={baseAttackRate}
+                      pureAttackPower={pureAttackPower}
+                      finalBaseAttack={finalBaseAttack}
+                      attackPower={attackPower}
+                      finalAttackPower={finalAttackPower}
+                      apiAttack={attack}
+                      enabledConditionalKeys={enabledConditionalKeys}
+                      onToggleConditional={handleToggleConditional}
+                    />
+                  </section>
+                  <section>
+                    <h5>2. 추가 피해 계산</h5>
+                    <FinalAdditionalDamageBreakdown
+                      sources={additionalDamageFinalSources}
+                      total={additionalDamageFinalTotal}
+                    />
+                  </section>
+                  <section>
+                    <h5>3. 피해 증가 계산 (이 타수 기준)</h5>
+                    <FinalDamageIncreaseBreakdown
+                      title="피해 증가 합계"
+                      items={motionDetailItems}
+                      multiplier={motionDetailMultiplier}
+                      totalPercent={(motionDetailMultiplier - 1) * 100}
+                      emptyMessage="이 타수에 적용된 피해 증가 출처가 없습니다."
+                      note={`전체 스킬 공통으로 적용되는 항목과, "적용 타수"에 ${motionDetailOrder}타를 지정해 이 타수에만 붙는 항목을 함께 곱합니다.`}
+                    />
+                  </section>
+                  <section>
+                    <h5>4. 적받는피해 증가 계산</h5>
+                    <FinalDamageIncreaseBreakdown
+                      title="적 받는 피해 배율"
+                      items={[
+                        {
+                          key: 'TARGET_RECEIVED_DAMAGE',
+                          label: '대상 피해 증폭',
+                          percent: receivedDamage.total,
+                          sources: receivedDamage.sources,
+                        },
+                      ]}
+                      multiplier={receivedDamageMultiplier}
+                      totalPercent={receivedDamage.total}
+                      emptyMessage="감지된 적 받는 피해 증가 효과가 없습니다."
+                    />
+                    <div className="weapon-attack-breakdown">
+                      <div className="weapon-attack-total">
+                        <span>
+                          <small>루메루스 기준 방어력 배율</small>
+                          <b>×{numberText(LUMERUS_DEFENSE_MULTIPLIER)}</b>
+                        </span>
+                      </div>
+                    </div>
+                  </section>
+                  <section>
+                    <h5>5. 치명타 확률 계산</h5>
+                    <AdditionalDamageBreakdown
+                      label="치명타 적중률"
+                      sources={critRate.sources}
+                      total={critRate.total}
+                    />
+                  </section>
+                  <section>
+                    <h5>6. 치명타 피해 증가 계산</h5>
+                    <FinalDamageIncreaseBreakdown
+                      title="최종 치명타 피해 배율"
+                      items={critDamageResolvedItems}
+                      multiplier={critDamageMultiplier}
+                      totalPercent={critDamageMultiplier * 100}
+                      showSign={false}
+                      emptyMessage="감지된 치명타 피해 출처가 없습니다."
+                    />
+                  </section>
+                  <section>
+                    <h5>7. 치명타 시 주는 피해 계산</h5>
+                    <FinalDamageIncreaseBreakdown
+                      title="치명타 시 주는 피해 배율"
+                      items={critHitDamageResolvedItems}
+                      multiplier={critHitDamageMultiplier}
+                      totalPercent={(critHitDamageMultiplier - 1) * 100}
+                      emptyMessage="감지된 치명타 시 주는 피해 출처가 없습니다."
+                    />
+                  </section>
+                  {motion && (
+                    <section>
+                      <h5>{motionDetailOrder}타 스킬 계수 · 모션 상수</h5>
+                      <div className="weapon-attack-breakdown">
+                        <div className="weapon-attack-total">
+                          <span>
+                            <small>스킬 계수</small>
+                            <b>
+                              {Number.isFinite(motion.coefficient)
+                                ? numberText(motion.coefficient)
+                                : '확인 불가'}
+                            </b>
+                          </span>
+                          <span>
+                            <small>모션 상수</small>
+                            <b>
+                              {Number.isFinite(motion.constant)
+                                ? numberText(motion.constant)
+                                : '데이터 없음'}
+                            </b>
+                          </span>
+                        </div>
+                        {motion.motionMultiplier !== 1 && (
+                          <p className="weapon-attack-note">
+                            이 타수에만 붙는 피해 증가 배율 ×{numberText(motion.motionMultiplier)}가
+                            추가로 곱해집니다.
+                          </p>
+                        )}
+                      </div>
+                    </section>
+                  )}
+                  <section className="motion-detail-result">
+                    <h5>최종 결과 (반복 {motion ? numberText(motion.repeat) : 0}회 포함)</h5>
+                    <div>
+                      <span>
+                        <small>비치명타 공격</small>
+                        <strong>
+                          {motion?.ready ? damageResultText(motion.normalTotal) : '계산 불가'}
+                        </strong>
+                      </span>
+                      <span>
+                        <small>치명타 공격</small>
+                        <strong>
+                          {motion?.ready ? damageResultText(motion.criticalTotal) : '계산 불가'}
+                        </strong>
+                      </span>
+                    </div>
+                  </section>
+                </div>
+              </StatSummaryDetailModal>
+            )
+          })()}
 
         {showDataizedConditionalsModal && (
           <DataizedConditionalsModal
             items={dataizedConditionalItems}
             onClose={() => setShowDataizedConditionalsModal(false)}
           />
+        )}
+
+        {statSummaryDetail && (
+          <StatSummaryDetailModal
+            title={
+              {
+                attackSpeed: '공격 속도',
+                moveSpeed: '이동 속도',
+                cooldownReduction: '재사용 대기시간 감소',
+                critRate: '치명타 적중률',
+                critDamage: '치명타 피해',
+              }[statSummaryDetail]
+            }
+            onClose={() => setStatSummaryDetail(null)}
+          >
+            {statSummaryDetail === 'attackSpeed' && (
+              <AdditionalDamageBreakdown
+                label="공격 속도 증가"
+                sources={attackSpeedSources}
+                total={attackSpeed.total}
+                note={`API 최종 신속 ${numberText(combatStats.swiftness)} × ${SWIFT_SPEED_PER_POINT}% 환산값, 현재 보유 포인트 이하의 아크그리드 공격 속도 옵션${activeFeastName ? `, ${activeFeastName} +${FEAST_SPEED_BONUS}%` : ''}를 합산했습니다. 팔찌·장비의 '신속 +N'은 별도로 더하지 않습니다.`}
+              />
+            )}
+            {statSummaryDetail === 'moveSpeed' && (
+              <AdditionalDamageBreakdown
+                label="이동 속도 증가"
+                sources={moveSpeed.sources}
+                total={moveSpeed.total}
+                note={`API 최종 신속 ${numberText(combatStats.swiftness)} × ${SWIFT_SPEED_PER_POINT}%${activeFeastName ? `, ${activeFeastName} +${FEAST_SPEED_BONUS}%` : ''}${skillMoveSpeed.sources.length ? `, 보유 스킬 시전 이동속도 +${numberText(skillMoveSpeed.total)}%` : ''}를 합산해 이동속도 증가량 ${numberText(moveSpeed.total)}%로 계산했습니다. 돌격대장은 이 값을 그대로 받아 각인 계수 ${numberText(raidCaptainDamage.coefficient)}%를 곱합니다.`}
+              />
+            )}
+            {statSummaryDetail === 'cooldownReduction' && (
+              <CooldownReductionBreakdown
+                skillName={skill.Name}
+                skillCategory={selectedSkillCategory}
+                baseCooldown={baseSkillCooldown}
+                percentSources={cooldownReductionSources}
+                fixedSources={cooldownFixedSources}
+                conditionalSources={categoryCooldown.conditional}
+                percentTotal={cooldownReductionTotal}
+                fixedTotal={cooldownFixedTotal}
+                adjustedCooldown={adjustedCooldown}
+              />
+            )}
+            {statSummaryDetail === 'critRate' && (
+              <AdditionalDamageBreakdown
+                label="치명타 적중률"
+                sources={critRate.sources}
+                total={critRate.total}
+                note={`API 최종 치명 ${numberText(combatStats.critical)} × ${CRIT_RATE_PER_POINT}%를 기본 치명타 확률로 반영했습니다. 팔찌·장비의 '치명 +N'은 API 최종 치명에 이미 포함되므로 따로 더하지 않습니다. 여기에 장비·각인·아크패시브·아크그리드에서 감지된 치명타 적중률을 합산했습니다. '악마화 중' 효과는 선택 스킬이 [악마 스킬]일 때만 적용합니다. 시너지·스킬 트라이포드 보정치는 포함되지 않습니다.`}
+              />
+            )}
+            {statSummaryDetail === 'critDamage' && (
+              <FinalDamageIncreaseBreakdown
+                title="최종 치명타 피해 배율"
+                items={critDamageResolvedItems}
+                multiplier={critDamageMultiplier}
+                totalPercent={critDamageMultiplier * 100}
+                showSign={false}
+                emptyMessage="감지된 치명타 피해 출처가 없습니다."
+                note={`기본 치명타 피해 200%에 각인·장비·아크패시브·현재 보유 포인트 이하 아크그리드에서 감지된 '치명타 피해(량)' 증가분만 더한 값입니다. 치명타 시 주는 피해는 포함하지 않고 7번에서 별도로 곱합니다. 현재 치명타 피해 배율은 ×${numberText(critDamageMultiplier)}입니다.`}
+              />
+            )}
+          </StatSummaryDetailModal>
         )}
 
         <main className="damage-analysis-detail">
@@ -5749,6 +5828,7 @@ export default function DamageAnalysis({
                 {mappedMode
                   ? ` · ${damageOptionSkillCategoryLabel(selectedSkillCategory)}`
                   : ''}
+                {' · '}총 {numberText(totalHitCount)}타
               </small>
               <h3>{skill.Name}</h3>
               <em>Lv.{skill.Level}</em>
@@ -5756,439 +5836,34 @@ export default function DamageAnalysis({
           </header>
 
           <section className="damage-combat-stat-summary" aria-label="핵심 전투 수치">
-            <article>
+            <button type="button" onClick={() => setStatSummaryDetail('attackSpeed')}>
               <small>공격 속도</small>
-              <strong>+{numberText(attackSpeed.total)}%</strong>
-            </article>
-            <article>
+              <strong>+{floorPercentText(attackSpeed.total)}%</strong>
+            </button>
+            <button type="button" onClick={() => setStatSummaryDetail('moveSpeed')}>
+              <small>이동 속도</small>
+              <strong>+{floorPercentText(moveSpeed.total)}%</strong>
+            </button>
+            <button type="button" onClick={() => setStatSummaryDetail('cooldownReduction')}>
               <small>재사용 대기시간 감소</small>
               <strong>
-                {numberText(cooldownReductionTotal)}%
-                {cooldownFixedTotal ? ` + ${numberText(cooldownFixedTotal)}초` : ''}
+                {floorPercentText(cooldownReductionTotal)}%
+                {cooldownFixedTotal ? ` + ${floorPercentText(cooldownFixedTotal)}초` : ''}
               </strong>
               {adjustedCooldown != null && (
                 <em>
-                  {numberText(baseSkillCooldown)}초 → {numberText(adjustedCooldown)}초
+                  {floorPercentText(baseSkillCooldown)}초 → {floorPercentText(adjustedCooldown)}초
                 </em>
               )}
-            </article>
-            <article>
+            </button>
+            <button type="button" onClick={() => setStatSummaryDetail('critRate')}>
               <small>치명타 적중률</small>
-              <strong>{numberText(critRate.total)}%</strong>
-            </article>
-            <article>
+              <strong>{floorPercentText(critRate.total)}%</strong>
+            </button>
+            <button type="button" onClick={() => setStatSummaryDetail('critDamage')}>
               <small>치명타 피해</small>
-              <strong>{numberText(critDamageMultiplier * 100)}%</strong>
-            </article>
-          </section>
-
-          <section className="motion-hit-input-section">
-            <div className="damage-section-title">
-              <Database />
-              <span>
-                <h4>타수별 스킬 계수·모션 상수</h4>
-                <small>
-                  공격력 툴팁과 스킬 데이터로 자동 계산 · 총 {numberText(totalHitCount)}타 · 모션{' '}
-                  {motionHits.length}개
-                </small>
-              </span>
-            </div>
-            <div className="motion-hit-input-list">
-              {motionHits.map((motion) => {
-                const input = motionInputs[motion.key] || {}
-                const resolvedMotion = motionResults.find((item) => item.key === motion.key)
-                return (
-                  <article key={motion.key}>
-                    <header>
-                      <span>
-                        <b>{motion.order}타 모션</b>
-                        <small>
-                          {motion.apiDamage != null
-                            ? `API 표시 피해 ${numberText(motion.apiDamage)}`
-                            : motion.context}
-                        </small>
-                      </span>
-                      <label>
-                        반복
-                        <input
-                          type="number"
-                          inputMode="numeric"
-                          min="0"
-                          step="1"
-                          value={input.repeat ?? motion.repeat}
-                          onChange={(event) =>
-                            updateMotionInput(skill.Name, motion.key, 'repeat', event.target.value)
-                          }
-                          aria-label={`${motion.order}타 반복 횟수`}
-                        />
-                        회
-                      </label>
-                    </header>
-                    <div>
-                      <label>
-                        <span>스킬 계수</span>
-                        <strong>
-                          {Number.isFinite(resolvedMotion?.coefficient)
-                            ? numberText(resolvedMotion.coefficient)
-                            : '확인 불가'}
-                        </strong>
-                      </label>
-                      <label>
-                        <span>모션 상수</span>
-                        <strong>
-                          {Number.isFinite(resolvedMotion?.constant)
-                            ? numberText(resolvedMotion.constant)
-                            : '데이터 없음'}
-                        </strong>
-                      </label>
-                    </div>
-                    <p>
-                      {motion.context}
-                      {Number.isFinite(resolvedMotion?.coefficient) &&
-                        ` · (${numberText(motion.apiDamage)} - ${numberText(resolvedMotion.constant)}) ÷ ${numberText(baseAttackTooltip.value)}`}
-                    </p>
-                  </article>
-                )
-              })}
-            </div>
-          </section>
-
-          <section className="damage-missing-section battle-panel">
-            <div className="damage-section-title">
-              <Database />
-              <span>
-                <h4>계산을 위해 추가로 필요한 데이터</h4>
-                <small>Open API에 구조화된 계산값이 없어 별도 스킬 DB가 필요합니다.</small>
-              </span>
-            </div>
-            {variableGroups.map((group) => (
-              <div className="damage-variable-group" key={group.title}>
-                <h5 className="damage-variable-group-title">{group.title}</h5>
-                <div className="damage-variable-table">
-                  {group.items.map(([variable, label, reason]) => {
-                    const detail = {
-                      ATTACK_POWER_FINAL: {
-                        resolved: mainStatData.sources.length > 0,
-                        expanded: showAttackPowerFinalDetail,
-                        toggle: () => setShowAttackPowerFinalDetail((current) => !current),
-                        summary: finalAttackPower != null ? numberText(finalAttackPower) : '',
-                        Component: (
-                          <AttackPowerStaircase
-                            mainStatData={mainStatData}
-                            weaponAttack={weaponAttack}
-                            weaponAttackTotal={weaponAttackTotal}
-                            mainStat={mainStat}
-                            baseAttackRate={baseAttackRate}
-                            pureAttackPower={pureAttackPower}
-                            finalBaseAttack={finalBaseAttack}
-                            attackPower={attackPower}
-                            finalAttackPower={finalAttackPower}
-                            apiAttack={attack}
-                            enabledConditionalKeys={enabledConditionalKeys}
-                            onToggleConditional={handleToggleConditional}
-                          />
-                        ),
-                      },
-                      ADDITIONAL_DAMAGE_FINAL: {
-                        resolved: additionalDamageFinalSources.length > 0,
-                        expanded: showAdditionalDamageFinalDetail,
-                        toggle: () => setShowAdditionalDamageFinalDetail((current) => !current),
-                        summary: `×${numberText(1 + additionalDamageFinalTotal / 100)}`,
-                        Component: (
-                          <FinalAdditionalDamageBreakdown
-                            sources={additionalDamageFinalSources}
-                            total={additionalDamageFinalTotal}
-                            note="무기 아이템·아크패시브 진화 노드·아크그리드 코어 옵션·아크그리드 젬(무기 추가 피해), 목걸이·귀걸이·반지 연마(장신구 추가 피해), 팔찌 효과(팔찌 추가 피해), 펫 특기(펫 추가 피해) 출처를 하나로 합친 값입니다. 엘릭서 추가 피해는 자동 감지가 안 돼 별도 항목으로 남아 있습니다."
-                          />
-                        ),
-                      },
-                      DAMAGE_INCREASE_FINAL: {
-                        resolved: true,
-                        expanded: showDamageIncreaseFinalDetail,
-                        toggle: () => setShowDamageIncreaseFinalDetail((current) => !current),
-                        summary: `×${numberText(damageIncreaseMultiplier)}`,
-                        Component: (
-                          <FinalDamageIncreaseBreakdown
-                            title="최종 피해 증가"
-                            items={damageIncreaseResolvedItems}
-                            multiplier={damageIncreaseMultiplier}
-                            totalPercent={(damageIncreaseMultiplier - 1) * 100}
-                            emptyMessage="감지된 피해 증가 출처가 없습니다."
-                            note={`출처가 있는 항목을 위에 나열했고, 각 항목을 (1 + 증가율)로 바꿔 전부 곱하면 ×${numberText(damageIncreaseMultiplier)}입니다. 돌격대장은 현재 계산된 이동속도 증가량 전체에 각인 설명의 환산 계수를 곱해 반영했습니다. 보석·아크그리드·특화 스킬·장비 세트처럼 아직 자동 감지가 안 되는 항목은 곱셈에서 제외했습니다.`}
-                          />
-                        ),
-                      },
-                      RECEIVED_DAMAGE: {
-                        resolved: receivedDamage.sources.length > 0,
-                        expanded: showReceivedDamageDetail,
-                        toggle: () => setShowReceivedDamageDetail((current) => !current),
-                        summary: `×${numberText(receivedDamageMultiplier)}`,
-                        Component: (
-                          <FinalDamageIncreaseBreakdown
-                            title="적 받는 피해 배율"
-                            items={[
-                              {
-                                key: 'TARGET_RECEIVED_DAMAGE',
-                                label: '대상 피해 증폭',
-                                percent: receivedDamage.total,
-                                sources: receivedDamage.sources,
-                              },
-                            ]}
-                            multiplier={receivedDamageMultiplier}
-                            totalPercent={receivedDamage.total}
-                            emptyMessage="감지된 적 받는 피해 증가 효과가 없습니다."
-                            note={`현재 보고 있는 스킬 하나가 아니라 장착된 전체 스킬의 선택 트라이포드에서 피해 증폭 효과를 찾고, 캐릭터 공통 배율로 적용합니다. 따라서 피해 증폭 스킬을 장착했다면 어떤 데모닉 스킬을 선택해도 ×${numberText(receivedDamageMultiplier)}가 적용됩니다. 동일한 피해 증폭은 중복 합산하지 않으며, 캐릭터 자신이 받는 피해 증가는 포함하지 않습니다.`}
-                          />
-                        ),
-                      },
-                      DEFENSE_MULTIPLIER: {
-                        resolved: true,
-                        expanded: showDefenseMultiplierDetail,
-                        toggle: () => setShowDefenseMultiplierDetail((current) => !current),
-                        summary: `×${numberText(LUMERUS_DEFENSE_MULTIPLIER)}`,
-                        Component: (
-                          <div className="weapon-attack-breakdown">
-                            <div className="weapon-attack-total">
-                              <span>
-                                <small>루메루스 기준 방어력 배율</small>
-                                <b>×{numberText(LUMERUS_DEFENSE_MULTIPLIER)}</b>
-                              </span>
-                              <code>
-                                {DEFENSE_FORMULA_CONSTANT} ÷ ({DEFENSE_FORMULA_CONSTANT} + (
-                                {numberText(LUMERUS_BASE_DEFENSE)} × (1 -{' '}
-                                {numberText(LUMERUS_DEFENSE_REDUCTION)}%))) ×{' '}
-                                {numberText(LUMERUS_DAMAGE_REDUCTION_MULTIPLIER)}
-                              </code>
-                            </div>
-                            <p className="weapon-attack-note">
-                              루메루스 기본 방어력은 {numberText(LUMERUS_BASE_DEFENSE)}이고, 추가
-                              데미지 감소 20%를 ×{numberText(LUMERUS_DAMAGE_REDUCTION_MULTIPLIER)}로
-                              적용합니다. 현재 방어력 감소 효과는{' '}
-                              {numberText(LUMERUS_DEFENSE_REDUCTION)}%입니다. 방어력 감소 효과가
-                              생기면 유효 방어력 부분만 달라집니다.
-                            </p>
-                          </div>
-                        ),
-                      },
-                      GEM_DAMAGE: {
-                        resolved: gems.length > 0,
-                        expanded: showGemDamageDetail,
-                        toggle: () => setShowGemDamageDetail((current) => !current),
-                        summary: gems.length ? `${gems.length}개 보석` : '',
-                        Component: <GemDamageBreakdown gems={gems} />,
-                      },
-                      CRIT_DAMAGE_FINAL: {
-                        resolved: true,
-                        expanded: showCritDamageFinalDetail,
-                        toggle: () => setShowCritDamageFinalDetail((current) => !current),
-                        summary: `${numberText(critDamageMultiplier * 100)}%`,
-                        Component: (
-                          <FinalDamageIncreaseBreakdown
-                            title="최종 치명타 피해 배율"
-                            items={critDamageResolvedItems}
-                            multiplier={critDamageMultiplier}
-                            totalPercent={critDamageMultiplier * 100}
-                            showSign={false}
-                            emptyMessage="감지된 치명타 피해 출처가 없습니다."
-                            note={`기본 치명타 피해 200%에 각인·장비·아크패시브·현재 보유 포인트 이하 아크그리드에서 감지된 '치명타 피해(량)' 증가분만 더한 값입니다. 치명타 시 주는 피해는 포함하지 않고 7번에서 별도로 곱합니다. 현재 치명타 피해 배율은 ×${numberText(critDamageMultiplier)}입니다.`}
-                          />
-                        ),
-                      },
-                      CRIT_HIT_DAMAGE_FINAL: {
-                        resolved: true,
-                        expanded: showCritHitDamageFinalDetail,
-                        toggle: () => setShowCritHitDamageFinalDetail((current) => !current),
-                        summary: `×${numberText(critHitDamageMultiplier)}`,
-                        Component: (
-                          <FinalDamageIncreaseBreakdown
-                            title="치명타 시 주는 피해 배율"
-                            items={critHitDamageResolvedItems}
-                            multiplier={critHitDamageMultiplier}
-                            totalPercent={(critHitDamageMultiplier - 1) * 100}
-                            emptyMessage="감지된 치명타 시 주는 피해 출처가 없습니다."
-                            note={`진화 회심과 장비·아크패시브·아크그리드의 '치명타 시' 또는 '치명타로 적중 시' 주는 피해 효과를 각각 (1 + 증가율)로 바꿔 곱합니다. 6번 치명타 피해 ×${numberText(critDamageMultiplier)}와 별도 항이며, 최종 치명타에는 두 값을 곱한 ×${numberText(criticalTotalMultiplier)}가 적용됩니다.`}
-                          />
-                        ),
-                      },
-                      CRIT_RATE: {
-                        resolved: critRate.sources.length > 0,
-                        expanded: showCritRateDetail,
-                        toggle: () => setShowCritRateDetail((current) => !current),
-                        summary: `${critRate.total >= 0 ? '+' : ''}${numberText(critRate.total)}%`,
-                        Component: (
-                          <AdditionalDamageBreakdown
-                            label="치명타 적중률"
-                            sources={critRate.sources}
-                            total={critRate.total}
-                            note={`API 최종 치명 ${numberText(combatStats.critical)} × ${CRIT_RATE_PER_POINT}%를 기본 치명타 확률로 반영했습니다. 팔찌·장비의 '치명 +N'은 API 최종 치명에 이미 포함되므로 따로 더하지 않습니다. 여기에 장비·각인·아크패시브·아크그리드에서 감지된 치명타 적중률을 합산했습니다. '악마화 중' 효과는 선택 스킬이 [악마 스킬]일 때만 적용합니다. 시너지·스킬 트라이포드 보정치는 포함되지 않습니다.`}
-                          />
-                        ),
-                      },
-                      ATTACK_SPEED: {
-                        resolved: attackSpeed.sources.length > 0,
-                        expanded: showAttackSpeedDetail,
-                        toggle: () => setShowAttackSpeedDetail((current) => !current),
-                        summary: `+${numberText(attackSpeed.total)}%`,
-                        Component: (
-                          <AdditionalDamageBreakdown
-                            label="공격 속도 증가"
-                            sources={attackSpeedSources}
-                            total={attackSpeed.total}
-                            note={`API 최종 신속 ${numberText(combatStats.swiftness)} × ${SWIFT_SPEED_PER_POINT}% 환산값, 현재 보유 포인트 이하의 아크그리드 공격 속도 옵션${activeFeastName ? `, ${activeFeastName} +${FEAST_SPEED_BONUS}%` : ''}를 합산했습니다. 팔찌·장비의 '신속 +N'은 별도로 더하지 않습니다.`}
-                          />
-                        ),
-                      },
-                      MOVE_SPEED: {
-                        resolved: moveSpeed.sources.length > 0,
-                        expanded: showMoveSpeedDetail,
-                        toggle: () => setShowMoveSpeedDetail((current) => !current),
-                        summary: `+${numberText(moveSpeed.total)}%`,
-                        Component: (
-                          <AdditionalDamageBreakdown
-                            label="이동 속도 증가"
-                            sources={moveSpeed.sources}
-                            total={moveSpeed.total}
-                            note={`API 최종 신속 ${numberText(combatStats.swiftness)} × ${SWIFT_SPEED_PER_POINT}%${activeFeastName ? `, ${activeFeastName} +${FEAST_SPEED_BONUS}%` : ''}${skillMoveSpeed.sources.length ? `, 보유 스킬 시전 이동속도 +${numberText(skillMoveSpeed.total)}%` : ''}를 합산해 이동속도 증가량 ${numberText(moveSpeed.total)}%로 계산했습니다. 돌격대장은 이 값을 그대로 받아 각인 계수 ${numberText(raidCaptainDamage.coefficient)}%를 곱합니다.`}
-                          />
-                        ),
-                      },
-                      COOLDOWN_REDUCTION: {
-                        resolved:
-                          cooldownReductionSources.length > 0 ||
-                          cooldownFixedSources.length > 0 ||
-                          categoryCooldown.conditional.length > 0,
-                        expanded: showCooldownReductionDetail,
-                        toggle: () => setShowCooldownReductionDetail((current) => !current),
-                        summary:
-                          adjustedCooldown != null
-                            ? `${selectedSkillCategory || '분류 미확인'} · ${numberText(adjustedCooldown)}초`
-                            : selectedSkillCategory || '',
-                        Component: (
-                          <CooldownReductionBreakdown
-                            skillName={skill.Name}
-                            skillCategory={selectedSkillCategory}
-                            baseCooldown={baseSkillCooldown}
-                            percentSources={cooldownReductionSources}
-                            fixedSources={cooldownFixedSources}
-                            conditionalSources={categoryCooldown.conditional}
-                            percentTotal={cooldownReductionTotal}
-                            fixedTotal={cooldownFixedTotal}
-                            adjustedCooldown={adjustedCooldown}
-                          />
-                        ),
-                      },
-                      KEEN_PENALTY_RATE: {
-                        resolved: keenPenalty.active,
-                        expanded: showKeenPenaltyDetail,
-                        toggle: () => setShowKeenPenaltyDetail((current) => !current),
-                        summary: keenPenalty.active ? `${numberText(keenPenalty.rate)}%` : '',
-                        Component: (
-                          <div className="weapon-attack-breakdown">
-                            <div className="weapon-attack-total">
-                              <span>
-                                <small>예리한 둔기 패널티</small>
-                                <b>
-                                  확률 {numberText(keenPenalty.rate)}% · 피해 ×
-                                  {numberText(keenPenalty.multiplier)}
-                                </b>
-                              </span>
-                              <code>{keenPenalty.description}</code>
-                            </div>
-                            <p className="weapon-attack-note">
-                              패널티 발동 여부는 치명타 여부와 별개이므로 최종 결과를 네 가지
-                              조합으로 나눠 계산합니다.
-                            </p>
-                          </div>
-                        ),
-                      },
-                      KEEN_PENALTY_DAMAGE: {
-                        resolved: keenPenalty.active,
-                        expanded: showKeenPenaltyDetail,
-                        toggle: () => setShowKeenPenaltyDetail((current) => !current),
-                        summary: keenPenalty.active
-                          ? `×${numberText(keenPenalty.multiplier)} (-${numberText(keenPenalty.reduction)}%)`
-                          : '',
-                        Component: (
-                          <div className="weapon-attack-breakdown">
-                            <div className="weapon-attack-total">
-                              <span>
-                                <small>예리한 둔기 패널티</small>
-                                <b>
-                                  확률 {numberText(keenPenalty.rate)}% · 피해 ×
-                                  {numberText(keenPenalty.multiplier)}
-                                </b>
-                              </span>
-                              <code>{keenPenalty.description}</code>
-                            </div>
-                            <p className="weapon-attack-note">
-                              패널티 발동 여부는 치명타 여부와 별개이므로 최종 결과를 네 가지
-                              조합으로 나눠 계산합니다.
-                            </p>
-                          </div>
-                        ),
-                      },
-                      COMBAT_ATK_RATE: {
-                        resolved: attackPower.conditional.some(
-                          (source) => source.itemName === '아드레날린',
-                        ),
-                        expanded: showAdrenalineDetail,
-                        toggle: () => setShowAdrenalineDetail((current) => !current),
-                        summary: adrenalineAttackSources.length
-                          ? `+${numberText(adrenalineAttackTotal)}%`
-                          : '미적용',
-                        Component: (
-                          <AdditionalDamageBreakdown
-                            label="아드레날린 공격력 증가"
-                            sources={adrenalineAttackSources}
-                            total={adrenalineAttackTotal}
-                            note="아드레날린은 정해둔 5중첩을 적용하며, 스택당 API 공격력 증가율 × 5로 계산합니다. 최대 6중첩 도달 시에만 발동하는 추가 치명타 적중률은 5중첩 기준에서 제외합니다. 이 공격력 증가는 위 최종 공격력 계산에 이미 반영되므로 다시 곱하지 않습니다."
-                          />
-                        ),
-                      },
-                    }[variable]
-                    const resolved = detail?.resolved
-                    return (
-                      <div className="variable-row-group" key={variable}>
-                        <div
-                          className={`variable-row${resolved ? ' resolved-variable' : ''}`}
-                          role={resolved ? 'button' : undefined}
-                          tabIndex={resolved ? 0 : undefined}
-                          aria-expanded={resolved ? detail.expanded : undefined}
-                          onClick={resolved ? detail.toggle : undefined}
-                          onKeyDown={
-                            resolved
-                              ? (event) => {
-                                  if (event.key === 'Enter' || event.key === ' ') {
-                                    event.preventDefault()
-                                    detail.toggle()
-                                  }
-                                }
-                              : undefined
-                          }
-                        >
-                          <code>{variable}</code>
-                          <span>
-                            <b>{label}</b>
-                            <small>{reason}</small>
-                          </span>
-                          {resolved ? (
-                            <span className="variable-row-result">
-                              {detail.summary && <strong>{detail.summary}</strong>}
-                              <em>{detail.expanded ? '▲' : '▼'}</em>
-                            </span>
-                          ) : (
-                            <em>미입력</em>
-                          )}
-                        </div>
-                        {resolved && detail.expanded && (
-                          <div className="weapon-attack-detail-row">{detail.Component}</div>
-                        )}
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-            ))}
+              <strong>{floorPercentText(critDamageMultiplier * 100)}%</strong>
+            </button>
           </section>
 
           <section className="damage-case-results">
@@ -6204,30 +5879,40 @@ export default function DamageAnalysis({
                 {motionResults.map((motion) => (
                   <article className={motion.ready ? 'resolved' : ''} key={motion.key}>
                     <header>
-                      <b>
-                        {motion.order}타 모션 × {numberText(motion.repeat)}회
-                      </b>
+                      <b>{motion.order}타</b>
+                      <label>
+                        반복
+                        <input
+                          type="number"
+                          inputMode="numeric"
+                          min="0"
+                          step="1"
+                          value={motion.repeat}
+                          onChange={(event) =>
+                            updateMotionInput(skill.Name, motion.key, 'repeat', event.target.value)
+                          }
+                          aria-label={`${motion.order}타 반복 횟수`}
+                        />
+                        회
+                      </label>
                       <small>{motion.ready ? '계산 완료' : '자동 계산 데이터 부족'}</small>
                     </header>
+                    {motion.ready && motion.motionMultiplier !== 1 && (
+                      <small className="motion-specific-multiplier-note">
+                        {motion.order}타 전용 배율 ×{numberText(motion.motionMultiplier)}
+                      </small>
+                    )}
                     {motion.ready && (
-                      <div>
+                      <button type="button" onClick={() => setMotionDetailOrder(motion.order)}>
                         <span>
-                          <small>비치명 1회</small>
-                          <strong>{damageResultText(motion.normalPerHit)}</strong>
-                        </span>
-                        <span>
-                          <small>비치명 모션 합계</small>
+                          <small>비치명타 공격</small>
                           <strong>{damageResultText(motion.normalTotal)}</strong>
                         </span>
                         <span>
-                          <small>치명타 1회</small>
-                          <strong>{damageResultText(motion.criticalPerHit)}</strong>
-                        </span>
-                        <span>
-                          <small>치명타 모션 합계</small>
+                          <small>치명타 공격</small>
                           <strong>{damageResultText(motion.criticalTotal)}</strong>
                         </span>
-                      </div>
+                      </button>
                     )}
                   </article>
                 ))}
@@ -6258,8 +5943,8 @@ export default function DamageAnalysis({
                     <b>{damageResultText(expectedFinalDamage)}</b>
                   </span>
                   <code>
-                    Σ((공격력 × 타수별 스킬 계수 + 타수별 모션 상수) × 반복 횟수) ×{' '}
-                    {numberText(sharedDamageMultiplier)}
+                    Σ((공격력 × 타수별 스킬 계수 + 타수별 모션 상수) × 반복 횟수 × 타수 전용
+                    배율(있는 경우)) × {numberText(sharedDamageMultiplier)}
                   </code>
                 </div>
                 <p className="damage-case-note">

@@ -21,7 +21,6 @@ import {
   createDamageOptionRegistryResolver,
   damageOptionSkillCategory,
   damageOptionSkillCategoryLabel,
-  DAMAGE_SKILL_CATEGORIES,
   dedupeDamageOptionRegistry,
   fetchBattleStatCoefficients,
   freshDamageEffect,
@@ -37,6 +36,7 @@ import {
 import { lostArkApi } from '../lib/api'
 import DamageAnalysis from '../components/DamageAnalysis'
 import { InlineItemTooltip } from '../components/ItemTooltip'
+import invenSkillConstants from '../data/lostark_inven_skill_constants.json'
 import '../damage-option-data.css'
 
 // Used to be a hard render cap for corpus data fetched all at once (thousands of characters
@@ -45,6 +45,33 @@ import '../damage-option-data.css'
 // enough to need a render-side cap anymore - kept as Infinity so the existing slice/limit
 // logic below is a no-op rather than rewiring every call site.
 const LIST_PAGE_SIZE = Infinity
+
+// 적용 스킬이 지정된 효과의 "적용 타수" 선택지는 스킬마다 실제 타수가 다르므로 고정
+// 목록 대신 인벤 스킬 도감 상수(lostark_inven_skill_constants.json)에서 그 스킬의 실제
+// 타수를 찾아 보여준다 - 레벨별로 타수 자체가 달라지진 않으므로 아무 레벨이나(가장 높은
+// 레벨) 하나만 참고하면 된다. 도감에 없는 스킬이거나 스킬이 특정되지 않은 효과는 이 고정
+// 목록으로 대체한다.
+const MOTION_ORDER_OPTIONS = [1, 2, 3, 4, 5, 6, 7, 8]
+const MOTION_TARGETABLE_EFFECT_TYPES = new Set(['DAMAGE_INCREASE_PERCENT', 'DAMAGE_INCREASE_FLAT'])
+
+function catalogSkillHitCount(skillName) {
+  for (const skillsByName of Object.values(invenSkillConstants?.jobs || {})) {
+    const levels = skillsByName?.[skillName]
+    if (!levels) continue
+    const levelKeys = Object.keys(levels)
+      .map(Number)
+      .filter(Number.isFinite)
+    const highestLevel = levelKeys.length ? Math.max(...levelKeys) : null
+    const constants = highestLevel != null ? levels[String(highestLevel)] : null
+    if (Array.isArray(constants) && constants.length) return constants.length
+  }
+  return 0
+}
+
+function catalogMotionOrderOptions(skillNames) {
+  const hitCount = Math.max(0, ...skillNames.map(catalogSkillHitCount))
+  return hitCount > 0 ? Array.from({ length: hitCount }, (_, index) => index + 1) : null
+}
 
 function draftIdForTemplate(template) {
   let hash = 2166136261
@@ -111,7 +138,6 @@ export default function DamageOptionDataPage({
 }) {
   const [registry, setRegistry] = useState(loadDamageOptionRegistry)
   const [draftRecords, setDraftRecords] = useState([])
-  const [sourceInput, setSourceInput] = useState('')
   const [search, setSearch] = useState('')
   const [recordFilter, setRecordFilter] = useState(
     managementOnly ? (managementView === 'saved' ? 'mapped' : 'unclassified') : 'all',
@@ -157,7 +183,10 @@ export default function DamageOptionDataPage({
     [sourceArmoryRows],
   )
   const characterSourceGroups = useMemo(
-    () => groupDamageOptionSources(characterSourceEntries),
+    () =>
+      groupDamageOptionSources(characterSourceEntries).filter(
+        (group) => damageOptionTemplateKeys(group.template).length > 0,
+      ),
     [characterSourceEntries],
   )
   const characterGroupsByTemplate = useMemo(
@@ -207,12 +236,7 @@ export default function DamageOptionDataPage({
   const skillCategoryOptions = useMemo(
     () =>
       [
-        ...new Set(
-          [
-            ...DAMAGE_SKILL_CATEGORIES,
-            ...(allArmorySkills || []).map(damageOptionSkillCategory),
-          ].filter(Boolean),
-        ),
+        ...new Set((allArmorySkills || []).map(damageOptionSkillCategory).filter(Boolean)),
       ].sort((a, b) =>
         damageOptionSkillCategoryLabel(a).localeCompare(
           damageOptionSkillCategoryLabel(b),
@@ -545,23 +569,6 @@ export default function DamageOptionDataPage({
     [allRecords, categoryFilter, managementView, search, recordFilter],
   )
   const visibleRecords = filtered.slice(0, recordLimit)
-
-  const addSources = () => {
-    const sources = sourceInput
-      .split(/\r?\n/)
-      .map(normalizeDamageOptionSource)
-      .filter(Boolean)
-    const groups = groupDamageOptionSources(sources)
-    if (!groups.length) return
-    const additions = groups
-      .filter((group) => !resolver(group.sources[0]))
-      .filter((group) => !draftRecords.some((record) => record.source === group.template))
-      .map((group) => ({ ...freshDamageOptionRecord(group.template), _draft: true }))
-    if (!additions.length) return
-    setDraftRecords((current) => [...current, ...additions])
-    setSelectedId(additions[0].id)
-    setSourceInput('')
-  }
 
   const updateRecord = (id, updater) => {
     const transientRecord =
@@ -960,26 +967,6 @@ export default function DamageOptionDataPage({
           </button>
         </div>
       </header>
-      {managementView !== 'saved' && (
-        <section className="damage-option-data-add">
-          <label>
-            <b>원문 등록</b>
-            <small>
-              숫자가 바뀌는 자리는 {'{n}'}, 두 번째 숫자는 {'{m}'}처럼 등록합니다. 같은
-              템플릿은 모든 캐릭터에 재사용됩니다.
-            </small>
-            <textarea
-              value={sourceInput}
-              placeholder={'무기 공격력 +{n}'}
-              onChange={(event) => setSourceInput(event.target.value)}
-            />
-          </label>
-          <button type="button" onClick={addSources}>
-            <Plus /> 데이터 추가
-          </button>
-        </section>
-      )}
-
       <div className="damage-option-data-workspace">
         <aside className="damage-option-record-list">
           <header>
@@ -1223,6 +1210,11 @@ export default function DamageOptionDataPage({
                   <p>이 원문은 매핑 불필요로 저장되며 다른 캐릭터에서도 다시 분류하지 않습니다.</p>
                 ) : selected.effects.map((effect, index) => {
                   const templateKeys = damageOptionTemplateKeys(selected.source)
+                  const effectSkillNames = effect.skillNames?.length
+                    ? effect.skillNames
+                    : effect.skillName
+                      ? [effect.skillName]
+                      : []
                   return (
                     <article key={`${selected.id}-${index}`}>
                       <select
@@ -1317,13 +1309,7 @@ export default function DamageOptionDataPage({
                         <MultiTargetButtons
                           label="적용 스킬 · 복수 선택"
                           options={skillOptions}
-                          values={
-                            effect.skillNames?.length
-                              ? effect.skillNames
-                              : effect.skillName
-                                ? [effect.skillName]
-                                : []
-                          }
+                          values={effectSkillNames}
                           emptyLabel="전체 / 출처 자동"
                           onChange={(skillNames) =>
                             updateRecord(selected.id, (record) => ({
@@ -1353,6 +1339,23 @@ export default function DamageOptionDataPage({
                             }))
                           }
                         />
+                        {MOTION_TARGETABLE_EFFECT_TYPES.has(effect.type) && (
+                          <MultiTargetButtons
+                            label="적용 타수 · 복수 선택"
+                            options={catalogMotionOrderOptions(effectSkillNames) || MOTION_ORDER_OPTIONS}
+                            values={effect.motionOrders || []}
+                            emptyLabel="전체 타수 적용"
+                            optionLabel={(order) => `${order}타`}
+                            onChange={(motionOrders) =>
+                              updateRecord(selected.id, (record) => ({
+                                ...record,
+                                effects: record.effects.map((item, effectIndex) =>
+                                  effectIndex === index ? { ...item, motionOrders } : item,
+                                ),
+                              }))
+                            }
+                          />
+                        )}
                       </div>
                       <div className="damage-option-stack-setting">
                         <label>

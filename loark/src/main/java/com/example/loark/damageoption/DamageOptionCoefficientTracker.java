@@ -39,6 +39,11 @@ import java.util.regex.Pattern;
 public class DamageOptionCoefficientTracker {
     private static final String CACHE_SOURCE = "damage-option-coefficient";
     private static final int MAX_BACKFILL_CHARACTERS = 20_000;
+    // 신규/저레벨 캐릭터는 전투특성→% 환산 공식이 다르게 적용되는 것으로 보인다 - 실제로
+    // 레벨 10~32 · 아이템 레벨 50~150대 캐릭터 몇 명이 정상 대비 8배 가까이 튀는 표시값을
+    // 만들어 구간을 계속 깨뜨렸다. 엔드게임 기준 캐릭터만 계수 추적에 반영해 원천 차단한다.
+    private static final int MIN_CHARACTER_LEVEL = 70;
+    private static final double MIN_ITEM_LEVEL = 1640;
     private static final Pattern PLACEHOLDER = Pattern.compile("\\{([a-zA-Z]\\w*)\\}");
     private static final Pattern HTML_TAG = Pattern.compile("<[^>]*>");
     private static final Pattern BR_TAG = Pattern.compile("(?i)<br\\s*/?>");
@@ -73,7 +78,7 @@ public class DamageOptionCoefficientTracker {
     // something is currently opted into tracking.
     public void onCharacterSaved(JsonNode armory) {
         List<TrackedRecord> tracked = trackedRecords();
-        if (tracked.isEmpty()) return;
+        if (tracked.isEmpty() || !isEligibleCharacter(armory)) return;
         for (TrackedRecord record : tracked) {
             applyRecordAgainstArmory(record, armory);
         }
@@ -106,13 +111,26 @@ public class DamageOptionCoefficientTracker {
             for (CharacterSnapshot snapshot : snapshots.findAllById(ids)) {
                 try {
                     JsonNode armory = objectMapper.readTree(snapshot.getArmoryPayload());
-                    applyRecordAgainstArmory(record, armory);
+                    if (isEligibleCharacter(armory)) {
+                        applyRecordAgainstArmory(record, armory);
+                    }
                 } catch (Exception error) {
                     com.example.loark.config.ApplicationLog.infof(
                             "[DAMAGE OPTION COEFFICIENT] Backfill skipped invalid snapshot: %s / %d%n",
                             snapshot.getCharacterName(), snapshot.getId());
                 }
             }
+        }
+    }
+
+    private boolean isEligibleCharacter(JsonNode armory) {
+        JsonNode profile = armory.path("ArmoryProfile");
+        if (profile.path("CharacterLevel").asInt(0) < MIN_CHARACTER_LEVEL) return false;
+        try {
+            double itemLevel = Double.parseDouble(profile.path("ItemAvgLevel").asText("").replace(",", ""));
+            return itemLevel >= MIN_ITEM_LEVEL;
+        } catch (NumberFormatException error) {
+            return false;
         }
     }
 

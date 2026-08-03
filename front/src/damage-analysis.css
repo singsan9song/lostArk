@@ -53,7 +53,7 @@
 }
 .damage-analysis-layout {
   display: grid;
-  grid-template-columns: minmax(220px, 0.7fr) minmax(0, 2fr);
+  grid-template-columns: minmax(380px, 35fr) minmax(0, 65fr);
   grid-template-rows: auto;
   align-items: start;
   gap: 12px;
@@ -83,6 +83,7 @@
 }
 .damage-skill-list > div {
   display: grid;
+  align-content: start;
   min-height: 0;
   gap: 5px;
   padding-right: 5px;
@@ -110,10 +111,11 @@
 .damage-skill-list button {
   display: grid;
   min-width: 0;
-  grid-template-columns: 38px minmax(0, 1fr);
+  grid-template-columns: 48px minmax(0, 1fr);
   align-items: center;
-  gap: 8px;
-  padding: 7px;
+  gap: 10px;
+  min-height: 66px;
+  padding: 7px 9px;
   border: 1px solid transparent;
   border-radius: 8px;
   background: transparent;
@@ -131,10 +133,23 @@
 }
 .damage-skill-list button > img,
 .damage-skill-list button > svg {
-  width: 38px;
-  height: 38px;
+  width: 48px;
+  height: 48px;
+  align-self: center;
   border-radius: 7px;
   object-fit: cover;
+}
+.damage-skill-list button .skill-damage-content {
+  display: grid;
+  width: 100%;
+  gap: 5px;
+  min-width: 0;
+}
+.damage-skill-list button .skill-damage-name {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  min-width: 0;
 }
 .damage-skill-list button b,
 .damage-skill-list button small {
@@ -144,14 +159,50 @@
   white-space: nowrap;
 }
 .damage-skill-list button b {
+  min-width: 0;
   font-size: var(--fs-11);
 }
 .damage-skill-list button small {
-  margin-top: 2px;
+  flex: none;
+  margin-top: 0;
   color: var(--muted);
   font-size: var(--fs-8);
 }
-
+.damage-skill-list button .skill-damage-name strong {
+  flex: none;
+  max-width: 48%;
+  margin-left: auto;
+  overflow: hidden;
+  color: #86c46c;
+  font-size: 10px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.damage-skill-list button .skill-damage-gauge {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  min-width: 0;
+}
+.damage-skill-list button .skill-damage-gauge-track {
+  position: relative;
+  display: block;
+  flex: none;
+  width: 100%;
+  min-width: 0;
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+.damage-skill-list button .skill-damage-gauge-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #a78bfa, #6d5bd0);
+}
 /* 보유 데이터 원본 줄 목록 모달: 카테고리 탭 + [태그] 줄 형태의 flat 목록. */
 .armory-lines-modal {
   width: min(760px, calc(100vw - 44px));
@@ -259,14 +310,6 @@
   grid-column: 2;
   grid-row: 3;
 }
-.damage-analysis-detail > .motion-hit-input-section {
-  grid-column: 1 / -1;
-  grid-row: 4;
-}
-.damage-analysis-detail > .damage-missing-section {
-  grid-column: 1 / -1;
-  grid-row: 5;
-}
 .damage-analysis-detail > header {
   display: flex;
   align-items: center;
@@ -306,28 +349,25 @@
 .damage-analysis-detail > section {
   margin-top: 0;
 }
-.damage-analysis-detail > .motion-hit-input-section {
-  min-width: 0;
-  padding: 12px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: var(--surface);
-}
-.damage-analysis-detail > .damage-missing-section {
-  min-width: 0;
-  padding: 16px;
-}
 .damage-combat-stat-summary {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 7px;
 }
-.damage-combat-stat-summary article {
+.damage-combat-stat-summary button {
   min-width: 0;
   padding: 10px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--surface-2);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.damage-combat-stat-summary button:hover {
+  border-color: rgba(167, 139, 250, 0.5);
+  background: rgba(139, 92, 246, 0.11);
 }
 .damage-combat-stat-summary small,
 .damage-combat-stat-summary strong,
@@ -349,95 +389,6 @@
   color: var(--muted);
   font-size: var(--fs-8);
   font-style: normal;
-}
-.motion-hit-input-list {
-  display: grid;
-  gap: 7px;
-}
-.motion-hit-input-list > article {
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--surface-2);
-}
-.motion-hit-input-list article > header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 8px 10px;
-  border-bottom: 1px solid var(--line);
-}
-.motion-hit-input-list header b,
-.motion-hit-input-list header small {
-  display: block;
-}
-.motion-hit-input-list header b {
-  font-size: var(--fs-10);
-}
-.motion-hit-input-list header small,
-.motion-hit-input-list article > p {
-  color: var(--muted);
-  font-size: var(--fs-8);
-}
-.motion-hit-input-list header label {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  color: var(--muted);
-  font-size: var(--fs-8);
-}
-.motion-hit-input-list header input {
-  width: 54px;
-}
-.motion-hit-input-list article > div {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
-  padding: 9px 10px;
-}
-.motion-hit-input-list article > div label {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: center;
-  gap: 8px;
-}
-.motion-hit-input-list article > div span {
-  color: var(--muted);
-  font-size: var(--fs-8);
-}
-.motion-hit-input-list article > div strong {
-  min-width: 0;
-  padding: 6px 8px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: var(--surface);
-  color: var(--text);
-  font-size: var(--fs-10);
-  font-weight: 700;
-  text-align: right;
-  overflow-wrap: anywhere;
-}
-.motion-hit-input-list input {
-  min-width: 0;
-  padding: 6px 8px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  outline: none;
-  background: var(--surface);
-  color: var(--text);
-  font: inherit;
-  font-size: var(--fs-10);
-  text-align: right;
-}
-.motion-hit-input-list input:focus {
-  border-color: #86c46c;
-  box-shadow: 0 0 0 2px rgba(134, 196, 108, 0.14);
-}
-.motion-hit-input-list article > p {
-  margin: 0;
-  padding: 0 10px 8px;
-  line-height: 1.45;
 }
 .damage-section-title {
   display: flex;
@@ -644,34 +595,6 @@
 .weapon-attack-note.input-warning {
   color: #f59e0b;
 }
-.damage-variable-table {
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-}
-.damage-variable-table .variable-row-group + .variable-row-group {
-  border-top: 1px solid var(--line);
-}
-.damage-variable-table .variable-row {
-  display: grid;
-  grid-template-columns: 90px minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 10px;
-  background: var(--surface-2);
-}
-.variable-row-result {
-  display: flex;
-  align-items: baseline;
-  justify-content: flex-end;
-  gap: 6px;
-}
-.variable-row-result strong {
-  color: #86c46c;
-  font-size: var(--fs-10);
-  font-weight: 700;
-  white-space: nowrap;
-}
 .motion-value-input {
   display: flex;
   align-items: center;
@@ -698,58 +621,6 @@
 .motion-value-input input:focus {
   border-color: #86c46c;
   box-shadow: 0 0 0 2px rgba(134, 196, 108, 0.14);
-}
-.motion-input-row.resolved-variable {
-  cursor: default;
-}
-.weapon-attack-detail-row {
-  border-top: 1px solid var(--line);
-  padding: 10px;
-  background: var(--surface);
-}
-.damage-variable-table code {
-  display: block;
-  overflow-wrap: break-word;
-  color: #fbbf24;
-  font-size: var(--fs-8);
-  font-weight: 800;
-  line-height: 1.25;
-}
-.damage-variable-table b,
-.damage-variable-table small {
-  display: block;
-}
-.damage-variable-table b {
-  font-size: var(--fs-10);
-}
-.damage-variable-table small {
-  margin-top: 1px;
-  color: var(--muted);
-  font-size: var(--fs-8);
-}
-.damage-variable-table em {
-  color: #f59e0b;
-  font-size: var(--fs-8);
-  font-style: normal;
-  text-align: right;
-}
-.damage-variable-table .resolved-variable {
-  cursor: pointer;
-}
-.damage-variable-table .resolved-variable:hover {
-  background: rgba(134, 196, 108, 0.1);
-}
-.damage-variable-table .resolved-variable em {
-  color: #86c46c;
-}
-.damage-variable-group + .damage-variable-group {
-  margin-top: 14px;
-}
-.damage-variable-group-title {
-  margin: 0 0 6px;
-  color: var(--muted);
-  font-size: var(--fs-10);
-  font-weight: 700;
 }
 
 /* 스킬 공격력 계산 상세: 네 단계를 같은 깊이에 배치하고 개별 접기/펼치기를
@@ -1515,6 +1386,7 @@
 }
 .motion-hit-result-list > article > header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 8px;
   padding: 8px 10px;
@@ -1523,34 +1395,111 @@
 .motion-hit-result-list header b {
   font-size: var(--fs-10);
 }
-.motion-hit-result-list header small,
-.motion-hit-result-list article span small {
+.motion-hit-result-list header label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
   color: var(--muted);
   font-size: var(--fs-8);
 }
-.motion-hit-result-list article > div {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+.motion-hit-result-list header label input {
+  width: 48px;
+  padding: 3px 5px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface-1);
+  color: inherit;
+  font: inherit;
 }
-.motion-hit-result-list article span {
+.motion-hit-result-list header small,
+.motion-hit-result-list article button span small {
+  color: var(--muted);
+  font-size: var(--fs-8);
+}
+.motion-hit-result-list article > button {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: 100%;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  padding: 0;
+}
+.motion-hit-result-list article > button:hover {
+  background: rgba(139, 92, 246, 0.11);
+}
+.motion-hit-result-list article button span {
   min-width: 0;
   padding: 8px 10px;
 }
-.motion-hit-result-list article span + span {
+.motion-hit-result-list article button span + span {
   border-left: 1px solid var(--line);
 }
-.motion-hit-result-list article span small,
-.motion-hit-result-list article span strong {
+.motion-hit-result-list article button span small,
+.motion-hit-result-list article button span strong {
   display: block;
 }
-.motion-hit-result-list article span strong {
+.motion-hit-result-list article button span strong {
   margin-top: 2px;
   color: #86c46c;
   font-size: var(--fs-10);
   overflow-wrap: anywhere;
 }
-.motion-hit-result-list article span:nth-child(n + 3) strong {
+.motion-hit-result-list article button span:nth-child(2) strong {
   color: #fbbf24;
+}
+.motion-detail-sections {
+  display: grid;
+  gap: 14px;
+}
+.motion-detail-sections > section > h5 {
+  margin: 0 0 6px;
+  color: var(--muted);
+  font-size: var(--fs-10);
+  font-weight: 700;
+}
+.motion-detail-sections > section + section {
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+.motion-detail-result > div {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--surface-2);
+}
+.motion-detail-result span {
+  min-width: 0;
+  padding: 10px;
+}
+.motion-detail-result span + span {
+  border-left: 1px solid var(--line);
+}
+.motion-detail-result small {
+  display: block;
+  color: var(--muted);
+  font-size: var(--fs-8);
+}
+.motion-detail-result strong {
+  display: block;
+  margin-top: 3px;
+  color: #86c46c;
+  font-size: var(--fs-13);
+  overflow-wrap: anywhere;
+}
+.motion-detail-result span:nth-child(2) strong {
+  color: #fbbf24;
+}
+.motion-specific-multiplier-note {
+  display: block;
+  padding: 4px 10px 0;
+  color: #a78bfa;
+  font-size: var(--fs-8);
 }
 .damage-case-input-required {
   padding: 18px;
@@ -1709,9 +1658,7 @@
   }
   .damage-analysis-detail > header,
   .damage-analysis-detail > .damage-combat-stat-summary,
-  .damage-analysis-detail > .damage-case-results,
-  .damage-analysis-detail > .motion-hit-input-section,
-  .damage-analysis-detail > .damage-missing-section {
+  .damage-analysis-detail > .damage-case-results {
     grid-column: 1;
     grid-row: auto;
   }
@@ -1749,18 +1696,5 @@
   }
   .damage-combat-stat-summary {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .motion-hit-input-list article > div {
-    grid-template-columns: 1fr;
-  }
-  .motion-hit-result-list article > div {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .motion-hit-result-list article span:nth-child(3) {
-    border-top: 1px solid var(--line);
-    border-left: 0;
-  }
-  .motion-hit-result-list article span:nth-child(4) {
-    border-top: 1px solid var(--line);
   }
 }

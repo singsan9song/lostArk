@@ -54,4 +54,13 @@ public interface GameCharacterRepository extends JpaRepository<GameCharacter, Lo
             @Param("className") String className,
             @Param("engraving") String engraving,
             Pageable pageable);
+
+    // Same shape as findDamageOptionCorpusCharacterNames but without the class/engraving filter -
+    // damage-option coefficient tracking matches by source template text (which is already
+    // naturally scoped to whatever class/skill produces it), not by class+engraving, so the
+    // backfill needs a broad, class-agnostic sample instead of one narrow group.
+    @Query("select character.characterName from GameCharacter character "
+            + "where character.rankingReady = true "
+            + "order by character.itemLevelValue desc")
+    List<String> findDamageOptionCoefficientBackfillCharacterNames(Pageable pageable);
 }

@@ -1,6 +1,7 @@
 package com.example.loark.character;
 
 import com.example.loark.config.LostArkRequestContext;
+import com.example.loark.damageoption.DamageOptionCoefficientTracker;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -29,6 +30,7 @@ public class CharacterService {
     private final CharacterCardSetObservationRepository cardSets;
     private final GameCharacterRepository gameCharacters;
     private final CharacterRankingClassifier rankingClassifier;
+    private final DamageOptionCoefficientTracker coefficientTracker;
     private final ObjectMapper objectMapper;
     private final TransactionTemplate transactionTemplate;
 
@@ -37,6 +39,7 @@ public class CharacterService {
                             CharacterCardSetObservationRepository cardSets,
                             GameCharacterRepository gameCharacters,
                             CharacterRankingClassifier rankingClassifier,
+                            DamageOptionCoefficientTracker coefficientTracker,
                             ObjectMapper objectMapper,
                             PlatformTransactionManager transactionManager) {
         this.client = lostArkRestClient;
@@ -45,6 +48,7 @@ public class CharacterService {
         this.cardSets = cardSets;
         this.gameCharacters = gameCharacters;
         this.rankingClassifier = rankingClassifier;
+        this.coefficientTracker = coefficientTracker;
         this.objectMapper = objectMapper;
         // A plain @Transactional on saveSnapshot() wouldn't apply (it's called via internal
         // self-invocation, which bypasses Spring's proxy-based AOP), and putting @Transactional
@@ -191,6 +195,13 @@ public class CharacterService {
         CharacterRankingClassifier.Classification classification =
                 rankingClassifier.classify(armory, profile.path("CharacterClassName").asText(""));
         character.updateRanking(classification.engraving(), classification.role(), fetchedAt);
+        try {
+            coefficientTracker.onCharacterSaved(armory);
+        } catch (RuntimeException error) {
+            // Never let a coefficient-tracking hiccup fail the character save itself.
+            com.example.loark.config.ApplicationLog.infof(
+                    "[DAMAGE OPTION COEFFICIENT] Update failed for %s: %s%n", canonicalName, error.getMessage());
+        }
 
         List<JsonNode> memberNodes = new java.util.ArrayList<>();
         siblings.forEach(member -> {

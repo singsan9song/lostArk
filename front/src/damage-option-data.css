@@ -151,6 +151,9 @@
   min-height: 0;
   padding: 12px;
 }
+.damage-option-data-modal-content:has(> .damage-option-mapping-pane:only-child) {
+  grid-template-columns: minmax(0, 1fr);
+}
 .damage-option-data-modal .damage-option-source-browser {
   display: flex;
   min-width: 0;
@@ -607,6 +610,22 @@
   background: rgba(139, 92, 246, 0.12);
   color: #c4b5fd;
 }
+.damage-option-category-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: var(--fs-8);
+  color: var(--muted);
+}
+.damage-option-category-filter select {
+  flex: 1;
+  height: 32px;
+  padding: 4px 7px;
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+}
 .damage-option-record-items {
   display: grid;
   gap: 6px;
@@ -771,6 +790,102 @@
   height: 34px;
   padding: 6px 7px;
   background: var(--surface);
+}
+.damage-option-coefficient {
+  margin-top: 13px;
+  padding-top: 13px;
+  border-top: 1px solid var(--line);
+}
+.damage-option-coefficient-heading b {
+  display: block;
+}
+.damage-option-coefficient-heading small {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: var(--fs-8);
+}
+.damage-option-coefficient-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 9px;
+}
+.damage-option-coefficient-controls label {
+  display: grid;
+  gap: 4px;
+  font-size: var(--fs-8);
+  color: var(--muted);
+}
+.damage-option-coefficient-controls select {
+  height: 32px;
+  padding: 4px 7px;
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+}
+.damage-option-coefficient-empty {
+  margin-top: 9px;
+  color: var(--muted);
+  font-size: var(--fs-9);
+}
+.damage-option-coefficient-empty.error {
+  color: #ff8a8a;
+}
+.damage-option-coefficient-result {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 9px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--surface-2);
+  font-size: var(--fs-9);
+}
+.damage-option-coefficient-result code {
+  color: #ded3ff;
+  font-weight: 700;
+}
+.damage-option-coefficient-tracking-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--line);
+}
+.damage-option-coefficient-tracking-heading b {
+  font-size: var(--fs-9);
+}
+.damage-option-coefficient-tracking-heading button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 28px;
+  padding: 0 9px;
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: var(--fs-8);
+}
+.damage-option-coefficient-tracking-heading button svg {
+  width: 13px;
+}
+.damage-option-tracking-start {
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 7px;
+  border-color: rgba(139, 103, 255, 0.72);
+  background: rgba(111, 71, 214, 0.3);
+  color: #ded3ff;
+  font-size: var(--fs-8);
+  font-weight: 700;
+}
+.damage-option-tracking-start:disabled {
+  opacity: 0.5;
+  cursor: default;
 }
 .damage-option-effect-list label {
   position: relative;

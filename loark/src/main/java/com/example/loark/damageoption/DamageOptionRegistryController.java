@@ -1,11 +1,17 @@
 package com.example.loark.damageoption;
 
+import com.example.loark.cache.PersistentApiCache;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import tools.jackson.databind.JsonNode;
@@ -17,6 +23,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/damage-option-registry")
@@ -25,15 +34,48 @@ public class DamageOptionRegistryController {
     private final Path registryPath;
     private final Path ignoredRegistryPath;
     private final Object fileLock = new Object();
+    private final DamageOptionCoefficientTracker coefficientTracker;
+    private final PersistentApiCache coefficientCache;
+    private final Set<String> adminDiscordIds;
 
     public DamageOptionRegistryController(
             ObjectMapper objectMapper,
+            DamageOptionCoefficientTracker coefficientTracker,
+            PersistentApiCache coefficientCache,
             @Value("${app.damage-option-registry.path:./data/damage-option-registry.json}") String registryPath,
             @Value("${app.damage-option-registry.ignored-path:./data/damage-option-ignored.json}")
-            String ignoredRegistryPath) {
+            String ignoredRegistryPath,
+            @Value("${app.community.admin-discord-ids:}") String adminDiscordIds) {
         this.objectMapper = objectMapper;
+        this.coefficientTracker = coefficientTracker;
+        this.coefficientCache = coefficientCache;
         this.registryPath = Path.of(registryPath).toAbsolutePath().normalize();
         this.ignoredRegistryPath = Path.of(ignoredRegistryPath).toAbsolutePath().normalize();
+        this.adminDiscordIds = new LinkedHashSet<>(Arrays.asList(adminDiscordIds.split(",")));
+        this.adminDiscordIds.removeIf(String::isBlank);
+    }
+
+    @GetMapping("/coefficient")
+    public ResponseEntity<JsonNode> getCoefficient(
+            @AuthenticationPrincipal OAuth2User principal, @RequestParam String recordId) {
+        requireAdmin(principal);
+        return coefficientCache.findLastSuccess("damage-option-coefficient|" + recordId)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("/coefficient/backfill")
+    public void backfillCoefficient(
+            @AuthenticationPrincipal OAuth2User principal, @RequestParam String recordId) {
+        requireAdmin(principal);
+        coefficientTracker.backfillRecordAsync(recordId);
+    }
+
+    private void requireAdmin(OAuth2User principal) {
+        String discordId = principal == null ? null : principal.getAttribute("id");
+        if (discordId == null || !adminDiscordIds.contains(discordId)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "관리자만 확인할 수 있습니다.");
+        }
     }
 
     @GetMapping

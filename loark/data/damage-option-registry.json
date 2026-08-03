@@ -306,18 +306,6 @@
       "stack" : null
     } ]
   }, {
-    "id" : "damage-option-draft-79-3loh8i",
-    "source" : "가디언 피어 적중 시 '피해 증폭' 효과가 적용되어 공격에 적중된 적은 {n}초 동안 자신 및 파티원의 공격에 받는 피해가 {m}% 증가한다.",
-    "ignored" : false,
-    "effects" : [ {
-      "type" : "ENEMY_RECEIVED_DAMAGE_PERCENT",
-      "valueKey" : "m",
-      "condition" : "ALWAYS",
-      "skillName" : "",
-      "label" : "",
-      "stack" : null
-    } ]
-  }, {
     "id" : "damage-option-draft-21-1ocr95e",
     "source" : "적에게 주는 피해가 {n}% 증가한다.",
     "ignored" : false,
@@ -740,7 +728,7 @@
       "skillName" : "",
       "skillNames" : [ ],
       "skillCategories" : [ ],
-      "label" : "",
+      "label" : "시너지",
       "stackCount" : 1,
       "stack" : null
     } ]
@@ -1795,111 +1783,6 @@
       "stack" : null
     } ]
   }, {
-    "id" : "damage-option-draft-18-qjc8d7",
-    "source" : "공격 속도가 {n}% 증가합니다.",
-    "ignored" : false,
-    "effects" : [ {
-      "type" : "ATTACK_SPEED_PERCENT",
-      "valueKey" : "n",
-      "condition" : "ALWAYS",
-      "skillName" : "",
-      "skillNames" : [ ],
-      "skillCategories" : [ ],
-      "label" : "",
-      "stackCount" : 1,
-      "stack" : null
-    } ]
-  }, {
-    "id" : "damage-option-draft-18-omus6i",
-    "source" : "이동 속도가 {n}% 증가합니다.",
-    "ignored" : false,
-    "effects" : [ {
-      "type" : "MOVE_SPEED_PERCENT",
-      "valueKey" : "n",
-      "condition" : "ALWAYS",
-      "skillName" : "",
-      "skillNames" : [ ],
-      "skillCategories" : [ ],
-      "label" : "",
-      "stackCount" : 1,
-      "stack" : null
-    } ]
-  }, {
-    "id" : "damage-option-draft-24-1yu13lk",
-    "source" : "스킬 재사용 대기시간이 {n}% 감소합니다.",
-    "ignored" : false,
-    "effects" : [ {
-      "type" : "COOLDOWN_REDUCTION_PERCENT",
-      "valueKey" : "n",
-      "condition" : "ALWAYS",
-      "skillName" : "",
-      "skillNames" : [ ],
-      "skillCategories" : [ ],
-      "label" : "",
-      "stackCount" : 1,
-      "stack" : null
-    } ]
-  }, {
-    "id" : "damage-option-draft-20-1nf3daj",
-    "source" : "치명타 적중률이 {n}% 증가합니다.",
-    "ignored" : false,
-    "effects" : [ {
-      "type" : "CRIT_RATE_PERCENT",
-      "valueKey" : "n",
-      "condition" : "ALWAYS",
-      "skillName" : "",
-      "skillNames" : [ ],
-      "skillCategories" : [ ],
-      "label" : "",
-      "stackCount" : 1,
-      "stack" : null
-    } ]
-  }, {
-    "id" : "damage-option-draft-28-114eh3n",
-    "source" : "무력화 대상에게 주는 피해량이 {n}% 증가합니다.",
-    "ignored" : false,
-    "effects" : [ {
-      "type" : "DAMAGE_INCREASE_PERCENT",
-      "valueKey" : "n",
-      "condition" : "STAGGERED",
-      "skillName" : "",
-      "skillNames" : [ ],
-      "skillCategories" : [ ],
-      "label" : "",
-      "stackCount" : 1,
-      "stack" : null
-    } ]
-  }, {
-    "id" : "damage-option-draft-27-1h69f5u",
-    "source" : "발현 및 화신 스킬 피해량이 {n}% 증가합니다.",
-    "ignored" : false,
-    "effects" : [ {
-      "type" : "DAMAGE_INCREASE_PERCENT",
-      "valueKey" : "n",
-      "condition" : "ALWAYS",
-      "skillName" : "",
-      "skillNames" : [ ],
-      "skillCategories" : [ "화신", "발현" ],
-      "label" : "",
-      "stackCount" : 1,
-      "stack" : null
-    } ]
-  }, {
-    "id" : "damage-option-draft-40-o6q6oe",
-    "source" : "화신 스킬의 엠버레스의 기운 소모당 피해량이 추가로 {n}% 증가합니다.",
-    "ignored" : false,
-    "effects" : [ {
-      "type" : "DAMAGE_INCREASE_PERCENT",
-      "valueKey" : "n",
-      "condition" : "ALWAYS",
-      "skillName" : "",
-      "skillNames" : [ ],
-      "skillCategories" : [ "화신" ],
-      "label" : "",
-      "stackCount" : 1,
-      "stack" : null
-    } ]
-  }, {
     "id" : "damage-option-draft-42-1ml76d0",
     "source" : "재사용 대기시간이 {n}초 감소하고, 적에게 주는 피해가 {m}% 증가한다.",
     "ignored" : false,
@@ -1981,21 +1864,6 @@
     "effects" : [ {
       "type" : "DAMAGE_INCREASE_PERCENT",
       "valueKey" : "m",
-      "condition" : "ALWAYS",
-      "skillName" : "",
-      "skillNames" : [ ],
-      "skillCategories" : [ ],
-      "label" : "",
-      "stackCount" : 1,
-      "stack" : null
-    } ]
-  }, {
-    "id" : "damage-option-draft-99-13gjjo3",
-    "source" : "공격 적중 시 {n}초간 약점을 노출시켜 대상이 자신 및 파티원에게 받는 피해를 {m}% 증가시킨다. 헤드 어택 및 백 어택의 경우, 받는 피해 효과가 추가로 {k}% 증가한다.",
-    "ignored" : false,
-    "effects" : [ {
-      "type" : "ENEMY_RECEIVED_DAMAGE_PERCENT",
-      "valueKey" : "n",
       "condition" : "ALWAYS",
       "skillName" : "",
       "skillNames" : [ ],
@@ -3395,8 +3263,9 @@
       "stack" : null
     } ]
   }, {
-    "id" : "damage-option-draft-25-jlryim",
-    "source" : "악마화 시 스킬 피해량이 {n}% 증가합니다.",
+    "id" : "damage-option-draft-23-1mry4y3",
+    "source" : "각성 스킬의 피해량이 {n}% 증가합니다.",
+    "category" : "전투 특성",
     "ignored" : false,
     "effects" : [ {
       "type" : "DAMAGE_INCREASE_PERCENT",
@@ -3404,7 +3273,143 @@
       "condition" : "ALWAYS",
       "skillName" : "",
       "skillNames" : [ ],
-      "skillCategories" : [ "악마" ],
+      "skillCategories" : [ "초각성기", "각성기" ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ],
+    "coefficientStatType" : "특화",
+    "coefficientKey" : "n"
+  }, {
+    "id" : "damage-option-draft-20-1nf3daj",
+    "source" : "치명타 적중률이 {n}% 증가합니다.",
+    "category" : "전투 특성",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "CRIT_RATE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ],
+    "coefficientStatType" : "치명",
+    "coefficientKey" : "n"
+  }, {
+    "id" : "damage-option-draft-18-qjc8d7",
+    "source" : "공격 속도가 {n}% 증가합니다.",
+    "category" : "전투 특성",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ATTACK_SPEED_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ],
+    "coefficientStatType" : "신속",
+    "coefficientKey" : "n"
+  }, {
+    "id" : "damage-option-draft-18-omus6i",
+    "source" : "이동 속도가 {n}% 증가합니다.",
+    "category" : "전투 특성",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "MOVE_SPEED_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ],
+    "coefficientStatType" : "신속",
+    "coefficientKey" : "n"
+  }, {
+    "id" : "damage-option-draft-24-1yu13lk",
+    "source" : "스킬 재사용 대기시간이 {n}% 감소합니다.",
+    "category" : "전투 특성",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-27-1h69f5u",
+    "source" : "발현 및 화신 스킬 피해량이 {n}% 증가합니다.",
+    "category" : "전투 특성",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ "발현", "화신" ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-40-o6q6oe",
+    "source" : "화신 스킬의 엠버레스의 기운 소모당 피해량이 추가로 {n}% 증가합니다.",
+    "category" : "전투 특성",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ "화신" ],
+      "label" : "조건",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-55-wps5tm",
+    "source" : "공격 준비 시간이 증가되지만, 돌진 거리가 {n}m 증가하며 적에게 주는 피해가 {m}% 증가한다.",
+    "category" : "스킬",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-30-u3w6dx",
+    "source" : "[가디언나이트] 쓰러스트 재사용 대기시간 {n}% 감소",
+    "category" : "스킬",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
       "label" : "",
       "stackCount" : 1,
       "stack" : null

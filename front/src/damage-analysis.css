@@ -808,7 +808,7 @@
 /* 계산 설정 + 마을 기준 최종 공격력을 나란히 배치하는 행. */
 .damage-settings-row {
   display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(200px, 1fr);
+  grid-template-columns: minmax(0, 1.2fr) minmax(220px, 1fr);
   align-items: start;
   gap: 12px;
 }
@@ -829,10 +829,11 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   gap: 3px;
   margin-top: 4px;
+  text-align: center;
 }
 .town-final-attack-power-value b {
   color: #86c46c;

@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { cleanApiText } from '../lib/text'
 import { parseKarmaDescription } from '../lib/arkPassiveKarmaTable'
 import {
+  collectResolvedDamageOptionEffects,
   DAMAGE_EFFECT_TYPES,
   damageOptionSkillCategory,
   damageOptionSkillCategoryLabel,
@@ -294,8 +295,21 @@ function profileWithoutCombatStatLine(profile, line) {
   }
 }
 
-function accessoryEngineDamageScore(armory, profile, skills, skill, settings = {}) {
+// registry가 있으면 "데미지 분석 2"(매핑 레지스트리 기반)와 동일한 방식으로 각 항목을
+// 계산한다 - DamageAnalysis 컴포넌트의 mappedMode 분기와 정확히 같은 소스/폴백 순서를
+// 그대로 이식한 것(예: 치명타 적중률은 추적 계수 우선, 없으면 등록된 원문 값 합산). 없으면
+// 기존 레거시(원문 스캐너) 경로 그대로.
+function accessoryEngineDamageScore(
+  armory,
+  profile,
+  skills,
+  skill,
+  settings = {},
+  registry = null,
+  battleStatCoefficients = {},
+) {
   if (!skill) return null
+  const mappedMode = Boolean(registry)
   const stats = Object.fromEntries((profile?.Stats || []).map((stat) => [stat.Type, stat.Value]))
   const combatStats = combatStatConversions(stats)
   const category = damageOptionSkillCategory(skill)
@@ -306,60 +320,150 @@ function accessoryEngineDamageScore(armory, profile, skills, skill, settings = {
     settings.petTraitSpeciesDamage,
   )
   const petAdditional = normalizePetTraitValue('petTraitAdditional', settings.petTraitAdditional)
-  const mainStatData = mainStatBreakdown(armory, profile, {
+
+  const mappedEffectsForSkill = mappedMode
+    ? resolveMappedEffectsForSkill(collectResolvedDamageOptionEffects(armory, registry), armory, skill)
+    : []
+  const mappedSources = (type) => mappedEffectSources(mappedEffectsForSkill, type)
+
+  const detectedMainStatData = mainStatBreakdown(armory, profile, {
     potionSourceInput: settings.potionSource ?? '',
     cardBookInput: settings.cardBook ?? '',
     azenaBlessing: Boolean(settings.azenaBlessing),
     petTraitPercent: petMainStat,
   })
+  const mappedMainStatName = detectedMainStatData.mainStatName
+  const isMappedMainStatSource = (source) => {
+    const namedStat = source.context?.match(/^(힘|민첩|지능)(?=\s|$)/)?.[1]
+    return !namedStat || namedStat === mappedMainStatName
+  }
+  const mappedMainStatFlatSources = mappedMode
+    ? mappedSources('MAIN_STAT_FLAT').filter(isMappedMainStatSource)
+    : []
+  const mappedMainStatPercentSources = mappedMode
+    ? mappedSources('MAIN_STAT_PERCENT').filter(isMappedMainStatSource)
+    : []
+  const mappedMainStatValue = mappedMainStatFlatSources.reduce((sum, source) => sum + source.value, 0)
+  const mappedMainStatPercent = mappedMainStatPercentSources.reduce(
+    (sum, source) => sum + source.value,
+    0,
+  )
+  const mappedMainStatFixedTotal =
+    mappedMainStatValue +
+    detectedMainStatData.expeditionBonus +
+    detectedMainStatData.levelStatBonus +
+    detectedMainStatData.potionBonus +
+    detectedMainStatData.cardBookBonus +
+    detectedMainStatData.azenaBonus
+  const mainStatData = mappedMode
+    ? {
+        ...detectedMainStatData,
+        mainStatValue: mappedMainStatValue,
+        mainStatPercent: mappedMainStatPercent + petMainStat,
+        totalFixedStat: mappedMainStatFixedTotal,
+        mainStatFinal: mappedMainStatFixedTotal * (1 + (mappedMainStatPercent + petMainStat) / 100),
+      }
+    : detectedMainStatData
   const mainStat = { name: mainStatData.mainStatName, value: mainStatData.mainStatFinal }
-  const weaponAttackBase = weaponAttackBreakdown(armory)
+
   const weaponFeast = !settings.eventFeastEnabled && Boolean(settings.weaponAttackFeastEnabled)
+  const weaponAttackBase = mappedMode
+    ? {
+        base: mappedSources('WEAPON_ATTACK_FLAT').map((source) => ({ ...source, kind: 'base' })),
+        flat: [],
+        percent: mappedSources('WEAPON_ATTACK_PERCENT').map((source) => ({
+          ...source,
+          kind: 'percent',
+        })),
+        conditional: [],
+        sources: [],
+      }
+    : weaponAttackBreakdown(armory)
   const weaponAttack = weaponFeast
     ? {
         ...weaponAttackBase,
         flat: [...weaponAttackBase.flat, { kind: 'flat', value: WEAPON_ATTACK_FEAST_BONUS }],
       }
     : weaponAttackBase
+
+  const attackPower = mappedMode
+    ? {
+        flat: mappedSources('ATTACK_POWER_FLAT').map((source) => ({ ...source, kind: 'flat' })),
+        percent: mappedSources('ATTACK_POWER_PERCENT').map((source) => ({
+          ...source,
+          kind: 'percent',
+        })),
+        conditional: [],
+        sources: [],
+      }
+    : attackPowerBreakdown(armory)
+
+  const mappedBaseAttackFlatSources = mappedMode ? mappedSources('BASE_ATTACK_FLAT') : []
+  const baseAttackRateTotal = mappedMode
+    ? mappedSources('BASE_ATTACK_PERCENT').reduce((sum, source) => sum + source.value, 0)
+    : baseAttackRateBreakdown(armory).total
+  const mappedBaseAttackFlatTotal = mappedBaseAttackFlatSources.reduce(
+    (sum, source) => sum + source.value,
+    0,
+  )
+
   const { finalAttackPower } = finalAttackPowerChain(
     weaponAttack,
-    attackPowerBreakdown(armory),
+    attackPower,
     mainStat,
-    baseAttackRateBreakdown(armory).total,
+    baseAttackRateTotal,
     enabledConditionals,
+    mappedMode ? mappedBaseAttackFlatTotal : 0,
   )
   if (!Number.isFinite(finalAttackPower)) return null
 
-  const additional = additionalDamageBreakdown(armory)
-  const additionalTotal = [
-    ...additional.weapon,
-    ...additional.accessory,
-    ...additional.bracelet,
-  ].reduce((sum, source) => sum + source.value, petAdditional)
-  const moveSpeed =
-    combatStats.moveSpeed +
-    (settings.eventFeastEnabled || weaponFeast ? FEAST_SPEED_BONUS : 0) +
-    skillMoveSpeedFacts(skills).total
-  const damageGroups = [
-    ...engravingDamageFacts(armory).sources.map((source) => source.value),
-    arkPassiveTierDamageBreakdown(armory, '진화', skill.Name, category, skill).total,
-    arkPassiveTierDamageBreakdown(armory, '깨달음', skill.Name, category, skill).total,
-    petSpeciesDamage,
-    cardDamageFacts(armory).total,
-    raidCaptainDamageFacts(armory, moveSpeed).total,
-    massIncreaseDamageFacts(armory).total,
-    arkPassiveTierDamageBreakdown(armory, '도약', skill.Name, category, skill).total,
-    specializationSkillDamageFacts(profile, category).total,
-    ...outgoingDamageBreakdown(armory, skill.Name, category).groups.map((group) => group.total),
-  ]
+  const additionalTotal = mappedMode
+    ? [...mappedSources('ADDITIONAL_DAMAGE_PERCENT'), ...mappedSources('ADDITIONAL_DAMAGE_FLAT')].reduce(
+        (sum, source) => sum + source.value,
+        petAdditional,
+      )
+    : (() => {
+        const additional = additionalDamageBreakdown(armory)
+        return [...additional.weapon, ...additional.accessory, ...additional.bracelet].reduce(
+          (sum, source) => sum + source.value,
+          petAdditional,
+        )
+      })()
+  const moveSpeed = mappedMode
+    ? 0
+    : combatStats.moveSpeed +
+      (settings.eventFeastEnabled || weaponFeast ? FEAST_SPEED_BONUS : 0) +
+      skillMoveSpeedFacts(skills).total
+  const damageGroups = mappedMode
+    ? [...mappedSources('DAMAGE_INCREASE_PERCENT'), ...mappedSources('DAMAGE_INCREASE_FLAT')].map(
+        (source) => source.value,
+      )
+    : [
+        ...engravingDamageFacts(armory).sources.map((source) => source.value),
+        arkPassiveTierDamageBreakdown(armory, '진화', skill.Name, category, skill).total,
+        arkPassiveTierDamageBreakdown(armory, '깨달음', skill.Name, category, skill).total,
+        petSpeciesDamage,
+        cardDamageFacts(armory).total,
+        raidCaptainDamageFacts(armory, moveSpeed).total,
+        massIncreaseDamageFacts(armory).total,
+        arkPassiveTierDamageBreakdown(armory, '도약', skill.Name, category, skill).total,
+        specializationSkillDamageFacts(profile, category).total,
+        ...outgoingDamageBreakdown(armory, skill.Name, category).groups.map((group) => group.total),
+      ]
   const damageMultiplier = damageGroups.reduce(
     (product, percent) => product * (1 + percent / 100),
     1,
   )
+  const receivedDamageTotal = mappedMode
+    ? [
+        ...mappedSources('ENEMY_RECEIVED_DAMAGE_PERCENT'),
+        ...mappedSources('ENEMY_RECEIVED_DAMAGE_FLAT'),
+      ].reduce((sum, source) => sum + source.value, 0)
+    : receivedDamageFacts(skills).total
   const sharedMultiplier =
     (1 + additionalTotal / 100) *
     damageMultiplier *
-    (1 + receivedDamageFacts(skills).total / 100) *
+    (1 + receivedDamageTotal / 100) *
     LUMERUS_DEFENSE_MULTIPLIER
 
   const baseAttack = profileBaseAttackPower(profile)
@@ -377,13 +481,26 @@ function accessoryEngineDamageScore(armory, profile, skills, skill, settings = {
       ? sum + (finalAttackPower * coefficient + constant) * motion.repeat
       : sum
   }, 0)
-  const critMultiplier =
-    (2 + critDamageBreakdown(armory).bonusTotal / 100) *
-    (1 + critHitBraceletFacts(armory).total / 100)
-  const critProbability = Math.min(
-    1,
-    Math.max(0, critRateFacts(armory, combatStats.critical, category).total / 100),
-  )
+  const critDamageBonusTotal = mappedMode
+    ? [...mappedSources('CRIT_DAMAGE_PERCENT'), ...mappedSources('CRIT_DAMAGE_FLAT')].reduce(
+        (sum, source) => sum + source.value,
+        0,
+      )
+    : critDamageBreakdown(armory).bonusTotal
+  // 팔찌 효과의 "치명타 시 주는 피해"는 레지스트리에 대응 효과 타입이 아직 없어 매핑
+  // 모드에서는 계산에 못 넣는다 - 데미지 분석 2 컴포넌트도 동일한 한계를 갖는다.
+  const critHitBraceletTotal = mappedMode ? 0 : critHitBraceletFacts(armory).total
+  const critMultiplier = (2 + critDamageBonusTotal / 100) * (1 + critHitBraceletTotal / 100)
+  const critRateTracked = mappedMode
+    ? battleStatTrackedSource(battleStatCoefficients, 'CRIT_RATE_PERCENT', '치명', combatStats.critical)
+    : { source: null, recordId: null }
+  const critRateTotal = mappedMode
+    ? (critRateTracked.source ? critRateTracked.source.value : 0) +
+      mappedSources('CRIT_RATE_PERCENT')
+        .filter((source) => source.recordId !== critRateTracked.recordId)
+        .reduce((sum, source) => sum + source.value, 0)
+    : critRateFacts(armory, combatStats.critical, category).total
+  const critProbability = Math.min(1, Math.max(0, critRateTotal / 100))
   const keenPenalty = keenBluntPenaltyFacts(armory)
   const expectedPenalty = keenPenalty.active
     ? 1 - keenPenalty.rate / 100 + (keenPenalty.rate / 100) * keenPenalty.multiplier
@@ -396,7 +513,15 @@ function accessoryEngineDamageScore(armory, profile, skills, skill, settings = {
   )
 }
 
-export function calculateAccessoryOptionShares({ armory, profile, skills, skillName, siblings }) {
+export function calculateAccessoryOptionShares({
+  armory,
+  profile,
+  skills,
+  skillName,
+  siblings,
+  registry = null,
+  battleStatCoefficients = {},
+}) {
   const skill = (skills || []).find((item) => item.Name === skillName) || skills?.[0]
   const characterName = profile?.CharacterName || ''
   const settings = characterName
@@ -405,7 +530,15 @@ export function calculateAccessoryOptionShares({ armory, profile, skills, skillN
         expeditionKeyFromSiblings(siblings, characterName),
       ) || {}
     : {}
-  const baseline = accessoryEngineDamageScore(armory, profile, skills, skill, settings)
+  const baseline = accessoryEngineDamageScore(
+    armory,
+    profile,
+    skills,
+    skill,
+    settings,
+    registry,
+    battleStatCoefficients,
+  )
   if (!Number.isFinite(baseline) || baseline <= 0) return []
   const accessoryTypes = new Set(['목걸이', '귀걸이', '반지', '팔찌'])
   const typeCounts = new Map()
@@ -431,6 +564,8 @@ export function calculateAccessoryOptionShares({ armory, profile, skills, skillN
         skills,
         skill,
         settings,
+        registry,
+        battleStatCoefficients,
       )
       if (!Number.isFinite(without) || Math.abs(baseline - without) < 1e-9) return []
       return [
@@ -494,6 +629,8 @@ export function calculateAccessoryReplacement({
   grade,
   quality,
   lines = [],
+  registry = null,
+  battleStatCoefficients = {},
 }) {
   const skill = (skills || []).find((item) => item.Name === skillName) || skills?.[0]
   if (!skill || equipmentIndex == null) return { total: null, options: [] }
@@ -504,7 +641,15 @@ export function calculateAccessoryReplacement({
         expeditionKeyFromSiblings(siblings, characterName),
       ) || {}
     : {}
-  const baseline = accessoryEngineDamageScore(armory, profile, skills, skill, settings)
+  const baseline = accessoryEngineDamageScore(
+    armory,
+    profile,
+    skills,
+    skill,
+    settings,
+    registry,
+    battleStatCoefficients,
+  )
   const targetItem = armory?.ArmoryEquipment?.[equipmentIndex]
   const combatStatsFromLines = (sourceLines) => {
     const result = {}
@@ -557,6 +702,8 @@ export function calculateAccessoryReplacement({
     skills,
     skill,
     settings,
+    registry,
+    battleStatCoefficients,
   )
   if (!Number.isFinite(candidate) || candidate <= 0) {
     return { total: null, options: [] }
@@ -568,6 +715,8 @@ export function calculateAccessoryReplacement({
       skills,
       skill,
       settings,
+      registry,
+      battleStatCoefficients,
     )
     if (!Number.isFinite(without) || Math.abs(candidate - without) < 1e-9) return []
     return [
@@ -893,6 +1042,39 @@ function skillSynergyEffects(skills) {
       addCandidate(skill, tripod.Name || '선택 트라이포드', tripod.Tooltip)
     })
   })
+  return results
+}
+
+// skillSynergyEffects의 매핑 레지스트리 버전 - 문구를 정규식으로 다시 스캔하지 않고,
+// 매핑 시점에 효과 메모(label)를 "시너지"라고 직접 표시해둔 효과만 골라서 보유 스킬별로
+// 묶는다. mappedEffects는 이미 스킬 대상 필터링 전 전체 목록(현재 선택된 스킬 하나가
+// 아니라 캐릭터가 보유한 모든 스킬)이라 sourceSkillName으로 바로 어느 스킬 효과인지
+// 알 수 있다.
+function mappedSkillSynergyEffects(mappedEffects, skills) {
+  const results = []
+  const grouped = new Map()
+  ;(mappedEffects || [])
+    .filter((effect) => effect.label === '시너지')
+    .forEach((effect) => {
+      const skillName = effect.sourceSkillName || effect.skillNames?.[0] || effect.skillName || ''
+      if (!skillName) return
+      const key = `${effect.template}|${effect.value}`
+      if (!grouped.has(key)) {
+        const entry = {
+          category: '시너지',
+          percent: Number.isFinite(effect.value) ? effect.value : null,
+          skillIcon: (skills || []).find((skill) => skill.Name === skillName)?.Icon,
+          sourceName: effect.origin || '매핑 원문',
+          skills: [],
+        }
+        grouped.set(key, entry)
+        results.push(entry)
+      }
+      const entry = grouped.get(key)
+      if (!entry.skills.some((candidate) => candidate.skillName === skillName)) {
+        entry.skills.push({ skillName, line: effect.source })
+      }
+    })
   return results
 }
 
@@ -3865,6 +4047,169 @@ const critRateFactsCached = memoizeN(critRateFacts)
 const critDamageBreakdownCached = memoizeN(critDamageBreakdown)
 const gemFactsCached = memoizeN(gemFacts)
 
+// 카르마(진화/깨달음/도약) 누적 보너스를 매핑 레지스트리 효과와 같은 모양으로 합성한다 -
+// 카르마 랭크·레벨은 매핑 대상 원문이 아니라 API Point.Description에서 별도로 읽는
+// 고정 데이터라 레지스트리에 등록할 대상이 아니다. DamageAnalysis 컴포넌트와
+// accessoryEngineDamageScore(악세 비교 엔진) 둘 다 이 함수를 공유한다.
+function buildAutomaticMappedKarmaEffects(karmaSourceArmory) {
+  const karmaFacts = arkPassiveKarmaFacts(karmaSourceArmory)
+  const evolutionKarma = karmaFacts.진화
+  const enlightenmentKarma = karmaFacts.깨달음
+  const leapKarma = karmaFacts.도약
+  const supportArkPassiveBuild = isSupportArkPassiveBuild(karmaSourceArmory)
+  return [
+    ...(evolutionKarma?.evolutionPercent
+      ? [
+          {
+            type: supportArkPassiveBuild ? 'BRAND_POWER_PERCENT' : 'DAMAGE_INCREASE_PERCENT',
+            value: evolutionKarma.evolutionPercent,
+            baseValue: evolutionKarma.evolutionPercent,
+            condition: 'ALWAYS',
+            label: supportArkPassiveBuild ? '낙인력' : '진화형 피해',
+            skillNames: [],
+            skillCategories: [],
+            origin: '아크 패시브 카르마 · 진화',
+            template: `${evolutionKarma.rank}랭크 ${evolutionKarma.level}레벨`,
+            source: supportArkPassiveBuild
+              ? `카르마 누적 보너스 · 낙인력 ${evolutionKarma.evolutionPercent}% 증가`
+              : `카르마 누적 보너스 · 진화형 피해 ${evolutionKarma.evolutionPercent}% 증가`,
+          },
+        ]
+      : []),
+    ...(enlightenmentKarma?.weaponAttackPercent
+      ? [
+          {
+            type: 'WEAPON_ATTACK_PERCENT',
+            value: enlightenmentKarma.weaponAttackPercent,
+            baseValue: enlightenmentKarma.weaponAttackPercent,
+            condition: 'ALWAYS',
+            label: '무기 공격력',
+            skillNames: [],
+            skillCategories: [],
+            origin: '아크 패시브 카르마 · 깨달음',
+            template: `${enlightenmentKarma.rank}랭크 ${enlightenmentKarma.level}레벨`,
+            source: `카르마 누적 보너스 · 무기 공격력 ${enlightenmentKarma.weaponAttackPercent}% 증가`,
+          },
+        ]
+      : []),
+    ...(leapKarma?.hyperAwakeningDamagePercent
+      ? [
+          {
+            type: 'DAMAGE_INCREASE_PERCENT',
+            value: leapKarma.hyperAwakeningDamagePercent,
+            baseValue: leapKarma.hyperAwakeningDamagePercent,
+            condition: 'ALWAYS',
+            label: '초각성기 피해',
+            skillNames: [],
+            skillCategories: ['초각성기'],
+            origin: '아크 패시브 카르마 · 도약',
+            template: `${leapKarma.rank}랭크 ${leapKarma.level}레벨 · 초각성기`,
+            source: `카르마 누적 보너스 · 초각성기 피해 ${leapKarma.hyperAwakeningDamagePercent}% 증가`,
+          },
+        ]
+      : []),
+  ]
+}
+
+// mappedEffects(레지스트리에서 이미 해석된 전체 효과 목록)를 현재 스킬 대상/조건에
+// 맞게 걸러낸다 - 카르마 합성 효과도 여기서 같이 합쳐진다.
+function resolveMappedEffectsForSkill(mappedEffects, karmaSourceArmory, skill) {
+  const facts = tooltipFacts(skill)
+  const automaticMappedKarmaEffects = buildAutomaticMappedKarmaEffects(karmaSourceArmory)
+  return [...mappedEffects, ...automaticMappedKarmaEffects].filter((effect) => {
+    const targetSkillNames = effect.skillNames?.length
+      ? effect.skillNames
+      : effect.skillName
+        ? [effect.skillName]
+        : []
+    const targetSkillCategories = effect.skillCategories || []
+    const selectedSkillCategory = damageOptionSkillCategory(skill)
+    const hasExplicitSkillTarget = targetSkillNames.length > 0 || targetSkillCategories.length > 0
+    if (
+      hasExplicitSkillTarget &&
+      !targetSkillNames.includes(skill.Name) &&
+      !targetSkillCategories.includes(selectedSkillCategory)
+    ) {
+      return false
+    }
+    if (
+      !hasExplicitSkillTarget &&
+      effect.sourceSkillName &&
+      effect.sourceSkillName !== skill.Name
+    ) {
+      return false
+    }
+    if (!effect.condition || effect.condition === 'ALWAYS') return true
+    if (effect.condition === 'BACK_ATTACK') return facts.attackTypes.includes('백 어택')
+    if (effect.condition === 'HEAD_ATTACK') return facts.attackTypes.includes('헤드 어택')
+    return false
+  })
+}
+
+// mappedEffectsForSkill(스킬 필터링까지 끝난 효과 목록)을 타입별로 골라 breakdown용
+// "source" 아이템 모양으로 리셰이프한다.
+function mappedEffectSources(mappedEffectsForSkill, type) {
+  return mappedEffectsForSkill
+    .filter((effect) => effect.type === type)
+    .map((effect) => {
+      const explicitNames = effect.skillNames?.length
+        ? effect.skillNames
+        : effect.skillName
+          ? [effect.skillName]
+          : []
+      const explicitCategories = effect.skillCategories || []
+      const targetLabel = [
+        ...explicitCategories.map(damageOptionSkillCategoryLabel),
+        ...explicitNames,
+      ].join(', ')
+      const automaticTarget = !targetLabel && effect.sourceSkillName
+      return {
+        recordId: effect.recordId,
+        value: Number(effect.value) || 0,
+        baseValue: Number(effect.baseValue) || 0,
+        itemType: '등록 데이터',
+        itemName: targetLabel
+          ? `${effect.origin || '매핑 원문'} · ${targetLabel} 전용`
+          : automaticTarget
+            ? `${effect.origin || '매핑 원문'} · ${effect.sourceSkillName} 전용 (출처 자동)`
+            : effect.origin || '매핑 원문',
+        heading: [effect.template || type, effect.label].filter(Boolean).join(' · '),
+        context: effect.source,
+        condition: effect.condition || 'ALWAYS',
+        maxStacks: effect.stack?.maxStacks ?? null,
+        appliedStacks: effect.stack?.appliedStacks ?? null,
+        perStackValue: effect.stack ? Number(effect.baseValue) || 0 : null,
+        percent: type.endsWith('_PERCENT'),
+      }
+    })
+}
+
+// 전투 특성(치명/신속 등) 값이 백엔드 계수 자동 추적으로 좁혀진 구간을 갖고 있으면, API
+// 스탯값 × 그 구간의 최저값(low) 하나만 보여준다 - 예전처럼 하드코딩된 환산 상수로 만든 값과
+// 등록 데이터(원문에 찍힌 표시값)를 따로 더하면 같은 값이 두 번 잡히기 때문. 구간이 아직
+// 안 좁혀졌으면(sampleCount 0, 미확정, 모순) 아무 것도 보여주지 않는다 - 잘못된 값을
+// 보여주는 것보다 낫다.
+function battleStatTrackedSource(battleStatCoefficients, type, statLabel, statValue) {
+  const tracked = battleStatCoefficients?.[type]
+  if (
+    !tracked ||
+    !tracked.sampleCount ||
+    tracked.contradictory ||
+    !Number.isFinite(tracked.low) ||
+    !(statValue > 0)
+  ) {
+    return { source: null, recordId: tracked?.recordId ?? null }
+  }
+  return {
+    source: {
+      value: statValue * tracked.low,
+      itemType: '전투 특성 (추적 계수)',
+      itemName: `${statLabel} ${numberText(statValue)} × ${tracked.low.toPrecision(6)}%`,
+    },
+    recordId: tracked.recordId,
+  }
+}
+
 export default function DamageAnalysis({
   armory,
   profile,
@@ -3873,6 +4218,7 @@ export default function DamageAnalysis({
   onHover,
   mappedEffects = null,
   mappedSourceArmory = null,
+  battleStatCoefficients = null,
 }) {
   const { user } = useAuth()
   // Skills the class has (per the inven skill catalog) that never show up in this character's
@@ -4063,131 +4409,10 @@ export default function DamageAnalysis({
   // 별도로 읽는 고정 데이터다. 데미지 분석 2용 armory는 미매핑 Description을
   // 비우므로 반드시 필터링 전 원본 armory를 사용해야 한다.
   const karmaSourceArmory = mappedSourceArmory || armory
-  const karmaFacts = arkPassiveKarmaFacts(karmaSourceArmory)
-  const evolutionKarma = karmaFacts.진화
-  const enlightenmentKarma = karmaFacts.깨달음
-  const leapKarma = karmaFacts.도약
-  const supportArkPassiveBuild = isSupportArkPassiveBuild(karmaSourceArmory)
-  const automaticMappedKarmaEffects = mappedMode
-    ? [
-        ...(evolutionKarma?.evolutionPercent
-          ? [
-              {
-                type: supportArkPassiveBuild
-                  ? 'BRAND_POWER_PERCENT'
-                  : 'DAMAGE_INCREASE_PERCENT',
-                value: evolutionKarma.evolutionPercent,
-                baseValue: evolutionKarma.evolutionPercent,
-                condition: 'ALWAYS',
-                label: supportArkPassiveBuild ? '낙인력' : '진화형 피해',
-                skillNames: [],
-                skillCategories: [],
-                origin: '아크 패시브 카르마 · 진화',
-                template: `${evolutionKarma.rank}랭크 ${evolutionKarma.level}레벨`,
-                source: supportArkPassiveBuild
-                  ? `카르마 누적 보너스 · 낙인력 ${evolutionKarma.evolutionPercent}% 증가`
-                  : `카르마 누적 보너스 · 진화형 피해 ${evolutionKarma.evolutionPercent}% 증가`,
-              },
-            ]
-          : []),
-        ...(enlightenmentKarma?.weaponAttackPercent
-          ? [
-              {
-                type: 'WEAPON_ATTACK_PERCENT',
-                value: enlightenmentKarma.weaponAttackPercent,
-                baseValue: enlightenmentKarma.weaponAttackPercent,
-                condition: 'ALWAYS',
-                label: '무기 공격력',
-                skillNames: [],
-                skillCategories: [],
-                origin: '아크 패시브 카르마 · 깨달음',
-                template: `${enlightenmentKarma.rank}랭크 ${enlightenmentKarma.level}레벨`,
-                source: `카르마 누적 보너스 · 무기 공격력 ${enlightenmentKarma.weaponAttackPercent}% 증가`,
-              },
-            ]
-          : []),
-        ...(leapKarma?.hyperAwakeningDamagePercent
-          ? [
-              {
-                type: 'DAMAGE_INCREASE_PERCENT',
-                value: leapKarma.hyperAwakeningDamagePercent,
-                baseValue: leapKarma.hyperAwakeningDamagePercent,
-                condition: 'ALWAYS',
-                label: '초각성기 피해',
-                skillNames: [],
-                skillCategories: ['초각성기'],
-                origin: '아크 패시브 카르마 · 도약',
-                template: `${leapKarma.rank}랭크 ${leapKarma.level}레벨 · 초각성기`,
-                source: `카르마 누적 보너스 · 초각성기 피해 ${leapKarma.hyperAwakeningDamagePercent}% 증가`,
-              },
-            ]
-          : []),
-      ]
-    : []
   const mappedEffectsForSkill = mappedMode
-    ? [...mappedEffects, ...automaticMappedKarmaEffects].filter((effect) => {
-          const targetSkillNames = effect.skillNames?.length
-            ? effect.skillNames
-            : effect.skillName
-              ? [effect.skillName]
-              : []
-          const targetSkillCategories = effect.skillCategories || []
-          const selectedSkillCategory = damageOptionSkillCategory(skill)
-          const hasExplicitSkillTarget =
-            targetSkillNames.length > 0 || targetSkillCategories.length > 0
-          if (
-            hasExplicitSkillTarget &&
-            !targetSkillNames.includes(skill.Name) &&
-            !targetSkillCategories.includes(selectedSkillCategory)
-          ) {
-            return false
-          }
-          if (
-            !hasExplicitSkillTarget &&
-            effect.sourceSkillName &&
-            effect.sourceSkillName !== skill.Name
-          ) {
-            return false
-          }
-          if (!effect.condition || effect.condition === 'ALWAYS') return true
-          if (effect.condition === 'BACK_ATTACK') return facts.attackTypes.includes('백 어택')
-          if (effect.condition === 'HEAD_ATTACK') return facts.attackTypes.includes('헤드 어택')
-          return false
-        })
+    ? resolveMappedEffectsForSkill(mappedEffects, karmaSourceArmory, skill)
     : []
-  const mappedSources = (type) =>
-    mappedEffectsForSkill
-      .filter((effect) => effect.type === type)
-      .map((effect) => {
-        const explicitNames = effect.skillNames?.length
-          ? effect.skillNames
-          : effect.skillName
-            ? [effect.skillName]
-            : []
-        const explicitCategories = effect.skillCategories || []
-        const targetLabel = [
-          ...explicitCategories.map(damageOptionSkillCategoryLabel),
-          ...explicitNames,
-        ].join(', ')
-        const automaticTarget = !targetLabel && effect.sourceSkillName
-        return {
-          value: Number(effect.value) || 0,
-          baseValue: Number(effect.baseValue) || 0,
-          itemType: '등록 데이터',
-          itemName: targetLabel
-            ? `${effect.origin || '매핑 원문'} · ${targetLabel} 전용`
-            : automaticTarget
-              ? `${effect.origin || '매핑 원문'} · ${effect.sourceSkillName} 전용 (출처 자동)`
-              : effect.origin || '매핑 원문',
-          heading: [effect.template || type, effect.label].filter(Boolean).join(' · '),
-          context: effect.source,
-          condition: effect.condition || 'ALWAYS',
-          maxStacks: effect.stack?.maxStacks ?? null,
-          appliedStacks: effect.stack?.appliedStacks ?? null,
-          perStackValue: effect.stack ? Number(effect.baseValue) || 0 : null,
-          percent: type.endsWith('_PERCENT'),
-        }
-      })
+  const mappedSources = (type) => mappedEffectSources(mappedEffectsForSkill, type)
   const motionHits = skillMotionHits(skill)
   const baseAttackTooltip = profileBaseAttackPower(profile)
   const storedMotionConstants = invenMotionConstants(profile, skill)
@@ -4227,58 +4452,96 @@ export default function DamageAnalysis({
         context: `공격속도와 이동속도 ${FEAST_SPEED_BONUS}% 증가`,
       }
     : null
-  const attackSpeedSources = [
-    ...(combatStats.swiftness > 0
-      ? [
-          {
-            value: combatStats.attackSpeed,
-            itemType: 'API 전투 특성',
-            itemName: `신속 ${numberText(combatStats.swiftness)} × ${SWIFT_SPEED_PER_POINT}%`,
-          },
-        ]
-      : []),
-    ...(mappedMode ? mappedSources('ATTACK_SPEED_PERCENT') : arkGridAttackSpeed.sources),
-    ...(feastSpeedSource ? [feastSpeedSource] : []),
-  ]
+  const attackSpeedTracked = battleStatTrackedSource(
+    battleStatCoefficients,
+    'ATTACK_SPEED_PERCENT',
+    '신속',
+    combatStats.swiftness,
+  )
+  const attackSpeedSources = mappedMode
+    ? [
+        ...(attackSpeedTracked.source ? [attackSpeedTracked.source] : []),
+        ...mappedSources('ATTACK_SPEED_PERCENT').filter(
+          (source) => source.recordId !== attackSpeedTracked.recordId,
+        ),
+        ...(feastSpeedSource ? [feastSpeedSource] : []),
+      ]
+    : [
+        ...(combatStats.swiftness > 0
+          ? [
+              {
+                value: combatStats.attackSpeed,
+                itemType: 'API 전투 특성',
+                itemName: `신속 ${numberText(combatStats.swiftness)} × ${SWIFT_SPEED_PER_POINT}%`,
+              },
+            ]
+          : []),
+        ...arkGridAttackSpeed.sources,
+        ...(feastSpeedSource ? [feastSpeedSource] : []),
+      ]
   const attackSpeed = {
     sources: attackSpeedSources,
     total: attackSpeedSources.reduce((sum, source) => sum + source.value, 0),
   }
-  const moveSpeedSources = [
-    ...(combatStats.swiftness > 0
-      ? [
-          {
-            value: combatStats.moveSpeed,
-            itemType: 'API 전투 특성',
-            itemName: `신속 ${numberText(combatStats.swiftness)} × ${SWIFT_SPEED_PER_POINT}%`,
-          },
-        ]
-      : []),
-    ...(feastSpeedSource ? [feastSpeedSource] : []),
-    ...(mappedMode ? mappedSources('MOVE_SPEED_PERCENT') : skillMoveSpeed.sources),
-  ]
+  const moveSpeedTracked = battleStatTrackedSource(
+    battleStatCoefficients,
+    'MOVE_SPEED_PERCENT',
+    '신속',
+    combatStats.swiftness,
+  )
+  const moveSpeedSources = mappedMode
+    ? [
+        ...(moveSpeedTracked.source ? [moveSpeedTracked.source] : []),
+        ...(feastSpeedSource ? [feastSpeedSource] : []),
+        ...mappedSources('MOVE_SPEED_PERCENT').filter(
+          (source) => source.recordId !== moveSpeedTracked.recordId,
+        ),
+      ]
+    : [
+        ...(combatStats.swiftness > 0
+          ? [
+              {
+                value: combatStats.moveSpeed,
+                itemType: 'API 전투 특성',
+                itemName: `신속 ${numberText(combatStats.swiftness)} × ${SWIFT_SPEED_PER_POINT}%`,
+              },
+            ]
+          : []),
+        ...(feastSpeedSource ? [feastSpeedSource] : []),
+        ...skillMoveSpeed.sources,
+      ]
   const moveSpeed = {
     sources: moveSpeedSources,
     total: moveSpeedSources.reduce((sum, source) => sum + source.value, 0),
   }
-  const cooldownReductionSources = [
-    ...(combatStats.swiftness > 0
-      ? [
-          {
-            value: combatStats.cooldownReduction,
-            unit: '%',
-            itemType: 'API 전투 특성',
-            itemName: `신속 ${numberText(combatStats.swiftness)} × ${SWIFT_COOLDOWN_PER_POINT}%`,
-          },
-        ]
-      : []),
-    ...(mappedMode
-      ? mappedSources('COOLDOWN_REDUCTION_PERCENT').map((source) => ({
-          ...source,
-          unit: '%',
-        }))
-      : categoryCooldown.active.filter((source) => source.unit === '%')),
-  ]
+  const cooldownReductionTracked = battleStatTrackedSource(
+    battleStatCoefficients,
+    'COOLDOWN_REDUCTION_PERCENT',
+    '신속',
+    combatStats.swiftness,
+  )
+  const cooldownReductionSources = mappedMode
+    ? [
+        ...(cooldownReductionTracked.source
+          ? [{ ...cooldownReductionTracked.source, unit: '%' }]
+          : []),
+        ...mappedSources('COOLDOWN_REDUCTION_PERCENT')
+          .filter((source) => source.recordId !== cooldownReductionTracked.recordId)
+          .map((source) => ({ ...source, unit: '%' })),
+      ]
+    : [
+        ...(combatStats.swiftness > 0
+          ? [
+              {
+                value: combatStats.cooldownReduction,
+                unit: '%',
+                itemType: 'API 전투 특성',
+                itemName: `신속 ${numberText(combatStats.swiftness)} × ${SWIFT_COOLDOWN_PER_POINT}%`,
+              },
+            ]
+          : []),
+        ...categoryCooldown.active.filter((source) => source.unit === '%'),
+      ]
   const cooldownFixedSources = mappedMode
     ? mappedSources('COOLDOWN_REDUCTION_FLAT').map((source) => ({
         ...source,
@@ -4749,7 +5012,9 @@ export default function DamageAnalysis({
       }
     : receivedDamageFacts(skills)
   const receivedDamageMultiplier = 1 + receivedDamage.total / 100
-  const characterSkillSynergies = skillSynergyEffects(skills)
+  const characterSkillSynergies = mappedMode
+    ? mappedSkillSynergyEffects(mappedEffects, skills)
+    : skillSynergyEffects(skills)
 
   const mappedCritDamageSources = mappedMode
     ? [
@@ -4770,24 +5035,25 @@ export default function DamageAnalysis({
   const critHitBracelet = mappedMode
     ? { sources: [], total: 0 }
     : critHitBraceletFacts(armory)
-  const mappedCritRateSources = mappedMode ? mappedSources('CRIT_RATE_PERCENT') : []
+  const critRateTracked = battleStatTrackedSource(
+    battleStatCoefficients,
+    'CRIT_RATE_PERCENT',
+    '치명',
+    combatStats.critical,
+  )
+  const mappedCritRateSources = mappedMode
+    ? mappedSources('CRIT_RATE_PERCENT').filter(
+        (source) => source.recordId !== critRateTracked.recordId,
+      )
+    : []
+  const critRateSources = [
+    ...(critRateTracked.source ? [critRateTracked.source] : []),
+    ...mappedCritRateSources,
+  ]
   const critRate = mappedMode
     ? {
-        sources: [
-          ...(combatStats.critical > 0
-            ? [
-                {
-                  value: combatStats.critical * CRIT_RATE_PER_POINT,
-                  itemType: 'API 전투 특성',
-                  itemName: `치명 ${numberText(combatStats.critical)} × ${CRIT_RATE_PER_POINT}%`,
-                },
-              ]
-            : []),
-          ...mappedCritRateSources,
-        ],
-        total:
-          combatStats.critical * CRIT_RATE_PER_POINT +
-          mappedCritRateSources.reduce((sum, source) => sum + source.value, 0),
+        sources: critRateSources,
+        total: critRateSources.reduce((sum, source) => sum + source.value, 0),
       }
     : critRateFactsCached(armory, combatStats.critical, selectedSkillCategory)
   // 6번 치명타 피해는 기본 200%에 치명타 피해 증가분을 합연산한다.
@@ -5063,10 +5329,6 @@ export default function DamageAnalysis({
               <Swords />
               <span>
                 <h4>마을 기준 최종 공격력</h4>
-                <small>
-                  전투 조건부를 전부 제외한 값입니다. 조건부 반영값은 아래 최종 공격력 상세에서
-                  확인합니다.
-                </small>
               </span>
               <button
                 type="button"

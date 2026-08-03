@@ -1,6 +1,7 @@
 import seedRegistry from '../data/damage-option-registry.json'
 import { setLocalData } from './localData'
 import { cleanApiText } from './text'
+import { lostArkApi } from './api'
 
 export const DAMAGE_OPTION_REGISTRY_STORAGE_KEY = 'loark-damage-option-registry-v1'
 
@@ -942,4 +943,35 @@ export function damageOptionRegistryFromCsv(text) {
     })
   })
   return { version: 1, records }
+}
+
+// "전투 특성" 카테고리로 등록되고 계수 추적이 켜진(coefficientStatType 있는) 레코드만
+// 골라낸다 - 계수 자동 추적(백엔드 DamageOptionCoefficientTracker)이 실제로 값을 쌓아주는
+// 레코드 목록.
+export function selectBattleStatRecords(records) {
+  return (records || []).filter(
+    (record) => record.category === '전투 특성' && record.coefficientStatType && record.effects?.[0]?.type,
+  )
+}
+
+// selectBattleStatRecords로 고른 레코드들의 추적 계수를 각각 조회해, 효과 타입별(치명타
+// 적중률/공격 속도/이동 속도/재사용 대기시간 감소)로 최신 구간을 하나씩 모은다 -
+// DamageOptionDataPage(미리보기)와 AccessoryComparison(악세 비교) 둘 다 이 함수를 공유해서
+// API 스탯값 × 구간 최저값을 계산에 반영한다.
+export async function fetchBattleStatCoefficients(battleStatRecords) {
+  if (!battleStatRecords?.length) return {}
+  const results = await Promise.all(
+    battleStatRecords.map((record) =>
+      lostArkApi
+        .getDamageOptionCoefficient(record.id)
+        .then((coefficient) => ({ record, coefficient }))
+        .catch(() => ({ record, coefficient: null })),
+    ),
+  )
+  const next = {}
+  results.forEach(({ record, coefficient }) => {
+    if (!coefficient) return
+    next[record.effects[0].type] = { recordId: record.id, ...coefficient }
+  })
+  return next
 }

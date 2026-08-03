@@ -6865,5 +6865,105 @@
     "source" : "악마화 지속시간이 {n}% 증가합니다.",
     "ignored" : true,
     "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-28-114eh3n",
+    "source" : "무력화 대상에게 주는 피해량이 {n}% 증가합니다.",
+    "category" : "전투 특성",
+    "ignored" : true,
+    "effects" : [ {
+      "type" : "WEAPON_ATTACK_FLAT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-76-p2f8b3",
+    "source" : "순간적으로 {n}m 거리를 돌진한 후 할버드를 깊숙이 찔러 {m} 의 피해를 준다. 공격 적중 시 엠버레스의 기운 {k} 개를 회복한다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-196-1q2v7af",
+    "source" : "스킬을 사용하는 즉시 엠버레스 오브 게이지를 {n}% 회복하고 지하에서 가디언을 불러내어 탑승한다. 이후 {m}m 를 돌진하며 최대 {k} 의 [화] 속성 피해를 주고 공격에 적중된 적들을 띄워올린다. 이후 머리에서 뛰어내리며 내려찍기 공격으로 적에게 {p} 의 [화] 속성 피해를 주고 날려버린다. 이동 중 모험가 및 일반 몬스터와 충돌이 무시된다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-18hwjn7",
+    "source" : "가디언 스케일",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-4dxwhl",
+    "source" : "가디언 피어",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-tugg1p",
+    "source" : "엠버레스 오브 게이지 {n} 소모",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-95-xmgkfe",
+    "source" : "엠버레스의 힘을 끌어올려 주위를 향해 포효한다. 포효가 퍼져나가며 {n}m 범위 내 적들에게 {m} 의 피해를 주고, 자신에게 {k} 초간 가디언 스케일 효과를 부여한다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-112-nc3gij",
+    "source" : "엠버레스의 힘을 끌어올려 주위를 향해 포효한다. 포효가 퍼져나가며 {n}m 범위 내 적들에게 {m} 의 피해를 준다. 또한 자신에게 {k} 초간 가디언 스케일 효과를 부여하고 '초월' 상태로 전환한다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-28-d7p7gv",
+    "source" : "스킬 적중 시 적을 {n}초간 '출혈' 상태로 만듦",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-25-1u0trxk",
+    "source" : "[필드 보스] 얼음과 불의 섬 - 브리아레오스",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-20-84dryr",
+    "source" : "[필드 보스] 격류의 섬 - 아우리온",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-18nvi0g",
+    "source" : "[필드 보스] 파푸니카 - 모아케",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-33-1b1155",
+    "source" : "[출혈] 스킬 적중 시 적을 {n}초간 '출혈' 상태로 만듦",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-61-1gndlpd",
+    "source" : "양손으로 할버드를 잡고 크게 돌려베는 형태로 변경되며, 이동 중 모험가 및 가디언 몬스터까지 충돌이 무시된다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-vy0ys3",
+    "source" : "먹이 사냥",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
   } ]
 }

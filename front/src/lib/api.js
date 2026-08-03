@@ -83,6 +83,13 @@ export const lostArkApi = {
       method: 'PUT',
       body: JSON.stringify(registry),
     }),
+  // 404 means "not tracked yet", not an error - callers should treat it as no estimate.
+  getDamageOptionCoefficient: (recordId) =>
+    request(`/damage-option-registry/coefficient?${new URLSearchParams({ recordId })}`),
+  backfillDamageOptionCoefficient: (recordId) =>
+    request(`/damage-option-registry/coefficient/backfill?${new URLSearchParams({ recordId })}`, {
+      method: 'POST',
+    }),
   getAdminApiRequestHistory: () => request('/admin/api-requests/history'),
   getAdminApiRequestHistoryDetails: (resetAt) =>
     request(`/admin/api-requests/history/details?${new URLSearchParams({ resetAt })}`),

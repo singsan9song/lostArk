@@ -23,6 +23,7 @@ import {
   damageOptionSkillCategoryLabel,
   DAMAGE_SKILL_CATEGORIES,
   dedupeDamageOptionRegistry,
+  fetchBattleStatCoefficients,
   freshDamageEffect,
   freshDamageOptionRecord,
   groupDamageOptionSources,
@@ -30,6 +31,8 @@ import {
   loadDamageOptionRegistry,
   normalizeDamageOptionSource,
   saveDamageOptionRegistry,
+  selectBattleStatRecords,
+  toDamageOptionTemplate,
 } from '../lib/damageOptionRegistry'
 import { lostArkApi } from '../lib/api'
 import DamageAnalysis from '../components/DamageAnalysis'
@@ -113,6 +116,7 @@ export default function DamageOptionDataPage({
   const [recordFilter, setRecordFilter] = useState(
     managementOnly ? (managementView === 'saved' ? 'mapped' : 'unclassified') : 'all',
   )
+  const [categoryFilter, setCategoryFilter] = useState('')
   const [selectedId, setSelectedId] = useState(null)
   const [recordLimit, setRecordLimit] = useState(LIST_PAGE_SIZE)
   const [serverState, setServerState] = useState('loading')
@@ -121,6 +125,12 @@ export default function DamageOptionDataPage({
   const [sourceBrowserSearch, setSourceBrowserSearch] = useState('')
   const [sourceOriginLimit, setSourceOriginLimit] = useState(LIST_PAGE_SIZE)
   const [openSourceOrigin, setOpenSourceOrigin] = useState('')
+  const [coefficientStatType, setCoefficientStatType] = useState('')
+  const [coefficientKey, setCoefficientKey] = useState('n')
+  const [trackedCoefficient, setTrackedCoefficient] = useState(null)
+  const [trackedCoefficientLoading, setTrackedCoefficientLoading] = useState(false)
+  const [trackingState, setTrackingState] = useState('idle')
+  const [trackingMessage, setTrackingMessage] = useState('')
 
   const sourceArmoryRows = useMemo(
     () =>
@@ -162,6 +172,23 @@ export default function DamageOptionDataPage({
     () => collectResolvedDamageOptionEffects(armory, registry),
     [armory, registry],
   )
+  // "전투 특성" 카테고리로 등록되고 계수 추적이 켜진 레코드만 골라, 효과 타입별(치명타
+  // 적중률/공격 속도/이동 속도/재사용 대기시간 감소)로 최신 추적 계수를 하나씩 불러온다 -
+  // DamageAnalysis가 API 스탯값 × 이 구간의 최저값을 데미지 분석 미리보기에 반영하는 데 쓴다.
+  const battleStatRecords = useMemo(
+    () => selectBattleStatRecords(registry.records),
+    [registry.records],
+  )
+  const [battleStatCoefficients, setBattleStatCoefficients] = useState({})
+  useEffect(() => {
+    let active = true
+    fetchBattleStatCoefficients(battleStatRecords).then((next) => {
+      if (active) setBattleStatCoefficients(next)
+    })
+    return () => {
+      active = false
+    }
+  }, [battleStatRecords])
   const allArmorySkills = useMemo(
     () =>
       sourceArmoryRows.length
@@ -304,6 +331,10 @@ export default function DamageOptionDataPage({
         pendingByTemplate.get(group.template) || {
           id: draftIdForTemplate(group.template),
           source: group.template,
+          // "캐릭터명 · 카테고리 · 세부" 형태인 origin에서 카테고리(스킬/전투 특성/각인/
+          // 아크패시브 등)만 뽑아서 저장해둔다 - "저장 매핑 관리"는 캐릭터 코퍼스 없이
+          // 이 값만으로 필터링하므로, 분류(매핑)하는 이 시점에만 구할 수 있는 값이다.
+          category: group.origins[0]?.split(' · ')[1] || '',
           ignored: false,
           effects: [],
           _draft: true,
@@ -321,30 +352,21 @@ export default function DamageOptionDataPage({
 
     return records
   }, [characterSourceGroups, draftRecords, managementView, resolver])
-  const corpusSavedRecordIds = useMemo(() => {
-    const ids = new Set()
-    characterSourceGroups.forEach((group) => {
-      const matched = resolver(group.sources[0])
-      if (matched?.id) ids.add(matched.id)
-    })
-    return ids
-  }, [characterSourceGroups, resolver])
-  const corpusSavedRecords = useMemo(
-    () => registry.records.filter((record) => corpusSavedRecordIds.has(record.id)),
-    [corpusSavedRecordIds, registry.records],
-  )
+  // "저장 매핑 관리"는 캐릭터 코퍼스(characterSourceGroups) 없이도 서버에 저장된 전체
+  // 레코드를 그대로 보여준다 - 직업/각인을 먼저 골라야 하던 예전 제약이 없어진다.
   const savedWorkRecords = useMemo(() => {
     if (managementView !== 'saved') return []
     const query = normalizeDamageOptionSource(search)
-    return [...draftRecords, ...corpusSavedRecords]
+    return [...draftRecords, ...registry.records]
       .filter((record) => {
         if (recordFilter === 'ignored') return record.ignored
         if (recordFilter === 'mapped') return !record.ignored && record.effects.length > 0
         return true
       })
       .filter((record) => normalizeDamageOptionSource(record.source).includes(query))
+      .filter((record) => !categoryFilter || record.category === categoryFilter)
       .slice(0, LIST_PAGE_SIZE)
-  }, [corpusSavedRecords, draftRecords, managementView, recordFilter, search])
+  }, [categoryFilter, draftRecords, managementView, recordFilter, registry.records, search])
   const workRecords =
     managementView === 'saved' ? savedWorkRecords : unclassifiedRecords
   const workTemplateSignature = workRecords.map((record) => record.source).join('\u001f')
@@ -422,7 +444,7 @@ export default function DamageOptionDataPage({
   const allRecords = useMemo(() => {
     const base =
       managementView === 'saved'
-        ? corpusSavedRecords
+        ? registry.records
         : [...unclassifiedRecords, ...registry.records]
     const draftsById = new Map(draftRecords.map((record) => [record.id, record]))
     const draftsBySource = new Map(draftRecords.map((record) => [record.source, record]))
@@ -437,13 +459,60 @@ export default function DamageOptionDataPage({
       if (!includedDraftIds.has(draft.id)) overlaid.push(draft)
     })
     return overlaid
-  }, [corpusSavedRecords, draftRecords, managementView, registry.records, unclassifiedRecords])
-  const visibleSavedRegistry =
-    managementView === 'saved' ? corpusSavedRecords : registry.records
+  }, [draftRecords, managementView, registry.records, unclassifiedRecords])
+  const visibleSavedRegistry = registry.records
+  const availableCategories = useMemo(
+    () => [...new Set(registry.records.map((record) => record.category).filter(Boolean))],
+    [registry.records],
+  )
   const unmappedCount = allRecords.filter(
     (record) => record._draft && !record.ignored && record.effects.length === 0,
   ).length
   const selected = allRecords.find((record) => record.id === selectedId) || null
+  // "자동 추적" 시작 시 어떤 전투특성으로 추적할지 고르는 셀렉트에 채울 옵션 목록.
+  const availableStatTypes = useMemo(
+    () => [
+      ...new Set(
+        sourceArmoryRows.flatMap((row) =>
+          (row.armory?.ArmoryProfile?.Stats || []).map((stat) => stat.Type),
+        ),
+      ),
+    ].filter(Boolean),
+    [sourceArmoryRows],
+  )
+  const coefficientTemplateKeys = selected
+    ? damageOptionTemplateKeys(toDamageOptionTemplate(selected.source))
+    : []
+  useEffect(() => {
+    if (!selected) return
+    const keys = damageOptionTemplateKeys(toDamageOptionTemplate(selected.source))
+    if (!keys.includes(coefficientKey)) setCoefficientKey(keys[0] || 'n')
+  }, [selected])
+  const coefficientEntries = useMemo(() => {
+    if (!selected) return []
+    const template = toDamageOptionTemplate(selected.source)
+    return characterSourceEntries.filter(
+      (entry) => toDamageOptionTemplate(entry.source) === template,
+    )
+  }, [selected, characterSourceEntries])
+  // 원문이 전투특성 스탯 자체의 설명 문구(예: 특화의 "각성 스킬 피해량 {n}% 증가")면 origin이
+  // 이미 "캐릭터명 · 전투 특성 · 특화"처럼 어느 스탯 소속인지 말해주고 있으므로, 그럴 땐 직접
+  // 고를 필요 없이 자동으로 채운다. 스킬처럼 출처가 특정 스탯을 안 밝히는 원문은 계속 수동 선택.
+  const detectedStatType = useMemo(() => {
+    const types = new Set(
+      coefficientEntries
+        .map((entry) => {
+          const parts = String(entry.origin || '').split(' · ')
+          const statIndex = parts.indexOf('전투 특성')
+          return statIndex >= 0 ? parts[statIndex + 1]?.trim() : null
+        })
+        .filter(Boolean),
+    )
+    return types.size === 1 ? [...types][0] : ''
+  }, [coefficientEntries])
+  useEffect(() => {
+    if (detectedStatType) setCoefficientStatType(detectedStatType)
+  }, [detectedStatType])
   const filtered = useMemo(
     () => {
       const savedOrder = new Map(
@@ -464,12 +533,16 @@ export default function DamageOptionDataPage({
         .filter((record) =>
           normalizeDamageOptionSource(record.source).includes(normalizeDamageOptionSource(search)),
         )
+        .filter(
+          (record) =>
+            managementView !== 'saved' || !categoryFilter || record.category === categoryFilter,
+        )
         .sort((a, b) => {
           const status = (record) => (record.ignored ? 2 : record.effects.length ? 1 : 0)
           return status(a) - status(b) || savedOrder.get(a.id) - savedOrder.get(b.id)
         })
     },
-    [allRecords, search, recordFilter],
+    [allRecords, categoryFilter, managementView, search, recordFilter],
   )
   const visibleRecords = filtered.slice(0, recordLimit)
 
@@ -552,6 +625,69 @@ export default function DamageOptionDataPage({
       setServerMessage(error.message || '원문을 서버 JSON에 저장하지 못했습니다.')
     }
   }
+  const refreshTrackedCoefficient = async (recordId) => {
+    setTrackedCoefficientLoading(true)
+    try {
+      setTrackedCoefficient(await lostArkApi.getDamageOptionCoefficient(recordId))
+    } catch {
+      setTrackedCoefficient(null)
+    } finally {
+      setTrackedCoefficientLoading(false)
+    }
+  }
+  useEffect(() => {
+    setTrackingState('idle')
+    setTrackingMessage('')
+    if (!selected?.coefficientStatType) {
+      setTrackedCoefficient(null)
+      return
+    }
+    refreshTrackedCoefficient(selected.id)
+  }, [selected?.id, selected?.coefficientStatType])
+  // 지금 선택한 전투특성으로 이 원문을 "상시 추적"으로 전환한다 - 어느 직업/각인의
+  // 캐릭터가 저장될 때마다 서버가 알아서 구간을 좁혀서 DB에 들고 있고(백엔드
+  // DamageOptionCoefficientTracker), 여기서는 그 값을 읽어오기만 한다. 기존 저장(매핑
+  // 확정) 흐름과 똑같이 서버 JSON에 저장하되, coefficient* 필드만 얹어서 보낸다.
+  const startTrackingCoefficient = async () => {
+    if (!selected || !coefficientStatType) return
+    const base = selectedDraft || selected
+    const trackedRecord = {
+      ...base,
+      coefficientStatType,
+      coefficientKey,
+    }
+    if (!isCompleteDamageOptionRecord(trackedRecord)) {
+      setTrackingState('error')
+      setTrackingMessage('계산 효과와 수치 변수를 모두 연결한 뒤 추적을 시작하세요.')
+      return
+    }
+    const { _draft, ...persistentRecord } = trackedRecord
+    const existingIndex = registry.records.findIndex(
+      (record) => record.id === persistentRecord.id || record.source === persistentRecord.source,
+    )
+    const nextRecords =
+      existingIndex >= 0
+        ? registry.records.map((record, index) =>
+            index === existingIndex ? persistentRecord : record,
+          )
+        : [...registry.records, persistentRecord]
+    const completed = compactDamageOptionRegistry({ version: 1, records: nextRecords })
+    setTrackingState('saving')
+    setTrackingMessage('')
+    try {
+      const saved = compactDamageOptionRegistry(await lostArkApi.saveDamageOptionRegistry(completed))
+      setRegistry(saved)
+      setDraftRecords((current) => current.filter((record) => record.id !== trackedRecord.id))
+      saveDamageOptionRegistry(saved)
+      await lostArkApi.backfillDamageOptionCoefficient(persistentRecord.id)
+      setTrackingState('saved')
+      setTrackingMessage('추적을 시작했습니다 — 전체 캐릭터를 훑는 동안 잠시 후 새로고침해보세요.')
+      await refreshTrackedCoefficient(persistentRecord.id)
+    } catch (error) {
+      setTrackingState('error')
+      setTrackingMessage(error.message || '추적을 시작하지 못했습니다.')
+    }
+  }
   const markSourceIgnored = (source) => {
     const template = groupDamageOptionSources([source])[0]?.template
     if (!template) return
@@ -603,6 +739,7 @@ export default function DamageOptionDataPage({
           onHover={onHover}
           mappedEffects={mappedAnalysisEffects}
           mappedSourceArmory={armory}
+          battleStatCoefficients={battleStatCoefficients}
         />
       )}
 
@@ -621,6 +758,7 @@ export default function DamageOptionDataPage({
             aria-label="API 수집 원문 툴팁 및 매핑 데이터 관리"
           >
             <div className="damage-option-data-modal-content">
+      {managementView !== 'saved' && (
       <section className="damage-option-source-browser is-open">
         <header>
           <span>
@@ -797,6 +935,7 @@ export default function DamageOptionDataPage({
             </div>
           </div>
       </section>
+      )}
 
       <div className="damage-option-mapping-pane">
       <header className="damage-option-data-modal-toolbar">
@@ -821,23 +960,25 @@ export default function DamageOptionDataPage({
           </button>
         </div>
       </header>
-      <section className="damage-option-data-add">
-        <label>
-          <b>원문 등록</b>
-          <small>
-            숫자가 바뀌는 자리는 {'{n}'}, 두 번째 숫자는 {'{m}'}처럼 등록합니다. 같은
-            템플릿은 모든 캐릭터에 재사용됩니다.
-          </small>
-          <textarea
-            value={sourceInput}
-            placeholder={'무기 공격력 +{n}'}
-            onChange={(event) => setSourceInput(event.target.value)}
-          />
-        </label>
-        <button type="button" onClick={addSources}>
-          <Plus /> 데이터 추가
-        </button>
-      </section>
+      {managementView !== 'saved' && (
+        <section className="damage-option-data-add">
+          <label>
+            <b>원문 등록</b>
+            <small>
+              숫자가 바뀌는 자리는 {'{n}'}, 두 번째 숫자는 {'{m}'}처럼 등록합니다. 같은
+              템플릿은 모든 캐릭터에 재사용됩니다.
+            </small>
+            <textarea
+              value={sourceInput}
+              placeholder={'무기 공격력 +{n}'}
+              onChange={(event) => setSourceInput(event.target.value)}
+            />
+          </label>
+          <button type="button" onClick={addSources}>
+            <Plus /> 데이터 추가
+          </button>
+        </section>
+      )}
 
       <div className="damage-option-data-workspace">
         <aside className="damage-option-record-list">
@@ -902,6 +1043,22 @@ export default function DamageOptionDataPage({
               매핑 불필요 {visibleSavedRegistry.filter((record) => record.ignored).length}
             </button>
           </div>
+          {managementView === 'saved' && availableCategories.length > 0 && (
+            <label className="damage-option-category-filter">
+              <span>카테고리</span>
+              <select
+                value={categoryFilter}
+                onChange={(event) => setCategoryFilter(event.target.value)}
+              >
+                <option value="">전체</option>
+                {availableCategories.map((category) => (
+                  <option value={category} key={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
+            </label>
+          )}
           <div className="damage-option-record-items">
             {visibleRecords.map((record) => {
               const sourceGroup = characterGroupsByTemplate.get(record.source)
@@ -930,10 +1087,10 @@ export default function DamageOptionDataPage({
                       ? ` · 현재 캐릭터 ${sourceGroup.occurrenceCount}회`
                       : ''}
                   </small>
-                  {sourceGroup?.sources.length > 0 && (
+                  {managementView !== 'saved' && sourceGroup?.sources.length > 0 && (
                     <em>실제 원문: {sourceGroup.sources.slice(0, 2).join(' / ')}</em>
                   )}
-                  {sourceGroup?.origins.length > 0 && (
+                  {managementView !== 'saved' && sourceGroup?.origins.length > 0 && (
                     <em className="origin">
                       검출 위치: {sourceGroup.origins.slice(0, 2).join(' / ')}
                     </em>
@@ -989,7 +1146,8 @@ export default function DamageOptionDataPage({
                   }
                 />
               </label>
-              {characterGroupsByTemplate.get(selected.source)?.sources.length > 0 && (
+              {managementView !== 'saved' &&
+                characterGroupsByTemplate.get(selected.source)?.sources.length > 0 && (
                 <div className="damage-option-source-examples">
                   <b>
                     현재 캐릭터에서 같은 원문 템플릿{' '}
@@ -1013,7 +1171,8 @@ export default function DamageOptionDataPage({
                   )}
                 </div>
               )}
-              {characterGroupsByTemplate.get(selected.source)?.origins.length > 0 && (
+              {managementView !== 'saved' &&
+                characterGroupsByTemplate.get(selected.source)?.origins.length > 0 && (
                 <div className="damage-option-source-origins">
                   <b>
                     검출 위치{' '}
@@ -1245,6 +1404,113 @@ export default function DamageOptionDataPage({
                   <p>아직 분류되지 않은 원문입니다.</p>
                 )}
               </div>
+              {managementView === 'saved' && (
+                <div className="damage-option-coefficient">
+                  <div className="damage-option-coefficient-heading">
+                    <b>전투특성 계수 자동 추적</b>
+                    <small>
+                      이 원문 템플릿이 있는 캐릭터가(직업 무관) 저장될 때마다 서버가 알아서
+                      (전투특성 값, 표시된 %) 데이터를 쌓아 계수 구간을 좁힙니다. API가 소수점
+                      2자리까지만 잘라서(버림) 보여주기 때문에, 데이터가 쌓일수록 구간이
+                      좁아집니다.
+                    </small>
+                  </div>
+                  {selected.coefficientStatType ? (
+                    <>
+                      <div className="damage-option-coefficient-tracking-heading">
+                        <b>자동 추적 중 · {selected.coefficientStatType}</b>
+                        <button
+                          type="button"
+                          onClick={() => refreshTrackedCoefficient(selected.id)}
+                          disabled={trackedCoefficientLoading}
+                        >
+                          <RefreshCw className={trackedCoefficientLoading ? 'spin' : ''} />
+                          새로고침
+                        </button>
+                      </div>
+                      {trackedCoefficientLoading && !trackedCoefficient ? (
+                        <p className="damage-option-coefficient-empty">불러오는 중...</p>
+                      ) : !trackedCoefficient || trackedCoefficient.sampleCount === 0 ? (
+                        <p className="damage-option-coefficient-empty">
+                          아직 데이터가 없습니다 — 캐릭터가 갱신되면서 채워집니다.
+                        </p>
+                      ) : trackedCoefficient.contradictory ? (
+                        <p className="damage-option-coefficient-empty error">
+                          누적된 데이터끼리 구간이 겹치지 않습니다 — 전투특성 선택이 맞는지
+                          확인해보세요.
+                        </p>
+                      ) : (
+                        <div className="damage-option-coefficient-result">
+                          <span>
+                            {trackedCoefficient.sampleCount}건 누적 · 마지막 갱신{' '}
+                            {new Date(trackedCoefficient.updatedAt).toLocaleString('ko-KR')}
+                          </span>
+                          <code>
+                            {trackedCoefficient.low.toPrecision(10)} ~{' '}
+                            {trackedCoefficient.high.toPrecision(10)}
+                          </code>
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <div className="damage-option-coefficient-controls">
+                        <label>
+                          <span>전투특성</span>
+                          <select
+                            value={coefficientStatType}
+                            onChange={(event) => setCoefficientStatType(event.target.value)}
+                          >
+                            <option value="">선택</option>
+                            {availableStatTypes.map((type) => (
+                              <option value={type} key={type}>
+                                {type}
+                              </option>
+                            ))}
+                          </select>
+                          {detectedStatType && detectedStatType === coefficientStatType && (
+                            <small>원문 출처에서 자동 감지됨</small>
+                          )}
+                        </label>
+                        {coefficientTemplateKeys.length > 1 && (
+                          <label>
+                            <span>변수</span>
+                            <select
+                              value={coefficientKey}
+                              onChange={(event) => setCoefficientKey(event.target.value)}
+                            >
+                              {coefficientTemplateKeys.map((key) => (
+                                <option value={key} key={key}>
+                                  {`{${key}}`}
+                                </option>
+                              ))}
+                            </select>
+                          </label>
+                        )}
+                      </div>
+                      <button
+                        type="button"
+                        className="damage-option-tracking-start"
+                        disabled={!coefficientStatType || trackingState === 'saving'}
+                        onClick={startTrackingCoefficient}
+                      >
+                        {trackingState === 'saving'
+                          ? '추적 시작 중'
+                          : '추적 시작 (전체 캐릭터 자동 반영)'}
+                      </button>
+                      {trackingMessage && (
+                        <p
+                          className={`damage-option-coefficient-empty${
+                            trackingState === 'error' ? ' error' : ''
+                          }`}
+                        >
+                          {trackingMessage}
+                        </p>
+                      )}
+                    </>
+                  )}
+                </div>
+              )}
             </>
           ) : (
             <p className="damage-option-empty">왼쪽에서 원문을 선택하세요.</p>

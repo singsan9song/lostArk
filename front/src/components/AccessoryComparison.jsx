@@ -5,6 +5,11 @@ import { lostArkApi } from '../lib/api'
 import ancientBraceletOptions from '../data/ancient_bracelet_options.json'
 import relicBraceletOptions from '../data/relic_bracelet_options.json'
 import { calculateAccessoryOptionShares, calculateAccessoryReplacement } from './DamageAnalysis'
+import {
+  fetchBattleStatCoefficients,
+  loadDamageOptionRegistry,
+  selectBattleStatRecords,
+} from '../lib/damageOptionRegistry'
 
 const ACCESSORY_TYPES = new Set(['목걸이', '귀걸이', '반지', '팔찌'])
 const DEFAULT_EFFECT = () => ({ name: '', value: '' })
@@ -326,6 +331,25 @@ export default function AccessoryComparison({
   const [auctionError, setAuctionError] = useState('')
   const nextId = useRef(1)
 
+  // 악세 비교 점수를 "데미지 분석 2"(매핑 레지스트리 기반)로 계산한다 - registry는
+  // 새로고침 시에만 반영되면 충분해서(관리자가 실시간으로 고치는 화면이 아님) 마운트 시
+  // 한 번만 읽는다. 전투특성 추적 계수도 레코드 개수가 적어 마운트 시 한 번만 조회한다.
+  const [registry] = useState(loadDamageOptionRegistry)
+  const battleStatRecords = useMemo(
+    () => selectBattleStatRecords(registry.records),
+    [registry.records],
+  )
+  const [battleStatCoefficients, setBattleStatCoefficients] = useState({})
+  useEffect(() => {
+    let active = true
+    fetchBattleStatCoefficients(battleStatRecords).then((next) => {
+      if (active) setBattleStatCoefficients(next)
+    })
+    return () => {
+      active = false
+    }
+  }, [battleStatRecords])
+
   useEffect(() => {
     if (
       selectedEquipmentIndex == null ||
@@ -345,8 +369,17 @@ export default function AccessoryComparison({
   const currentMainStatName =
     currentEffects.find((effect) => MAIN_STATS.includes(effect.name))?.name || '힘'
   const optionShares = useMemo(
-    () => calculateAccessoryOptionShares({ armory, profile, skills, skillName, siblings }),
-    [armory, profile, skills, skillName, siblings],
+    () =>
+      calculateAccessoryOptionShares({
+        armory,
+        profile,
+        skills,
+        skillName,
+        siblings,
+        registry,
+        battleStatCoefficients,
+      }),
+    [armory, profile, skills, skillName, siblings, registry, battleStatCoefficients],
   )
   const currentOptionShares = optionShares.filter(
     (option) => option.equipmentIndex === selectedEquipmentIndex,
@@ -368,6 +401,8 @@ export default function AccessoryComparison({
             grade: selectedCandidate.grade,
             quality: selectedCandidate.quality,
             lines: selectedComparisonEffects.map((effect) => effect.line).filter(Boolean),
+            registry,
+            battleStatCoefficients,
           })
         : { total: null, options: [] },
     [
@@ -379,6 +414,8 @@ export default function AccessoryComparison({
       selectedEquipmentIndex,
       selectedCandidate,
       selectedComparisonEffects,
+      registry,
+      battleStatCoefficients,
     ],
   )
   const comparisonOptionShareTotal = comparisonResult.options.reduce(
@@ -421,6 +458,8 @@ export default function AccessoryComparison({
             grade: item.grade,
             quality: item.quality,
             lines: effects.map((effect) => effect.line).filter(Boolean),
+            registry,
+            battleStatCoefficients,
           })
           scored.push({
             ...item,
@@ -461,6 +500,8 @@ export default function AccessoryComparison({
     skillName,
     siblings,
     selectedEquipmentIndex,
+    registry,
+    battleStatCoefficients,
   ])
 
   useEffect(() => {

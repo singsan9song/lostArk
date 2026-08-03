@@ -467,6 +467,12 @@ function AdminApiStatusPanel() {
       return
     }
     setMappingView(view)
+    // "저장 매핑 관리"는 이미 저장된 전체 원문을 그냥 보여주는 화면이라 직업/각인이나 캐릭터
+    // 코퍼스가 필요 없다 - DamageOptionDataPage가 registry.records를 바로 읽는다.
+    if (view === 'saved') {
+      setMappingOpen(true)
+      return
+    }
     if (!mappingClass || !mappingEngraving) {
       setMappingError('직업과 직업 각인을 먼저 선택하세요.')
       return
@@ -605,7 +611,7 @@ function AdminApiStatusPanel() {
         )}
       </div>
       {mappingError && <div className="admin-api-history-state error">{mappingError}</div>}
-      {mappingOpen && mappingArmories.length > 0 && (
+      {mappingView !== 'saved' && mappingOpen && mappingArmories.length > 0 && (
         <div className="admin-damage-option-load-more">
           <span>
             아이템 레벨 상위 {number(mappingLoadedCount)} / {number(mappingTotalCount)}명 로드됨

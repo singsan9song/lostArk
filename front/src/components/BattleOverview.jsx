@@ -2,7 +2,6 @@ import { useMemo, useState } from 'react'
 import {
   BarChart3,
   BookOpen,
-  Database,
   Gem,
   Grid3X3,
   Layers3,
@@ -16,7 +15,6 @@ import { getEngravingIcon } from '../lib/engravingIcons'
 import { toSafeHtml } from '../lib/lostArkHtml'
 import ItemTooltip from './ItemTooltip'
 import SkillOverview from './SkillOverview'
-import DamageAnalysis from './DamageAnalysis'
 import ArkGridOverview from './ArkGridOverview'
 import AccessoryComparison from './AccessoryComparison'
 import DamageOptionDataPage from '../pages/DamageOptionDataPage'
@@ -27,7 +25,6 @@ const categories = [
   ['skill', '스킬', Sparkles],
   ['arkGrid', '아크그리드', Grid3X3],
   ['damage', '데미지 분석', BarChart3],
-  ['damage2', '데미지 분석 2', Database],
   ['accessoryCompare', '악세 비교', Scale],
 ]
 
@@ -397,16 +394,6 @@ export default function BattleOverview({ armory, profile, stats, skills, sibling
       )}
 
       {category === 'damage' && (
-        <DamageAnalysis
-          profile={profile}
-          skills={skills}
-          armory={armory}
-          siblings={siblings}
-          onHover={setHover}
-        />
-      )}
-
-      {category === 'damage2' && (
         <DamageOptionDataPage
           armory={armory}
           profile={profile}

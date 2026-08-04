@@ -715,6 +715,7 @@ export function collectResolvedDamageOptionEffects(armory, registry) {
             origin,
             sourceSkillName,
             values: record.values,
+            coefficientStatType: record.coefficientStatType || null,
           },
         ]
       })
@@ -948,10 +949,11 @@ export function selectBattleStatRecords(records) {
   )
 }
 
-// selectBattleStatRecords로 고른 레코드들의 추적 계수를 각각 조회해, 효과 타입별(치명타
-// 적중률/공격 속도/이동 속도/재사용 대기시간 감소)로 최신 구간을 하나씩 모은다 -
-// DamageOptionDataPage(미리보기)와 AccessoryComparison(악세 비교) 둘 다 이 함수를 공유해서
-// API 스탯값 × 구간 최저값을 계산에 반영한다.
+// selectBattleStatRecords로 고른 레코드들의 추적 계수를 각각 조회해, 레코드 id별로 최신
+// 구간을 하나씩 모은다(효과 타입이 아니라 recordId로 키를 잡아야, 같은 타입에 추적 계수
+// 레코드가 여러 개 있어도 서로 안 덮어씀). DamageOptionDataPage(미리보기)와
+// AccessoryComparison(악세 비교) 둘 다 이 함수를 공유해서 API 스탯값 × 구간 최저값을
+// 계산에 반영한다.
 export async function fetchBattleStatCoefficients(battleStatRecords) {
   if (!battleStatRecords?.length) return {}
   const results = await Promise.all(
@@ -964,8 +966,11 @@ export async function fetchBattleStatCoefficients(battleStatRecords) {
   )
   const next = {}
   results.forEach(({ record, coefficient }) => {
-    if (!coefficient) return
-    next[record.effects[0].type] = { recordId: record.id, ...coefficient }
+    next[record.id] = {
+      recordId: record.id,
+      coefficientStatType: record.coefficientStatType,
+      ...(coefficient || {}),
+    }
   })
   return next
 }

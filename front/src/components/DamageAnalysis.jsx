@@ -345,7 +345,8 @@ function accessoryEngineDamageScore(
         skill,
       )
     : []
-  const mappedSources = (type) => mappedEffectSources(mappedEffectsForSkill, type)
+  const mappedSources = (type) =>
+    mappedEffectSources(mappedEffectsForSkill, type, battleStatCoefficients, stats)
 
   const detectedMainStatData = mainStatBreakdown(armory, profile, {
     potionSourceInput: settings.potionSource ?? '',
@@ -450,20 +451,9 @@ function accessoryEngineDamageScore(
           petAdditional,
         )
       })()
-  const moveSpeedTracked = mappedMode
-    ? battleStatTrackedSource(
-        battleStatCoefficients,
-        'MOVE_SPEED_PERCENT',
-        '신속',
-        combatStats.swiftness,
-      )
-    : { source: null, recordId: null }
   const moveSpeed = mappedMode
-    ? (moveSpeedTracked.source ? moveSpeedTracked.source.value : 0) +
-      (settings.eventFeastEnabled || weaponFeast ? FEAST_SPEED_BONUS : 0) +
-      mappedSources('MOVE_SPEED_PERCENT')
-        .filter((source) => source.recordId !== moveSpeedTracked.recordId)
-        .reduce((sum, source) => sum + source.value, 0)
+    ? (settings.eventFeastEnabled || weaponFeast ? FEAST_SPEED_BONUS : 0) +
+      mappedSources('MOVE_SPEED_PERCENT').reduce((sum, source) => sum + source.value, 0)
     : combatStats.moveSpeed +
       (settings.eventFeastEnabled || weaponFeast ? FEAST_SPEED_BONUS : 0) +
       skillMoveSpeedFacts(skills).total
@@ -572,14 +562,8 @@ function accessoryEngineDamageScore(
     ? mappedCritHitDamageSources.reduce((sum, source) => sum + source.value, 0)
     : critHitBraceletFacts(armory).total
   const critMultiplier = (2 + critDamageBonusTotal / 100) * (1 + critHitBraceletTotal / 100)
-  const critRateTracked = mappedMode
-    ? battleStatTrackedSource(battleStatCoefficients, 'CRIT_RATE_PERCENT', '치명', combatStats.critical)
-    : { source: null, recordId: null }
   const baseCritRateTotal = mappedMode
-    ? (critRateTracked.source ? critRateTracked.source.value : 0) +
-      mappedSources('CRIT_RATE_PERCENT')
-        .filter((source) => source.recordId !== critRateTracked.recordId)
-        .reduce((sum, source) => sum + source.value, 0)
+    ? mappedSources('CRIT_RATE_PERCENT').reduce((sum, source) => sum + source.value, 0)
     : critRateFacts(armory, combatStats.critical, category).total
   // 백어택 스킬의 치명타 적중률 +10%(하드코딩)도 포지션 공격 적중 확률로 가중 평균해 더한다.
   const critRateTotal =
@@ -4145,10 +4129,37 @@ function buildDamageCases({
 // 별도 하드코딩이 필요하다는 표시이므로, 하드코딩되기 전까지는 일반 계산 버킷에 새지
 // 않도록 기본값을 "제외"로 둔다("조건 데이터 확인" 모달은 이 필터 이전 단계인
 // mappedEffectsForSkill을 직접 보므로 여기서 걸러도 거기서는 계속 보인다).
-function mappedEffectSources(mappedEffectsForSkill, type) {
+// 전투 특성(치명/신속/특화 등) 계수 자동 추적이 켜진 효과는 타입과 무관하게 무조건 이
+// 경로로 들어가야 한다 - 켜져 있는데 아직 추적 구간이 안 좁혀졌으면(sampleCount 0, 미확정,
+// 모순) 그 캐릭터 본인의 원문 표시값을 대신 보여주지 않고 그냥 뺀다(추적 전 상태로 되돌아
+// 가지 않는다). coefficientStatType이 아예 없는 효과만 원문 표시값을 그대로 쓴다.
+function trackedEffectValue(effect, battleStatCoefficients, stats) {
+  if (!effect.coefficientStatType) return null
+  const tracked = battleStatCoefficients?.[effect.recordId]
+  if (
+    !tracked ||
+    !tracked.sampleCount ||
+    tracked.contradictory ||
+    !Number.isFinite(tracked.low)
+  ) {
+    return { unresolved: true }
+  }
+  const statValue = combatStatValue(stats, effect.coefficientStatType)
+  if (!(statValue > 0)) return { unresolved: true }
+  return {
+    unresolved: false,
+    value: statValue * tracked.low,
+    itemName: `${effect.coefficientStatType} ${numberText(statValue)} × ${tracked.low.toPrecision(6)}%`,
+  }
+}
+
+function mappedEffectSources(mappedEffectsForSkill, type, battleStatCoefficients, stats) {
   return mappedEffectsForSkill
     .filter((effect) => effect.type === type && !(effect.label || '').startsWith('조건'))
-    .map((effect) => {
+    .flatMap((effect) => {
+      const tracked = trackedEffectValue(effect, battleStatCoefficients, stats)
+      // 추적 설정은 됐는데 아직 구간이 안 좁혀졌으면, 원문 표시값 대신 이 효과를 통째로 뺀다.
+      if (tracked?.unresolved) return []
       const explicitNames = effect.skillNames?.length
         ? effect.skillNames
         : effect.skillName
@@ -4160,25 +4171,29 @@ function mappedEffectSources(mappedEffectsForSkill, type) {
         ...explicitNames,
       ].join(', ')
       const automaticTarget = !targetLabel && effect.sourceSkillName
-      return {
-        recordId: effect.recordId,
-        value: Number(effect.value) || 0,
-        baseValue: Number(effect.baseValue) || 0,
-        itemType: '등록 데이터',
-        itemName: targetLabel
-          ? `${effect.origin || '매핑 원문'} · ${targetLabel} 전용`
-          : automaticTarget
-            ? `${effect.origin || '매핑 원문'} · ${effect.sourceSkillName} 전용 (출처 자동)`
-            : effect.origin || '매핑 원문',
-        heading: [effect.template || type, effect.label].filter(Boolean).join(' · '),
-        context: effect.source,
-        condition: effect.condition || 'ALWAYS',
-        maxStacks: effect.stack?.maxStacks ?? null,
-        appliedStacks: effect.stack?.appliedStacks ?? null,
-        perStackValue: effect.stack ? Number(effect.baseValue) || 0 : null,
-        percent: type.endsWith('_PERCENT'),
-        motionOrders: effect.motionOrders || [],
-      }
+      return [
+        {
+          recordId: effect.recordId,
+          value: tracked ? tracked.value : Number(effect.value) || 0,
+          baseValue: Number(effect.baseValue) || 0,
+          itemType: tracked ? '전투 특성 (추적 계수)' : '등록 데이터',
+          itemName: tracked
+            ? tracked.itemName
+            : targetLabel
+              ? `${effect.origin || '매핑 원문'} · ${targetLabel} 전용`
+              : automaticTarget
+                ? `${effect.origin || '매핑 원문'} · ${effect.sourceSkillName} 전용 (출처 자동)`
+                : effect.origin || '매핑 원문',
+          heading: [effect.template || type, effect.label].filter(Boolean).join(' · '),
+          context: effect.source,
+          condition: effect.condition || 'ALWAYS',
+          maxStacks: effect.stack?.maxStacks ?? null,
+          appliedStacks: effect.stack?.appliedStacks ?? null,
+          perStackValue: effect.stack ? Number(effect.baseValue) || 0 : null,
+          percent: type.endsWith('_PERCENT'),
+          motionOrders: effect.motionOrders || [],
+        },
+      ]
     })
 }
 
@@ -4190,32 +4205,6 @@ function motionSpecificDamageMultiplier(motionSpecificItems, motionOrder) {
   return motionSpecificItems
     .filter((item) => item.sources.some((source) => source.motionOrders?.includes(motionOrder)))
     .reduce((product, item) => product * (1 + item.percent / 100), 1)
-}
-
-// 전투 특성(치명/신속 등) 값이 백엔드 계수 자동 추적으로 좁혀진 구간을 갖고 있으면, API
-// 스탯값 × 그 구간의 최저값(low) 하나만 보여준다 - 예전처럼 하드코딩된 환산 상수로 만든 값과
-// 등록 데이터(원문에 찍힌 표시값)를 따로 더하면 같은 값이 두 번 잡히기 때문. 구간이 아직
-// 안 좁혀졌으면(sampleCount 0, 미확정, 모순) 아무 것도 보여주지 않는다 - 잘못된 값을
-// 보여주는 것보다 낫다.
-function battleStatTrackedSource(battleStatCoefficients, type, statLabel, statValue) {
-  const tracked = battleStatCoefficients?.[type]
-  if (
-    !tracked ||
-    !tracked.sampleCount ||
-    tracked.contradictory ||
-    !Number.isFinite(tracked.low) ||
-    !(statValue > 0)
-  ) {
-    return { source: null, recordId: tracked?.recordId ?? null }
-  }
-  return {
-    source: {
-      value: statValue * tracked.low,
-      itemType: '전투 특성 (추적 계수)',
-      itemName: `${statLabel} ${numberText(statValue)} × ${tracked.low.toPrecision(6)}%`,
-    },
-    recordId: tracked.recordId,
-  }
 }
 
 export default function DamageAnalysis({
@@ -4416,7 +4405,8 @@ export default function DamageAnalysis({
   const mappedEffectsForSkill = mappedMode
     ? resolveMappedEffectsForSkill(mappedEffects, karmaSourceArmory, skill)
     : []
-  const mappedSources = (type) => mappedEffectSources(mappedEffectsForSkill, type)
+  const mappedSources = (type) =>
+    mappedEffectSources(mappedEffectsForSkill, type, battleStatCoefficients, stats)
   const motionHits = skillMotionHits(profile, skill)
   const baseAttackTooltip = profileBaseAttackPower(profile)
   const storedMotionConstants = invenMotionConstants(profile, skill)
@@ -4484,20 +4474,8 @@ export default function DamageAnalysis({
         context: `공격속도와 이동속도 ${FEAST_SPEED_BONUS}% 증가`,
       }
     : null
-  const attackSpeedTracked = battleStatTrackedSource(
-    battleStatCoefficients,
-    'ATTACK_SPEED_PERCENT',
-    '신속',
-    combatStats.swiftness,
-  )
   const attackSpeedSources = mappedMode
-    ? [
-        ...(attackSpeedTracked.source ? [attackSpeedTracked.source] : []),
-        ...mappedSources('ATTACK_SPEED_PERCENT').filter(
-          (source) => source.recordId !== attackSpeedTracked.recordId,
-        ),
-        ...(feastSpeedSource ? [feastSpeedSource] : []),
-      ]
+    ? [...mappedSources('ATTACK_SPEED_PERCENT'), ...(feastSpeedSource ? [feastSpeedSource] : [])]
     : [
         ...(combatStats.swiftness > 0
           ? [
@@ -4515,20 +4493,8 @@ export default function DamageAnalysis({
     sources: attackSpeedSources,
     total: attackSpeedSources.reduce((sum, source) => sum + source.value, 0),
   }
-  const moveSpeedTracked = battleStatTrackedSource(
-    battleStatCoefficients,
-    'MOVE_SPEED_PERCENT',
-    '신속',
-    combatStats.swiftness,
-  )
   const moveSpeedSources = mappedMode
-    ? [
-        ...(moveSpeedTracked.source ? [moveSpeedTracked.source] : []),
-        ...(feastSpeedSource ? [feastSpeedSource] : []),
-        ...mappedSources('MOVE_SPEED_PERCENT').filter(
-          (source) => source.recordId !== moveSpeedTracked.recordId,
-        ),
-      ]
+    ? [...(feastSpeedSource ? [feastSpeedSource] : []), ...mappedSources('MOVE_SPEED_PERCENT')]
     : [
         ...(combatStats.swiftness > 0
           ? [
@@ -4546,21 +4512,8 @@ export default function DamageAnalysis({
     sources: moveSpeedSources,
     total: moveSpeedSources.reduce((sum, source) => sum + source.value, 0),
   }
-  const cooldownReductionTracked = battleStatTrackedSource(
-    battleStatCoefficients,
-    'COOLDOWN_REDUCTION_PERCENT',
-    '신속',
-    combatStats.swiftness,
-  )
   const cooldownReductionSources = mappedMode
-    ? [
-        ...(cooldownReductionTracked.source
-          ? [{ ...cooldownReductionTracked.source, unit: '%' }]
-          : []),
-        ...mappedSources('COOLDOWN_REDUCTION_PERCENT')
-          .filter((source) => source.recordId !== cooldownReductionTracked.recordId)
-          .map((source) => ({ ...source, unit: '%' })),
-      ]
+    ? mappedSources('COOLDOWN_REDUCTION_PERCENT').map((source) => ({ ...source, unit: '%' }))
     : [
         ...(combatStats.swiftness > 0
           ? [
@@ -5123,21 +5076,7 @@ export default function DamageAnalysis({
         : '포지션 공격',
     sources: mappedPositionalDamageSources,
   }
-  const critRateTracked = battleStatTrackedSource(
-    battleStatCoefficients,
-    'CRIT_RATE_PERCENT',
-    '치명',
-    combatStats.critical,
-  )
-  const mappedCritRateSources = mappedMode
-    ? mappedSources('CRIT_RATE_PERCENT').filter(
-        (source) => source.recordId !== critRateTracked.recordId,
-      )
-    : []
-  const critRateSources = [
-    ...(critRateTracked.source ? [critRateTracked.source] : []),
-    ...mappedCritRateSources,
-  ]
+  const critRateSources = mappedMode ? mappedSources('CRIT_RATE_PERCENT') : []
   const critRate = mappedMode
     ? {
         sources: critRateSources,

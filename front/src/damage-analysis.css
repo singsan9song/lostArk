@@ -160,13 +160,13 @@
 }
 .damage-skill-list button b {
   min-width: 0;
-  font-size: var(--fs-11);
+  font-size: var(--fs-14);
 }
 .damage-skill-list button small {
   flex: none;
   margin-top: 0;
   color: var(--muted);
-  font-size: var(--fs-8);
+  font-size: var(--fs-14);
 }
 .damage-skill-list button .skill-damage-name strong {
   flex: none;
@@ -174,7 +174,7 @@
   margin-left: auto;
   overflow: hidden;
   color: #86c46c;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 800;
   font-variant-numeric: tabular-nums;
   text-overflow: ellipsis;
@@ -346,28 +346,69 @@
   font-style: normal;
   font-weight: 800;
 }
+.damage-analysis-header-summary {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-left: auto;
+  padding-left: 14px;
+}
+.damage-analysis-header-summary span {
+  text-align: right;
+}
+.damage-analysis-header-summary small {
+  display: block;
+  color: var(--muted);
+  font-size: var(--fs-8);
+}
+.damage-analysis-header-summary strong {
+  display: block;
+  margin-top: 2px;
+  color: #86c46c;
+  font-size: var(--fs-13);
+  overflow-wrap: anywhere;
+}
 .damage-analysis-detail > section {
   margin-top: 0;
 }
 .damage-combat-stat-summary {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns:
+    minmax(82px, 0.9fr) minmax(82px, 0.9fr) minmax(132px, 1.35fr)
+    minmax(100px, 1fr) minmax(88px, 1fr);
   gap: 7px;
 }
 .damage-combat-stat-summary button {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  align-content: center;
+  justify-items: center;
+  align-items: center;
+  gap: 3px;
   min-width: 0;
-  padding: 10px;
+  min-height: 56px;
+  padding: 8px 7px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--surface-2);
   color: inherit;
   font: inherit;
-  text-align: left;
+  text-align: center;
   cursor: pointer;
 }
 .damage-combat-stat-summary button:hover {
   border-color: rgba(167, 139, 250, 0.5);
   background: rgba(139, 92, 246, 0.11);
+}
+.damage-combat-stat-content {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
 }
 .damage-combat-stat-summary small,
 .damage-combat-stat-summary strong,
@@ -375,14 +416,20 @@
   display: block;
 }
 .damage-combat-stat-summary small {
+  width: 100%;
+  overflow: hidden;
   color: var(--muted);
-  font-size: var(--fs-8);
+  font-size: 14px;
+  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .damage-combat-stat-summary strong {
-  margin-top: 3px;
+  margin-top: 0;
   color: #86c46c;
   font-size: var(--fs-13);
-  overflow-wrap: anywhere;
+  text-align: center;
+  white-space: nowrap;
 }
 .damage-combat-stat-summary em {
   margin-top: 2px;
@@ -1378,6 +1425,25 @@
   gap: 7px;
   margin-bottom: 8px;
 }
+.motion-hit-detail-toggle {
+  display: block;
+  width: 100%;
+  margin: 0 0 8px;
+  padding: 8px 12px;
+  border: 1px solid rgba(167, 139, 250, 0.35);
+  border-radius: 7px;
+  background: rgba(139, 92, 246, 0.08);
+  color: #c4b5fd;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+}
+.motion-hit-detail-toggle:hover {
+  border-color: rgba(167, 139, 250, 0.65);
+  background: rgba(139, 92, 246, 0.15);
+}
 .motion-hit-result-list > article {
   overflow: hidden;
   border: 1px solid var(--line);
@@ -1417,11 +1483,15 @@
 }
 .motion-hit-case-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 6px;
   padding: 8px 10px;
 }
 .motion-hit-case-grid > button {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(94px, auto);
+  align-items: center;
+  gap: 10px;
   overflow: hidden;
   width: 100%;
   padding: 7px 8px;
@@ -1433,6 +1503,17 @@
   text-align: left;
   cursor: pointer;
 }
+.motion-hit-case-grid > button > span {
+  min-width: 0;
+}
+.motion-hit-case-grid > button > .motion-hit-case-values {
+  display: flex;
+  min-width: 94px;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 3px;
+}
 .motion-hit-case-grid > button:hover {
   border-color: rgba(167, 139, 250, 0.5);
   background: rgba(139, 92, 246, 0.11);
@@ -1440,25 +1521,38 @@
 .motion-hit-case-grid > button b {
   display: block;
   font-size: var(--fs-8);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .motion-hit-case-grid > button small {
   display: block;
+  overflow: hidden;
   color: var(--muted);
   font-size: var(--fs-8);
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .motion-hit-case-grid > button strong {
   display: block;
-  margin-top: 3px;
+  min-width: 0;
+  margin-top: 0;
+  overflow: hidden;
   color: #86c46c;
   font-size: var(--fs-9);
-  overflow-wrap: anywhere;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .motion-hit-case-grid > button em {
   display: block;
-  margin-top: 2px;
+  margin-top: 0;
   color: var(--muted);
   font-size: var(--fs-8);
   font-style: normal;
+  text-align: right;
+  white-space: nowrap;
 }
 .motion-hit-case-grid > button.critical strong {
   color: #fbbf24;
@@ -1607,10 +1701,86 @@
   color: #86c46c;
   font-size: var(--fs-15);
 }
-.damage-case-expected code {
-  color: #fbbf24;
-  font-size: var(--fs-8);
+.motion-expected-damage-chart {
+  margin: 10px 0 8px;
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-2);
+}
+.motion-expected-damage-chart > header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.motion-expected-damage-chart > header b {
+  font-size: var(--fs-11);
+}
+.motion-expected-damage-chart > header small {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.motion-expected-damage-chart > div {
+  display: grid;
+  gap: 7px;
+}
+.motion-expected-damage-row {
+  display: grid;
+  grid-template-columns: minmax(62px, auto) minmax(80px, 1fr) minmax(92px, auto);
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+.motion-expected-damage-row > span {
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.motion-expected-damage-row > span small {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 500;
+}
+.motion-expected-damage-track {
+  position: relative;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.07);
+}
+.motion-expected-damage-fill {
+  position: absolute;
+  inset: 0;
+  display: block;
+  min-width: 2px;
+  background: #a9c9f4;
+}
+.motion-expected-damage-fill.color-2 {
+  background: #eca8d9;
+}
+.motion-expected-damage-fill.color-3 {
+  background: #8bc5b0;
+}
+.motion-expected-damage-fill.color-4 {
+  background: #c4bd7c;
+}
+.motion-expected-damage-fill.color-5 {
+  background: #b9a9e8;
+}
+.motion-expected-damage-row > strong {
+  overflow: hidden;
+  color: #86c46c;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
   text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .damage-case-note {
   margin: 8px 0 0;
@@ -1694,6 +1864,9 @@
   }
 }
 @media (max-width: 560px) {
+  .motion-hit-case-grid {
+    grid-template-columns: 1fr;
+  }
   .weapon-attack-summary,
   .weapon-attack-groups {
     grid-template-columns: 1fr;
@@ -1714,9 +1887,6 @@
   .damage-case-expected {
     align-items: flex-start;
     flex-direction: column;
-  }
-  .damage-case-expected code {
-    text-align: left;
   }
   .damage-combat-stat-summary {
     grid-template-columns: repeat(2, minmax(0, 1fr));

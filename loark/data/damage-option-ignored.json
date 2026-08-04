@@ -1722,5 +1722,875 @@
     "category" : "스킬",
     "ignored" : true,
     "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-15-yggo4s",
+    "source" : "+{n} 운명의 전율 기공패",
+    "category" : "장비",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-81-jg48wi",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/ffm_item/ffm_item_{n}_{m}.png",
+    "category" : "장비",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-19nl8gp",
+    "source" : "+{n} 운명의 전율 머리장식",
+    "category" : "장비",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-1hoypy7",
+    "source" : "[질량 증가] Lv.{n}",
+    "category" : "장비",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-ijrfip",
+    "source" : "[이동속도 감소] Lv.{n}",
+    "category" : "장비",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-1tt8pjp",
+    "source" : "[가디언 토벌] {n}티어",
+    "category" : "장비",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-moebj8",
+    "source" : "상태이상 공격 지속시간 +{n}%",
+    "category" : "악세서리",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-1bkrbm7",
+    "source" : "최대 생명력 +{n}",
+    "category" : "악세서리",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-y9w2j2",
+    "source" : "파티원 보호막 효과 +{n}%",
+    "category" : "악세서리",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-91-1ap7baz",
+    "source" : "아바타 > Tooltip > Element_{n} > value > itemData > Element_{m} > patternIcon > iconGrade: {k}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-85-ti8g1k",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/tint_pattern/tint_pattern_{n}.png",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-2wu4fs",
+    "source" : "피크닉 웨어 얼굴{n}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-1q5a98z",
+    "source" : "{n}주년 용기 얼굴{m}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-40-xcg4za",
+    "source" : "[카제로스 레이드] {n}막 : 대지를 부수는 업화의 궤적 - 하드 경매",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-21-1tfxs84",
+    "source" : "깨달음 {n}티어 무상신공 Lv.{m}",
+    "category" : "아크패시브",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-89-16kn612",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/ark_passive_so/ark_passive_so_{n}.png",
+    "category" : "아크패시브",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-21-1deft65",
+    "source" : "깨달음 {n}티어 무상진결 Lv.{m}",
+    "category" : "아크패시브",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-55-gjobk6",
+    "source" : "무상신공 초식 사용 시 초각성 스킬을 제외한 무공 스킬의 재사용 대기시간이 즉시 {n}초 감소한다.",
+    "category" : "아크패시브",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-21-195wi4s",
+    "source" : "깨달음 {n}티어 혼원진기 Lv.{m}",
+    "category" : "아크패시브",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-21-1c4w66x",
+    "source" : "깨달음 {n}티어 삼화취정 Lv.{m}",
+    "category" : "아크패시브",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-33-y2r24g",
+    "source" : "금강불괴 : 스킬 시전 중 받는 피해량이 {n}% 감소한다.",
+    "category" : "아크패시브",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-21-tzub4",
+    "source" : "깨달음 {n}티어 오기조원 Lv.{m}",
+    "category" : "아크패시브",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-qmul4b",
+    "source" : "진화 {n}티어 입식 타격가 Lv.{m}",
+    "category" : "아크패시브",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-wp07jt",
+    "source" : "진화 {n}티어 혼신의 강타 Lv.{m}",
+    "category" : "아크패시브",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-89-1hmohg7",
+    "source" : "전투 시작 후, '입식 타격 II' 효과를 최대로 얻습니다. 피격 이상 시 중첩을 {n}회 잃습니다. 이후 {m}초가 지날 때마다 효과를 {k}중첩 회복합니다.",
+    "category" : "아크패시브",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-dvull4",
+    "source" : "이동거리가 {n}m 증가한다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-81-i2py80",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/so_skill/so_skill_{n}_{m}.png",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-1nb67tb",
+    "source" : "#A{n}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-gurp9w",
+    "source" : "#D{n}AF{m}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-11sq6ae",
+    "source" : "#D{n}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-79-1dpy5u2",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/ft_item/ft_item_{n}_{m}.png",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-q08a7z",
+    "source" : "{n}주년 결속 기공패",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-1b2tpiy",
+    "source" : "#FFE{n}B{m}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-1uane4d",
+    "source" : "네이처 웨어 얼굴{n}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-24-19gvog4",
+    "source" : "[{n}P] 받는 피해가 {m}% 감소한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-1onehes",
+    "source" : "#{n}E{m}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-5-j9pdw9",
+    "source" : "#{n}E",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-7np5yk",
+    "source" : "{n}주년 미래 기공패",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-1wipt6n",
+    "source" : "순수한 밤 얼굴{n}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-q8m2pk",
+    "source" : "고귀한 마녀의 축제 얼굴{n}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-1p4d8fa",
+    "source" : "#{n}B{m}B{k}B",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-15-171iwx9",
+    "source" : "[안정된 상태] Lv.{n}",
+    "category" : "장비",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-78-1yjvj6l",
+    "source" : "[{n}P] 보스 이상 적에게 공격 적중 시 부위 파괴 레벨 {m}에 해당하는 공격이 발생한다. 해당 효과는 {k}초에 {p}회만 발동한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-30-k4409n",
+    "source" : "[{n}P] 음양신장의 시전 속도가 {m}% 증가한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-80-ih2e7s",
+    "source" : "[단죄] 스킬 적중 시 {n}% 확률로 자신에게 {m}초간 지속되는 '단죄' 상태 부여하며 해당 상태 일 때 '심판' 을 통해 추가 효과를 발동",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-1caq23v",
+    "source" : "데일리 캐주얼 얼굴{n}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-y78cy9",
+    "source" : "밤의 별무리 얼굴{n}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-t972rj",
+    "source" : "#EAD{n}DA",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-1qey6qj",
+    "source" : "#E{n}B{m}BE",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-15kiyse",
+    "source" : "#F{n}E{m}EC",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-6-z2flnu",
+    "source" : "#FF{n}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-hq669",
+    "source" : "#FFD{n}DA",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-59-1lzjkj0",
+    "source" : "[{n}P] 적에게 공격 적중 시 {m}의 생명력을 회복한다. 해당 효과는 {k}초에 {p}회만 발동한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-69-1i71u44",
+    "source" : "스킬 적중 시 {n}% 확률로 자신의 '단죄' 상태를 제거하여 {m}초간 전투자원 회복량 증가 및 스킬 재사용 대기시간 감소",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-74-1oae8j2",
+    "source" : "[심판] 스킬 적중 시 {n}% 확률로 자신의 '단죄' 상태를 제거하여 {m}초간 전투자원 회복량 증가 및 스킬 재사용 대기시간 감소",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-glw0jv",
+    "source" : "부위 파괴 {n}레벨이 부여된다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-n7tmor",
+    "source" : "공격 범위가 {n}% 증가한다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-34-1ahopg6",
+    "source" : "[{n}P] 무공 스킬 {m}회 사용 시 '운명'이 발동한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-pfq91e",
+    "source" : "내공 {n} 소모",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-100-zd0jp9",
+    "source" : "양손에 기를 모았다가 마우스 커서 방향으로 기를 발사하며 {n}의 피해를 주고 적을 밀어낸다. 홀딩 도중 방향 전환이 가능하며 {m}초 동안 {k}회에 걸쳐 {p}의 피해를 준다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-143-1kkbxt4",
+    "source" : "순간적으로 몸을 날려 마우스 방향으로 이동한다. 신속하게 움직여 도착 지점에 있는 적에게 {n}의 피해를 주고 내공을 {m} 회복하며 적이 공중에 뜬 상태일 때 공격 적중 시 다시 공중에 띄운다. {k}초 내로 추가 입력 시 {p}회 더 사용 할 수 있다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-117-1uzxi6g",
+    "source" : "선택한 마우스 위치에 거대한 손바닥을 떨어뜨려 {n}의 피해를 주며 적을 날려버리고, 내공을 {m} 회복한다. 적이 넘어진 상태 또는 공중에 뜬 상태 일 때 공격 적중 시 적에게 주는 피해가 {k}% 증가한다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-70-guuqoa",
+    "source" : "전방을 향해 두 손바닥을 뻗으며 {n}의 피해를 주고 내공을 {m} 회복하며 공중에 뜬 적에게 공격 적중 시 적을 날려버린다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-132-pf6wnm",
+    "source" : "머리 위로 강력한 기운을 압축해 타원 모양의 기공을 형성하고 전방으로 {n}회 던져 {m} {k}의 피해를 준다. 이후 마지막 기운을 모아 적에게 던지는 기공은 적에게 적중할 경우 속도가 느려지지만 {p}의 피해를 최대 {q}회 입힌다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-121-f8r4xc",
+    "source" : "전방으로 {n}m 이동하며 주먹을 뻗어 {m}의 피해를 주고 빠르게 오른발로 발차기를 날려 {k}의 피해와 이후 주먹을 내지르는 공격하여 {p}의 피해를 주고, 내공을 {q} 회복한다. 공격 중 방향 전환이 가능하다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-96-gkeywh",
+    "source" : "단전의 진원진기를 손날에 실어 번개처럼 빠르게 내려친다. 가로막는 모든 것을 파괴하는 날카로운 기운을 만들어 {n}의 피해를 주고, 내공을 {m} 회복하며 적을 날려버린다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-7-9l2t9z",
+    "source" : "특화 +{n}",
+    "category" : "팔찌",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-qg4bos",
+    "source" : "전투 중 생명력 회복량 +{n}",
+    "category" : "악세서리",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-4mp2pt",
+    "source" : "진화 {n}티어 타이밍 지배 Lv.{m}",
+    "category" : "아크패시브",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-28-wzkp7g",
+    "source" : "[{n}P] 금강선공 사용 시 '운명'이 발동한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-46-16ax7xw",
+    "source" : "[{n}P] '운명' 발동 시 {m}초 동안 '운명: 기의 발산' 효과를 획득한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-25-nyvowc",
+    "source" : "아크 패시브 {n}티어 한계 돌파 활성화 필요",
+    "category" : "아크그리드 슬롯",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-19c1mqp",
+    "source" : "#FFDED{n}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-ax8u01",
+    "source" : "윈터 블리치 얼굴{n}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-si7jyi",
+    "source" : "#{n}C{m}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-1egg02h",
+    "source" : "#{n}D{m}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-1kgrjvs",
+    "source" : "#AEC{n}D{m}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-1eoaxpw",
+    "source" : "{n}주년 잔상 기공패 (이벤트)",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-94-1drzveq",
+    "source" : "소폭 전진하여 하단을 발로 걸어 당겨 적을 넘어뜨리며 {n}피해를 준다. 이후 {m}m 전진하여 몸을 부딪혀 적을 날려버리며 {k}피해를 주고, 내공을 {p} 회복한다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-71-cftuvo",
+    "source" : "전방으로 신속하게 이동한 후, 주변의 적들 사이를 빠르게 오가며 적에게 {n}의 피해를 {m}회 주고, 내공을 {k} 회복한다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-63-h1ry81",
+    "source" : "전방을 향해 기를 발사한 뒤 다시 강하게 손바닥을 내지르면 더욱 굵고 강력한 기가 발사되며 {n}의 피해를 준다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-146-4f53aw",
+    "source" : "순간적으로 {n}m가량 전진하며 {m} 피해를 준다. 이후 손바닥에 기를 주입하여 {k}의 피해를 {p}회 주고 마지막 타격이 들어가며 {q}의 피해를 주고, 내공을 {r} 회복한다. 마지막 타격은 공중에 뜬 적 적중 시 적에게 주는 피해가 {v7}% 증가한다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-194-1d53sj3",
+    "source" : "기를 끌어 모은 뒤 전방으로 점점 더 강한 기를 쏟아낸다. 두 번째 에너지파까지 각각 {n} {m}의 피해를 준다. 이후 다시 한 번 기를 모아 전방으로 {k}초 동안 에너지를 폭발적으로 뿜어내어 {p}회에 걸쳐 최대 {q}의 피해를 주고 마지막에 폭발이 일어나 {r}의 피해를 주며 적을 날려버린다. 스킬 적중 시 내공을 {v7} 만큼 회복한다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-85-1jb7208",
+    "source" : "마우스 지점에 공격을 가한다. 두 손을 머리 위로 올리고 {n}초 동안 기를 모은다. 기가 다 모이면 선택한 지점에 기를 떨어뜨려 {m}의 피해를 준다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-89-1oz4cey",
+    "source" : "전방에 강력한 발 구름으로 적에게 {n}의 피해를 주고, 순간적으로 허공으로 도약하여 내려 찍으며 {m}의 피해를 주고 내공을 {k} 회복하며 적을 날려버린다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-105-1vi47ct",
+    "source" : "오른손에 전신의 기운을 나선 형태로 응집시켜 순식간에 방출한다. 방출된 기운은 한정된 공간에서 소용돌이치며 최대 {n}의 피해를 주고, 이내 폭발하여 {m}의 피해를 주며 적을 날려버린다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-1nhki5a",
+    "source" : "[가디언 토벌] 가디언의 잔영 {n}단계",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-107-1edfqvf",
+    "source" : "몸안에 흐르는 태극의 기운을 손바닥으로 응집시킨 뒤, 전방을 향해 폭발적으로 방출한다. 음과 양이 조화된 충격파는 대기를 가르며 {n}의 피해를 주고, 내공을 {m} 회복하며 적을 날려버린다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-84-z97owo",
+    "source" : "생명력이 최대인 시드 등급 이하 몬스터에게 공격 적중 시 치명타 적중률이 {n}%로 적용된다. 또한 이 치명타는 {m}%의 추가 치명타 배율을 가진다.",
+    "category" : "각인",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-47-1b8qmfd",
+    "source" : "적을 처치할 때 마다 {n}초 동안, 공격력이 {m}% 증가한다. (최대 {k}중첩)",
+    "category" : "각인",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-28-l4dpq6",
+    "source" : "타격 시 잠식 게이지 회복량이 {n}% 증가합니다.",
+    "category" : "전투 특성",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-21-20f8li",
+    "source" : "악마화 지속시간이 {n}% 증가합니다.",
+    "category" : "전투 특성",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-9to6ax",
+    "source" : "+{n} 몰아치는 천둥나래",
+    "category" : "장비",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-75-1ix54hi",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/dm_item/dm_item_{n}.png",
+    "category" : "장비",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-16-li3tj9",
+    "source" : "[저주받은 인형] Lv.{n}",
+    "category" : "장비",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-10-1qacqoq",
+    "source" : "최대 마나 +{n}",
+    "category" : "악세서리",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-1eh8wki",
+    "source" : "노을빛 파도 얼굴{n}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-tu8vud",
+    "source" : "스노클 웨어 얼굴{n}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-1rbvuvx",
+    "source" : "{n}주년 궤적 데모닉웨폰",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-3m61h9",
+    "source" : "#{n}C{m}F{k}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-1li3zdi",
+    "source" : "#B{n}E{m}FF",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-27-1owsoqc",
+    "source" : "깨달음 {n}티어 멈출 수 없는 충동 Lv.{m}",
+    "category" : "아크패시브",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-89-1d9xomg",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/ark_passive_dm/ark_passive_dm_{n}.png",
+    "category" : "아크패시브",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-1muhsmy",
+    "source" : "깨달음 {n}티어 본능 강화 Lv.{m}",
+    "category" : "아크패시브",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-1nrlh7e",
+    "source" : "깨달음 {n}티어 혼돈 단련 Lv.{m}",
+    "category" : "아크패시브",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-8dq9f9",
+    "source" : "깨달음 {n}티어 혼돈 강화 Lv.{m}",
+    "category" : "아크패시브",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-1hjbe96",
+    "source" : "혼돈의 그림자 얼굴{n} (패스)",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-18-rr8jx",
+    "source" : "진화 {n}티어 특화 Lv.{m}",
+    "category" : "아크패시브",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-14-8bu1my",
+    "source" : "특화가 {n} 증가합니다.",
+    "category" : "아크패시브",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-1vszf50",
+    "source" : "진화 {n}티어 뭉툭한 가시 Lv.{m}",
+    "category" : "아크패시브",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-20-woz39c",
+    "source" : "깨달음 {n}티어 처형식 Lv.{m}",
+    "category" : "아크패시브",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-x5b505",
+    "source" : "도약 {n}티어 악마의 승천 Lv.{m}",
+    "category" : "아크패시브",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-81-vqli6i",
+    "source" : "https://cdn-lostark.game.onstove.com/efui_iconatlas/dm_skill/dm_skill_{n}_{m}.png",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-d0j09j",
+    "source" : "마나 {n} 소모",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-1m0hhm7",
+    "source" : "#{n}B{m}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-1030h3s",
+    "source" : "#{n}A{m}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-20-11qo05u",
+    "source" : "{n}주년 추억 얼굴{m} (이벤트)",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-j9867v",
+    "source" : "#{n}F{m}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-12-1ahv2wx",
+    "source" : "한밤의 가호 얼굴{n}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-gf0vby",
+    "source" : "#FFD{n}C{m}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-8-174j5is",
+    "source" : "#DEBA{n}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-15-3or9w8",
+    "source" : "파티원 회복 효과 +{n}%",
+    "category" : "악세서리",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-183-1d4wmym",
+    "source" : "자신이 가진 모든 악마의 힘을 발산하여 지옥의 문을 연다. 지옥 에너지가 지면에서 방출되어 적에게 {n}의 피해를 주고 {m}초 동안 공포를 건다. 방출된 지옥 에너지가 구체 형태로 모이며 최대 {k}의 피해를 주고 중앙으로 끌어당긴다. 지옥 에너지 구체가 완성되면 거대한 폭발이 일어나고 {p}의 피해를 주며 적을 날려버린다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-52-1ucr120",
+    "source" : "난폭하게 양손으로 할퀴어 적에게 {n}의 피해를 주고 전방으로 전진하며 {m}의 피해를 준다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-92-1e6ywvp",
+    "source" : "무기를 전방으로 날려 적에게 최대 {n} 피해를 주고 무기가 다시 자신에게 돌아오며 {m}의 피해를 준다. 무기를 던진 후 다시 받기 전까지 스킬을 취소할 수 없다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-49-1ykimkt",
+    "source" : "데모닉 웨폰으로 전방을 신속하게 {n}회 베어 적에게 {m} {k} {p} 피해를 준다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-84-84dvol",
+    "source" : "손을 들어올린 후 순간적으로 전방에 잠식 에너지를 발생시켜 중심부로 모으고 적에게 최대 {n}의 피해를 주고 폭발하며 {m}의 피해를 주고 날려버린다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-29-1liatr0",
+    "source" : "스킬 적중 시 아이덴티티 게이지 획득량 {n}% 증가",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-62-awvsm9",
+    "source" : "순간적으로 악마의 기운을 뿜어 내는 데몬 암을 전방으로 뻗어 {n}의 피해를 주며 적을 자신의 앞으로 당겨온다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-50-15bl180",
+    "source" : "빠르게 돌진하며 {n}의 피해를 {m}회 주고 데모닉 웨폰을 휘둘러 {k}의 피해를 준다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-113-t1g5fq",
+    "source" : "악마의 힘을 응축시켜 전방으로 레이저를 발사하여 적에게 {n}의 피해를 주며 적을 날려버린다. 차지가 가능하며 차지 완료 시 더욱 오랫동안 레이저를 발사하여 적에게 {m}의 피해를 주며 적을 날려버린다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-1f0t5fi",
+    "source" : "발사 시간이 {n}% 감소한다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-22-kpxwl",
+    "source" : "잠식 게이지 획득량이 {n}% 증가한다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-131-1chorus",
+    "source" : "무기를 교차한 상태에서 전방으로 짧게 이동하며 적에게 {n}의 피해 주고 추가 키 입력 시 빠르게 {m}회 베는 공격을 가하여 {k}의 피해를 준다. 이후 추가 키 입력 시 강하게 무기를 휘둘러 적에게 {p}의 피해를 주며 밀어버린다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-62-12e7u7j",
+    "source" : "악마의 힘을 끌어 모은 뒤 팔을 전방으로 휘두르면 거대한 악마의 팔이 나타나 할퀴어 적에게 {n} 피해를 준다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-107-5xdiu1",
+    "source" : "{n}m 내 지정한 위치로 도약 후 지면을 찍어 지진 충격파를 일으키며 적에게 {m} {k}의 피해를 주고, {p}초간 지진 상태로 만든다. 이동 중 모험가 및 일반 몬스터와 충돌이 무시된다.",
+    "category" : "스킬",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-cxiumf",
+    "source" : "공포의 힙스터 얼굴{n}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-11-1bkk35i",
+    "source" : "#E{n}BBB{m}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-27-1x5z413",
+    "source" : "[{n}P] 악마화 사용 시 '운명'이 발동된다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-23-thmaaa",
+    "source" : "아크 패시브 {n}티어 처형식 활성화 필요",
+    "category" : "아크그리드 슬롯",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-51-1acc77h",
+    "source" : "[{n}P] 보스 이상 적에게 공격 적중 시 {m}초 간 화상 상태로 만들어 피해를 입힌다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-17-77rzby",
+    "source" : "+{n} 운명의 전율 데모닉웨폰",
+    "category" : "장비",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-20-1qvav8i",
+    "source" : "{n}주년 궤적 데모닉웨폰 (이벤트)",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-9-3tg110",
+    "source" : "#FFDEE{n}",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
+  }, {
+    "id" : "damage-option-draft-13-161ai1n",
+    "source" : "#{n}E{m}E{k}E",
+    "category" : "아바타",
+    "ignored" : true,
+    "effects" : [ ]
   } ]
 }

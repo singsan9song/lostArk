@@ -1640,5 +1640,1167 @@
       "stackCount" : 1,
       "stack" : null
     } ]
+  }, {
+    "id" : "damage-option-draft-23-z087lo",
+    "source" : "기공 스킬의 피해량이 {n}% 증가합니다.",
+    "category" : "전투 특성",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ "기공" ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ],
+    "coefficientStatType" : "특화",
+    "coefficientKey" : "n"
+  }, {
+    "id" : "damage-option-draft-36-h16t7l",
+    "source" : "방향성 공격이 아닌 스킬이 적에게 주는 피해가 {n}% 증가한다.",
+    "category" : "팔찌",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "조건",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-51-1ctws6d",
+    "source" : "적에게 주는 피해량이 {n}% 증가하고, 무공스킬 사용 시 진기 획득량이 {m}% 증가한다.",
+    "category" : "아크패시브",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-47-1huuzj8",
+    "source" : "무공스킬의 피해량이 {n}% 증가하고, 무상신공 초식 사용 중 금강불괴 상태가 된다.",
+    "category" : "아크패시브",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ "무공" ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-22-ro9fed",
+    "source" : "적에게 주는 피해량이 {n}% 증가한다.",
+    "category" : "아크패시브",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-65-1b391yp",
+    "source" : "무상신각의 피해량이 {n}% 증가하고, 무상신장의 피해량이 {m}% 증가하며, 무상신권의 피해량이 {k}% 증가한다.",
+    "category" : "아크패시브",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "무상신각" ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    }, {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "무상신장" ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    }, {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "k",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "무상신권" ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-25-11c0tvu",
+    "source" : "[기공사] 순보 재사용 대기시간 {n}% 감소",
+    "category" : "스킬",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-58-kgt8ks",
+    "source" : "스킬 사용 시 자신 및 {n}m 범위 안에 있는 파티원의 공격력이 {m}초 동안 {k}% 만큼 증가한다.",
+    "category" : "스킬",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ATTACK_POWER_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "시너지",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-24-5orquc",
+    "source" : "[{n}P] 무기 공격력이 {m} 증가한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "WEAPON_ATTACK_FLAT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-39-1upbib",
+    "source" : "[{n}P] 무기 공격력이 {m}% 증가하고, 추가로 {k} 증가한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "WEAPON_ATTACK_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    }, {
+      "type" : "WEAPON_ATTACK_FLAT",
+      "valueKey" : "k",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-25-f4rsbl",
+    "source" : "[{n}P] 무기 공격력이 {m}% 증가한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "WEAPON_ATTACK_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-46-11o9he7",
+    "source" : "[{n}P] 받는 피해가 {m}% 추가로 감소하고, 추가 피해가 {k}% 증가한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ADDITIONAL_DAMAGE_PERCENT",
+      "valueKey" : "k",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-24-18w6phq",
+    "source" : "[{n}P] 추가 피해가 {m}% 증가한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ADDITIONAL_DAMAGE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-35-3108a7",
+    "source" : "내 생명력이 {n}% 이상일 때 주는 피해가 {m}% 증가한다.",
+    "category" : "각인",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-57-cbd4br",
+    "source" : "[{n}P] 치명타 적중률이 {m}% 증가하며, 부위 파괴 공격의 재발동 대기시간이 {k}초 감소한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "CRIT_RATE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-26-16ym5",
+    "source" : "[{n}P] 치명타 적중률이 {m}% 증가한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "CRIT_RATE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-43-s6pcav",
+    "source" : "[{n}P] 공격 속도가 {m}% 증가하고, 치명타 피해가 {k}% 증가한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ATTACK_SPEED_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    }, {
+      "type" : "CRIT_DAMAGE_PERCENT",
+      "valueKey" : "k",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-25-bstes7",
+    "source" : "[{n}P] 치명타 피해가 {m}% 증가한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "CRIT_DAMAGE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-24-1eo3a2l",
+    "source" : "[{n}P] 공격 속도가 {m}% 증가한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ATTACK_SPEED_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-32-dcn77o",
+    "source" : "[{n}P] 음양신장의 치명타 피해량이 {m}% 증가한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "CRIT_DAMAGE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "음양신장" ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-20-115g9wc",
+    "source" : "[기공사] 환영격 피해 {n}% 증가",
+    "category" : "스킬",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-28-si9htn",
+    "source" : "[{n}P] 무공 스킬의 피해가 {m}% 증가한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ "무공" ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-59-1xptljo",
+    "source" : "[{n}P] 적에게 주는 피해가 {m}% 추가로 증가하며, 공격 적중 시 생명력을 {k} 추가로 회복한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-21-8t6t57",
+    "source" : "[기공사] 여래신장 피해 {n}% 증가",
+    "category" : "스킬",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-39-17gxn5r",
+    "source" : "공격속도가 {n}% 감소하지만, 적에게 주는 피해가 {m}% 증가한다.",
+    "category" : "각인",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ATTACK_SPEED_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "감소",
+      "stackCount" : 1,
+      "stack" : null
+    }, {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-27-hsbi7r",
+    "source" : "[기공사] 여래신장 재사용 대기시간 {n}% 감소",
+    "category" : "스킬",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-28-cwkt9c",
+    "source" : "[기공사] 단천벽력수 재사용 대기시간 {n}% 감소",
+    "category" : "스킬",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-22-f2xo1o",
+    "source" : "[기공사] 단천벽력수 피해 {n}% 증가",
+    "category" : "스킬",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-51-11atns6",
+    "source" : "적에게 주는 피해가 {n}% 증가하며, 무력화 상태의 적에게 주는 피해가 {m}% 증가한다.",
+    "category" : "팔찌",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-67-1ysazer",
+    "source" : "공격 적중 시 매 초마다 {n}초 동안 무기 공격력이 {m} 공격 및 이동 속도가 {k}% 증가한다. (최대 {p}중첩)",
+    "category" : "팔찌",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "WEAPON_ATTACK_FLAT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 6,
+      "stack" : null
+    }, {
+      "type" : "ATTACK_SPEED_PERCENT",
+      "valueKey" : "k",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 6,
+      "stack" : null
+    }, {
+      "type" : "MOVE_SPEED_PERCENT",
+      "valueKey" : "k",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 6,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-64-sgy5vo",
+    "source" : "[{n}P] 적에게 주는 피해가 {m}% 추가로 증가하고, 치명타 시 적에게 주는 피해가 {k}% 추가로 증가한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    }, {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "k",
+      "condition" : "CRITICAL_HIT",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-29-1etpgdo",
+    "source" : "[{n}P] 기공 스킬의 피해량이 {m}% 증가한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ "기공" ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-62-rg20yq",
+    "source" : "[{n}P] 풍뢰일광포, 섬열파, 천류나선장 스킬의 시전 속도가 {m}% 증가하고, 피해량이 {k}% 증가한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "k",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "풍뢰일광포", "섬열파", "천류나선장" ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-29-gkfssd",
+    "source" : "[{n}P] 풍뢰일광포의 피해량이 {m}% 증가한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "풍뢰일광포" ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-28-2sy8ev",
+    "source" : "[{n}P] 기공 스킬의 피해가 {m}% 증가한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ "기공" ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-36-1ou6kyl",
+    "source" : "[{n}P] 공격력이 {m}% 증가하고, 추가로 {k} 증가한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ATTACK_POWER_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    }, {
+      "type" : "ATTACK_POWER_FLAT",
+      "valueKey" : "k",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-29-kiekka",
+    "source" : "[{n}P] 천류나선장의 피해량이 {m}% 증가한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "천류나선장" ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-26-kzdxqu",
+    "source" : "[{n}P] 섬열파의 피해가 {m}% 증가한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "섬열파" ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-60-1nh6t1k",
+    "source" : "[{n}P] '운명: 기의 발산' 상태에서 풍뢰일광포, 섬열파, 천류나선장 스킬 피해량이 {m}% 증가한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "풍뢰일광포", "섬열파", "천류나선장" ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-26-104ai1e",
+    "source" : "[기공사] 섬열파 재사용 대기시간 {n}% 감소",
+    "category" : "스킬",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-20-1s9emye",
+    "source" : "[기공사] 섬열파 피해 {n}% 증가",
+    "category" : "스킬",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-58-g2llfn",
+    "source" : "자신의 생명력이 {n}% 이상일 경우 적에게 공격 적중 시 {m}초 동안 무기 공격력이 {k} 증가한다.",
+    "category" : "팔찌",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "WEAPON_ATTACK_FLAT",
+      "valueKey" : "k",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-150-1buox0v",
+    "source" : "악마화 상태 진입 시 혼돈 결정 버프를 {n}회 획득한다. 혼돈 결정 보유 시 {m}스택당 악마 스킬의 피해량이 {k}% 증가한다. 악마화 상태에서 적에게 피격 이상 혹은 상태 이상에 걸릴 시 혼돈 결정 버프가 {p}회 차감되며 해당 차감 효과는 {q}초마다 적용된다.",
+    "category" : "아크패시브",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "k",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ "악마" ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 3,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-25-jlryim",
+    "source" : "악마화 시 스킬 피해량이 {n}% 증가합니다.",
+    "category" : "전투 특성",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ "악마" ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ],
+    "coefficientStatType" : "특화",
+    "coefficientKey" : "n"
+  }, {
+    "id" : "damage-option-draft-8-157pdc0",
+    "source" : "민첩 +{n}%",
+    "category" : "아바타",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "MAIN_STAT_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-27-1s8iozp",
+    "source" : "악마 및 대악마 계열 피해량이 {n}% 증가한다.",
+    "category" : "팔찌",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-17-2wnwsp",
+    "source" : "추가 피해가 {n}% 증가한다.",
+    "category" : "팔찌",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ADDITIONAL_DAMAGE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-40-k1i3on",
+    "source" : "잠식 게이지를 획득할 수 없지만, 적에게 주는 피해가 {n}% 증가한다.",
+    "category" : "스킬",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-28-1bwekg4",
+    "source" : "[데모닉] 데몬 비전 재사용 대기시간 {n}% 감소",
+    "category" : "스킬",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-48-1wr9c2k",
+    "source" : "스킬의 재사용 대기 시간이 {n}% 증가하지만, 적에게 주는 피해가 {m}% 증가한다.",
+    "category" : "팔찌",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    }, {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "증가",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-22-1lla0y4",
+    "source" : "공격 및 이동 속도가 {n}% 증가한다.",
+    "category" : "팔찌",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ATTACK_SPEED_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    }, {
+      "type" : "MOVE_SPEED_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-69-1eudx70",
+    "source" : "공격 타입이 백 어택 및 헤드 어택에 해당되지 않는 공격의 피해가 {n}% 증가한다. 각성기는 해당 효과가 적용되지 않는다.",
+    "category" : "각인",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "조건",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-16-n6d8kw",
+    "source" : "공격속도가 {n}% 증가한다.",
+    "category" : "스킬",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "ATTACK_SPEED_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-29-o9q3fa",
+    "source" : "[{n}P] 적에게 주는 피해량이 {m}% 증가한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-29-1ahr03y",
+    "source" : "[{n}P] 악마 스킬의 피해량이 {m}% 증가한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ "악마" ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-58-mw45x7",
+    "source" : "[{n}P] 보스 이상 적에게 주는 피해가 {m}% 추가로 증가하고, 화상의 피해량이 {k}% 증가한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-23-ibebh1",
+    "source" : "[데모닉] 고어 블리딩 피해 {n}% 증가",
+    "category" : "스킬",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-29-1jp1yah",
+    "source" : "[데모닉] 고어 블리딩 재사용 대기시간 {n}% 감소",
+    "category" : "스킬",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "COOLDOWN_REDUCTION_PERCENT",
+      "valueKey" : "n",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-50-10spalz",
+    "source" : "[{n}P] 블러드 제노사이드의 시전 속도가 {m}% 증가하고 피해량이 {k}% 증가한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "k",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ "블러드 제노사이드" ],
+      "skillCategories" : [ ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-29-wnkpt5",
+    "source" : "[{n}P] 악마 스킬의 피해량이 {m}% 감소한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ "악마" ],
+      "motionOrders" : [ ],
+      "label" : "감소",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
+  }, {
+    "id" : "damage-option-draft-39-10ei5m",
+    "source" : "[{n}P] 악마화 상태일 때 적에게 주는 피해량이 {m}% 증가한다.",
+    "category" : "아크그리드 슬롯",
+    "ignored" : false,
+    "effects" : [ {
+      "type" : "DAMAGE_INCREASE_PERCENT",
+      "valueKey" : "m",
+      "condition" : "ALWAYS",
+      "skillName" : "",
+      "skillNames" : [ ],
+      "skillCategories" : [ "악마" ],
+      "motionOrders" : [ ],
+      "label" : "",
+      "stackCount" : 1,
+      "stack" : null
+    } ]
   } ]
 }

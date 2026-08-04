@@ -4239,6 +4239,7 @@ export default function DamageAnalysis({
   )
   const selectableSkills = useMemo(() => [...skills, ...missingSkills], [skills, missingSkills])
   const [selectedName, setSelectedName] = useState(selectableSkills[0]?.Name || '')
+  const [showMotionHitDetails, setShowMotionHitDetails] = useState(false)
   // 상단 "핵심 전투 수치" 5개 박스와 "N타" 카드를 눌렀을 때 뜨는 모달 - 어떤 값인지(키)만
   // 들고 있고, 실제 출처 목록은 AdditionalDamageBreakdown/CooldownReductionBreakdown/
   // FinalDamageIncreaseBreakdown/AttackPowerStaircase를 그대로 재사용해서 보여준다.
@@ -4269,6 +4270,9 @@ export default function DamageAnalysis({
       setSelectedName(selectableSkills[0]?.Name || '')
     }
   }, [selectedName, selectableSkills])
+  useEffect(() => {
+    setShowMotionHitDetails(false)
+  }, [selectedName])
 
   // 아제나의 축복은 캐릭터마다 따로 켜고 끌 수 있어 캐릭터 단위로 저장하고,
   // 펫 특기·물약/카드도감 값은 원정대(계정) 전체가 공유하는 값이라 원정대
@@ -5238,6 +5242,33 @@ export default function DamageAnalysis({
     (sum, damageCase) => sum + damageCase.damage * damageCase.probability,
     0,
   )
+  const motionExpectedDamageEntries = motionResults
+    .filter((motion) => motion.ready)
+    .map((motion) => {
+      const cases = buildDamageCases({
+        normalDamage: motion.normalTotal,
+        criticalDamage: motion.criticalTotal,
+        criticalTotalMultiplier,
+        critRatePercent: critRate.total,
+        keenPenalty,
+        positionalAttack,
+      })
+      return {
+        motion,
+        expectedDamage: cases.reduce(
+          (sum, damageCase) => sum + damageCase.damage * damageCase.probability,
+          0,
+        ),
+      }
+    })
+  const totalMotionExpectedDamage = motionExpectedDamageEntries.reduce(
+    (sum, entry) => sum + entry.expectedDamage,
+    0,
+  )
+  const maxMotionExpectedDamage = motionExpectedDamageEntries.reduce(
+    (max, entry) => Math.max(max, entry.expectedDamage),
+    0,
+  )
 
   // "조건 데이터 확인" 모달용 - label이 "조건"으로 시작하는 특수 효과를 현재 캐릭터
   // (선택한 스킬 기준으로 해석된) 매핑 결과에서 골라낸다. 하드코딩으로 이미 처리된
@@ -6120,38 +6151,59 @@ export default function DamageAnalysis({
                 })()}
               </small>
               <h3>{skill.Name}</h3>
-              <em>Lv.{skill.Level}</em>
+              <em>
+                Lv.{skill.Level}
+                {Number.isFinite(adjustedCooldown) && (
+                  <> · 재사용 대기시간 {numberText(adjustedCooldown)}초</>
+                )}
+              </em>
             </span>
+            {motionInputsReady && (
+              <div className="damage-analysis-header-summary">
+                <span>
+                  <small>기대 데미지</small>
+                  <strong>{damageResultText(expectedFinalDamage)}</strong>
+                </span>
+                {Number.isFinite(adjustedCooldown) && adjustedCooldown > 0 && (
+                  <span>
+                    <small>DPS</small>
+                    <strong>{damageResultText(expectedFinalDamage / adjustedCooldown)}</strong>
+                  </span>
+                )}
+              </div>
+            )}
           </header>
 
           <section className="damage-combat-stat-summary" aria-label="핵심 전투 수치">
             <button type="button" onClick={() => setStatSummaryDetail('attackSpeed')}>
-              <small>공격 속도</small>
-              <strong>+{floorPercentText(attackSpeed.total)}%</strong>
+              <span className="damage-combat-stat-content">
+                <small>공격 속도</small>
+                <strong>+{floorPercentText(attackSpeed.total)}%</strong>
+              </span>
             </button>
             <button type="button" onClick={() => setStatSummaryDetail('moveSpeed')}>
-              <small>이동 속도</small>
-              <strong>+{floorPercentText(moveSpeed.total)}%</strong>
+              <span className="damage-combat-stat-content">
+                <small>이동 속도</small>
+                <strong>+{floorPercentText(moveSpeed.total)}%</strong>
+              </span>
             </button>
             <button type="button" onClick={() => setStatSummaryDetail('cooldownReduction')}>
-              <small>재사용 대기시간 감소</small>
-              <strong>
-                {floorPercentText(cooldownReductionTotal)}%
-                {cooldownFixedTotal ? ` + ${floorPercentText(cooldownFixedTotal)}초` : ''}
-              </strong>
-              {adjustedCooldown != null && (
-                <em>
-                  {floorPercentText(baseSkillCooldown)}초 → {floorPercentText(adjustedCooldown)}초
-                </em>
-              )}
+              <span className="damage-combat-stat-content">
+                <small>재사용 대기시간 감소</small>
+                <strong>{floorPercentText(cooldownReductionTotal)}%</strong>
+              </span>
             </button>
             <button type="button" onClick={() => setStatSummaryDetail('critRate')}>
-              <small>치명타 적중률</small>
-              <strong>{floorPercentText(critRate.total)}%</strong>
+              <span className="damage-combat-stat-content">
+                <small>치명타 적중률</small>
+                <strong>{floorPercentText(critRate.total)}%</strong>
+              </span>
             </button>
             <button type="button" onClick={() => setStatSummaryDetail('critDamage')}>
-              <small>치명타 피해</small>
-              <strong>{floorPercentText(critDamageMultiplier * 100)}%</strong>
+              <span className="damage-combat-stat-content">
+                <small>치명타 피해</small>
+                <strong>{floorPercentText(critDamageMultiplier * 100)}%</strong>
+              </span>
             </button>
           </section>
 
@@ -6169,13 +6221,58 @@ export default function DamageAnalysis({
                   <small>모든 경우를 확률로 합산한 기대 데미지</small>
                   <b>{damageResultText(expectedFinalDamage)}</b>
                 </span>
-                <code>
-                  Σ((공격력 × 타수별 스킬 계수 + 타수별 모션 상수) × 반복 횟수 × 타수 전용
-                  배율(있는 경우)) × {numberText(sharedDamageMultiplier)}
-                </code>
+              </div>
+            )}
+            {motionExpectedDamageEntries.length > 0 && (
+              <div className="motion-expected-damage-chart">
+                <header>
+                  <b>타수별 기대 데미지</b>
+                  <small>각 타수의 모든 발생 경우를 확률로 합산한 값입니다.</small>
+                </header>
+                <div>
+                  {motionExpectedDamageEntries.map(({ motion, expectedDamage }, index) => {
+                    const sharePercent = totalMotionExpectedDamage
+                      ? (expectedDamage / totalMotionExpectedDamage) * 100
+                      : 0
+                    const relativePercent = maxMotionExpectedDamage
+                      ? (expectedDamage / maxMotionExpectedDamage) * 100
+                      : 0
+                    return (
+                      <div className="motion-expected-damage-row" key={motion.key}>
+                        <span>
+                          {motion.order}타 <small>({floorPercentText(sharePercent)}%)</small>
+                        </span>
+                        <div
+                          className="motion-expected-damage-track"
+                          role="progressbar"
+                          aria-label={`${motion.order}타 기대 데미지`}
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                          aria-valuenow={Math.round(relativePercent)}
+                        >
+                          <i
+                            className={`motion-expected-damage-fill color-${(index % 5) + 1}`}
+                            style={{ width: `${relativePercent}%` }}
+                          />
+                        </div>
+                        <strong>{damageResultText(expectedDamage)}</strong>
+                      </div>
+                    )
+                  })}
+                </div>
               </div>
             )}
             {motionResults.some((motion) => motion.ready) && (
+              <button
+                type="button"
+                className="motion-hit-detail-toggle"
+                aria-expanded={showMotionHitDetails}
+                onClick={() => setShowMotionHitDetails((visible) => !visible)}
+              >
+                {showMotionHitDetails ? '타수별 상세 접기' : '타수별 상세보기'}
+              </button>
+            )}
+            {showMotionHitDetails && motionResults.some((motion) => motion.ready) && (
               <div className="motion-hit-result-list">
                 {motionResults.map((motion) => (
                   <article className={motion.ready ? 'resolved' : ''} key={motion.key}>
@@ -6212,90 +6309,50 @@ export default function DamageAnalysis({
                           critRatePercent: critRate.total,
                           keenPenalty,
                           positionalAttack,
-                        }).map((motionCase) => (
-                          <button
-                            type="button"
-                            key={motionCase.key}
-                            className={`${motionCase.critical ? 'critical' : 'normal'}${
-                              motionCase.penalized ? ' penalized' : ''
-                            }${
-                              positionalAttack.active && !motionCase.positionalHit
-                                ? ' positional-miss'
-                                : ''
-                            }`}
-                            onClick={() =>
-                              setCaseDetail({ motionOrder: motion.order, caseKey: motionCase.key })
-                            }
-                          >
-                            <span>
-                              <b>{motionCase.critical ? '치명타 발생' : '치명타 미발생'}</b>
-                              {keenPenalty.active && (
-                                <small>
-                                  예리한 둔기 {motionCase.penalized ? '발동' : '미발동'}
-                                </small>
-                              )}
-                              {positionalAttack.active && (
-                                <small>
-                                  {positionalAttack.label}{' '}
-                                  {motionCase.positionalHit ? '성공' : '실패'}
-                                </small>
-                              )}
-                            </span>
-                            <strong>{damageResultText(motionCase.damage)}</strong>
-                            <em>{numberText(motionCase.probability * 100)}%</em>
-                          </button>
-                        ))}
+                        })
+                          .sort((a, b) => b.probability - a.probability)
+                          .map((motionCase) => (
+                            <button
+                              type="button"
+                              key={motionCase.key}
+                              className={`${motionCase.critical ? 'critical' : 'normal'}${
+                                motionCase.penalized ? ' penalized' : ''
+                              }${
+                                positionalAttack.active && !motionCase.positionalHit
+                                  ? ' positional-miss'
+                                  : ''
+                              }`}
+                              onClick={() =>
+                                setCaseDetail({ motionOrder: motion.order, caseKey: motionCase.key })
+                              }
+                            >
+                              <span>
+                                <b>{motionCase.critical ? '치명타 발생' : '치명타 미발생'}</b>
+                                {keenPenalty.active && (
+                                  <small>
+                                    예리한 둔기 {motionCase.penalized ? '발동' : '미발동'}
+                                  </small>
+                                )}
+                                {positionalAttack.active && (
+                                  <small>
+                                    {positionalAttack.label}{' '}
+                                    {motionCase.positionalHit ? '성공' : '실패'}
+                                  </small>
+                                )}
+                              </span>
+                              <span className="motion-hit-case-values">
+                                <strong>{damageResultText(motionCase.damage)}</strong>
+                                <em>{numberText(motionCase.probability * 100)}%</em>
+                              </span>
+                            </button>
+                          ))}
                       </div>
                     )}
                   </article>
                 ))}
               </div>
             )}
-            {motionInputsReady ? (
-              <>
-                <div className="damage-case-result-grid">
-                  {damageCases.map((damageCase) => (
-                    <article
-                      className={`${damageCase.critical ? 'critical' : 'normal'}${
-                        damageCase.penalized ? ' penalized' : ''
-                      }${
-                        positionalAttack.active && !damageCase.positionalHit
-                          ? ' positional-miss'
-                          : ''
-                      }`}
-                      key={damageCase.key}
-                    >
-                      <span>
-                        <b>{damageCase.critical ? '치명타 발생' : '치명타 미발생'}</b>
-                        {keenPenalty.active && (
-                          <small>예리한 둔기 패널티 {damageCase.penalized ? '발동' : '미발동'}</small>
-                        )}
-                        {positionalAttack.active && (
-                          <small>
-                            {positionalAttack.label} {damageCase.positionalHit ? '성공' : '실패'}
-                          </small>
-                        )}
-                      </span>
-                      <strong>{damageResultText(damageCase.damage)}</strong>
-                      <em>발생 확률 {numberText(damageCase.probability * 100)}%</em>
-                    </article>
-                  ))}
-                </div>
-                <p className="damage-case-note">
-                  내부 계산은 소수점을 유지하고 결과 표시에서만 FLOOR 처리해 억·만·천 단위로
-                  구분합니다. 툴팁에서 감지한 반복 타수와 사용자가 보정한 횟수를 합산합니다. 아직
-                  자동 계산되지 않는 트라이포드 피해 배율 등의 값은 현재 결과에서 ×1입니다.
-                  {keenPenalty.active
-                    ? ` 예리한 둔기는 패널티 확률 ${numberText(keenPenalty.rate)}%, 발동 시 ×${numberText(keenPenalty.multiplier)}로 적용했습니다.`
-                    : ' 활성화된 예리한 둔기가 없어 패널티 경우는 표시하지 않습니다.'}
-                  {positionalAttack.active
-                    ? ` ${positionalAttack.label} 조건 효과는 성공 확률 ${numberText(positionalAttack.rate * 100)}%, 성공 시 ×${numberText(positionalAttack.multiplier)}로 적용했습니다.`
-                    : facts.attackTypes.includes('백 어택') || facts.attackTypes.includes('헤드 어택')
-                      ? ' 이 스킬은 포지션 공격 타입이지만 매핑되어 이 캐릭터에 매칭된 백어택/헤드어택 조건 효과가 없어 별도 경우로 나누지 않습니다.'
-                      : ''}
-                </p>
-              </>
-            ) : (
+            {!motionInputsReady && (
               <div className="damage-case-input-required">
                 <b>스킬 계수 자동 계산에 필요한 데이터가 부족합니다.</b>
                 <small>

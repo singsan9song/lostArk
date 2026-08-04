@@ -36,6 +36,7 @@ import {
 import { lostArkApi } from '../lib/api'
 import DamageAnalysis from '../components/DamageAnalysis'
 import { InlineItemTooltip } from '../components/ItemTooltip'
+import { missingSkillsForClass } from '../lib/invenSkillCatalog'
 import invenSkillConstants from '../data/lostark_inven_skill_constants.json'
 import '../damage-option-data.css'
 
@@ -226,24 +227,42 @@ export default function DamageOptionDataPage({
     [armory?.ArmorySkills, skills, sourceArmoryRows],
   )
   const mappedAnalysisSkills = mappedAnalysisArmory?.ArmorySkills || allArmorySkills
+  // 원문 수집(allArmorySkills)은 실제 로드된 캐릭터가 가진 스킬로만 한정하지만("스킬 도감"
+  // 원문은 안 긁어옴), "적용 스킬"/"스킬 분류" 지정용 선택지는 그 클래스의 스킬 도감 전체
+  // (예: 기공사의 무상신각/무상신장/무상신권처럼 같은 스킬의 다른 이름 변형이라 실제로는
+  // 한 캐릭터가 그중 하나만 갖고 있는 경우)까지 포함해야 효과를 제대로 지정할 수 있다.
+  const missingClassSkills = useMemo(() => {
+    const classNames = [
+      ...new Set(
+        sourceArmoryRows
+          .map((row) => row.armory?.ArmoryProfile?.CharacterClassName)
+          .filter(Boolean),
+      ),
+    ]
+    return classNames.flatMap((className) => missingSkillsForClass(className, allArmorySkills))
+  }, [sourceArmoryRows, allArmorySkills])
+  const skillTargetOptionSkills = useMemo(
+    () => [...(allArmorySkills || []), ...missingClassSkills],
+    [allArmorySkills, missingClassSkills],
+  )
   const skillOptions = useMemo(
     () =>
-      [...new Set((allArmorySkills || []).map((skill) => skill?.Name).filter(Boolean))].sort(
+      [...new Set(skillTargetOptionSkills.map((skill) => skill?.Name).filter(Boolean))].sort(
         (a, b) => a.localeCompare(b, 'ko'),
       ),
-    [allArmorySkills],
+    [skillTargetOptionSkills],
   )
   const skillCategoryOptions = useMemo(
     () =>
       [
-        ...new Set((allArmorySkills || []).map(damageOptionSkillCategory).filter(Boolean)),
+        ...new Set(skillTargetOptionSkills.map(damageOptionSkillCategory).filter(Boolean)),
       ].sort((a, b) =>
         damageOptionSkillCategoryLabel(a).localeCompare(
           damageOptionSkillCategoryLabel(b),
           'ko',
         ),
       ),
-    [allArmorySkills],
+    [skillTargetOptionSkills],
   )
 
   const loadServerRegistry = async () => {

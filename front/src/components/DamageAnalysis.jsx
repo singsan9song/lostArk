@@ -321,6 +321,8 @@ function accessoryEngineDamageScore(
 ) {
   if (!skill) return null
   const mappedMode = Boolean(registry || resolvedMappedEffects)
+  const facts = tooltipFacts(skill)
+  const positionalBaseBonus = positionalAttackBaseBonus(facts.attackTypes)
   const stats = Object.fromEntries((profile?.Stats || []).map((stat) => [stat.Type, stat.Value]))
   const combatStats = combatStatConversions(stats)
   const category = damageOptionSkillCategory(skill)
@@ -472,12 +474,28 @@ function accessoryEngineDamageScore(
   const mappedDamageIncreaseSources = mappedMode
     ? [...mappedSources('DAMAGE_INCREASE_PERCENT'), ...mappedSources('DAMAGE_INCREASE_FLAT')]
     : []
-  const motionSpecificDamageIncreaseItems = mappedDamageIncreaseSources
+  // 치명타 적중 시(CRITICAL_HIT) 조건인 효과는 매 타수마다 곱해지는 damageGroups가 아니라
+  // 치명타가 발생했을 때만 곱해지는 "치명타 시 주는 피해" 배율(critMultiplier) 쪽으로 뺀다.
+  const mappedCritHitDamageSources = mappedDamageIncreaseSources.filter(
+    (source) => source.condition === 'CRITICAL_HIT',
+  )
+  // 백어택/헤드어택 조건인 효과도 매번 곱해지는 damageGroups가 아니라, 아래
+  // positionalExpectedMultiplier로 따로 빼서 성공/실패 기대값을 가중 평균한다.
+  const mappedPositionalDamageSources = mappedDamageIncreaseSources.filter(
+    (source) => source.condition === 'BACK_ATTACK' || source.condition === 'HEAD_ATTACK',
+  )
+  const mappedGeneralDamageSources = mappedDamageIncreaseSources.filter(
+    (source) =>
+      source.condition !== 'CRITICAL_HIT' &&
+      source.condition !== 'BACK_ATTACK' &&
+      source.condition !== 'HEAD_ATTACK',
+  )
+  const motionSpecificDamageIncreaseItems = mappedGeneralDamageSources
     .filter((source) => source.motionOrders?.length)
     .map((source) => ({ percent: source.value, sources: [source] }))
   const damageGroups = mappedMode
     ? [
-        ...mappedDamageIncreaseSources
+        ...mappedGeneralDamageSources
           .filter((source) => !source.motionOrders?.length)
           .map((source) => source.value),
         raidCaptainDamage.total,
@@ -498,6 +516,19 @@ function accessoryEngineDamageScore(
     (product, percent) => product * (1 + percent / 100),
     1,
   )
+  // 백어택/헤드어택 조건 효과는 실전에서 포지션 공격이 항상 들어가는 게 아니라는 가정으로,
+  // 성공(전체 배율 적용)/실패(×1) 두 경우를 POSITIONAL_ATTACK_HIT_RATE 확률로 가중 평균한
+  // 기대값 배율을 만든다(이 함수는 케이스별로 안 나누고 기대 데미지 하나만 반환하므로).
+  const positionalDamageMultiplier =
+    mappedPositionalDamageSources.reduce(
+      (product, source) => product * (1 + source.value / 100),
+      1,
+    ) *
+    (1 + positionalBaseBonus.damagePercent / 100)
+  const positionalActive = mappedPositionalDamageSources.length > 0 || positionalBaseBonus.damagePercent > 0
+  const positionalExpectedMultiplier = positionalActive
+    ? POSITIONAL_ATTACK_HIT_RATE * positionalDamageMultiplier + (1 - POSITIONAL_ATTACK_HIT_RATE)
+    : 1
   const receivedDamageTotal = mappedMode
     ? [
         ...mappedSources('ENEMY_RECEIVED_DAMAGE_PERCENT'),
@@ -507,6 +538,7 @@ function accessoryEngineDamageScore(
   const sharedMultiplier =
     (1 + additionalTotal / 100) *
     damageMultiplier *
+    positionalExpectedMultiplier *
     (1 + receivedDamageTotal / 100) *
     LUMERUS_DEFENSE_MULTIPLIER
 
@@ -534,19 +566,24 @@ function accessoryEngineDamageScore(
         0,
       )
     : critDamageBreakdown(armory).bonusTotal
-  // 팔찌 효과의 "치명타 시 주는 피해"는 레지스트리에 대응 효과 타입이 아직 없어 매핑
-  // 모드에서는 계산에 못 넣는다 - 데미지 분석 2 컴포넌트도 동일한 한계를 갖는다.
-  const critHitBraceletTotal = mappedMode ? 0 : critHitBraceletFacts(armory).total
+  // "치명타 시 주는 피해"는 레지스트리에 전용 효과 타입이 없어, DAMAGE_INCREASE 효과에
+  // condition을 CRITICAL_HIT로 매핑해둔 것을 여기로 모아 반영한다(위 mappedCritHitDamageSources).
+  const critHitBraceletTotal = mappedMode
+    ? mappedCritHitDamageSources.reduce((sum, source) => sum + source.value, 0)
+    : critHitBraceletFacts(armory).total
   const critMultiplier = (2 + critDamageBonusTotal / 100) * (1 + critHitBraceletTotal / 100)
   const critRateTracked = mappedMode
     ? battleStatTrackedSource(battleStatCoefficients, 'CRIT_RATE_PERCENT', '치명', combatStats.critical)
     : { source: null, recordId: null }
-  const critRateTotal = mappedMode
+  const baseCritRateTotal = mappedMode
     ? (critRateTracked.source ? critRateTracked.source.value : 0) +
       mappedSources('CRIT_RATE_PERCENT')
         .filter((source) => source.recordId !== critRateTracked.recordId)
         .reduce((sum, source) => sum + source.value, 0)
     : critRateFacts(armory, combatStats.critical, category).total
+  // 백어택 스킬의 치명타 적중률 +10%(하드코딩)도 포지션 공격 적중 확률로 가중 평균해 더한다.
+  const critRateTotal =
+    baseCritRateTotal + POSITIONAL_ATTACK_HIT_RATE * positionalBaseBonus.critRatePercent
   const critProbability = Math.min(1, Math.max(0, critRateTotal / 100))
   const keenPenalty = keenBluntPenaltyFacts(armory)
   const expectedPenalty = keenPenalty.active
@@ -3804,6 +3841,15 @@ function ConditionDataModal({ items, onClose }) {
               단순 수치 매핑으로 표현이 안 되는 특수 "조건" 효과입니다. 각 항목 오른쪽에 실제
               데미지 계산에서 어떻게 처리 중인지(하드코딩 적용 여부) 표시됩니다.
             </p>
+            <p>
+              참고: 헤드어택 스킬은 헤드어택 적중 시 스킬 피해량 20% 증가, 백어택 스킬은
+              백어택 적중 시 스킬 피해량 5% 증가·치명타 적중률 10% 증가가 장비/각인과
+              무관하게 항상 하드코딩으로 붙습니다. 추가로 효과 조건을 "백어택 성공 시"/
+              "헤드어택 성공 시"로 매핑한 경우도 같이 합산됩니다. 실전에서 포지션 공격이
+              항상 적중하는 건 아니라는 가정으로 "자동 최종 데미지 계산"의 경우의 수를
+              성공(90%)/실패(10%)로 나눠 보여줍니다. 해당 공격 타입 자체가 없는 스킬에는
+              아예 적용되지 않습니다.
+            </p>
           </div>
           <button type="button" onClick={onClose} aria-label="닫기">
             <X />
@@ -3917,46 +3963,191 @@ function buildAutomaticMappedKarmaEffects(karmaSourceArmory) {
   ]
 }
 
+// 백어택/헤드어택은 실전에서 포지션 공격이 항상 들어가지 않는다는 가정으로, 이 확률로
+// 성공(조건부 효과 100% 적용)/실패(0% 적용) 두 경우로 나눠 damageCases에 반영한다
+// (스킬에 해당 공격 타입 자체가 없으면 이 확률과 무관하게 아예 나누지 않는다).
+const POSITIONAL_ATTACK_HIT_RATE = 0.9
+
+// 게임 자체 기본 메커니즘 - 헤드어택/백어택 스킬은 장비·각인 매핑과 무관하게 해당 포지션
+// 공격이 적중했을 때 이 고정 보너스가 항상 붙는다. 백어택은 피해 증가뿐 아니라 치명타
+// 적중률도 같이 오른다(헤드어택은 피해만).
+const HEAD_ATTACK_DAMAGE_BONUS_PERCENT = 20
+const BACK_ATTACK_DAMAGE_BONUS_PERCENT = 5
+const BACK_ATTACK_CRIT_RATE_BONUS_PERCENT = 10
+
+function positionalAttackBaseBonus(attackTypes) {
+  if (attackTypes.includes('헤드 어택')) {
+    return { damagePercent: HEAD_ATTACK_DAMAGE_BONUS_PERCENT, critRatePercent: 0 }
+  }
+  if (attackTypes.includes('백 어택')) {
+    return {
+      damagePercent: BACK_ATTACK_DAMAGE_BONUS_PERCENT,
+      critRatePercent: BACK_ATTACK_CRIT_RATE_BONUS_PERCENT,
+    }
+  }
+  return { damagePercent: 0, critRatePercent: 0 }
+}
+
 // mappedEffects(레지스트리에서 이미 해석된 전체 효과 목록)를 현재 스킬 대상/조건에
 // 맞게 걸러낸다 - 카르마 합성 효과도 여기서 같이 합쳐진다.
 function resolveMappedEffectsForSkill(mappedEffects, karmaSourceArmory, skill) {
   const facts = tooltipFacts(skill)
   const automaticMappedKarmaEffects = buildAutomaticMappedKarmaEffects(karmaSourceArmory)
-  return [...mappedEffects, ...automaticMappedKarmaEffects].filter((effect) => {
-    const targetSkillNames = effect.skillNames?.length
-      ? effect.skillNames
-      : effect.skillName
-        ? [effect.skillName]
-        : []
-    const targetSkillCategories = effect.skillCategories || []
-    const selectedSkillCategory = damageOptionSkillCategory(skill)
-    const hasExplicitSkillTarget = targetSkillNames.length > 0 || targetSkillCategories.length > 0
-    if (
-      hasExplicitSkillTarget &&
-      !targetSkillNames.includes(skill.Name) &&
-      !targetSkillCategories.includes(selectedSkillCategory)
-    ) {
+  return [...mappedEffects, ...automaticMappedKarmaEffects]
+    .filter((effect) => {
+      const targetSkillNames = effect.skillNames?.length
+        ? effect.skillNames
+        : effect.skillName
+          ? [effect.skillName]
+          : []
+      const targetSkillCategories = effect.skillCategories || []
+      const selectedSkillCategory = damageOptionSkillCategory(skill)
+      const hasExplicitSkillTarget =
+        targetSkillNames.length > 0 || targetSkillCategories.length > 0
+      if (
+        hasExplicitSkillTarget &&
+        !targetSkillNames.includes(skill.Name) &&
+        !targetSkillCategories.includes(selectedSkillCategory)
+      ) {
+        return false
+      }
+      if (
+        !hasExplicitSkillTarget &&
+        effect.sourceSkillName &&
+        effect.sourceSkillName !== skill.Name
+      ) {
+        return false
+      }
+      if (!effect.condition || effect.condition === 'ALWAYS') return true
+      if (effect.condition === 'BACK_ATTACK') return facts.attackTypes.includes('백 어택')
+      if (effect.condition === 'HEAD_ATTACK') return facts.attackTypes.includes('헤드 어택')
+      // 치명타 적중 시(CRITICAL_HIT)는 모든 스킬에 그대로 통과시킨다 - 치명타 발생 확률
+      // 자체는 이미 damageCases에서 정확히 나눠 계산하므로, 여기서는 걸러내지 않고
+      // 호출부(damageGroups/damageIncreaseItems)에서 "치명타 시 주는 피해" 쪽으로
+      // 따로 옮겨 담는다.
+      if (effect.condition === 'CRITICAL_HIT') return true
       return false
-    }
-    if (
-      !hasExplicitSkillTarget &&
-      effect.sourceSkillName &&
-      effect.sourceSkillName !== skill.Name
-    ) {
-      return false
-    }
-    if (!effect.condition || effect.condition === 'ALWAYS') return true
-    if (effect.condition === 'BACK_ATTACK') return facts.attackTypes.includes('백 어택')
-    if (effect.condition === 'HEAD_ATTACK') return facts.attackTypes.includes('헤드 어택')
-    return false
+    })
+}
+
+// damageCases를 이진 차원(치명타 발생 여부·예리한 둔기 패널티·백어택 등) 하나씩으로
+// 쪼갠다 - 각 케이스를 그 차원이 "적용된" 경우(damage에 multiplier를 곱함)와 "적용 안 된"
+// 경우(damage 그대로, ×1) 둘로 나누고 원래 확률에 rate/(1-rate)를 곱한다.
+// dimension.active가 false면 그 차원은 아예 없는 걸로 보고 그대로 반환한다.
+function splitDamageCasesByDimension(cases, dimension) {
+  if (!dimension.active) return cases
+  return cases.flatMap((damageCase) => [
+    {
+      ...damageCase,
+      key: `${damageCase.key}-${dimension.key}`,
+      [dimension.flagKey]: true,
+      probability: damageCase.probability * dimension.rate,
+      damage: damageCase.damage * dimension.multiplier,
+    },
+    {
+      ...damageCase,
+      key: `${damageCase.key}-no-${dimension.key}`,
+      [dimension.flagKey]: false,
+      probability: damageCase.probability * (1 - dimension.rate),
+    },
+  ])
+}
+
+// 치명타/예리한 둔기 패널티/백어택·헤드어택 세 차원으로 경우의 수를 나눈다. 전체
+// 스킬(모션 합산)에도, 모션 하나짜리에도 똑같이 쓸 수 있도록 normalDamage/criticalDamage만
+// 받는다 - 백어택은 치명타 적중률도 같이 오르므로(positionalAttack.critRateBonus) 독립
+// 차원이 아니라, positional을 먼저 나누고 그 안에서 각자 다른 치명타 확률로 나눈 뒤 예리한
+// 둔기 패널티만 마지막에 독립적으로 곱한다.
+function buildDamageCases({
+  normalDamage,
+  criticalDamage,
+  criticalTotalMultiplier,
+  critRatePercent,
+  keenPenalty,
+  positionalAttack,
+}) {
+  if (normalDamage == null) return []
+  const criticalProbability = Math.min(1, Math.max(0, critRatePercent / 100))
+  let cases
+  if (positionalAttack.active) {
+    const positionalCriticalProbability = Math.min(
+      1,
+      Math.max(0, (critRatePercent + positionalAttack.critRateBonus) / 100),
+    )
+    const positionalNormalDamage = normalDamage * positionalAttack.multiplier
+    const positionalCriticalDamage = positionalNormalDamage * criticalTotalMultiplier
+    cases = [
+      {
+        key: 'positional-critical',
+        critical: true,
+        penalized: false,
+        positionalHit: true,
+        probability: positionalAttack.rate * positionalCriticalProbability,
+        damage: positionalCriticalDamage,
+      },
+      {
+        key: 'positional-normal',
+        critical: false,
+        penalized: false,
+        positionalHit: true,
+        probability: positionalAttack.rate * (1 - positionalCriticalProbability),
+        damage: positionalNormalDamage,
+      },
+      {
+        key: 'no-positional-critical',
+        critical: true,
+        penalized: false,
+        positionalHit: false,
+        probability: (1 - positionalAttack.rate) * criticalProbability,
+        damage: criticalDamage,
+      },
+      {
+        key: 'no-positional-normal',
+        critical: false,
+        penalized: false,
+        positionalHit: false,
+        probability: (1 - positionalAttack.rate) * (1 - criticalProbability),
+        damage: normalDamage,
+      },
+    ]
+  } else {
+    cases = [
+      {
+        key: 'critical',
+        critical: true,
+        penalized: false,
+        positionalHit: false,
+        probability: criticalProbability,
+        damage: criticalDamage,
+      },
+      {
+        key: 'normal',
+        critical: false,
+        penalized: false,
+        positionalHit: false,
+        probability: 1 - criticalProbability,
+        damage: normalDamage,
+      },
+    ]
+  }
+  return splitDamageCasesByDimension(cases, {
+    active: keenPenalty.active,
+    key: 'penalty',
+    flagKey: 'penalized',
+    rate: keenPenalty.active ? keenPenalty.rate / 100 : 0,
+    multiplier: keenPenalty.multiplier,
   })
 }
 
 // mappedEffectsForSkill(스킬 필터링까지 끝난 효과 목록)을 타입별로 골라 breakdown용
-// "source" 아이템 모양으로 리셰이프한다.
+// "source" 아이템 모양으로 리셰이프한다. label이 "조건"으로 시작하는 효과는 type이
+// 뭐든(OTHER가 아니어도) 여기서 전부 제외한다 - "조건"은 단순 수치 매핑으로 표현이 안 돼
+// 별도 하드코딩이 필요하다는 표시이므로, 하드코딩되기 전까지는 일반 계산 버킷에 새지
+// 않도록 기본값을 "제외"로 둔다("조건 데이터 확인" 모달은 이 필터 이전 단계인
+// mappedEffectsForSkill을 직접 보므로 여기서 걸러도 거기서는 계속 보인다).
 function mappedEffectSources(mappedEffectsForSkill, type) {
   return mappedEffectsForSkill
-    .filter((effect) => effect.type === type)
+    .filter((effect) => effect.type === type && !(effect.label || '').startsWith('조건'))
     .map((effect) => {
       const explicitNames = effect.skillNames?.length
         ? effect.skillNames
@@ -4064,7 +4255,7 @@ export default function DamageAnalysis({
   const [showFormulaModal, setShowFormulaModal] = useState(false)
   const [showDataizedConditionalsModal, setShowDataizedConditionalsModal] = useState(false)
   const [showConditionDataModal, setShowConditionDataModal] = useState(false)
-  const [motionDetailOrder, setMotionDetailOrder] = useState(null)
+  const [caseDetail, setCaseDetail] = useState(null)
   const [showBuffSettingGuide, setShowBuffSettingGuide] = useState(false)
   const [showDamageSettingsModal, setShowDamageSettingsModal] = useState(false)
   // 저장소에는 기록하지 않고, 이 화면이 열려 있는 동안 캐릭터별 입력만 유지한다.
@@ -4212,6 +4403,7 @@ export default function DamageAnalysis({
     )
 
   const facts = tooltipFacts(skill)
+  const positionalBaseBonus = positionalAttackBaseBonus(facts.attackTypes)
   const mappedMode = Array.isArray(mappedEffects)
   // 카르마 랭크·레벨은 매핑 대상 원문이 아니라 API Point.Description에서
   // 별도로 읽는 고정 데이터다. 데미지 분석 2용 armory는 미매핑 Description을
@@ -4803,12 +4995,28 @@ export default function DamageAnalysis({
       sources: group.sources,
     })),
   ]
+  const mappedDamageIncreaseSources = mappedMode
+    ? [...mappedSources('DAMAGE_INCREASE_PERCENT'), ...mappedSources('DAMAGE_INCREASE_FLAT')]
+    : []
+  // 치명타 적중 시(CRITICAL_HIT) 조건인 효과는 매 타수마다 곱해지는 damageIncreaseItems가
+  // 아니라 치명타가 발생했을 때만 곱해지는 "7번 치명타 시 주는 피해" 쪽으로 뺀다.
+  const mappedCritHitDamageSources = mappedDamageIncreaseSources.filter(
+    (source) => source.condition === 'CRITICAL_HIT',
+  )
+  // 백어택/헤드어택 조건인 효과도 매번 곱해지는 damageIncreaseItems가 아니라, 아래
+  // positionalAttack으로 따로 빼서 damageCases에서 성공/실패 케이스로 나눠 반영한다.
+  const mappedPositionalDamageSources = mappedDamageIncreaseSources.filter(
+    (source) => source.condition === 'BACK_ATTACK' || source.condition === 'HEAD_ATTACK',
+  )
+  const mappedGeneralDamageSources = mappedDamageIncreaseSources.filter(
+    (source) =>
+      source.condition !== 'CRITICAL_HIT' &&
+      source.condition !== 'BACK_ATTACK' &&
+      source.condition !== 'HEAD_ATTACK',
+  )
   const damageIncreaseItems = mappedMode
     ? [
-        ...[
-          ...mappedSources('DAMAGE_INCREASE_PERCENT'),
-          ...mappedSources('DAMAGE_INCREASE_FLAT'),
-        ].map((source, index) => ({
+        ...mappedGeneralDamageSources.map((source, index) => ({
           key: `MAPPED_DAMAGE_INCREASE__${index}`,
           label: source.itemName,
           percent: source.value,
@@ -4853,14 +5061,6 @@ export default function DamageAnalysis({
           }
         : item,
     )
-  // "N타 눌러서 뭐가 적용됐는지 보기" 모달용 - 항상 적용되는 전역 피해 증가 항목에,
-  // 그 타수에 한정된 타수 전용 항목만 골라 더한다(모션 카드의 실제 계산과 동일한 조합).
-  const damageIncreaseItemsForMotionOrder = (order) => [
-    ...globalDamageIncreaseItems,
-    ...motionSpecificDamageIncreaseItems.filter((item) =>
-      item.sources.some((source) => source.motionOrders?.includes(order)),
-    ),
-  ]
   const mappedReceivedDamageSources = mappedMode
     ? [
         ...mappedSources('ENEMY_RECEIVED_DAMAGE_PERCENT'),
@@ -4895,8 +5095,30 @@ export default function DamageAnalysis({
       }
     : critDamageBreakdownCached(armory)
   const critHitBracelet = mappedMode
-    ? { sources: [], total: 0 }
+    ? {
+        sources: mappedCritHitDamageSources,
+        total: mappedCritHitDamageSources.reduce((sum, source) => sum + source.value, 0),
+      }
     : critHitBraceletFacts(armory)
+  // 스킬에 백어택/헤드어택 공격 타입이 있으면(하드코딩된 기본 보너스가 항상 붙거나,
+  // 매핑된 조건부 효과가 있으면), damageCases를 성공(전체 배율 적용)/실패(×1) 두 경우로
+  // 더 나눈다.
+  const positionalAttack = {
+    active: mappedPositionalDamageSources.length > 0 || positionalBaseBonus.damagePercent > 0,
+    rate: POSITIONAL_ATTACK_HIT_RATE,
+    multiplier:
+      mappedPositionalDamageSources.reduce(
+        (product, source) => product * (1 + source.value / 100),
+        1,
+      ) * (1 + positionalBaseBonus.damagePercent / 100),
+    critRateBonus: positionalBaseBonus.critRatePercent,
+    label: facts.attackTypes.includes('백 어택')
+      ? '백어택'
+      : facts.attackTypes.includes('헤드 어택')
+        ? '헤드어택'
+        : '포지션 공격',
+    sources: mappedPositionalDamageSources,
+  }
   const critRateTracked = battleStatTrackedSource(
     battleStatCoefficients,
     'CRIT_RATE_PERCENT',
@@ -5004,45 +5226,14 @@ export default function DamageAnalysis({
     : null
   const criticalFinalDamage =
     normalFinalDamage != null ? normalFinalDamage * criticalTotalMultiplier : null
-  const criticalProbability = Math.min(1, Math.max(0, critRate.total / 100))
-  const keenPenaltyProbability = keenPenalty.active ? keenPenalty.rate / 100 : 0
-  const damageCases =
-    normalFinalDamage == null
-      ? []
-      : [
-          {
-            key: 'critical-normal',
-            critical: true,
-            penalized: false,
-            probability: criticalProbability * (1 - keenPenaltyProbability),
-            damage: criticalFinalDamage,
-          },
-          {
-            key: 'normal-normal',
-            critical: false,
-            penalized: false,
-            probability: (1 - criticalProbability) * (1 - keenPenaltyProbability),
-            damage: normalFinalDamage,
-          },
-          ...(keenPenalty.active
-            ? [
-                {
-                  key: 'critical-penalty',
-                  critical: true,
-                  penalized: true,
-                  probability: criticalProbability * keenPenaltyProbability,
-                  damage: criticalFinalDamage * keenPenalty.multiplier,
-                },
-                {
-                  key: 'normal-penalty',
-                  critical: false,
-                  penalized: true,
-                  probability: (1 - criticalProbability) * keenPenaltyProbability,
-                  damage: normalFinalDamage * keenPenalty.multiplier,
-                },
-              ]
-            : []),
-        ]
+  const damageCases = buildDamageCases({
+    normalDamage: normalFinalDamage,
+    criticalDamage: criticalFinalDamage,
+    criticalTotalMultiplier,
+    critRatePercent: critRate.total,
+    keenPenalty,
+    positionalAttack,
+  })
   const expectedFinalDamage = damageCases.reduce(
     (sum, damageCase) => sum + damageCase.damage * damageCase.probability,
     0,
@@ -5592,19 +5783,51 @@ export default function DamageAnalysis({
           />
         )}
 
-        {motionDetailOrder != null &&
+        {caseDetail != null &&
           (() => {
-            const motion = motionResults.find((item) => item.order === motionDetailOrder)
-            const motionDetailItems = damageIncreaseItemsForMotionOrder(motionDetailOrder)
-            const motionDetailMultiplier = motionDetailItems.reduce(
+            const motion = motionResults.find((item) => item.order === caseDetail.motionOrder)
+            if (!motion) return null
+            const motionCases = buildDamageCases({
+              normalDamage: motion.normalTotal,
+              criticalDamage: motion.criticalTotal,
+              criticalTotalMultiplier,
+              critRatePercent: critRate.total,
+              keenPenalty,
+              positionalAttack,
+            })
+            const damageCase = motionCases.find((item) => item.key === caseDetail.caseKey)
+            if (!damageCase) return null
+            const motionOnlyDamageIncreaseItems = motionSpecificDamageIncreaseItems.filter((item) =>
+              item.sources.some((source) => source.motionOrders?.includes(motion.order)),
+            )
+            const caseDamageIncreaseItems = damageCase.positionalHit
+              ? [
+                  ...globalDamageIncreaseItems,
+                  ...motionOnlyDamageIncreaseItems,
+                  {
+                    key: 'POSITIONAL_ATTACK_BONUS',
+                    label: `${positionalAttack.label} 조건 효과`,
+                    percent: (positionalAttack.multiplier - 1) * 100,
+                    sources: positionalAttack.sources,
+                  },
+                ]
+              : [...globalDamageIncreaseItems, ...motionOnlyDamageIncreaseItems]
+            const caseDamageIncreaseMultiplier = caseDamageIncreaseItems.reduce(
               (product, item) => product * (1 + item.percent / 100),
               1,
             )
+            const title = [
+              `${motion.order}타`,
+              damageCase.critical ? '치명타 발생' : '치명타 미발생',
+              keenPenalty.active ? `예리한 둔기 ${damageCase.penalized ? '발동' : '미발동'}` : null,
+              positionalAttack.active
+                ? `${positionalAttack.label} ${damageCase.positionalHit ? '성공' : '실패'}`
+                : null,
+            ]
+              .filter(Boolean)
+              .join(' · ')
             return (
-              <StatSummaryDetailModal
-                title={`${motionDetailOrder}타 데미지 계산 전체`}
-                onClose={() => setMotionDetailOrder(null)}
-              >
+              <StatSummaryDetailModal title={`${title} · 전체 계산`} onClose={() => setCaseDetail(null)}>
                 <div className="motion-detail-sections">
                   <section>
                     <h5>1. 스킬 공격력 계산</h5>
@@ -5631,14 +5854,18 @@ export default function DamageAnalysis({
                     />
                   </section>
                   <section>
-                    <h5>3. 피해 증가 계산 (이 타수 기준)</h5>
+                    <h5>3. 피해 증가 계산</h5>
                     <FinalDamageIncreaseBreakdown
                       title="피해 증가 합계"
-                      items={motionDetailItems}
-                      multiplier={motionDetailMultiplier}
-                      totalPercent={(motionDetailMultiplier - 1) * 100}
-                      emptyMessage="이 타수에 적용된 피해 증가 출처가 없습니다."
-                      note={`전체 스킬 공통으로 적용되는 항목과, "적용 타수"에 ${motionDetailOrder}타를 지정해 이 타수에만 붙는 항목을 함께 곱합니다.`}
+                      items={caseDamageIncreaseItems}
+                      multiplier={caseDamageIncreaseMultiplier}
+                      totalPercent={(caseDamageIncreaseMultiplier - 1) * 100}
+                      emptyMessage="적용된 피해 증가 출처가 없습니다."
+                      note={`전체 스킬 공통 항목에, ${motion.order}타에만 붙는 항목${
+                        positionalAttack.active
+                          ? `과 이 케이스가 ${positionalAttack.label} 성공인 경우에만 ${positionalAttack.label} 조건 효과`
+                          : ''
+                      }를 더합니다.`}
                     />
                   </section>
                   <section>
@@ -5673,72 +5900,128 @@ export default function DamageAnalysis({
                       sources={critRate.sources}
                       total={critRate.total}
                     />
+                    <p className="weapon-attack-note">
+                      이 케이스는 {damageCase.critical ? '치명타가 발생한' : '치명타가 발생하지 않은'}{' '}
+                      경우입니다.
+                    </p>
                   </section>
                   <section>
                     <h5>6. 치명타 피해 증가 계산</h5>
-                    <FinalDamageIncreaseBreakdown
-                      title="최종 치명타 피해 배율"
-                      items={critDamageResolvedItems}
-                      multiplier={critDamageMultiplier}
-                      totalPercent={critDamageMultiplier * 100}
-                      showSign={false}
-                      emptyMessage="감지된 치명타 피해 출처가 없습니다."
-                    />
+                    {damageCase.critical ? (
+                      <FinalDamageIncreaseBreakdown
+                        title="최종 치명타 피해 배율"
+                        items={critDamageResolvedItems}
+                        multiplier={critDamageMultiplier}
+                        totalPercent={critDamageMultiplier * 100}
+                        showSign={false}
+                        emptyMessage="감지된 치명타 피해 출처가 없습니다."
+                      />
+                    ) : (
+                      <p className="weapon-attack-note">
+                        이 케이스는 치명타 미발생이라 적용되지 않습니다(×1).
+                      </p>
+                    )}
                   </section>
                   <section>
                     <h5>7. 치명타 시 주는 피해 계산</h5>
-                    <FinalDamageIncreaseBreakdown
-                      title="치명타 시 주는 피해 배율"
-                      items={critHitDamageResolvedItems}
-                      multiplier={critHitDamageMultiplier}
-                      totalPercent={(critHitDamageMultiplier - 1) * 100}
-                      emptyMessage="감지된 치명타 시 주는 피해 출처가 없습니다."
-                    />
+                    {damageCase.critical ? (
+                      <FinalDamageIncreaseBreakdown
+                        title="치명타 시 주는 피해 배율"
+                        items={critHitDamageResolvedItems}
+                        multiplier={critHitDamageMultiplier}
+                        totalPercent={(critHitDamageMultiplier - 1) * 100}
+                        emptyMessage="감지된 치명타 시 주는 피해 출처가 없습니다."
+                      />
+                    ) : (
+                      <p className="weapon-attack-note">
+                        이 케이스는 치명타 미발생이라 적용되지 않습니다(×1).
+                      </p>
+                    )}
                   </section>
-                  {motion && (
+                  {keenPenalty.active && (
                     <section>
-                      <h5>{motionDetailOrder}타 스킬 계수 · 모션 상수</h5>
-                      <div className="weapon-attack-breakdown">
-                        <div className="weapon-attack-total">
-                          <span>
-                            <small>스킬 계수</small>
-                            <b>
-                              {Number.isFinite(motion.coefficient)
-                                ? numberText(motion.coefficient)
-                                : '확인 불가'}
-                            </b>
-                          </span>
-                          <span>
-                            <small>모션 상수</small>
-                            <b>
-                              {Number.isFinite(motion.constant)
-                                ? numberText(motion.constant)
-                                : '데이터 없음'}
-                            </b>
-                          </span>
-                        </div>
-                        {motion.motionMultiplier !== 1 && (
+                      <h5>예리한 둔기 패널티</h5>
+                      {damageCase.penalized ? (
+                        <div className="weapon-attack-breakdown">
+                          <div className="weapon-attack-total">
+                            <span>
+                              <small>패널티 배율</small>
+                              <b>×{numberText(keenPenalty.multiplier)}</b>
+                            </span>
+                          </div>
                           <p className="weapon-attack-note">
-                            이 타수에만 붙는 피해 증가 배율 ×{numberText(motion.motionMultiplier)}가
-                            추가로 곱해집니다.
+                            이 케이스는 패널티가 발동해 피해가 {numberText(keenPenalty.reduction)}%
+                            감소합니다.
                           </p>
-                        )}
-                      </div>
+                        </div>
+                      ) : (
+                        <p className="weapon-attack-note">
+                          이 케이스는 패널티 미발동이라 적용되지 않습니다(×1).
+                        </p>
+                      )}
                     </section>
                   )}
+                  {positionalAttack.active && (
+                    <section>
+                      <h5>{positionalAttack.label} 조건 효과</h5>
+                      {damageCase.positionalHit ? (
+                        <FinalDamageIncreaseBreakdown
+                          title={`${positionalAttack.label} 성공 배율`}
+                          items={[
+                            {
+                              key: 'POSITIONAL_ATTACK_BONUS',
+                              label: `${positionalAttack.label} 조건 효과`,
+                              percent: (positionalAttack.multiplier - 1) * 100,
+                              sources: positionalAttack.sources,
+                            },
+                          ]}
+                          multiplier={positionalAttack.multiplier}
+                          totalPercent={(positionalAttack.multiplier - 1) * 100}
+                          emptyMessage="적용된 포지션 공격 효과가 없습니다."
+                          note="게임 기본 메커니즘(헤드어택 +20%/백어택 +5%) 및 매핑된 조건부 효과를 합친 값입니다."
+                        />
+                      ) : (
+                        <p className="weapon-attack-note">
+                          이 케이스는 {positionalAttack.label} 실패라 적용되지 않습니다(×1).
+                        </p>
+                      )}
+                    </section>
+                  )}
+                  <section>
+                    <h5>{motion.order}타 스킬 계수 · 모션 상수</h5>
+                    <div className="weapon-attack-breakdown">
+                      <div className="weapon-attack-total">
+                        <span>
+                          <small>스킬 계수</small>
+                          <b>
+                            {Number.isFinite(motion.coefficient)
+                              ? numberText(motion.coefficient)
+                              : '확인 불가'}
+                          </b>
+                        </span>
+                        <span>
+                          <small>모션 상수</small>
+                          <b>
+                            {Number.isFinite(motion.constant)
+                              ? numberText(motion.constant)
+                              : '데이터 없음'}
+                          </b>
+                        </span>
+                      </div>
+                    </div>
+                  </section>
                   <section className="motion-detail-result">
-                    <h5>최종 결과 (반복 {motion ? numberText(motion.repeat) : 0}회 포함)</h5>
+                    <h5>이 케이스 결과 (반복 {numberText(motion.repeat)}회, 발생 확률{' '}
+                      {numberText(damageCase.probability * 100)}%)</h5>
                     <div>
                       <span>
-                        <small>비치명타 공격</small>
-                        <strong>
-                          {motion?.ready ? damageResultText(motion.normalTotal) : '계산 불가'}
-                        </strong>
+                        <small>이 케이스 데미지</small>
+                        <strong>{damageResultText(damageCase.damage)}</strong>
                       </span>
                       <span>
-                        <small>치명타 공격</small>
+                        <small>기대값 기여분 (데미지 × 확률)</small>
                         <strong>
-                          {motion?.ready ? damageResultText(motion.criticalTotal) : '계산 불가'}
+                          {damageResultText(damageCase.damage * damageCase.probability)}
                         </strong>
                       </span>
                     </div>
@@ -5829,6 +6112,12 @@ export default function DamageAnalysis({
                   ? ` · ${damageOptionSkillCategoryLabel(selectedSkillCategory)}`
                   : ''}
                 {' · '}총 {numberText(totalHitCount)}타
+                {(() => {
+                  const attackType = facts.attackTypes.find((type) =>
+                    ['헤드 어택', '백 어택'].includes(type),
+                  )
+                  return attackType && ` · ${attackType}`
+                })()}
               </small>
               <h3>{skill.Name}</h3>
               <em>Lv.{skill.Level}</em>
@@ -5874,6 +6163,18 @@ export default function DamageAnalysis({
                 <small>자동 산출한 스킬 계수와 저장된 모션 상수로 아래 결과를 계산합니다.</small>
               </span>
             </div>
+            {motionInputsReady && (
+              <div className="damage-case-expected">
+                <span>
+                  <small>모든 경우를 확률로 합산한 기대 데미지</small>
+                  <b>{damageResultText(expectedFinalDamage)}</b>
+                </span>
+                <code>
+                  Σ((공격력 × 타수별 스킬 계수 + 타수별 모션 상수) × 반복 횟수 × 타수 전용
+                  배율(있는 경우)) × {numberText(sharedDamageMultiplier)}
+                </code>
+              </div>
+            )}
             {motionResults.some((motion) => motion.ready) && (
               <div className="motion-hit-result-list">
                 {motionResults.map((motion) => (
@@ -5903,16 +6204,48 @@ export default function DamageAnalysis({
                       </small>
                     )}
                     {motion.ready && (
-                      <button type="button" onClick={() => setMotionDetailOrder(motion.order)}>
-                        <span>
-                          <small>비치명타 공격</small>
-                          <strong>{damageResultText(motion.normalTotal)}</strong>
-                        </span>
-                        <span>
-                          <small>치명타 공격</small>
-                          <strong>{damageResultText(motion.criticalTotal)}</strong>
-                        </span>
-                      </button>
+                      <div className="motion-hit-case-grid">
+                        {buildDamageCases({
+                          normalDamage: motion.normalTotal,
+                          criticalDamage: motion.criticalTotal,
+                          criticalTotalMultiplier,
+                          critRatePercent: critRate.total,
+                          keenPenalty,
+                          positionalAttack,
+                        }).map((motionCase) => (
+                          <button
+                            type="button"
+                            key={motionCase.key}
+                            className={`${motionCase.critical ? 'critical' : 'normal'}${
+                              motionCase.penalized ? ' penalized' : ''
+                            }${
+                              positionalAttack.active && !motionCase.positionalHit
+                                ? ' positional-miss'
+                                : ''
+                            }`}
+                            onClick={() =>
+                              setCaseDetail({ motionOrder: motion.order, caseKey: motionCase.key })
+                            }
+                          >
+                            <span>
+                              <b>{motionCase.critical ? '치명타 발생' : '치명타 미발생'}</b>
+                              {keenPenalty.active && (
+                                <small>
+                                  예리한 둔기 {motionCase.penalized ? '발동' : '미발동'}
+                                </small>
+                              )}
+                              {positionalAttack.active && (
+                                <small>
+                                  {positionalAttack.label}{' '}
+                                  {motionCase.positionalHit ? '성공' : '실패'}
+                                </small>
+                              )}
+                            </span>
+                            <strong>{damageResultText(motionCase.damage)}</strong>
+                            <em>{numberText(motionCase.probability * 100)}%</em>
+                          </button>
+                        ))}
+                      </div>
                     )}
                   </article>
                 ))}
@@ -5925,36 +6258,41 @@ export default function DamageAnalysis({
                     <article
                       className={`${damageCase.critical ? 'critical' : 'normal'}${
                         damageCase.penalized ? ' penalized' : ''
+                      }${
+                        positionalAttack.active && !damageCase.positionalHit
+                          ? ' positional-miss'
+                          : ''
                       }`}
                       key={damageCase.key}
                     >
                       <span>
                         <b>{damageCase.critical ? '치명타 발생' : '치명타 미발생'}</b>
-                        <small>예리한 둔기 패널티 {damageCase.penalized ? '발동' : '미발동'}</small>
+                        {keenPenalty.active && (
+                          <small>예리한 둔기 패널티 {damageCase.penalized ? '발동' : '미발동'}</small>
+                        )}
+                        {positionalAttack.active && (
+                          <small>
+                            {positionalAttack.label} {damageCase.positionalHit ? '성공' : '실패'}
+                          </small>
+                        )}
                       </span>
                       <strong>{damageResultText(damageCase.damage)}</strong>
                       <em>발생 확률 {numberText(damageCase.probability * 100)}%</em>
                     </article>
                   ))}
                 </div>
-                <div className="damage-case-expected">
-                  <span>
-                    <small>모든 경우를 확률로 합산한 기대 데미지</small>
-                    <b>{damageResultText(expectedFinalDamage)}</b>
-                  </span>
-                  <code>
-                    Σ((공격력 × 타수별 스킬 계수 + 타수별 모션 상수) × 반복 횟수 × 타수 전용
-                    배율(있는 경우)) × {numberText(sharedDamageMultiplier)}
-                  </code>
-                </div>
                 <p className="damage-case-note">
                   내부 계산은 소수점을 유지하고 결과 표시에서만 FLOOR 처리해 억·만·천 단위로
                   구분합니다. 툴팁에서 감지한 반복 타수와 사용자가 보정한 횟수를 합산합니다. 아직
-                  자동 계산되지 않는 트라이포드 피해 배율·백어택·헤드어택 등의 값은 현재 결과에서
-                  ×1입니다.
+                  자동 계산되지 않는 트라이포드 피해 배율 등의 값은 현재 결과에서 ×1입니다.
                   {keenPenalty.active
                     ? ` 예리한 둔기는 패널티 확률 ${numberText(keenPenalty.rate)}%, 발동 시 ×${numberText(keenPenalty.multiplier)}로 적용했습니다.`
                     : ' 활성화된 예리한 둔기가 없어 패널티 경우는 표시하지 않습니다.'}
+                  {positionalAttack.active
+                    ? ` ${positionalAttack.label} 조건 효과는 성공 확률 ${numberText(positionalAttack.rate * 100)}%, 성공 시 ×${numberText(positionalAttack.multiplier)}로 적용했습니다.`
+                    : facts.attackTypes.includes('백 어택') || facts.attackTypes.includes('헤드 어택')
+                      ? ' 이 스킬은 포지션 공격 타입이지만 매핑되어 이 캐릭터에 매칭된 백어택/헤드어택 조건 효과가 없어 별도 경우로 나누지 않습니다.'
+                      : ''}
                 </p>
               </>
             ) : (

@@ -1411,45 +1411,66 @@
   color: inherit;
   font: inherit;
 }
-.motion-hit-result-list header small,
-.motion-hit-result-list article button span small {
+.motion-hit-result-list header small {
   color: var(--muted);
   font-size: var(--fs-8);
 }
-.motion-hit-result-list article > button {
+.motion-hit-case-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 6px;
+  padding: 8px 10px;
+}
+.motion-hit-case-grid > button {
+  overflow: hidden;
   width: 100%;
-  border: 0;
-  background: none;
+  padding: 7px 8px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface);
   color: inherit;
   font: inherit;
   text-align: left;
   cursor: pointer;
-  padding: 0;
 }
-.motion-hit-result-list article > button:hover {
+.motion-hit-case-grid > button:hover {
+  border-color: rgba(167, 139, 250, 0.5);
   background: rgba(139, 92, 246, 0.11);
 }
-.motion-hit-result-list article button span {
-  min-width: 0;
-  padding: 8px 10px;
-}
-.motion-hit-result-list article button span + span {
-  border-left: 1px solid var(--line);
-}
-.motion-hit-result-list article button span small,
-.motion-hit-result-list article button span strong {
+.motion-hit-case-grid > button b {
   display: block;
+  font-size: var(--fs-8);
 }
-.motion-hit-result-list article button span strong {
-  margin-top: 2px;
+.motion-hit-case-grid > button small {
+  display: block;
+  color: var(--muted);
+  font-size: var(--fs-8);
+}
+.motion-hit-case-grid > button strong {
+  display: block;
+  margin-top: 3px;
   color: #86c46c;
-  font-size: var(--fs-10);
+  font-size: var(--fs-9);
   overflow-wrap: anywhere;
 }
-.motion-hit-result-list article button span:nth-child(2) strong {
+.motion-hit-case-grid > button em {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: var(--fs-8);
+  font-style: normal;
+}
+.motion-hit-case-grid > button.critical strong {
   color: #fbbf24;
+}
+.motion-hit-case-grid > button.penalized {
+  border-color: rgba(248, 113, 113, 0.4);
+}
+.motion-hit-case-grid > button.penalized strong {
+  color: #f87171;
+}
+.motion-hit-case-grid > button.positional-miss {
+  opacity: 0.7;
 }
 .motion-detail-sections {
   display: grid;
@@ -1559,6 +1580,9 @@
 }
 .damage-case-result-grid article.penalized strong {
   color: #f87171;
+}
+.damage-case-result-grid article.positional-miss {
+  opacity: 0.7;
 }
 .damage-case-expected {
   display: flex;

@@ -84,4 +84,33 @@ public class CharacterSnapshot {
     public String getItemLevel() { return itemLevel; }
     public String getCombatPower() { return combatPower; }
     public Instant getFetchedAt() { return fetchedAt; }
+
+    /**
+     * Historical rows keep only the compact growth fields. The full Lost Ark
+     * armory response belongs to the newest row for a character only.
+     */
+    public void archive() {
+        this.armoryPayload = "{}";
+    }
+
+    /**
+     * Refresh the current row when only non-historical character details have
+     * changed. Item level and combat power changes create a new row instead;
+     * discovered cards are stored once per roster in their own table.
+     */
+    public void updateCurrent(String serverName, String className, int characterLevel,
+                              String itemLevel, String combatPower, String title,
+                              String rosterKey, String contentHash, String armoryPayload,
+                              Instant fetchedAt) {
+        this.serverName = serverName;
+        this.className = className;
+        this.characterLevel = characterLevel;
+        this.itemLevel = itemLevel;
+        this.combatPower = combatPower;
+        this.title = title;
+        this.rosterKey = rosterKey;
+        this.contentHash = contentHash;
+        this.armoryPayload = armoryPayload;
+        this.fetchedAt = fetchedAt;
+    }
 }

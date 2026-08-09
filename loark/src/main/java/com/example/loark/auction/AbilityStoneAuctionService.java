@@ -5,6 +5,7 @@ import com.example.loark.config.LostArkRequestContext;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.client.RestClient;
@@ -38,7 +39,8 @@ public class AbilityStoneAuctionService {
     private final ExecutorService backgroundJobExecutor;
     private final boolean backgroundRefreshEnabled;
 
-    public AbilityStoneAuctionService(RestClient lostArkRestClient, PersistentApiCache persistentCache,
+    public AbilityStoneAuctionService(@Qualifier("auctionLostArkRestClient") RestClient lostArkRestClient,
+                                      PersistentApiCache persistentCache,
                                       AbilityStonePriceObservationRepository observations,
                                       ObjectMapper objectMapper,
                                       ExecutorService backgroundJobExecutor,

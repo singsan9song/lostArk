@@ -5,7 +5,8 @@ import java.time.Instant;
 
 @Entity
 @Table(name = "character_card_set_observations",
-        uniqueConstraints = @UniqueConstraint(name = "uk_snapshot_card_set", columnNames = {"snapshot_id", "card_set_name"}),
+        uniqueConstraints = @UniqueConstraint(
+                name = "uk_roster_card_set", columnNames = {"roster_key", "card_set_name"}),
         indexes = @Index(name = "idx_card_set_roster_time", columnList = "roster_key,observed_at"))
 public class CharacterCardSetObservation {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

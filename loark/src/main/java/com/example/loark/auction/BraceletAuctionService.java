@@ -5,6 +5,7 @@ import com.example.loark.config.LostArkApiRequestCounter;
 import com.example.loark.config.LostArkRequestContext;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -55,7 +56,8 @@ public class BraceletAuctionService {
     private final ExecutorService backgroundJobExecutor;
     private final Map<String, AtomicBoolean> refreshRunning = new ConcurrentHashMap<>();
 
-    public BraceletAuctionService(RestClient lostArkRestClient, PersistentApiCache persistentCache,
+    public BraceletAuctionService(@Qualifier("auctionLostArkRestClient") RestClient lostArkRestClient,
+                                  PersistentApiCache persistentCache,
                                   BraceletPriceObservationRepository observations,
                                   LostArkApiRequestCounter requestCounter,
                                   ObjectMapper objectMapper,
@@ -155,7 +157,7 @@ public class BraceletAuctionService {
                 int pageCursor = progress.pageCursor();
 
                 if (pairTotalPages == null) {
-                    if (!requestCounter.hasCapacity(rateLimitReserve)) break;
+                    if (!requestCounter.hasCapacity("auction", rateLimitReserve)) break;
                     JsonNode firstPage = requestFromApi(pair, 1, itemSpec);
                     calls++;
                     pairTotalPages = Math.max(1,
@@ -170,7 +172,7 @@ public class BraceletAuctionService {
                     progress = new BraceletRefreshProgress(progress.pairIndex() + 1, 0, totalPages);
                     continue;
                 }
-                if (!requestCounter.hasCapacity(rateLimitReserve)) break;
+                if (!requestCounter.hasCapacity("auction", rateLimitReserve)) break;
 
                 requestFromApi(pair, pages.get(pageCursor), itemSpec);
                 calls++;
@@ -181,7 +183,7 @@ public class BraceletAuctionService {
             com.example.loark.config.ApplicationLog.infof(
                     "[LOSTARK AUCTION] Bracelet incremental refresh paused: %s / pair=%d/%d / page=%d / calls=%d / remaining=%d%n",
                     itemSpec.grade(), Math.min(progress.pairIndex() + 1, PAIRS.size()), PAIRS.size(),
-                    progress.pageCursor(), calls, requestCounter.status().remaining()
+                    progress.pageCursor(), calls, requestCounter.status("auction").remaining()
             );
         } catch (RuntimeException error) {
             saveProgress(itemSpec, progress);

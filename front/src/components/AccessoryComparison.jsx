@@ -8,6 +8,7 @@ import { calculateAccessoryOptionShares, calculateAccessoryReplacement } from '.
 import {
   fetchBattleStatCoefficients,
   loadDamageOptionRegistry,
+  saveDamageOptionRegistry,
   selectBattleStatRecords,
 } from '../lib/damageOptionRegistry'
 
@@ -331,10 +332,26 @@ export default function AccessoryComparison({
   const [auctionError, setAuctionError] = useState('')
   const nextId = useRef(1)
 
-  // 악세 비교 점수를 "데미지 분석 2"(매핑 레지스트리 기반)로 계산한다 - registry는
-  // 새로고침 시에만 반영되면 충분해서(관리자가 실시간으로 고치는 화면이 아님) 마운트 시
-  // 한 번만 읽는다. 전투특성 추적 계수도 레코드 개수가 적어 마운트 시 한 번만 조회한다.
-  const [registry] = useState(loadDamageOptionRegistry)
+  // 첫 화면은 로컬 캐시로 바로 계산하고, 마운트 직후 서버의 최신 통합 레지스트리로
+  // 교체한다. 일반 옵션은 원문 패턴만으로 매칭하며 category는 계산 조건으로 쓰지 않는다.
+  // category는 아래 selectBattleStatRecords에서 전투 특성 추적 대상을 고를 때만 사용한다.
+  const [registry, setRegistry] = useState(loadDamageOptionRegistry)
+  useEffect(() => {
+    let active = true
+    lostArkApi
+      .getDamageOptionRegistry()
+      .then((nextRegistry) => {
+        if (!active || nextRegistry?.version !== 1 || !Array.isArray(nextRegistry.records)) return
+        setRegistry(nextRegistry)
+        saveDamageOptionRegistry(nextRegistry)
+      })
+      .catch(() => {
+        // 서버 레지스트리를 잠시 읽지 못하면 기존 로컬 캐시로 계속 계산한다.
+      })
+    return () => {
+      active = false
+    }
+  }, [])
   const battleStatRecords = useMemo(
     () => selectBattleStatRecords(registry.records),
     [registry.records],

@@ -104,8 +104,8 @@ public class CharacterDailyRefreshService {
 
             int processed = 0;
             while (processed < batchSize && !progress.completed()) {
-                if (requestCounter.status().count() >= maxRequestsPerMinute) return;
-                if (!requestCounter.hasCapacity(rateLimitReserve)) return;
+                if (requestCounter.status("content").count() >= maxRequestsPerMinute) return;
+                if (!requestCounter.hasCapacity("content", rateLimitReserve)) return;
 
                 String characterName = source.names().get(progress.nextIndex());
                 progress = progress.withCurrentName(characterName);
@@ -118,7 +118,7 @@ public class CharacterDailyRefreshService {
                 } catch (LostArkApiException error) {
                     int status = error.status().value();
                     if (status == HttpStatus.TOO_MANY_REQUESTS.value()) {
-                        Instant resetAt = requestCounter.status().resetsAt();
+                        Instant resetAt = requestCounter.status("content").resetsAt();
                         progress = progress.pausedUntil(resetAt == null
                                 ? Instant.now().plusSeconds(60)
                                 : resetAt.plusSeconds(1));

@@ -5,6 +5,7 @@ import com.example.loark.config.LostArkApiRequestCounter;
 import com.example.loark.config.LostArkRequestContext;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -70,7 +71,7 @@ public class AccessoryAuctionSearchService {
             .expireAfterWrite(Duration.ofSeconds(15))
             .build();
 
-    public AccessoryAuctionSearchService(RestClient lostArkRestClient,
+    public AccessoryAuctionSearchService(@Qualifier("auctionLostArkRestClient") RestClient lostArkRestClient,
                                          AccessoryAuctionListingRepository repository,
                                          LostArkApiRequestCounter requestCounter,
                                          ObjectMapper objectMapper,
@@ -143,7 +144,7 @@ public class AccessoryAuctionSearchService {
         for (String optionKey : request.optionTypes()) {
             OptionDefinition option = OPTIONS.get(optionKey);
             for (int page = 1; page <= MAX_PAGES_PER_ANCHOR; page++) {
-                if (!requestCounter.hasCapacity(1)) return;
+                if (!requestCounter.hasCapacity("auction", 1)) return;
                 JsonNode response;
                 try {
                     response = requestPage(request, option, anchorTier, page);
@@ -172,7 +173,7 @@ public class AccessoryAuctionSearchService {
         try {
             List<RefreshTarget> targets = refreshTargets();
             while (calls < backgroundPagesPerRun) {
-                if (!requestCounter.hasCapacity(rateLimitReserve)) break;
+                if (!requestCounter.hasCapacity("auction", rateLimitReserve)) break;
                 if (progress.targetIndex() >= targets.size()) {
                     progress = AccessoryRefreshProgress.start();
                     saveProgress(progress);

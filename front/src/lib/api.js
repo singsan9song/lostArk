@@ -90,11 +90,12 @@ export const lostArkApi = {
     request(`/damage-option-registry/coefficient/backfill?${new URLSearchParams({ recordId })}`, {
       method: 'POST',
     }),
-  getAdminApiRequestHistory: () => request('/admin/api-requests/history'),
-  getAdminApiRequestHistoryDetails: (resetAt) =>
-    request(`/admin/api-requests/history/details?${new URLSearchParams({ resetAt })}`),
-  searchAdminApiRequestHistory: (query, page = 0, size = 200) =>
-    request(`/admin/api-requests/history/search?${new URLSearchParams({ query, page, size })}`),
+  getAdminApiRequestHistory: (group) =>
+    request(`/admin/api-requests/history?${new URLSearchParams({ group })}`),
+  getAdminApiRequestHistoryDetails: (resetAt, group) =>
+    request(`/admin/api-requests/history/details?${new URLSearchParams({ resetAt, group })}`),
+  searchAdminApiRequestHistory: (query, group, page = 0, size = 200) =>
+    request(`/admin/api-requests/history/search?${new URLSearchParams({ query, group, page, size })}`),
   getAdminDamageOptionCorpusOptions: () => request('/admin/damage-option-corpus/options'),
   getAdminDamageOptionCorpus: (className, engraving, page = 0) =>
     request(

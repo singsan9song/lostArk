@@ -3,6 +3,7 @@ package com.example.loark.gamecontents;
 import com.example.loark.cache.PersistentApiCache;
 import com.example.loark.config.LostArkRequestContext;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -26,7 +27,8 @@ public class GameContentsService {
     private final PersistentApiCache persistentCache;
     private final boolean refreshEnabled;
 
-    public GameContentsService(RestClient lostArkRestClient, PersistentApiCache persistentCache,
+    public GameContentsService(@Qualifier("contentLostArkRestClient") RestClient lostArkRestClient,
+                               PersistentApiCache persistentCache,
                                @Value("${app.gamecontents-refresh.enabled:true}") boolean refreshEnabled) {
         this.client = lostArkRestClient;
         this.persistentCache = persistentCache;

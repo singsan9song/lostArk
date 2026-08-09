@@ -315,6 +315,47 @@
 .admin-api-status-actions > button svg {
   width: 14px;
 }
+.admin-api-group-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+  margin-top: 16px;
+}
+.admin-api-group-tabs button {
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+  padding: 13px 15px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--surface-2);
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 160ms ease, background 160ms ease, color 160ms ease;
+}
+.admin-api-group-tabs button:hover {
+  border-color: color-mix(in srgb, var(--primary) 55%, var(--line));
+}
+.admin-api-group-tabs button.selected {
+  border-color: var(--primary);
+  background: rgba(190, 213, 141, 0.1);
+  color: var(--primary);
+  box-shadow: inset 0 0 0 1px rgba(190, 213, 141, 0.08);
+}
+.admin-api-group-tabs strong {
+  overflow: hidden;
+  font-size: var(--fs-13);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.admin-api-group-tabs span {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: var(--fs-10);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .admin-damage-option-scope {
   display: flex;
   align-items: end;
@@ -1082,6 +1123,13 @@
   }
   .admin-api-status-heading p {
     display: none;
+  }
+  .admin-api-group-tabs {
+    grid-template-columns: 1fr;
+  }
+  .admin-api-group-tabs button {
+    grid-template-columns: minmax(110px, auto) 1fr;
+    align-items: center;
   }
   .admin-api-stat-grid {
     grid-template-columns: repeat(2, 1fr);

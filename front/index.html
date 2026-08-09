@@ -5,6 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="로스트아크 모험가를 위한 플레이 허브" />
     <title>LOARK — 로스트아크 플레이 허브</title>
+    <script>
+      // A tab left open across deployments can still reference an asset from the previous
+      // Vite build. Refresh the HTML once with a cache-busting URL instead of asking the user
+      // to clear their browser cache. The one-shot guard prevents a reload loop during a real
+      // outage or a partially uploaded deployment.
+      (() => {
+        const recoveryKey = 'loark-asset-recovery'
+        const recoveryParam = '__asset_refresh'
+        const recover = () => {
+          try {
+            if (sessionStorage.getItem(recoveryKey)) return
+            sessionStorage.setItem(recoveryKey, String(Date.now()))
+          } catch {
+            return
+          }
+          const url = new URL(window.location.href)
+          url.searchParams.set(recoveryParam, String(Date.now()))
+          window.location.replace(url)
+        }
+
+        window.addEventListener(
+          'error',
+          (event) => {
+            const target = event.target
+            const assetUrl = target?.src || target?.href || ''
+            if (
+              (target?.tagName === 'SCRIPT' || target?.tagName === 'LINK') &&
+              assetUrl.includes('/assets/')
+            ) {
+              recover()
+            }
+          },
+          true,
+        )
+        window.addEventListener('vite:preloadError', recover)
+        window.addEventListener('load', () => {
+          window.setTimeout(() => {
+            try {
+              sessionStorage.removeItem(recoveryKey)
+              const url = new URL(window.location.href)
+              if (url.searchParams.has(recoveryParam)) {
+                url.searchParams.delete(recoveryParam)
+                window.history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`)
+              }
+            } catch {
+              // Storage/history restrictions should not affect normal application startup.
+            }
+          }, 5000)
+        })
+      })()
+    </script>
     <link rel="preload" href="/fonts/woff2/NotoSansKR-Regular.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/woff2/NotoSansKR-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/woff2/NotoSansKR-Bold.woff2" as="font" type="font/woff2" crossorigin>

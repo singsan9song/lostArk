@@ -8,6 +8,7 @@ import jakarta.annotation.PreDestroy;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.node.ObjectNode;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -55,7 +56,8 @@ public class MarketService {
     private final Object requestPermitLock = new Object();
     private long nextRequestPermitNanos;
 
-    public MarketService(RestClient lostArkRestClient, PersistentApiCache persistentCache,
+    public MarketService(@Qualifier("marketLostArkRestClient") RestClient lostArkRestClient,
+                         PersistentApiCache persistentCache,
                          MarketPriceObservationRepository observations,
                          ObjectMapper objectMapper,
                          @Value("${app.market-cache-ttl-seconds:5}") long ttlSeconds,

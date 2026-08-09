@@ -265,12 +265,25 @@ export default function CommunityPage() {
   )
 }
 
+const EMPTY_API_STATUS = {
+  count: 0,
+  limit: 0,
+  remaining: 0,
+  resetsAt: null,
+}
+
+const API_STATUS_GROUPS = [
+  { id: 'auction', label: '경매장', description: '팔찌 · 어빌리티 스톤 · 장신구' },
+  { id: 'market', label: '거래소', description: '재련 재료 · 생활 재료 · 일반 아이템' },
+  { id: 'content', label: '캐릭터 · 콘텐츠', description: '캐릭터 정보 · 게임 콘텐츠' },
+]
+
 function AdminApiStatusPanel() {
-  const [status, setStatus] = useState({
-    count: 0,
-    limit: 0,
-    remaining: 0,
-    resetsAt: null,
+  const [activeApiGroup, setActiveApiGroup] = useState('auction')
+  const [statuses, setStatuses] = useState({
+    auction: EMPTY_API_STATUS,
+    market: EMPTY_API_STATUS,
+    content: EMPTY_API_STATUS,
   })
   const [connected, setConnected] = useState(false)
   const [now, setNow] = useState(Date.now())
@@ -301,12 +314,23 @@ function AdminApiStatusPanel() {
     const source = new EventSource(adminApiRequestStreamUrl, { withCredentials: true })
     const update = (event) => {
       const next = JSON.parse(event.data)
-      setStatus({
-        count: Number(next.count) || 0,
-        limit: Number(next.limit) || 0,
-        remaining: Number(next.remaining) || 0,
-        resetsAt: next.resetsAt || null,
-      })
+      const nextGroups = next?.auction ? next : { auction: next, market: next, content: next }
+      setStatuses(
+        Object.fromEntries(
+          API_STATUS_GROUPS.map(({ id }) => {
+            const group = nextGroups?.[id] || EMPTY_API_STATUS
+            return [
+              id,
+              {
+                count: Number(group.count) || 0,
+                limit: Number(group.limit) || 0,
+                remaining: Number(group.remaining) || 0,
+                resetsAt: group.resetsAt || null,
+              },
+            ]
+          }),
+        ),
+      )
       setConnected(true)
     }
     source.addEventListener('api-requests', update)
@@ -349,11 +373,13 @@ function AdminApiStatusPanel() {
   useEffect(() => {
     if (!historyOpen) return undefined
     let active = true
+    setOpenMinute('')
+    setHistoryDetails({})
     const load = (initial = false) => {
       if (initial) setHistoryLoading(true)
       setHistoryError('')
       lostArkApi
-        .getAdminApiRequestHistory()
+        .getAdminApiRequestHistory(activeApiGroup)
         .then((result) => {
           if (active) setHistory(Array.isArray(result) ? result : [])
         })
@@ -370,7 +396,7 @@ function AdminApiStatusPanel() {
       active = false
       window.clearInterval(timer)
     }
-  }, [historyOpen])
+  }, [historyOpen, activeApiGroup])
 
   useEffect(() => {
     if (!historyOpen || !openMinute) return undefined
@@ -378,7 +404,7 @@ function AdminApiStatusPanel() {
     const load = (initial = false) => {
       if (initial) setDetailsLoading(true)
       lostArkApi
-        .getAdminApiRequestHistoryDetails(openMinute)
+        .getAdminApiRequestHistoryDetails(openMinute, activeApiGroup)
         .then((result) => {
           if (active) {
             setHistoryDetails((current) => ({
@@ -400,7 +426,7 @@ function AdminApiStatusPanel() {
       active = false
       window.clearInterval(timer)
     }
-  }, [historyOpen, openMinute])
+  }, [historyOpen, openMinute, activeApiGroup])
 
   useEffect(() => {
     if (!historyOpen || !historySearch) {
@@ -411,7 +437,7 @@ function AdminApiStatusPanel() {
     const load = (initial = false) => {
       if (initial) setSearchLoading(true)
       lostArkApi
-        .searchAdminApiRequestHistory(historySearch)
+        .searchAdminApiRequestHistory(historySearch, activeApiGroup)
         .then((result) => {
           if (active) {
             setSearchResult({
@@ -433,8 +459,9 @@ function AdminApiStatusPanel() {
       active = false
       window.clearInterval(timer)
     }
-  }, [historyOpen, historySearch])
+  }, [historyOpen, historySearch, activeApiGroup])
 
+  const status = statuses[activeApiGroup] || EMPTY_API_STATUS
   const resetAt = status.resetsAt ? new Date(status.resetsAt) : null
   const expired = resetAt && resetAt.getTime() <= now
   const count = expired ? 0 : status.count
@@ -549,6 +576,23 @@ function AdminApiStatusPanel() {
           </button>
         </div>
       </header>
+      <nav className="admin-api-group-tabs" aria-label="API 용도 선택">
+        {API_STATUS_GROUPS.map((group) => (
+          <button
+            type="button"
+            className={activeApiGroup === group.id ? 'selected' : ''}
+            aria-pressed={activeApiGroup === group.id}
+            onClick={() => {
+              setActiveApiGroup(group.id)
+              setHistoryError('')
+            }}
+            key={group.id}
+          >
+            <strong>{group.label}</strong>
+            <span>{group.description}</span>
+          </button>
+        ))}
+      </nav>
       <div className="admin-damage-option-scope">
         <label>
           <span>직업</span>

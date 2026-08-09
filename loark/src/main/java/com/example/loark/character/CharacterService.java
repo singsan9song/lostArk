@@ -2,6 +2,7 @@ package com.example.loark.character;
 
 import com.example.loark.config.LostArkRequestContext;
 import com.example.loark.damageoption.DamageOptionCoefficientTracker;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -19,8 +20,11 @@ import java.security.MessageDigest;
 import java.time.Instant;
 import java.util.HexFormat;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 @Service
 public class CharacterService {
@@ -34,7 +38,8 @@ public class CharacterService {
     private final ObjectMapper objectMapper;
     private final TransactionTemplate transactionTemplate;
 
-    public CharacterService(RestClient lostArkRestClient, CharacterSnapshotRepository snapshots,
+    public CharacterService(@Qualifier("contentLostArkRestClient") RestClient lostArkRestClient,
+                            CharacterSnapshotRepository snapshots,
                             CharacterRosterMemberRepository rosterMembers,
                             CharacterCardSetObservationRepository cardSets,
                             GameCharacterRepository gameCharacters,
@@ -233,38 +238,91 @@ public class CharacterService {
         }
         gameCharacters.saveAll(charactersToSave);
 
-        if (snapshots.findTopByCharacterNameOrderByFetchedAtDesc(canonicalName)
-                .map(snapshot -> contentHash.equals(snapshot.getContentHash())).orElse(false)) return rosterKey;
+        java.util.Optional<CharacterSnapshot> previous =
+                snapshots.findTopByCharacterNameOrderByFetchedAtDesc(canonicalName);
+        if (previous.map(snapshot -> contentHash.equals(snapshot.getContentHash())).orElse(false)) return rosterKey;
+
+        String itemLevel = profile.path("ItemAvgLevel").asText("");
+        String combatPower = profile.path("CombatPower").asText("");
+        Set<String> observedCardSets = cardSetNames(armory);
+        boolean growthChanged = previous.isEmpty() || previous
+                .map(snapshot -> !Objects.equals(itemLevel, snapshot.getItemLevel())
+                        || !Objects.equals(combatPower, snapshot.getCombatPower()))
+                .orElse(true);
+        String armoryPayload = armory.toString();
+
+        if (previous.isPresent() && !growthChanged) {
+            CharacterSnapshot current = previous.get();
+            current.updateCurrent(
+                    profile.path("ServerName").asText(""),
+                    profile.path("CharacterClassName").asText(""),
+                    profile.path("CharacterLevel").asInt(0),
+                    itemLevel,
+                    combatPower,
+                    profile.path("Title").asText(""),
+                    rosterKey,
+                    contentHash,
+                    armoryPayload,
+                    fetchedAt
+            );
+            replaceRosterMembers(current.getId(), rosterKey, siblings, fetchedAt);
+            saveNewCardSets(current.getId(), rosterKey, canonicalName, observedCardSets, fetchedAt);
+            return rosterKey;
+        }
+
+        previous.ifPresent(current -> {
+            current.archive();
+            rosterMembers.deleteBySnapshotId(current.getId());
+        });
         CharacterSnapshot snapshot = snapshots.save(new CharacterSnapshot(
                 canonicalName,
                 profile.path("ServerName").asText(""),
                 profile.path("CharacterClassName").asText(""),
                 profile.path("CharacterLevel").asInt(0),
-                profile.path("ItemAvgLevel").asText(""),
-                profile.path("CombatPower").asText(""),
+                itemLevel,
+                combatPower,
                 profile.path("Title").asText(""),
                 rosterKey,
                 contentHash,
-                armory.toString(),
+                armoryPayload,
                 fetchedAt
         ));
+        replaceRosterMembers(snapshot.getId(), rosterKey, siblings, fetchedAt);
+        saveNewCardSets(snapshot.getId(), rosterKey, canonicalName, observedCardSets, fetchedAt);
+        return rosterKey;
+    }
+
+    private void replaceRosterMembers(Long snapshotId, String rosterKey, JsonNode siblings, Instant fetchedAt) {
+        rosterMembers.deleteBySnapshotId(snapshotId);
         List<CharacterRosterMember> rosterMemberRows = new java.util.ArrayList<>();
         siblings.forEach(member -> rosterMemberRows.add(new CharacterRosterMember(
-                snapshot.getId(), rosterKey, member.path("CharacterName").asText(""),
+                snapshotId, rosterKey, member.path("CharacterName").asText(""),
                 member.path("ServerName").asText(""), member.path("CharacterClassName").asText(""),
                 member.path("CharacterLevel").asInt(0), member.path("ItemAvgLevel").asText(""),
                 member.path("ItemMaxLevel").asText(""), fetchedAt)));
         rosterMembers.saveAll(rosterMemberRows);
-        java.util.Set<String> observedCardSets = new java.util.LinkedHashSet<>();
+    }
+
+    private Set<String> cardSetNames(JsonNode armory) {
+        Set<String> observedCardSets = new LinkedHashSet<>();
         armory.path("ArmoryCard").path("Effects").forEach(effect -> effect.path("Items").forEach(item -> {
             String name = item.path("Name").asText("").trim();
             if (!name.isBlank()) observedCardSets.add(name);
         }));
-        List<CharacterCardSetObservation> cardSetRows = observedCardSets.stream()
-                .map(name -> new CharacterCardSetObservation(snapshot.getId(), rosterKey, canonicalName, name, fetchedAt))
+        return observedCardSets;
+    }
+
+    private void saveNewCardSets(Long snapshotId, String rosterKey, String characterName,
+                                 Set<String> observedCardSets, Instant observedAt) {
+        if (observedCardSets.isEmpty()) return;
+        Set<String> knownCardSets = new LinkedHashSet<>(
+                cardSets.findDistinctCardSetNamesByRosterKey(rosterKey));
+        List<CharacterCardSetObservation> newRows = observedCardSets.stream()
+                .filter(name -> !knownCardSets.contains(name))
+                .map(name -> new CharacterCardSetObservation(
+                        snapshotId, rosterKey, characterName, name, observedAt))
                 .toList();
-        cardSets.saveAll(cardSetRows);
-        return rosterKey;
+        cardSets.saveAll(newRows);
     }
 
     private java.util.Optional<CharacterResponse> latestSnapshot(String characterName) {

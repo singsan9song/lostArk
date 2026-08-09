@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface CharacterRosterMemberRepository extends JpaRepository<CharacterRosterMember, Long> {
     List<CharacterRosterMember> findBySnapshotIdOrderByCharacterNameAsc(Long snapshotId);
+    void deleteBySnapshotId(Long snapshotId);
 }

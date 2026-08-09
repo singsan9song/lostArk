@@ -75,17 +75,19 @@ public class AccountController {
 
     @GetMapping("/admin/api-requests/history")
     public List<LostArkApiRequestCounter.MinuteHistory> apiRequestHistory(
-            @AuthenticationPrincipal OAuth2User principal) {
+            @AuthenticationPrincipal OAuth2User principal,
+            @RequestParam String group) {
         requireAdmin(principal);
-        return apiRequestCounter.history();
+        return apiRequestCounter.history(group);
     }
 
     @GetMapping("/admin/api-requests/history/details")
     public List<LostArkApiRequestCounter.RequestRecord> apiRequestHistoryDetails(
             @AuthenticationPrincipal OAuth2User principal,
-            @RequestParam Instant resetAt) {
+            @RequestParam Instant resetAt,
+            @RequestParam String group) {
         requireAdmin(principal);
-        return apiRequestCounter.historyDetails(resetAt);
+        return apiRequestCounter.historyDetails(resetAt, group);
     }
 
     @GetMapping("/admin/api-requests/history/search")
@@ -93,9 +95,10 @@ public class AccountController {
             @AuthenticationPrincipal OAuth2User principal,
             @RequestParam(defaultValue = "") String query,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "200") int size) {
+            @RequestParam(defaultValue = "200") int size,
+            @RequestParam String group) {
         requireAdmin(principal);
-        return apiRequestCounter.searchHistory(query, page, size);
+        return apiRequestCounter.searchHistory(query, page, size, group);
     }
 
     @GetMapping("/admin/damage-option-corpus/options")

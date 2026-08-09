@@ -6,6 +6,7 @@ import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.node.ArrayNode;
 import tools.jackson.databind.node.ObjectNode;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientResponseException;
@@ -23,7 +24,7 @@ public class AuctionItemSearchService {
     private final ObjectMapper objectMapper;
 
     public AuctionItemSearchService(
-            RestClient lostArkRestClient,
+            @Qualifier("auctionLostArkRestClient") RestClient lostArkRestClient,
             PersistentApiCache persistentCache,
             ObjectMapper objectMapper
     ) {
